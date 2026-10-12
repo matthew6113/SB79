@@ -182,7 +182,7 @@ AB 2576 and SB 1361 take effect on {date(law.acts.ab2576.effective.value)}.[^ame
 Distance steps the standards down. Within {ft(L.adjacent.value)} of an access point, an adjacency intensifier adds {ft(L.intens.heightAddFt.value)} of height, {duac(L.intens.densityAddDuPerAcre.value)} of density, and {far(L.intens.residentialFarAdd.value)} of residential floor area ratio to the standards within {miles(L.quarter.value)}.[^intens] Exhibit A, {A.address}, gets at least {ft(A.floors.heightFt)}, {A.laborTriggered ? 'above' : 'below'} the {ftAdj(L.labor.buildingHeightOverFt.value)} line over which prevailing-wage and skilled-workforce standards apply.[^labor] Exhibit C, {C.address}, lies between {miles(L.quarter.value)} and {miles(L.half.value)} out and gets at least {ft(C.floors.heightFt)}, {duac(C.floors.densityDuPerAcre)}, and a residential floor area ratio of {far(C.floors.residentialFar)}.[^outer]
 
 <OpenIssue title="Exhibit A">
-Exhibit A is within {ft(L.adjacent.value)} only if the elevator entrance counts. Its existing building has {word(A.units)} units. If any are rent-controlled and were occupied by tenants within the past {word(L.anti.rentControlledSite.tenantLookbackYears.value)} years, a project that demolished them could not use SB 79 at all.[^h1]
+Exhibit A is within {ft(L.adjacent.value)} only if the elevator entrance counts. Its existing building has {word(A.units)} units. {A.units > L.anti.rentControlledSite.moreThanUnits.value ? `If any are rent-controlled and were occupied by tenants within the past ${word(L.anti.rentControlledSite.tenantLookbackYears.value)} years, a project that demolished them could not use SB 79 at all.` : `The bar on demolishing tenant-occupied rent-controlled housing reaches only sites of more than ${word(L.anti.rentControlledSite.moreThanUnits.value)} units, so it does not apply here.`}[^h1] A project that demolished existing units would still have to meet the state's replacement-housing rules.[^repl]
 </OpenIssue>
 
 </Step>
@@ -225,6 +225,7 @@ Berkeley must allow at least {ft(B.floors.heightFt)}, {duac(B.floors.densityDuPe
 [^h1]: <Law of={L.anti.rentControlledSite.moreThanUnits} />.
 [^h2]: <Law of={L.anti.demolishedRentControlledSite.moreThanUnits} />.
 [^h3]: <Law of={L.parkSite} />.
+[^repl]: <Law of={L.anti.replacementHousing} />.
 [^dbase]: <Law of={L.bonus.baseDensity} />.
 [^dheight]: <Law of={L.bonus.noAdditionalHeightRequired} />.
 [^dexc]: <Law of={L.bonus.heightExceptionFt} />.

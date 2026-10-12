@@ -165,7 +165,7 @@ Cites go in GFM footnotes (`[^key]`) whose definitions render `<Law of={leaf} />
 or `<Source source={...} />`; never type a cite by hand. Open issues use
 `<OpenIssue title>` inside the paragraph's `<Step>`.
 
-**Phase status.** Phases 0 and 1 done. Exhibits are the top-ranked candidates
-(A 1731 Sacramento St, B 1510 Virginia St, C 1450 Acton Crescent), set in
-`src/memo.config.ts`. Phase 2: the memo prose is drafted and awaits Matthew's
+**Phase status.** Phases 0 and 1 done. Exhibits are set in `src/memo.config.ts`:
+A 1504 Francisco St (second-ranked, chosen over the top-ranked triplex),
+B 1510 Virginia St and C 1450 Acton Crescent (top-ranked). Phase 2: the memo prose is drafted and awaits Matthew's
 edit and approval; Phase 3 (static figures) is next after that.

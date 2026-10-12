@@ -5,10 +5,11 @@ export const memoConfig = {
   from: '(configurable)',
   /**
    * Exhibit parcels by APN, chosen from data/exhibit-candidates.json.
-   * Currently the top-ranked candidate in each band (Matthew, 2026-10-12); swap any APN to change exhibits.
+   * B and C are the top-ranked candidates; A is the second-ranked, 1504 Francisco St, chosen over the
+   * top-ranked triplex (Matthew, 2026-10-12). Swap any APN to change exhibits.
    */
   exhibits: {
-    A: '58-2150-21',
+    A: '58-2150-22',
     B: '58-2151-3',
     C: '56-1997-46',
   },
