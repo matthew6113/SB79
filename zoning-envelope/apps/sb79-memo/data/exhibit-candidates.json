@@ -1,0 +1,449 @@
+{
+  "asOf": "2026-10-12",
+  "generatedFrom": "data/*.geojson via scripts/propose-exhibits.ts",
+  "counts": {
+    "parcels": 4181,
+    "eligiblePrivate": 2964,
+    "adjacent": 3,
+    "quarterMilePool": 702,
+    "eolaBlock": 16,
+    "halfMilePool": 1355
+  },
+  "method": {
+    "distance": "Straight line from the nearest edge of the parcel to the nearest MTC pedestrian access point, in EPSG:2227 feet (Gov. Code § 65912.157(b)).",
+    "eligibility": "Nearest access point belongs to North Berkeley station; zoned residential, mixed, or commercial (berkeley-zoning-standards.json); privately owned (no BART, City, or other public owner); assessor lot size known. B and C keep one parcel per street.",
+    "A": "Every eligible parcel within 200 ft of an access point.",
+    "B": "Inside 1/4 mile under both measurements (with and without elevator access points); R-1, R-2, or R-2A; no more than 2 existing units; on the Eola–Sacramento block (APN 58-2151) when it has three or more; ranked by closeness to the median lot size.",
+    "C": "In the 1/4–1/2 mile band under both measurements and at least 132 ft from either edge; R-1, R-2, or R-2A; no more than 2 existing units; ranked by closeness to the median lot size and to the middle of the band."
+  },
+  "A": [
+    {
+      "apn": "58-2150-21",
+      "address": "1731 SACRAMENTO ST BERKELEY 94702",
+      "lotSizeSqFt": 2900,
+      "gisAreaSqFt": 2543,
+      "district": "R-2",
+      "districtName": "Multi-Unit 2",
+      "zoningClass": "residential",
+      "localHeightFt": 35,
+      "useCode": "2300",
+      "use": "Triplex; double or duplex with single family home",
+      "units": 3,
+      "yearBuilt": 1926,
+      "stories": 2,
+      "nearestAccessPoint": {
+        "id": "NBRK_2",
+        "name": "Elevator Entrance / Exit",
+        "isElevator": true,
+        "station": "904309",
+        "distanceFt": 125.7
+      },
+      "nearestNonElevatorAccessPoint": {
+        "id": "geom:37.87403,-122.28328",
+        "distanceFt": 348.5,
+        "band": "quarterMile"
+      },
+      "band": "adjacent",
+      "mtcZonesTouched": [
+        "Tier 1 - 200ft"
+      ],
+      "opportunity": {
+        "fips": "06001422300",
+        "category": "High Resource"
+      },
+      "sb79": {
+        "heightFt": 95,
+        "densityDuPerAcre": 160,
+        "residentialFar": 4.5,
+        "unitFloor": 10.65,
+        "residentialFloorAreaSqFt": 13050,
+        "laborTriggeredAtFloor": true,
+        "highResourceArea": "High Resource",
+        "summary": "The city must allow at least 95 ft, 160 du/ac, and a residential FAR of 4.5, if the project meets SB 79's conditions."
+      },
+      "flags": [
+        "Band depends on the elevator access point (quarterMile without it).",
+        "Existing building has 3 units (more than 2): check rent control and tenancy, § 65912.157(h)(1).",
+        "Assessor lot size and GIS area differ by 12%."
+      ]
+    },
+    {
+      "apn": "58-2150-22",
+      "address": "1504 FRANCISCO ST BERKELEY 94703",
+      "lotSizeSqFt": 4200,
+      "gisAreaSqFt": 4311,
+      "district": "R-2",
+      "districtName": "Multi-Unit 2",
+      "zoningClass": "residential",
+      "localHeightFt": 35,
+      "useCode": "2200",
+      "use": "Double or duplex type - two units",
+      "units": 2,
+      "yearBuilt": 1941,
+      "stories": 1,
+      "nearestAccessPoint": {
+        "id": "NBRK_2",
+        "name": "Elevator Entrance / Exit",
+        "isElevator": true,
+        "station": "904309",
+        "distanceFt": 131.2
+      },
+      "nearestNonElevatorAccessPoint": {
+        "id": "geom:37.87403,-122.28328",
+        "distanceFt": 329,
+        "band": "quarterMile"
+      },
+      "band": "adjacent",
+      "mtcZonesTouched": [
+        "Tier 1 - 200ft",
+        "Tier 1 - Quarter Mile"
+      ],
+      "opportunity": {
+        "fips": "06001422300",
+        "category": "High Resource"
+      },
+      "sb79": {
+        "heightFt": 95,
+        "densityDuPerAcre": 160,
+        "residentialFar": 4.5,
+        "unitFloor": 15.43,
+        "residentialFloorAreaSqFt": 18900,
+        "laborTriggeredAtFloor": true,
+        "highResourceArea": "High Resource",
+        "summary": "The city must allow at least 95 ft, 160 du/ac, and a residential FAR of 4.5, if the project meets SB 79's conditions."
+      },
+      "flags": [
+        "Band depends on the elevator access point (quarterMile without it)."
+      ]
+    },
+    {
+      "apn": "58-2150-23",
+      "address": "1508 FRANCISCO ST BERKELEY 94703",
+      "lotSizeSqFt": 5800,
+      "gisAreaSqFt": 5746,
+      "district": "R-2",
+      "districtName": "Multi-Unit 2",
+      "zoningClass": "residential",
+      "localHeightFt": 35,
+      "useCode": "2100",
+      "use": "Two, three or four single family homes",
+      "units": 2,
+      "yearBuilt": 1924,
+      "stories": 1,
+      "nearestAccessPoint": {
+        "id": "NBRK_2",
+        "name": "Elevator Entrance / Exit",
+        "isElevator": true,
+        "station": "904309",
+        "distanceFt": 194.7
+      },
+      "nearestNonElevatorAccessPoint": {
+        "id": "geom:37.87403,-122.28328",
+        "distanceFt": 393.7,
+        "band": "quarterMile"
+      },
+      "band": "adjacent",
+      "mtcZonesTouched": [
+        "Tier 1 - 200ft",
+        "Tier 1 - Quarter Mile"
+      ],
+      "opportunity": {
+        "fips": "06001422300",
+        "category": "High Resource"
+      },
+      "sb79": {
+        "heightFt": 95,
+        "densityDuPerAcre": 160,
+        "residentialFar": 4.5,
+        "unitFloor": 21.3,
+        "residentialFloorAreaSqFt": 26100,
+        "laborTriggeredAtFloor": true,
+        "highResourceArea": "High Resource",
+        "summary": "The city must allow at least 95 ft, 160 du/ac, and a residential FAR of 4.5, if the project meets SB 79's conditions."
+      },
+      "flags": [
+        "Band depends on the elevator access point (quarterMile without it)."
+      ]
+    }
+  ],
+  "B": [
+    {
+      "apn": "58-2151-3",
+      "address": "1510 VIRGINIA ST BERKELEY 94703",
+      "lotSizeSqFt": 3700,
+      "gisAreaSqFt": 3913,
+      "district": "R-2",
+      "districtName": "Multi-Unit 2",
+      "zoningClass": "residential",
+      "localHeightFt": 35,
+      "useCode": "1100",
+      "use": "Single family residential homes used as such",
+      "units": 1,
+      "yearBuilt": 1924,
+      "stories": 1,
+      "nearestAccessPoint": {
+        "id": "NBRK_2",
+        "name": "Elevator Entrance / Exit",
+        "isElevator": true,
+        "station": "904309",
+        "distanceFt": 393.6
+      },
+      "nearestNonElevatorAccessPoint": {
+        "id": "geom:37.87403,-122.28328",
+        "distanceFt": 432.6,
+        "band": "quarterMile"
+      },
+      "band": "quarterMile",
+      "mtcZonesTouched": [
+        "Tier 1 - Quarter Mile"
+      ],
+      "opportunity": {
+        "fips": "06001422300",
+        "category": "High Resource"
+      },
+      "sb79": {
+        "heightFt": 75,
+        "densityDuPerAcre": 120,
+        "residentialFar": 3.5,
+        "unitFloor": 10.19,
+        "residentialFloorAreaSqFt": 12950,
+        "laborTriggeredAtFloor": false,
+        "highResourceArea": "High Resource",
+        "summary": "The city must allow at least 75 ft, 120 du/ac, and a residential FAR of 3.5, if the project meets SB 79's conditions."
+      },
+      "flags": []
+    },
+    {
+      "apn": "58-2151-9",
+      "address": "1712 EOLA ST BERKELEY 94703",
+      "lotSizeSqFt": 3850,
+      "gisAreaSqFt": 3986,
+      "district": "R-2",
+      "districtName": "Multi-Unit 2",
+      "zoningClass": "residential",
+      "localHeightFt": 35,
+      "useCode": "1100",
+      "use": "Single family residential homes used as such",
+      "units": 1,
+      "yearBuilt": 1924,
+      "stories": 1,
+      "nearestAccessPoint": {
+        "id": "NBRK_2",
+        "name": "Elevator Entrance / Exit",
+        "isElevator": true,
+        "station": "904309",
+        "distanceFt": 398.8
+      },
+      "nearestNonElevatorAccessPoint": {
+        "id": "geom:37.87403,-122.28328",
+        "distanceFt": 496.4,
+        "band": "quarterMile"
+      },
+      "band": "quarterMile",
+      "mtcZonesTouched": [
+        "Tier 1 - Quarter Mile"
+      ],
+      "opportunity": {
+        "fips": "06001422300",
+        "category": "High Resource"
+      },
+      "sb79": {
+        "heightFt": 75,
+        "densityDuPerAcre": 120,
+        "residentialFar": 3.5,
+        "unitFloor": 10.61,
+        "residentialFloorAreaSqFt": 13475,
+        "laborTriggeredAtFloor": false,
+        "highResourceArea": "High Resource",
+        "summary": "The city must allow at least 75 ft, 120 du/ac, and a residential FAR of 3.5, if the project meets SB 79's conditions."
+      },
+      "flags": []
+    },
+    {
+      "apn": "58-2151-1",
+      "address": "1703 SACRAMENTO ST BERKELEY 94702",
+      "lotSizeSqFt": 4000,
+      "gisAreaSqFt": 4099,
+      "district": "R-2",
+      "districtName": "Multi-Unit 2",
+      "zoningClass": "residential",
+      "localHeightFt": 35,
+      "useCode": "2200",
+      "use": "Double or duplex type - two units",
+      "units": 2,
+      "yearBuilt": 1940,
+      "stories": 1,
+      "nearestAccessPoint": {
+        "id": "NBRK_2",
+        "name": "Elevator Entrance / Exit",
+        "isElevator": true,
+        "station": "904309",
+        "distanceFt": 352.2
+      },
+      "nearestNonElevatorAccessPoint": {
+        "id": "geom:37.87403,-122.28328",
+        "distanceFt": 356.6,
+        "band": "quarterMile"
+      },
+      "band": "quarterMile",
+      "mtcZonesTouched": [
+        "Tier 1 - Quarter Mile"
+      ],
+      "opportunity": {
+        "fips": "06001422300",
+        "category": "High Resource"
+      },
+      "sb79": {
+        "heightFt": 75,
+        "densityDuPerAcre": 120,
+        "residentialFar": 3.5,
+        "unitFloor": 11.02,
+        "residentialFloorAreaSqFt": 14000,
+        "laborTriggeredAtFloor": false,
+        "highResourceArea": "High Resource",
+        "summary": "The city must allow at least 75 ft, 120 du/ac, and a residential FAR of 3.5, if the project meets SB 79's conditions."
+      },
+      "flags": []
+    }
+  ],
+  "C": [
+    {
+      "apn": "56-1997-46",
+      "address": "1450 ACTON CRES BERKELEY 94702",
+      "lotSizeSqFt": 4182,
+      "gisAreaSqFt": 3895,
+      "district": "R-2",
+      "districtName": "Multi-Unit 2",
+      "zoningClass": "residential",
+      "localHeightFt": 35,
+      "useCode": "1100",
+      "use": "Single family residential homes used as such",
+      "units": 1,
+      "yearBuilt": 1941,
+      "stories": 1,
+      "nearestAccessPoint": {
+        "id": "NBRK_2",
+        "name": "Elevator Entrance / Exit",
+        "isElevator": true,
+        "station": "904309",
+        "distanceFt": 2034.6
+      },
+      "nearestNonElevatorAccessPoint": {
+        "id": "geom:37.87403,-122.28328",
+        "distanceFt": 2194.2,
+        "band": "halfMile"
+      },
+      "band": "halfMile",
+      "mtcZonesTouched": [
+        "Tier 1 - Half Mile"
+      ],
+      "opportunity": {
+        "fips": "06001423100",
+        "category": "High Resource"
+      },
+      "sb79": {
+        "heightFt": 65,
+        "densityDuPerAcre": 100,
+        "residentialFar": 3,
+        "unitFloor": 9.6,
+        "residentialFloorAreaSqFt": 12546,
+        "laborTriggeredAtFloor": false,
+        "highResourceArea": "High Resource",
+        "summary": "The city must allow at least 65 ft, 100 du/ac, and a residential FAR of 3, if the project meets SB 79's conditions."
+      },
+      "flags": []
+    },
+    {
+      "apn": "60-2430-19",
+      "address": "1429 ACTON ST BERKELEY 94702",
+      "lotSizeSqFt": 4280,
+      "gisAreaSqFt": 4050,
+      "district": "R-2",
+      "districtName": "Multi-Unit 2",
+      "zoningClass": "residential",
+      "localHeightFt": 35,
+      "useCode": "1100",
+      "use": "Single family residential homes used as such",
+      "units": 1,
+      "yearBuilt": 1936,
+      "stories": 1,
+      "nearestAccessPoint": {
+        "id": "NBRK_1",
+        "name": "North Entrance / Exit",
+        "isElevator": false,
+        "station": "904309",
+        "distanceFt": 1995.6
+      },
+      "nearestNonElevatorAccessPoint": {
+        "id": "NBRK_1",
+        "distanceFt": 1995.6,
+        "band": "halfMile"
+      },
+      "band": "halfMile",
+      "mtcZonesTouched": [
+        "Tier 1 - Half Mile"
+      ],
+      "opportunity": {
+        "fips": "06001421900",
+        "category": "Highest Resource"
+      },
+      "sb79": {
+        "heightFt": 65,
+        "densityDuPerAcre": 100,
+        "residentialFar": 3,
+        "unitFloor": 9.83,
+        "residentialFloorAreaSqFt": 12840,
+        "laborTriggeredAtFloor": false,
+        "highResourceArea": "Highest Resource",
+        "summary": "The city must allow at least 65 ft, 100 du/ac, and a residential FAR of 3, if the project meets SB 79's conditions."
+      },
+      "flags": []
+    },
+    {
+      "apn": "57-2083-13",
+      "address": "1918 CHESTNUT ST BERKELEY 94702",
+      "lotSizeSqFt": 4152,
+      "gisAreaSqFt": 4003,
+      "district": "R-2A",
+      "districtName": "Multi-Unit 2A",
+      "zoningClass": "residential",
+      "localHeightFt": 35,
+      "useCode": "2100",
+      "use": "Two, three or four single family homes",
+      "units": 2,
+      "yearBuilt": 1922,
+      "stories": 1,
+      "nearestAccessPoint": {
+        "id": "NBRK_1",
+        "name": "North Entrance / Exit",
+        "isElevator": false,
+        "station": "904309",
+        "distanceFt": 1930.5
+      },
+      "nearestNonElevatorAccessPoint": {
+        "id": "NBRK_1",
+        "distanceFt": 1930.5,
+        "band": "halfMile"
+      },
+      "band": "halfMile",
+      "mtcZonesTouched": [
+        "Tier 1 - Half Mile"
+      ],
+      "opportunity": {
+        "fips": "06001422200",
+        "category": "Highest Resource"
+      },
+      "sb79": {
+        "heightFt": 65,
+        "densityDuPerAcre": 100,
+        "residentialFar": 3,
+        "unitFloor": 9.53,
+        "residentialFloorAreaSqFt": 12456,
+        "laborTriggeredAtFloor": false,
+        "highResourceArea": "Highest Resource",
+        "summary": "The city must allow at least 65 ft, 100 du/ac, and a residential FAR of 3, if the project meets SB 79's conditions."
+      },
+      "flags": []
+    }
+  ]
+}

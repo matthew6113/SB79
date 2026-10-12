@@ -9,8 +9,8 @@ A pnpm monorepo for zoning-envelope tools. The build spec for the SB 79 memo is
 zoning-envelope/
   apps/web/              # reserved: the zoning envelope tool (not in this repo yet)
   apps/sb79-memo/        # SB 79 animated memo (Astro + MDX + React islands)
-  packages/engine/       # shared geometry: area, extrude, floor plates, volume
-  packages/law/          # sb79.json + zod schema + evaluateSite (Phase 1)
+  packages/engine/       # shared geometry: area, extrude, floor plates, volume, edge distance
+  packages/law/          # sb79.json (cited), statute snapshots, lawAsOf, evaluateSite
 ```
 
 ## Commands (run from `zoning-envelope/`)
@@ -57,8 +57,29 @@ holes? }` rings in a local projected frame (the memo uses feet).
 - `stackFloorPlates(polygon, { floorToFloor, maxHeight, maxFloorArea?, base? })`
   stacks stories until the next would exceed `maxHeight` or the area cap is
   reached; the top plate is `partial` when the area cap binds.
+- `distancePointToPolygon(point, polygon)`: straight line to the nearest edge,
+  0 inside (Gov. Code § 65912.157(b)'s measurement).
 - The engine holds no legal numbers. Floor-to-floor height is a caller-supplied
   design assumption, never a default.
+- Imports use `.ts` extensions so Node scripts can run the source directly.
+
+## packages/law — SB 79 as data
+
+- `sb79.json`: every value is a cited leaf `{ value, unit?, cite, source, quote }`.
+  `cite` is one pinpoint ("Gov. Code § 65912.157(a)(3)(A)"); `quote` is
+  verbatim from that pinpoint in `source/<source>`. Leaves may carry
+  `from`/`to` dates; provisions that change wording carry `versions`.
+- `source/`: official text from downloads.leginfo.legislature.ca.gov
+  (`pnpm --filter @zoning-envelope/law fetch-statute`). Never hand-edit.
+- `lawAsOf(date)` resolves the provisions in force that day (SB 722 from
+  2026-07-16; AB 2576 and SB 1361 from 2027-01-01).
+- `evaluateSite(inputs, { asOf })` runs the spec's seven steps. Without
+  `project` facts, step 6 is pending and the outcome is
+  `floors-apply-if-conditions-met`.
+- `test/citations.test.ts` fails if a quote is not at its pinpoint, does not
+  state its value, or if any number in `sb79.json` lacks a citation.
+  Add a legal value only together with its cite and quote.
+- `VERIFICATION.md` lists where the spec differs from the statute and data.
 
 ## apps/sb79-memo — SB 79 animated memo
 
@@ -93,7 +114,9 @@ apps/sb79-memo/
   src/layouts/            # MemoLayout.astro
   src/pages/index.astro   # text column left, pinned figure right (top 45% on phones)
   src/styles/memo.css     # memo look: off-white page, book serif, small caps
-  data/                   # frozen GeoJSON snapshots + as-of metadata (Phase 1)
+  data/                   # frozen snapshots, *.meta.json, manifest.json (asOf), sources/ text
+  scripts/                # snapshot.ts (refresh data), propose-exhibits.ts
+  EXHIBITS.md             # generated exhibit candidates (Matthew chooses)
   test/                   # Vitest: memo/script contract, later calculator and data checks
 ```
 
@@ -117,5 +140,18 @@ Also from the spec's guardrails: keep the standing line under the letterhead
 [date]."), show each open issue as a boxed "Open issue" note where it bites,
 and flag anything that reads as advice on a specific project.
 
-**Phase status.** Phase 0 (scaffold) done. Phase 1 (law and data) is next and
-needs Matthew's approval of the plan first.
+**Data conventions.** `data/` is frozen: refresh only with
+`pnpm --filter @zoning-envelope/sb79-memo snapshot` (needs network and
+`pdftotext`), then `propose-exhibits`. Every layer has a `.meta.json` with
+its source, query, and dates; `data/manifest.json` `asOf` is the letterhead
+date. Owner names are never stored. Curated files
+(`urban-transit-counties.json`, `berkeley-zoning-standards.json`) quote
+`data/sources/*.txt`, and `test/data.test.ts` checks the quotes.
+
+**Decisions so far (Matthew).** Law stored with both versions keyed by date;
+urban transit counties per HCD's seven, with Orange as an open issue;
+population badge uses MTC's ACS figure.
+
+**Phase status.** Phase 0 (scaffold) and Phase 1 (law and data) done.
+Exhibit parcels are proposed in `EXHIBITS.md` and await Matthew's choice.
+Phase 2 (memo text) is next.
