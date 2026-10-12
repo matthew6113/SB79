@@ -1,0 +1,135 @@
+/* Memo look (SB79_SPEC.md, "Figures and animation"). Phase 3 refines it. */
+:root {
+  --page: #f7f4ec;        /* warm off-white */
+  --ink: #1f1d1a;
+  --ink-soft: #5c574f;
+  --ghost: #cfcbc2;       /* local zoning */
+  --accent: #1f3d5c;      /* the SB 79 envelope */
+  --collapse: #a8261d;    /* red: used only for collapse */
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --measure: 60ch;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+.letterhead-title,
+.step-label,
+.letterhead dt {
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin: 2.5rem 0 1rem;
+}
+
+.memo {
+  display: grid;
+  grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
+  gap: 3rem;
+  padding: 0 2rem;
+}
+
+.memo-text {
+  padding: 3rem 0 40vh;
+}
+
+.memo-figure {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.letterhead {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1rem;
+}
+
+.letterhead-title {
+  font-size: 1.6rem;
+  margin: 0 0 1rem;
+}
+
+.letterhead dl {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+
+.letterhead dd {
+  margin: 0;
+}
+
+.disclaimer {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin: 1rem 0 0;
+}
+
+.step {
+  margin: 0 0 2rem;
+}
+
+.step-label {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.25rem;
+}
+
+.figure-stage {
+  width: 100%;
+  height: 80%;
+  border: 1px solid var(--ghost);
+  display: grid;
+  place-items: center;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* Phone: figure pinned to the top 45% of the screen, text scrolling under it. */
+@media (max-width: 760px) {
+  .memo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 0 1rem;
+  }
+
+  .memo-figure {
+    order: -1;
+    height: 45vh;
+    background: var(--page);
+    z-index: 1;
+  }
+
+  .figure-stage {
+    height: 90%;
+  }
+
+  .memo-text {
+    padding-top: 1rem;
+  }
+}

@@ -1,0 +1,20 @@
+---
+/**
+ * One memo paragraph. The id must exist in src/script.ts; the build fails
+ * otherwise. The scroll engine (Phase 4) observes [data-step] elements and
+ * drives the paragraph's figure state.
+ */
+import { scriptEntry } from '../script';
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+const entry = scriptEntry(id);
+---
+
+<section class="step" id={id} data-step={id} data-figure={entry.figure} data-state={entry.state}>
+  <p class="step-label">{entry.section}</p>
+  <slot />
+</section>

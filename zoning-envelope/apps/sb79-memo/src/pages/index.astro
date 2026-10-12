@@ -1,0 +1,18 @@
+---
+import MemoLayout from '../layouts/MemoLayout.astro';
+import Letterhead from '../components/Letterhead.astro';
+import Memo from '../content/memo.mdx';
+import FigureStage from '../figures/FigureStage';
+---
+
+<MemoLayout title="SB 79 Memo">
+  <main class="memo">
+    <article class="memo-text">
+      <Letterhead />
+      <Memo />
+    </article>
+    <aside class="memo-figure" aria-label="Figure">
+      <FigureStage client:load />
+    </aside>
+  </main>
+</MemoLayout>
