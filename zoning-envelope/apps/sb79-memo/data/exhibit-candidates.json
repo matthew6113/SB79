@@ -40,6 +40,7 @@
       },
       "nearestNonElevatorAccessPoint": {
         "id": "geom:37.87403,-122.28328",
+        "name": "North Entrance / Exit",
         "distanceFt": 348.5,
         "band": "quarterMile"
       },
@@ -90,6 +91,7 @@
       },
       "nearestNonElevatorAccessPoint": {
         "id": "geom:37.87403,-122.28328",
+        "name": "North Entrance / Exit",
         "distanceFt": 329,
         "band": "quarterMile"
       },
@@ -139,6 +141,7 @@
       },
       "nearestNonElevatorAccessPoint": {
         "id": "geom:37.87403,-122.28328",
+        "name": "North Entrance / Exit",
         "distanceFt": 393.7,
         "band": "quarterMile"
       },
@@ -190,6 +193,7 @@
       },
       "nearestNonElevatorAccessPoint": {
         "id": "geom:37.87403,-122.28328",
+        "name": "North Entrance / Exit",
         "distanceFt": 432.6,
         "band": "quarterMile"
       },
@@ -236,6 +240,7 @@
       },
       "nearestNonElevatorAccessPoint": {
         "id": "geom:37.87403,-122.28328",
+        "name": "North Entrance / Exit",
         "distanceFt": 496.4,
         "band": "quarterMile"
       },
@@ -282,6 +287,7 @@
       },
       "nearestNonElevatorAccessPoint": {
         "id": "geom:37.87403,-122.28328",
+        "name": "North Entrance / Exit",
         "distanceFt": 356.6,
         "band": "quarterMile"
       },
@@ -330,6 +336,7 @@
       },
       "nearestNonElevatorAccessPoint": {
         "id": "geom:37.87403,-122.28328",
+        "name": "North Entrance / Exit",
         "distanceFt": 2194.2,
         "band": "halfMile"
       },
@@ -376,6 +383,7 @@
       },
       "nearestNonElevatorAccessPoint": {
         "id": "NBRK_1",
+        "name": "North Entrance / Exit",
         "distanceFt": 1995.6,
         "band": "halfMile"
       },
@@ -422,6 +430,7 @@
       },
       "nearestNonElevatorAccessPoint": {
         "id": "NBRK_1",
+        "name": "North Entrance / Exit",
         "distanceFt": 1930.5,
         "band": "halfMile"
       },

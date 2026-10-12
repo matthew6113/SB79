@@ -158,7 +158,7 @@ function describe(c: Candidate) {
     use: useCodes[String(props.useCode)] ?? null,
     units: props.units, yearBuilt: props.yearBuilt, stories: props.stories,
     nearestAccessPoint: { id: c.nearest.ap.id, name: c.nearest.ap.name, isElevator: c.nearest.ap.isElevator, station: c.nearest.ap.station, distanceFt: Math.round(c.nearest.distanceFt * 10) / 10 },
-    nearestNonElevatorAccessPoint: { id: c.nearestNonElevator.ap.id, distanceFt: Math.round(c.nearestNonElevator.distanceFt * 10) / 10, band: c.bandWithoutElevators },
+    nearestNonElevatorAccessPoint: { id: c.nearestNonElevator.ap.id, name: c.nearestNonElevator.ap.name, distanceFt: Math.round(c.nearestNonElevator.distanceFt * 10) / 10, band: c.bandWithoutElevators },
     band: c.band,
     mtcZonesTouched: touched,
     opportunity: c.tract,
@@ -227,13 +227,14 @@ writeFileSync(new URL('exhibit-candidates.json', DATA), JSON.stringify(out, null
 // EXHIBITS.md: a readable report generated from the same numbers.
 type Row = ReturnType<typeof describe>;
 const fmt = (n: unknown) => (typeof n === 'number' ? n.toLocaleString('en-US') : String(n ?? '—'));
+const units = (n: unknown) => (n === 1 ? '1 unit' : `${fmt(n)} units`);
 const table = (rs: Row[]) =>
   [
     '| APN | Address | Lot (assessor / GIS sq ft) | Zoning | Local height | Existing | Nearest access point | Without elevators | Opportunity area | SB 79 floors | Flags |',
     '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
     ...rs.map((r) =>
-      `| ${r.apn} | ${r.address} | ${fmt(r.lotSizeSqFt)} / ${fmt(r.gisAreaSqFt)} | ${r.district} (${r.zoningClass}) | ${fmt(r.localHeightFt)} ft | ${fmt(r.units)} units, ${fmt(r.yearBuilt)}, ${fmt(r.stories)} st.; ${r.use ?? fmt(r.useCode)} | ` +
-      `${r.nearestAccessPoint.id}${r.nearestAccessPoint.isElevator ? ' (elevator)' : ''}: ${fmt(r.nearestAccessPoint.distanceFt)} ft | ${r.nearestNonElevatorAccessPoint.id}: ${fmt(r.nearestNonElevatorAccessPoint.distanceFt)} ft (${r.nearestNonElevatorAccessPoint.band ?? 'outside'}) | ` +
+      `| ${r.apn} | ${r.address} | ${fmt(r.lotSizeSqFt)} / ${fmt(r.gisAreaSqFt)} | ${r.district} (${r.zoningClass}) | ${fmt(r.localHeightFt)} ft | ${units(r.units)}, built ${r.yearBuilt ?? '—'}, ${fmt(r.stories)} st.; ${r.use ?? fmt(r.useCode)} | ` +
+      `${r.nearestAccessPoint.name} (${r.nearestAccessPoint.id}): ${fmt(r.nearestAccessPoint.distanceFt)} ft | ${r.nearestNonElevatorAccessPoint.name}: ${fmt(r.nearestNonElevatorAccessPoint.distanceFt)} ft (${r.nearestNonElevatorAccessPoint.band ?? 'outside'}) | ` +
       `${r.opportunity ? `${r.opportunity.category} (tract ${r.opportunity.fips})` : '—'} | ` +
       `${r.sb79 ? `${r.sb79.heightFt} ft, ${r.sb79.densityDuPerAcre} du/ac (${r.sb79.unitFloor} du), FAR ${r.sb79.residentialFar} (${fmt(r.sb79.residentialFloorAreaSqFt)} sq ft)${r.sb79.laborTriggeredAtFloor ? '; labor rule triggered at the floor' : ''}` : '—'} | ` +
       `${r.flags.join(' ') || '—'} |`,
