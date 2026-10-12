@@ -1,7 +1,7 @@
 {
   "source": "https://downloads.leginfo.legislature.ca.gov/pubinfo_2025.zip",
   "sourceLastModified": "Mon, 12 Oct 2026 04:26:09 GMT",
-  "retrievedAt": "2026-10-12T17:12:16.863Z",
+  "retrievedAt": "2026-10-12T17:16:33.590Z",
   "note": "Official California Legislative Information bulk data. Text converted from CAML to plain text, one paragraph per line. Do not edit by hand.",
   "files": [
     {
@@ -147,6 +147,17 @@
       "effectiveDate": "2026-01-01",
       "rowUpdated": "2026-10-03 01:02:39",
       "sha256": "1e14a34a6b2d0bcc44d95904b9ad635e964a857aefcdec05159d6fe35632ab9f"
+    },
+    {
+      "file": "cons-art4-sec8.txt",
+      "kind": "constitution",
+      "citation": "Cal. Const., art. IV, § 8",
+      "table": "LAW_SECTION_TBL",
+      "rowId": "CONSSEC. 8.20168.IV",
+      "lob": "LAW_SECTION_TBL_340.lob",
+      "history": "Sec. 8 amended Nov. 8, 2016, by Prop. 54. Initiative measure.",
+      "rowUpdated": "2025-12-17 01:00:03",
+      "sha256": "e06efaaa0e86349af43dbf17c56ddea3679891fb5e095a081c4ead401399f9b2"
     },
     {
       "file": "stats-2025-ch512-sb79.txt",

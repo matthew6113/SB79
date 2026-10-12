@@ -25,6 +25,9 @@ const SECTIONS = [
   '66300.6', // Replacement housing, cited by § 65912.157(f)
 ];
 
+/** Constitutional provisions: art. IV, § 8(c) sets when non-urgency statutes take effect. */
+const CONSTITUTION = [{ article: 'IV', section: '8', file: 'cons-art4-sec8.txt', citation: 'Cal. Const., art. IV, § 8' }];
+
 /** Chaptered bill texts: the enacting act and every 2026 amendment to the chapter. */
 const BILLS = [
   { billId: '202520260SB79', label: 'SB 79' },
@@ -97,6 +100,17 @@ async function main() {
       file, kind: 'code-section', citation: `Gov. Code § ${section}`, table: 'LAW_SECTION_TBL', rowId: row[0],
       lob: row[14], history: row[13], effectiveDate: row[6]?.slice(0, 10) || null, rowUpdated: row[17], sha256: sha256(text),
     });
+    console.log(`  ${file}  ${row[13]}`);
+  }
+
+  // Constitution rows share the table; column 12 holds the article.
+  for (const { article, section, file, citation } of CONSTITUTION) {
+    const rows = lawRows.filter((r) => r[1] === 'CONS' && r[2] === `SEC. ${section}.` && r[12] === article && r[15] === 'Y');
+    if (rows.length !== 1) throw new Error(`Expected one active row for ${citation}, found ${rows.length}`);
+    const row = rows[0]!;
+    const text = `${citation}\n${row[13]}\n\n${camlToText(await lobText(zip, row[14]!))}`;
+    writeFileSync(new URL(file, OUT), text);
+    files.push({ file, kind: 'constitution', citation, table: 'LAW_SECTION_TBL', rowId: row[0], lob: row[14], history: row[13], rowUpdated: row[17], sha256: sha256(text) });
     console.log(`  ${file}  ${row[13]}`);
   }
 

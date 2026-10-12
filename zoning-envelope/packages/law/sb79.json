@@ -1,0 +1,236 @@
+{
+  "title": "SB 79 (2025): transit-oriented housing development",
+  "codified": "Gov. Code §§ 65912.155–65912.162 (Chapter 4.1.5 of Division 1 of Title 7)",
+  "sources": "source/manifest.json",
+  "readme": "Every value is a cited leaf: value, cite (one pinpoint), source (snapshot file in source/), and quote (verbatim from that pinpoint). Leaves with from/to are in force on dates from <= d < to. A provision with versions lists each wording by date. test/citations.test.ts checks every quote against the official text.",
+
+  "acts": {
+    "sb79": {
+      "citation": "Stats. 2025, ch. 512 (SB 79)",
+      "approved": { "value": "2025-10-10", "unit": "date", "cite": "Stats. 2025, ch. 512", "source": "stats-2025-ch512-sb79.txt", "quote": "APPROVED 2025-10-10" },
+      "effective": { "value": "2026-01-01", "unit": "date", "cite": "Stats. 2025, ch. 512, § 1", "source": "gov-65912.156.txt", "quote": "Added by Stats. 2025, Ch. 512, Sec. 1. (SB 79) Effective January 1, 2026." }
+    },
+    "sb722": {
+      "citation": "Stats. 2026, ch. 100 (SB 722)",
+      "approved": { "value": "2026-07-16", "unit": "date", "cite": "Stats. 2026, ch. 100", "source": "stats-2026-ch100-sb722.txt", "quote": "APPROVED 2026-07-16" },
+      "effective": { "value": "2026-07-16", "unit": "date", "cite": "Stats. 2026, ch. 100, § 2", "source": "gov-65912.157.txt", "quote": "by Stats. 2026, Ch. 100, Sec. 2. (SB 722) Effective July 16, 2026." },
+      "amends": "Gov. Code § 65912.157: adds (h)(3); corrects wording in (h) and (j). Urgency statute."
+    },
+    "ab2576": {
+      "citation": "Stats. 2026, ch. 214 (AB 2576)",
+      "approved": { "value": "2026-09-14", "unit": "date", "cite": "Stats. 2026, ch. 214", "source": "stats-2026-ch214-ab2576.txt", "quote": "APPROVED 2026-09-14" },
+      "effective": {
+        "value": "2027-01-01", "unit": "date", "cite": "Cal. Const., art. IV, § 8(c)(1)", "source": "cons-art4-sec8.txt",
+        "quote": "a statute enacted at a regular session shall go into effect on January 1 next following a 90-day period from the date of enactment of the statute",
+        "derivation": { "enacted": "2026-09-14", "urgency": false, "billSource": "stats-2026-ch214-ab2576.txt" }
+      },
+      "amends": "Gov. Code § 65912.161: rewrites (b)(1)(F); renumbers (c). Section 1 controls: Section 1.5 was conditioned on AB 2415, which was not enacted."
+    },
+    "sb1361": {
+      "citation": "Stats. 2026, ch. 1027 (SB 1361)",
+      "approved": { "value": "2026-09-30", "unit": "date", "cite": "Stats. 2026, ch. 1027", "source": "stats-2026-ch1027-sb1361.txt", "quote": "APPROVED 2026-09-30" },
+      "effective": {
+        "value": "2027-01-01", "unit": "date", "cite": "Cal. Const., art. IV, § 8(c)(1)", "source": "cons-art4-sec8.txt",
+        "quote": "a statute enacted at a regular session shall go into effect on January 1 next following a 90-day period from the date of enactment of the statute",
+        "derivation": { "enacted": "2026-09-30", "urgency": false, "billSource": "stats-2026-ch1027-sb1361.txt" }
+      },
+      "amends": "Gov. Code § 65912.157: splits (c) into (c)(1) and new (c)(2); corrects wording in (j)."
+    }
+  },
+
+  "operative": {
+    "cities": { "value": "2026-07-01", "unit": "date", "cite": "Gov. Code § 65912.157(n)", "source": "gov-65912.157.txt", "quote": "This section shall not apply to a local agency until July 1, 2026" },
+    "unincorporated": { "value": "7th regional housing needs allocation cycle", "cite": "Gov. Code § 65912.157(n)", "source": "gov-65912.157.txt", "quote": "It shall not apply within an unincorporated area of a county until the 7th regional housing needs allocation cycle." }
+  },
+
+  "definitions": {
+    "urbanTransitCountyMoreThanRailStations": { "value": 15, "unit": "passenger rail stations", "cite": "Gov. Code § 65912.156(q)", "source": "gov-65912.156.txt", "quote": "means a county with more than 15 passenger rail stations", "note": "Strictly more than 15. The statute lists no counties." },
+    "tier1": { "value": "heavy rail transit or very high frequency commuter rail, in an urban transit county", "cite": "Gov. Code § 65912.156(n)", "source": "gov-65912.156.txt", "quote": "served by heavy rail transit or very high frequency commuter rail" },
+    "tier2": { "value": "light rail, high-frequency commuter rail, or bus service meeting Pub. Resources Code § 21060.2(a)(1), in an urban transit county", "cite": "Gov. Code § 65912.156(o)", "source": "gov-65912.156.txt", "quote": "served by light rail transit, by high-frequency commuter rail, or by bus service meeting the standards of paragraph (1) of subdivision (a) of Section 21060.2 of the Public Resources Code" },
+    "veryHighFrequencyCommuterRailTrainsPerDay": { "value": 72, "unit": "trains per day", "cite": "Gov. Code § 65912.156(r)", "source": "gov-65912.156.txt", "quote": "a total of at least 72 trains per day across both directions" },
+    "highFrequencyCommuterRailTrainsPerDay": { "value": 48, "unit": "trains per day", "cite": "Gov. Code § 65912.156(e)", "source": "gov-65912.156.txt", "quote": "operating a total of at least 48 trains per day across both directions" },
+    "todZoneRadius": { "value": 0.5, "unit": "mile", "cite": "Gov. Code § 65912.156(m)", "source": "gov-65912.156.txt", "quote": "means the area within one-half mile of a transit-oriented development stop" },
+    "adjacentWithin": { "value": 200, "unit": "feet", "cite": "Gov. Code § 65912.156(a)", "source": "gov-65912.156.txt", "quote": "means within 200 feet of any pedestrian access point to a transit-oriented development stop" },
+    "highResourceArea": { "value": ["highest resource", "high resource"], "cite": "Gov. Code § 65912.156(f)", "source": "gov-65912.156.txt", "quote": "an area designated as highest resource or high resource on the most recently adopted version of the opportunity area maps" },
+    "housingDevelopmentProjectExcludesTransientLodging": { "value": true, "cite": "Gov. Code § 65912.156(g)", "source": "gov-65912.156.txt", "quote": "does not include a project of which any portion is designated for use as a hotel, motel, bed and breakfast inn, or other transient lodging" },
+    "netHabitableSquareFootage": { "value": "finished and heated floor area with at least 6.5 ft headroom, excluding garages, carports, parking, cellars, half-stories, and unfinished attics and basements", "cite": "Gov. Code § 65912.156(i)", "source": "gov-65912.156.txt", "quote": "the finished and heated floor area fully enclosed by the inside surface of walls, windows, doors, and partitions" },
+    "residentialFloorAreaRatio": { "value": "net habitable square footage in residential use divided by lot area", "cite": "Gov. Code § 65912.156(l)", "source": "gov-65912.156.txt", "quote": "means the ratio of net habitable square footage dedicated to residential use to the area of the lot" }
+  },
+
+  "eligibility": {
+    "qualifyingZoning": { "value": ["residential", "mixed", "commercial"], "cite": "Gov. Code § 65912.157(a)", "source": "gov-65912.157.txt", "quote": "on any site zoned for residential, mixed, or commercial development" },
+    "reach": { "value": 0.5, "unit": "mile", "cite": "Gov. Code § 65912.157(a)", "source": "gov-65912.157.txt", "quote": "within one-half or one-quarter mile of a transit-oriented development stop" },
+    "distanceMeasurement": { "value": "straight line from the nearest edge of the parcel to a pedestrian access point of the stop", "cite": "Gov. Code § 65912.157(b)", "source": "gov-65912.157.txt", "quote": "measured in a straight line from the nearest edge of the parcel containing the proposed project to a pedestrian access point for the transit-oriented development stop" },
+    "outerBandMinCityPopulation": {
+      "tier1": { "value": 35000, "unit": "people", "cite": "Gov. Code § 65912.157(a)(4)", "source": "gov-65912.157.txt", "quote": "within a city with a population of at least 35,000", "note": "The statute does not say which population count or date applies." },
+      "tier2": { "value": 35000, "unit": "people", "cite": "Gov. Code § 65912.157(a)(6)", "source": "gov-65912.157.txt", "quote": "within a city with a population of at least 35,000", "note": "The statute does not say which population count or date applies." }
+    }
+  },
+
+  "bands": {
+    "quarterMile": {
+      "tier1": { "value": 0.25, "unit": "mile", "cite": "Gov. Code § 65912.157(a)(3)", "source": "gov-65912.157.txt", "quote": "within one-quarter mile of a Tier 1 transit-oriented development stop" },
+      "tier2": { "value": 0.25, "unit": "mile", "cite": "Gov. Code § 65912.157(a)(5)", "source": "gov-65912.157.txt", "quote": "within one-quarter mile of a Tier 2 transit-oriented development stop" }
+    },
+    "halfMile": {
+      "tier1": { "value": 0.5, "unit": "mile", "cite": "Gov. Code § 65912.157(a)(4)", "source": "gov-65912.157.txt", "quote": "further than one-quarter mile but within one-half mile of a Tier 1 transit-oriented development stop" },
+      "tier2": { "value": 0.5, "unit": "mile", "cite": "Gov. Code § 65912.157(a)(6)", "source": "gov-65912.157.txt", "quote": "further than one-quarter mile but within one-half mile of a Tier 2 transit-oriented development stop" }
+    }
+  },
+
+  "standards": {
+    "tier1": {
+      "quarterMile": {
+        "heightLimitAtLeastFt": { "value": 75, "unit": "feet", "cite": "Gov. Code § 65912.157(a)(3)(A)", "source": "gov-65912.157.txt", "quote": "shall not impose any height limit less than 75 feet" },
+        "maxDensityAtLeastDuPerAcre": { "value": 120, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(3)(B)", "source": "gov-65912.157.txt", "quote": "shall not impose any maximum density of less than 120 dwelling units per acre" },
+        "residentialFarNotPrecludedUpTo": { "value": 3.5, "unit": "residential FAR", "cite": "Gov. Code § 65912.157(a)(3)(C)", "source": "gov-65912.157.txt", "quote": "physically preclude achieving a residential floor area ratio of up to 3.5" },
+        "concessionMinDensityDuPerAcre": { "value": 90, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(3)(D)", "source": "gov-65912.157.txt", "quote": "achieves a minimum density of 90 dwelling units per acre" }
+      },
+      "halfMile": {
+        "heightLimitAtLeastFt": { "value": 65, "unit": "feet", "cite": "Gov. Code § 65912.157(a)(4)(A)", "source": "gov-65912.157.txt", "quote": "shall not impose any height limit less than 65 feet" },
+        "maxDensityAtLeastDuPerAcre": { "value": 100, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(4)(B)", "source": "gov-65912.157.txt", "quote": "shall not impose any maximum density standard of less than 100 dwelling units per acre" },
+        "residentialFarNotPrecludedUpTo": { "value": 3, "unit": "residential FAR", "cite": "Gov. Code § 65912.157(a)(4)(C)", "source": "gov-65912.157.txt", "quote": "physically preclude achieving a residential floor area ratio of up to 3." },
+        "concessionMinDensityDuPerAcre": { "value": 75, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(4)(D)", "source": "gov-65912.157.txt", "quote": "achieves a minimum density of 75 dwelling units per acre" }
+      }
+    },
+    "tier2": {
+      "quarterMile": {
+        "heightLimitAtLeastFt": { "value": 65, "unit": "feet", "cite": "Gov. Code § 65912.157(a)(5)(A)", "source": "gov-65912.157.txt", "quote": "shall not impose any height limit less than 65 feet" },
+        "maxDensityAtLeastDuPerAcre": { "value": 100, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(5)(B)", "source": "gov-65912.157.txt", "quote": "shall not impose any maximum density standard of less than 100 dwelling units per acre" },
+        "residentialFarNotPrecludedUpTo": { "value": 3, "unit": "residential FAR", "cite": "Gov. Code § 65912.157(a)(5)(C)", "source": "gov-65912.157.txt", "quote": "physically preclude achieving a residential floor area ratio of up to 3." },
+        "concessionMinDensityDuPerAcre": { "value": 75, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(5)(D)", "source": "gov-65912.157.txt", "quote": "achieves a minimum density of 75 dwelling units per acre" }
+      },
+      "halfMile": {
+        "heightLimitAtLeastFt": { "value": 55, "unit": "feet", "cite": "Gov. Code § 65912.157(a)(6)(A)", "source": "gov-65912.157.txt", "quote": "shall not impose any height limit less than 55 feet" },
+        "maxDensityAtLeastDuPerAcre": { "value": 80, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(6)(B)", "source": "gov-65912.157.txt", "quote": "shall not impose any maximum density standard of less than 80 dwelling units per acre" },
+        "residentialFarNotPrecludedUpTo": { "value": 2.5, "unit": "residential FAR", "cite": "Gov. Code § 65912.157(a)(6)(C)", "source": "gov-65912.157.txt", "quote": "physically preclude achieving a residential floor area ratio of up to 2.5" },
+        "concessionMinDensityDuPerAcre": { "value": 60, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(6)(D)", "source": "gov-65912.157.txt", "quote": "achieves a minimum density of 60 dwelling units per acre" }
+      }
+    }
+  },
+
+  "adjacencyIntensifier": {
+    "appliesTo": { "value": "a qualifying project immediately adjacent to the stop (within 200 feet of a pedestrian access point, § 65912.156(a))", "cite": "Gov. Code § 65912.157(e)", "source": "gov-65912.157.txt", "quote": "is immediately adjacent to a transit-oriented development stop shall be eligible for an adjacency intensifier" },
+    "heightAddFt": { "value": 20, "unit": "feet", "cite": "Gov. Code § 65912.157(e)", "source": "gov-65912.157.txt", "quote": "increase the height limit by an additional 20 feet" },
+    "densityAddDuPerAcre": { "value": 40, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(e)", "source": "gov-65912.157.txt", "quote": "the maximum density standard by an additional 40 dwelling units per acre" },
+    "residentialFarAdd": { "value": 1, "unit": "residential FAR", "cite": "Gov. Code § 65912.157(e)", "source": "gov-65912.157.txt", "quote": "the residential floor area ratio by 1 prior to the application of Section 65915" }
+  },
+
+  "conditions": {
+    "minUnits": { "value": 5, "unit": "dwelling units", "cite": "Gov. Code § 65912.157(a)(1)", "source": "gov-65912.157.txt", "quote": "shall include at least five dwelling units" },
+    "minDensityDuPerAcre": { "value": 30, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(1)(A)", "source": "gov-65912.157.txt", "quote": "A minimum density of at least 30 dwelling units per acre." },
+    "localMinDensityIfGreater": { "value": "the minimum density required under local zoning, if greater", "cite": "Gov. Code § 65912.157(a)(1)(B)", "source": "gov-65912.157.txt", "quote": "The minimum density required under local zoning, if applicable." },
+    "maxAverageUnitSizeNetSqFt": { "value": 1750, "unit": "net habitable square feet", "cite": "Gov. Code § 65912.157(a)(2)", "source": "gov-65912.157.txt", "quote": "shall not exceed 1,750 net habitable square feet" },
+    "safety": { "value": "consistent with airport land use compatibility plans, military AICUZ, and objective fire safety standards", "cite": "Gov. Code § 65912.157(j)", "source": "gov-65912.157.txt", "quote": "shall be consistent with the height, noise, and safety standards of an adopted airport land use compatibility plan" }
+  },
+
+  "affordability": {
+    "appliesAboveUnits": { "value": 10, "unit": "dwelling units", "cite": "Gov. Code § 65912.157(i)(1)(B)", "source": "gov-65912.157.txt", "quote": "This paragraph shall not apply to any development of 10 units or less." },
+    "options": {
+      "extremelyLow": { "value": 7, "unit": "percent of total units", "cite": "Gov. Code § 65912.157(i)(1)(A)(i)", "source": "gov-65912.157.txt", "quote": "At least 7 percent of the total units" },
+      "veryLow": { "value": 10, "unit": "percent of total units", "cite": "Gov. Code § 65912.157(i)(1)(A)(ii)", "source": "gov-65912.157.txt", "quote": "At least 10 percent of the total units" },
+      "lower": { "value": 13, "unit": "percent of total units", "cite": "Gov. Code § 65912.157(i)(1)(A)(iii)", "source": "gov-65912.157.txt", "quote": "At least 13 percent of the total units" }
+    },
+    "rentalTermYears": { "value": 55, "unit": "years", "cite": "Gov. Code § 65912.157(i)(1)(C)(ii)", "source": "gov-65912.157.txt", "quote": "all affordable rental units included pursuant to this section for 55 years" },
+    "ownershipTermYears": { "value": 45, "unit": "years", "cite": "Gov. Code § 65912.157(i)(1)(C)(ii)", "source": "gov-65912.157.txt", "quote": "all affordable ownership units included pursuant to this section for a period of 45 years" },
+    "stricterLocalInclusionaryControls": { "value": true, "cite": "Gov. Code § 65912.157(i)(2)", "source": "gov-65912.157.txt", "quote": "the local inclusionary housing requirement mandate shall apply in place of the requirements in paragraph (1)" }
+  },
+
+  "antiDisplacement": {
+    "replacementHousing": { "value": "comply with Gov. Code § 66300.6 (replacement of demolished protected units)", "cite": "Gov. Code § 65912.157(f)", "source": "gov-65912.157.txt", "quote": "shall comply with Section 66300.6" },
+    "localDemolitionStandards": { "value": "comply with applicable local demolition and antidisplacement ordinances", "cite": "Gov. Code § 65912.157(g)", "source": "gov-65912.157.txt", "quote": "shall comply with any applicable local demolition and antidisplacement standards established through a local ordinance" },
+    "rentControlledSite": {
+      "moreThanUnits": { "value": 2, "unit": "units on the site", "cite": "Gov. Code § 65912.157(h)(1)", "source": "gov-65912.157.txt", "quote": "A site containing more than two units where the development would require the demolition of housing that is subject to any form of rent or price control" },
+      "tenantLookbackYears": { "value": 7, "unit": "years", "cite": "Gov. Code § 65912.157(h)(1)", "source": "gov-65912.157.txt", "quote": "that has been occupied by tenants within the past seven years" }
+    },
+    "demolishedRentControlledSite": {
+      "moreThanUnits": { "value": 2, "unit": "units demolished", "cite": "Gov. Code § 65912.157(h)(2)", "source": "gov-65912.157.txt", "quote": "A site that was previously used for more than two units of housing" },
+      "lookbackYears": { "value": 7, "unit": "years", "cite": "Gov. Code § 65912.157(h)(2)", "source": "gov-65912.157.txt", "quote": "that were demolished within seven years before the development proponent submits an application" }
+    },
+    "parkSite": { "value": "mobilehome, RV, or special occupancy park sites are barred", "from": "2026-07-16", "cite": "Gov. Code § 65912.157(h)(3)", "source": "gov-65912.157.txt", "quote": "The existing parcel of land or site is governed under the Mobilehome Residency Law" }
+  },
+
+  "labor": {
+    "buildingHeightOverFt": { "value": 85, "unit": "feet", "cite": "Gov. Code § 65912.157(k)", "source": "gov-65912.157.txt", "quote": "for any building over 85 feet in height", "note": "Strictly over 85 feet." },
+    "standards": { "value": "Gov. Code § 65913.4(a)(8)(A)–(D), (F), (G) (prevailing wage; skilled and trained workforce)", "cite": "Gov. Code § 65912.157(k)", "source": "gov-65912.157.txt", "quote": "shall meet the labor standards of subparagraphs (A), (B), (C), (D), (F), and (G) of paragraph (8) of subdivision (a) of Section 65913.4" }
+  },
+
+  "densityBonus": {
+    "baseDensity": { "value": "the SB 79 density is the base density for the Density Bonus Law", "cite": "Gov. Code § 65912.157(d)", "source": "gov-65912.157.txt", "quote": "using the density allowed under this section as the base density" },
+    "noAdditionalHeightRequired": { "value": true, "cite": "Gov. Code § 65912.157(d)", "source": "gov-65912.157.txt", "quote": "shall not be required to grant a waiver, incentive, or concession pursuant to Section 65915 for additional height beyond that specified in this section" },
+    "heightExceptionFt": { "value": 33, "unit": "feet", "cite": "Gov. Code § 65915(d)(2)(D)", "source": "gov-65915.txt", "quote": "a height increase of up to three additional stories, or 33 feet", "note": "For projects meeting § 65915(b)(1)(G) (100 percent lower income, up to 20 percent moderate) within one-half mile of a major transit stop." },
+    "additionalConcessions": {
+      "extremelyLow": { "value": 3, "unit": "concessions", "cite": "Gov. Code § 65912.157(d)(1)", "source": "gov-65912.157.txt", "quote": "For a development providing housing for extremely low income households, three additional concessions." },
+      "veryLow": { "value": 2, "unit": "concessions", "cite": "Gov. Code § 65912.157(d)(2)", "source": "gov-65912.157.txt", "quote": "For a development providing housing for very low income households, two additional concessions." },
+      "low": { "value": 1, "unit": "concessions", "cite": "Gov. Code § 65912.157(d)(3)", "source": "gov-65912.157.txt", "quote": "For a development providing housing for low-income households, one additional concession." }
+    }
+  },
+
+  "localStandards": {
+    "mayNotPrevent": {
+      "versions": [
+        { "value": "local standards apply only if they do not, alone or in concert, prevent achieving the SB 79 standards", "from": "2026-01-01", "to": "2027-01-01", "cite": "Gov. Code § 65912.157(c)", "source": "gov-65912.157.txt", "quote": "may still enact and enforce standards, including an inclusionary zoning requirement that do not, alone or in concert, prevent achieving the applicable development standards of subdivision (a)" },
+        { "value": "local standards apply only if they do not, alone or in concert, prevent achieving the SB 79 standards", "from": "2027-01-01", "cite": "Gov. Code § 65912.157(c)(1)", "source": "stats-2026-ch1027-sb1361.txt", "quote": "may still enact and enforce standards, including an inclusionary zoning requirement that do not, alone or in concert, prevent achieving the applicable development standards of subdivision (a)" }
+      ]
+    },
+    "noSb79SpecificRequirements": {
+      "versions": [
+        { "value": "no fees or requirements imposed because a project uses SB 79", "from": "2026-01-01", "to": "2027-01-01", "cite": "Gov. Code § 65912.157(c)", "source": "gov-65912.157.txt", "quote": "applies to a project solely or partially on the basis that the project is seeking approval as a transit-oriented housing development" },
+        { "value": "no fees or requirements imposed because a project uses SB 79", "from": "2027-01-01", "cite": "Gov. Code § 65912.157(c)(1)", "source": "stats-2026-ch1027-sb1361.txt", "quote": "applies to a project solely or partially on the basis that the project is seeking approval as a transit-oriented housing development" }
+      ]
+    },
+    "transitServiceProtections": { "value": "a city may not seek transit cuts or hold up transit projects to avoid SB 79", "from": "2027-01-01", "cite": "Gov. Code § 65912.157(c)(2)", "source": "stats-2026-ch1027-sb1361.txt", "quote": "A local government with an existing or planned transit-oriented development stop shall not do any of the following" }
+  },
+
+  "approval": {
+    "deemedConsistent": { "value": true, "cite": "Gov. Code § 65912.157(l)", "source": "gov-65912.157.txt", "quote": "shall be deemed consistent, compliant, and in conformity with an applicable plan" },
+    "noMinisterialProcessRequired": { "value": true, "cite": "Gov. Code § 65912.157(l)", "source": "gov-65912.157.txt", "quote": "This subdivision shall not require a ministerial approval process" },
+    "ceqaUnchanged": { "value": true, "cite": "Gov. Code § 65912.157(l)", "source": "gov-65912.157.txt", "quote": "or modify the requirements of Division 13 (commencing with Section 21000) of the Public Resources Code" },
+    "sb35Eligible": { "value": true, "cite": "Gov. Code § 65912.159(a)", "source": "gov-65912.159.txt", "quote": "shall be eligible for streamlined ministerial approval pursuant to Section 65913.4" },
+    "conflictingZoningDoesNotApply": { "value": true, "cite": "Gov. Code § 65912.159(b)", "source": "gov-65912.159.txt", "quote": "any local zoning standard conflicting with the requirements of this chapter shall not apply" },
+    "denialPresumption": {
+      "beginsOn": { "value": "2027-01-01", "unit": "date", "cite": "Gov. Code § 65912.157(m)", "source": "gov-65912.157.txt", "quote": "Beginning on January 1, 2027" },
+      "inHighResourceArea": { "value": true, "cite": "Gov. Code § 65912.157(m)", "source": "gov-65912.157.txt", "quote": "that is located in a high-resource area shall be presumed to be in violation of the Housing Accountability Act (Section 65589.5)" },
+      "minFinePerUnitUsd": { "value": 10000, "unit": "USD per housing unit (minimum)", "cite": "Gov. Code § 65589.5(k)(1)(B)", "source": "gov-65589.5.txt", "quote": "The fine shall be in a minimum amount of ten thousand dollars ($10,000) per housing unit" }
+    }
+  },
+
+  "mapPresumption": { "value": "each MPO's map of TOD stops and zones is rebuttably presumed valid", "cite": "Gov. Code § 65912.160(f)", "source": "gov-65912.160.txt", "quote": "This map shall have a rebuttable presumption of validity for use by project applicants and local governments." },
+
+  "cityOptions": {
+    "hcdReview": {
+      "draftDaysBeforeAdoption": { "value": 14, "unit": "days", "cite": "Gov. Code § 65912.160(d)(1)(A)", "source": "gov-65912.160.txt", "quote": "At least 14 days prior to adoption of an ordinance pursuant to this section" },
+      "submitWithinDays": { "value": 60, "unit": "days", "cite": "Gov. Code § 65912.160(d)(2)", "source": "gov-65912.160.txt", "quote": "to the department within 60 days of enactment" },
+      "reviewDays": { "value": 90, "unit": "days", "cite": "Gov. Code § 65912.160(d)(3)(A)", "source": "gov-65912.160.txt", "quote": "The department shall, within 90 days, review the enacted ordinance" },
+      "extensionDays": { "value": 30, "unit": "days", "cite": "Gov. Code § 65912.160(d)(3)(B)", "source": "gov-65912.160.txt", "quote": "the department may request an additional 30 days" }
+    },
+    "exemptions": {
+      "noWalkingPathUnderMiles": { "value": 1, "unit": "mile", "cite": "Gov. Code § 65912.160(e)(1)", "source": "gov-65912.160.txt", "quote": "there exists no walking path of less than one mile from that location to the transit-oriented development stop" },
+      "industrialHubMinStops": { "value": 15, "unit": "TOD stops in the jurisdiction", "cite": "Gov. Code § 65912.160(e)(2)", "source": "gov-65912.160.txt", "quote": "A local government with at least 15 transit-oriented development stops designates the area as an industrial employment hub" },
+      "industrialHubMinAcres": { "value": 250, "unit": "contiguous acres", "cite": "Gov. Code § 65912.160(e)(2)", "source": "gov-65912.160.txt", "quote": "a contiguous area of at least 250 acres" },
+      "industrialHubDesignatedBy": { "value": "2025-01-01", "unit": "date", "cite": "Gov. Code § 65912.160(e)(2)", "source": "gov-65912.160.txt", "quote": "on or before January 1, 2025" }
+    },
+    "exclusions": {
+      "untilYearsAfterSeventhHousingElement": { "value": 1, "unit": "year", "cite": "Gov. Code § 65912.161(b)(1)", "source": "gov-65912.161.txt", "quote": "Prior to one year following the adoption of the seventh revision of the housing element" },
+      "historicSites": {
+        "versions": [
+          { "value": "sites with a historic resource on a local register as of January 1, 2025", "from": "2026-01-01", "to": "2027-01-01", "cite": "Gov. Code § 65912.161(b)(1)(F)", "source": "gov-65912.161.txt", "quote": "Sites with a historic resource designated as of January 1, 2025, on a local register." },
+          { "value": "sites designated before January 1, 2025 on a local register or in the State Historic Resources Inventory", "from": "2027-01-01", "cite": "Gov. Code § 65912.161(b)(1)(F)", "source": "stats-2026-ch214-ab2576.txt", "quote": "A contributing site within a historic district included on the State Historic Resources Inventory" }
+        ]
+      }
+    },
+    "alternativePlan": {
+      "sameTotalCapacity": { "value": true, "cite": "Gov. Code § 65912.161(a)(1)", "source": "gov-65912.161.txt", "quote": "shall maintain at least the same total net zoned capacity, in terms of both total units and residential floor area" },
+      "maxSiteDensityCutPercent": { "value": 50, "unit": "percent", "cite": "Gov. Code § 65912.161(a)(2)", "source": "gov-65912.161.txt", "quote": "by more than 50 percent below that permitted under this chapter" },
+      "maxZoneCapacityCutPercent": { "value": 50, "unit": "percent", "cite": "Gov. Code § 65912.161(a)(3)", "source": "gov-65912.161.txt", "quote": "shall not reduce the capacity in any transit-oriented development zone in total units or residential floor area by more than 50 percent" },
+      "maxSiteCapacityCountedPercent": { "value": 200, "unit": "percent", "cite": "Gov. Code § 65912.161(a)(4)", "source": "gov-65912.161.txt", "quote": "shall not exceed 200 percent of the maximum density established under this chapter" },
+      "adoptOutsideHousingElement": {
+        "versions": [
+          { "value": "a city may adopt an alternative plan deemed compliant by HCD under § 65912.160", "from": "2026-01-01", "to": "2027-01-01", "cite": "Gov. Code § 65912.161(c)(1)(B)", "source": "gov-65912.161.txt", "quote": "may adopt an alternative plan that has been deemed compliant by the department pursuant to Section 65912.160" },
+          { "value": "a city may adopt an alternative plan deemed compliant by HCD under § 65912.160", "from": "2027-01-01", "cite": "Gov. Code § 65912.161(c)(2)", "source": "stats-2026-ch214-ab2576.txt", "quote": "may adopt an alternative plan that has been deemed compliant by the department pursuant to Section 65912.160" }
+        ]
+      },
+      "replacesDefaults": { "value": true, "cite": "Gov. Code § 65912.161(d)", "source": "gov-65912.161.txt", "quote": "Section 65912.157 shall not apply within a jurisdiction that has a local transit-oriented alternative plan that has been approved by the department" }
+    }
+  }
+}
