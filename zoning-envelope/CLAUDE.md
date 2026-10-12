@@ -115,7 +115,7 @@ apps/sb79-memo/
   src/pages/index.astro   # text column left, pinned figure right (top 45% on phones)
   src/styles/memo.css     # memo look: off-white page, book serif, small caps
   data/                   # frozen snapshots, *.meta.json, manifest.json (asOf), sources/ text
-  scripts/                # snapshot.ts (refresh data), propose-exhibits.ts
+  scripts/                # snapshot.ts, snapshot-rockridge.ts (refresh data), propose-exhibits.ts
   EXHIBITS.md             # generated exhibit candidates (Matthew chooses)
   test/                   # Vitest: memo/script contract, later calculator and data checks
 ```
@@ -150,7 +150,12 @@ date. Owner names are never stored. Curated files
 
 **Decisions so far (Matthew).** Law stored with both versions keyed by date;
 urban transit counties per HCD's seven, with Orange as an open issue;
-population badge uses MTC's ACS figure.
+population badge uses MTC's ACS figure. North Berkeley stays the memo's site;
+5727 College Ave, Oakland (the Rockridge Trader Joe's) is a contrast exhibit in
+III.D (`density-bonus-contrast`): SB 79 requires the city to allow at least
+75 ft there, Oakland already allows 95 ft, and the pending application seeks
+about 306 ft under the Density Bonus Law. The memo takes no position on that
+application. Its data is in `data/rockridge/`.
 
 **Phase status.** Phase 0 (scaffold) and Phase 1 (law and data) done.
 Exhibit parcels are proposed in `EXHIBITS.md` and await Matthew's choice.

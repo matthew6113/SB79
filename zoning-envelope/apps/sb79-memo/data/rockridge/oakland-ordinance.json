@@ -1,0 +1,42 @@
+{
+  "retrievedAt": "2026-10-12T18:38:54.734Z",
+  "file": "26-0397",
+  "title": "Subject: \tSenate Bill 79 Planning Code Implementation Ordinance\r",
+  "status": "Passed",
+  "enactmentNumber": "13875 C.M.S.",
+  "passed": "2026-03-16",
+  "history": [
+    {
+      "date": "2026-01-29",
+      "action": "Scheduled",
+      "body": "*Rules & Legislation Committee"
+    },
+    {
+      "date": "2026-02-24",
+      "action": "Approved the Recommendation of Staff, and Forward",
+      "body": "*Community & Economic Development Committee"
+    },
+    {
+      "date": "2026-02-26",
+      "action": "Scheduled",
+      "body": "*Rules & Legislation Committee"
+    },
+    {
+      "date": "2026-03-03",
+      "action": "Approved As Amended On Introduction and Scheduled for Final Passage",
+      "body": "* Concurrent Meeting of the Oakland Redevelopment Successor Agency and the City Council"
+    },
+    {
+      "date": "2026-03-16",
+      "action": "Approved for Final Passage",
+      "body": "*Special Concurrent Meeting of the Oakland Redevelopment Agency/City Council"
+    }
+  ],
+  "textSource": "sources/oakland-sb79-ordinance-2026-03-05.txt",
+  "rockridgeCarveOut": {
+    "section": "Oakland Planning Code § 17.86.060.A (Ord. 13875 C.M.S.)",
+    "quote": "Not including sites within one-half mile of Ashby, MacArthur, and Rockridge BART stations"
+  },
+  "signedOrdinance": "https://oakland.legistar1.com/oakland/attachments/7be6e13c-d823-4482-97b9-2c1a357e6a3c.pdf",
+  "note": "The signed ordinance is a scan without text; the quoted text is the supplemental legislation of March 5, 2026, which carries the March 3 council amendment and went to final passage on March 16."
+}

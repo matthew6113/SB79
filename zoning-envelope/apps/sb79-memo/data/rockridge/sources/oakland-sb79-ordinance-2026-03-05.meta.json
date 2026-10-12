@@ -1,0 +1,11 @@
+{
+  "source": "https://oakland.legistar1.com/oakland/attachments/21ed23c1-c080-4849-bd24-0c6b4a770de6.pdf",
+  "retrievedAt": "2026-10-12T18:38:54.734Z",
+  "lastModified": "Thu, 05 Mar 2026 22:57:38 GMT",
+  "pdfSha256": "111f6d53d79bfeca04ec74288d1743d8d78c0c5c359196cebd8b53e4c1f3a3c8",
+  "extractedWith": "pdftotext -layout",
+  "pages": {
+    "first": 1,
+    "last": 14
+  }
+}

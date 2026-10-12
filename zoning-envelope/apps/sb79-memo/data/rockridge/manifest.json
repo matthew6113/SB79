@@ -1,0 +1,80 @@
+{
+  "asOf": "2026-10-12",
+  "retrievedAt": "2026-10-12T18:38:54.734Z",
+  "site": {
+    "apn": "14-1266-47-1",
+    "address": "5727 COLLEGE AVE OAKLAND 94618",
+    "role": "III.D contrast site"
+  },
+  "files": [
+    {
+      "file": "parcel.geojson",
+      "source": "https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Parcels/FeatureServer/0",
+      "sourceLastEdit": "2026-10-04T17:21:43.214Z",
+      "count": 1
+    },
+    {
+      "file": "tod-stations.geojson",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_stations/FeatureServer/1",
+      "sourceLastEdit": "2026-06-02T22:02:35.014Z",
+      "count": 1
+    },
+    {
+      "file": "tod-access-points.geojson",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_access_points/FeatureServer/1",
+      "sourceLastEdit": "2026-06-02T21:59:00.036Z",
+      "count": 2
+    },
+    {
+      "file": "tod-zones.geojson",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_zones/FeatureServer/1",
+      "sourceLastEdit": "2026-06-02T22:00:50.883Z",
+      "count": 1
+    },
+    {
+      "file": "oakland-zoning.json",
+      "source": "https://services.arcgis.com/9tC74aDHuml0x5Yz/arcgis/rest/services/Zoning_Group_Layers_/FeatureServer/7",
+      "sourceLastEdit": "2026-07-23T16:51:49.377Z"
+    },
+    {
+      "file": "oakland-ordinance.json",
+      "source": "https://webapi.legistar.com/v1/oakland/matters/36970",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "sources/oakland-sb79-ordinance-2026-03-05.txt",
+      "source": "https://oakland.legistar1.com/oakland/attachments/21ed23c1-c080-4849-bd24-0c6b4a770de6.pdf",
+      "sourceLastEdit": "2026-03-05T22:57:38.000Z"
+    },
+    {
+      "file": "opportunity.json",
+      "source": "https://www.treasurer.ca.gov/sites/default/files/2025-11/shapefile.zip",
+      "sourceLastEdit": "2025-11-27T06:20:40.000Z"
+    },
+    {
+      "file": "population.json",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_jurisdictions_with_pop_acs2019_2023/FeatureServer/1",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "sources/ubaoakland-fact-sheet.txt",
+      "source": "https://ubaoakland.org/projects/two-towers/",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "sources/piedmont-exedra-2026-07.txt",
+      "source": "https://piedmontexedra.com/2026/07/state-laws-may-make-oaklands-rockridge-trader-joes-housing-project-hard-to-stop",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "sources/sfyimby-2026-08.txt",
+      "source": "https://sfyimby.com/2026/08/reduced-height-and-increased-retail-for-rockridge-tower-oakland.html",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "site.json",
+      "source": "evaluateSite",
+      "sourceLastEdit": null
+    }
+  ]
+}

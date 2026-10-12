@@ -53,6 +53,7 @@ from each bill's approval date.
 | MTC added elevator access points at four East Bay BART stations | The live map has newer elevator access points at eight Alameda County stations, plus older ones elsewhere. North Berkeley's elevator (`NBRK_2`) puts every private parcel within 200 ft in that band. | `isElevator` derived from the access point name; exhibits report distances with and without elevators |
 | Most districts near North Berkeley BART allow 35 ft | Confirmed: the April 15, 2026 staff report lists 35 ft for R-1, R-2, R-2A, R-3, R-4, and C-N; R-BMU 80 ft; C-U 48 ft; C-W 50 ft | `data/berkeley-zoning-standards.json` |
 | MTC zones by straight-line distance | Confirmed (a 200 ft zone vertex measures 200.0 ft from the elevator). Zones are non-overlapping rings dissolved region-wide; North Berkeley's half-mile ring is merged with Downtown Berkeley's. | Exhibit bands are checked against the zone polygons |
+| Oakland adopted exclusions (spec, III.F) | Confirmed with a carve-out: Ordinance 13875 C.M.S. (passed 2026-03-16) adopts exclusions, but § 17.86.060.A excludes "Not including sites within one-half mile of Ashby, MacArthur, and Rockridge BART stations" (council amendment of 2026-03-03). Oakland's S-8 GIS layer marks 5727 College Ave "Covered". | `apps/sb79-memo/data/rockridge/` |
 | Alameda County parcels give lot area and owner | The county layer has neither; Berkeley's parcel layer (synced to the county roll) has both | Joined by APN; owner names reduced to an owner class |
 
 ## Open items for Matthew
@@ -73,5 +74,9 @@ from each bill's approval date.
 6. **BMC text.** Height limits are quoted from the city's staff report; BMC
    table numbers come from a mirror because berkeley.municipal.codes blocks
    automated access. Verify against the official code before citing.
-7. **Memo date.** The spec is dated October 9, 2026; the data snapshot is
+7. **Contrast site.** 5727 College Ave, Oakland is a real, pending
+   application (ZW2601986). Its facts come from news and an advocacy fact
+   sheet; check them against Oakland's project file, and keep the memo's
+   treatment illustrative (spec guardrail on advice about specific projects).
+8. **Memo date.** The spec is dated October 9, 2026; the data snapshot is
    dated 2026-10-12. The letterhead date follows the data.

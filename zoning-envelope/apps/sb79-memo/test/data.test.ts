@@ -113,3 +113,43 @@ describe('exhibit candidates', () => {
     for (const key of ['A', 'B', 'C']) for (const c of ex[key]) expect(owner.get(c.apn)).toBe('private');
   });
 });
+
+describe('III.D contrast site: 5727 College Ave, Oakland', () => {
+  const R = 'rockridge/';
+  const site = read(`${R}site.json`);
+  const oak = read(`${R}oakland-zoning.json`);
+  const ord = read(`${R}oakland-ordinance.json`);
+  const project = read(`${R}project.json`);
+  const rText = (file: string) => text(`${R}${file}`);
+
+  it("Oakland's S-8 layer, MTC's zones, and our measurement agree: Tier 1, within 1/4 mile, covered by SB 79", () => {
+    expect(site.band).toBe('quarterMile');
+    expect(site.nearestAccessPoint.tier).toBe(1);
+    expect(oak.s8).toMatchObject({ tier: '1', distance: 'quarter mi', eligible: 'Y', availability: 'Covered' });
+    expect(read(`${R}tod-zones.geojson`).features.map((f: any) => f.properties.zone_label)).toEqual(['Tier 1 - Quarter Mile']);
+  });
+
+  it("Oakland's ordinance carves the Rockridge station area out of its zoning-based exclusion", () => {
+    expect(ord).toMatchObject({ enactmentNumber: '13875 C.M.S.', passed: '2026-03-16', status: 'Passed' });
+    expect(rText(ord.textSource)).toContain(ord.rockridgeCarveOut.quote);
+  });
+
+  it('local zoning already allows more height than the SB 79 floor (the point of the contrast)', () => {
+    expect(site.sb79.heightFt).toBe(law.standards.tier1.quarterMile.heightLimitAtLeastFt.value);
+    expect(oak.heightArea.maxHeightFt).toBeGreaterThan(site.sb79.heightFt);
+  });
+
+  it('every project fact is quoted from a saved source and states its value', () => {
+    for (const [key, fact] of Object.entries<any>(project.facts)) {
+      expect(rText(fact.source), key).toContain(fact.quote.replace(/\s+/g, ' '));
+      const values = Array.isArray(fact.value) ? fact.value : [fact.value];
+      for (const v of values) {
+        if (typeof v === 'number') expect(fact.quote, key).toContain(String(v));
+        if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) {
+          const [y, m, d] = v.split('-').map(Number);
+          expect(fact.quote, key).toContain(`${m}/${d}/${y}`);
+        }
+      }
+    }
+  });
+});

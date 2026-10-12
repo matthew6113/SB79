@@ -1,0 +1,8 @@
+{
+  "retrievedAt": "2026-10-12T18:38:54.734Z",
+  "count": 1,
+  "source": "https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Parcels/FeatureServer/0",
+  "sourceLastEdit": "2026-10-04T17:21:43.214Z",
+  "query": "APN='14-1266-47-1'",
+  "notes": "gisAreaSqFt is computed from the geometry in EPSG:2227; the county layer has no lot-size field."
+}

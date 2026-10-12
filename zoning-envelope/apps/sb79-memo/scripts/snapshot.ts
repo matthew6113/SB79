@@ -5,20 +5,14 @@
  *
  * Run: pnpm --filter @zoning-envelope/sb79-memo snapshot   (needs pdftotext)
  */
-import { execFileSync } from 'node:child_process';
-import { createHash } from 'node:crypto';
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
 import * as polyclip from 'polyclip-ts';
 import { law, milesToFeet } from '@zoning-envelope/law';
-import { openRemoteZip, readEntry } from '@zoning-envelope/law/zip-range';
 import { layerInfo, queryAll, queryJSON, within, type Feature, type FeatureCollection, type Geometry } from './lib/arcgis.ts';
-import { areaSqFt, circle, distanceFt, roundGeometry } from './lib/geo.ts';
-import { gpkgGeometry, readGpkg } from './lib/gpkg.ts';
+import { areaSqFt, circle, distanceFt } from './lib/geo.ts';
+import { createWriter } from './lib/write.ts';
+import { OPPORTUNITY_MAP_URL, opportunityAreas } from './lib/opportunity.ts';
 
 const DATA = new URL('../data/', import.meta.url);
-const retrievedAt = new Date().toISOString();
 
 /** North Berkeley BART in MTC's SB 79 map. */
 const STATION_ID = '904309';
@@ -41,28 +35,13 @@ const SOURCES = {
   footprints: 'https://gis.cityofberkeley.info/arcgis/rest/services/Planning/Building_Safety/MapServer/7',
   counties: 'https://services3.arcgis.com/uknczv4rpevve42E/arcgis/rest/services/California_County_Boundaries_and_Identifiers_Blue_Version_view/FeatureServer/1',
   census2020Places: 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Census2020/MapServer/26',
-  opportunityMap: 'https://www.treasurer.ca.gov/sites/default/files/2025-11/shapefile.zip',
   hcdAdvisory: 'https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/sb-79-mpo-advisory.pdf',
   berkeleyStaffReport: 'https://berkeleyca.gov/sites/default/files/2026-04/2026-04-15_PC_Item%2010A_SB%2079%20and%20AB%20893.pdf',
   abagSummary: 'https://abag.ca.gov/sites/default/files/documents/2026-07/SB79-Summary-07172026.pdf',
 } as const;
 
-const manifest: { file: string; source: string; sourceLastEdit: string | null; count?: number }[] = [];
-
-function writeLayer(name: string, fc: FeatureCollection, meta: Record<string, unknown>) {
-  const features = fc.features.map((f) => ({ type: 'Feature' as const, geometry: roundGeometry(f.geometry), properties: f.properties }));
-  writeFileSync(new URL(`${name}.geojson`, DATA), JSON.stringify({ type: 'FeatureCollection', features }) + '\n');
-  const full = { retrievedAt, count: features.length, ...meta };
-  writeFileSync(new URL(`${name}.meta.json`, DATA), JSON.stringify(full, null, 2) + '\n');
-  manifest.push({ file: `${name}.geojson`, source: String(meta.source), sourceLastEdit: (meta.sourceLastEdit as string | null) ?? null, count: features.length });
-  console.log(`  ${name}: ${features.length} features`);
-}
-
-function writeData(name: string, data: unknown, source: string, sourceLastEdit: string | null = null) {
-  writeFileSync(new URL(`${name}.json`, DATA), JSON.stringify({ retrievedAt, ...(data as object) }, null, 2) + '\n');
-  manifest.push({ file: `${name}.json`, source, sourceLastEdit });
-  console.log(`  ${name}.json`);
-}
+const out = createWriter(DATA);
+const { writeLayer, writeData } = out;
 
 const pick = (props: Record<string, unknown>, keys: string[]) => Object.fromEntries(keys.map((k) => [k, props[k] ?? null]));
 const trim = (v: unknown) => (typeof v === 'string' ? v.trim() : v);
@@ -228,27 +207,16 @@ async function counties() {
 }
 
 async function opportunity(center: readonly [number, number]) {
-  const zip = await openRemoteZip(SOURCES.opportunityMap);
-  const name = [...zip.entries.keys()].find((k) => k.endsWith('.gpkg'));
-  if (!name) throw new Error('No GeoPackage in the opportunity map download');
-  const dir = mkdtempSync(join(tmpdir(), 'sb79-opp-'));
-  try {
-    const path = join(dir, 'opp.gpkg');
-    writeFileSync(path, await readEntry(zip, name));
-    const rows = readGpkg(path, "SELECT fips, fips_bg, oppcat, oppscore, geom FROM final_opp_2026_public WHERE county_name = 'Alameda'");
-    const features: Feature[] = rows
-      .map((r) => ({ r, geometry: gpkgGeometry(r.geom as Uint8Array) }))
-      .filter(({ geometry }) => distanceFt(center, geometry) <= RADIUS_FT)
-      .map(({ r, geometry }) => ({ type: 'Feature' as const, geometry, properties: { fips: r.fips, fipsBlockGroup: r.fips_bg, category: r.oppcat, score: r.oppscore } }))
-      .sort(bySortKey((f) => String(f.properties.fips) + String(f.properties.fipsBlockGroup ?? '')));
-    writeLayer('opportunity-areas', { type: 'FeatureCollection', features }, {
-      source: SOURCES.opportunityMap, sourceLastEdit: zip.lastModified ? new Date(zip.lastModified).toISOString() : null, sourceEntry: name,
-      query: `Alameda County areas within ${RADIUS_FT} ft of station ${STATION_ID}`,
-      notes: '2026 CTCAC/HCD Opportunity Map (official GeoPackage). Gov. Code § 65912.156(f) treats Highest and High Resource as high-resource areas.',
-    });
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+  const { areas, entry, lastModified } = await opportunityAreas('Alameda');
+  const features: Feature[] = areas
+    .filter((a) => distanceFt(center, a.geometry) <= RADIUS_FT)
+    .map((a) => ({ type: 'Feature' as const, geometry: a.geometry, properties: { fips: a.fips, fipsBlockGroup: a.fipsBlockGroup, category: a.category, score: a.score } }))
+    .sort(bySortKey((f) => String(f.properties.fips) + String(f.properties.fipsBlockGroup ?? '')));
+  writeLayer('opportunity-areas', { type: 'FeatureCollection', features }, {
+    source: OPPORTUNITY_MAP_URL, sourceLastEdit: lastModified, sourceEntry: entry,
+    query: `Alameda County areas within ${RADIUS_FT} ft of station ${STATION_ID}`,
+    notes: '2026 CTCAC/HCD Opportunity Map (official GeoPackage). Gov. Code § 65912.156(f) treats Highest and High Resource as high-resource areas.',
+  });
 }
 
 async function useCodes(parcelsFc: string[]) {
@@ -276,26 +244,6 @@ async function population() {
   }, SOURCES.jurisdictions, mtcInfo.dataLastEditDate ?? mtcInfo.lastEditDate);
 }
 
-/** Download a PDF, keep its text (pdftotext -layout) in data/sources, and record its hash. */
-async function pdfText(name: string, url: string) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
-  const pdf = Buffer.from(await res.arrayBuffer());
-  const dir = mkdtempSync(join(tmpdir(), 'sb79-pdf-'));
-  try {
-    const path = join(dir, 'doc.pdf');
-    writeFileSync(path, pdf);
-    const text = execFileSync('pdftotext', ['-layout', path, '-'], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
-    writeFileSync(new URL(`sources/${name}.txt`, DATA), text);
-    const meta = { source: url, retrievedAt, lastModified: res.headers.get('last-modified'), pdfSha256: createHash('sha256').update(pdf).digest('hex'), extractedWith: 'pdftotext -layout' };
-    writeFileSync(new URL(`sources/${name}.meta.json`, DATA), JSON.stringify(meta, null, 2) + '\n');
-    manifest.push({ file: `sources/${name}.txt`, source: url, sourceLastEdit: meta.lastModified ? new Date(meta.lastModified).toISOString() : null });
-    console.log(`  sources/${name}.txt`);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
-}
-
 async function main() {
   const station = await queryAll(SOURCES.stations, { where: `station_id LIKE '%${STATION_ID}'`, outFields: 'station_id,station_name' });
   const center = station.features[0]?.geometry;
@@ -311,15 +259,11 @@ async function main() {
   await counties();
   await opportunity(c);
   await population();
-  await pdfText('hcd-sb79-mpo-advisory', SOURCES.hcdAdvisory);
-  await pdfText('berkeley-pc-2026-04-15-staff-report', SOURCES.berkeleyStaffReport);
-  await pdfText('abag-sb79-summary-2026-07-17', SOURCES.abagSummary);
+  await out.pdfText('hcd-sb79-mpo-advisory', SOURCES.hcdAdvisory);
+  await out.pdfText('berkeley-pc-2026-04-15-staff-report', SOURCES.berkeleyStaffReport);
+  await out.pdfText('abag-sb79-summary-2026-07-17', SOURCES.abagSummary);
 
-  writeFileSync(
-    new URL('manifest.json', DATA),
-    JSON.stringify({ asOf: retrievedAt.slice(0, 10), retrievedAt, center: { stationId: STATION_ID, lonLat: c }, radiusFt: RADIUS_FT, accessRadiusFt: ACCESS_RADIUS_FT, files: manifest }, null, 2) + '\n',
-  );
-  console.log(`Wrote data/manifest.json (asOf ${retrievedAt.slice(0, 10)})`);
+  out.writeManifest({ center: { stationId: STATION_ID, lonLat: c }, radiusFt: RADIUS_FT, accessRadiusFt: ACCESS_RADIUS_FT });
 }
 
 await main();

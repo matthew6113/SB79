@@ -10,7 +10,8 @@
     "check": "astro check",
     "test": "vitest run",
     "snapshot": "NODE_USE_ENV_PROXY=1 node --no-warnings scripts/snapshot.ts",
-    "propose-exhibits": "node --no-warnings scripts/propose-exhibits.ts"
+    "propose-exhibits": "node --no-warnings scripts/propose-exhibits.ts",
+    "snapshot-rockridge": "NODE_USE_ENV_PROXY=1 node --no-warnings scripts/snapshot-rockridge.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "8.0.2",

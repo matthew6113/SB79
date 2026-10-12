@@ -17,6 +17,14 @@ source's own last-edit date; its `asOf` is the memo's data date.
 | `population.json` | MTC (ACS 2019–23, shown) and 2020 Census |
 | `sources/*.txt` | Text of the HCD advisory, ABAG summary, and Berkeley staff report PDFs |
 
+`rockridge/` holds the III.D contrast site, 5727 College Ave, Oakland
+(`pnpm --filter @zoning-envelope/sb79-memo snapshot-rockridge`): the parcel,
+MTC stops and zones around it, Oakland's base zone, S-8 (SB 79) status and
+height area from the city's GIS, Oakland Ordinance 13875 C.M.S. (Legistar
+record and text pages), the opportunity tract, `site.json` (evaluateSite
+results), and `project.json` (curated facts about the pending application,
+each quoted from a saved news or fact-sheet page in `rockridge/sources/`).
+
 Two files are curated, not fetched, and every value in them is quoted from a
 file in `sources/` (tests check the quotes):
 

@@ -1,0 +1,31 @@
+{
+  "retrievedAt": "2026-10-12T18:38:54.734Z",
+  "baseZone": {
+    "zone": "CN-2",
+    "ordinance": "13763",
+    "lastUpdate": "12/17/2024",
+    "source": "https://services.arcgis.com/9tC74aDHuml0x5Yz/arcgis/rest/services/Zoning_Group_Layers_/FeatureServer/0",
+    "sourceLastEdit": "2026-07-23T16:51:17.274Z"
+  },
+  "s8": {
+    "tier": "1",
+    "distance": "quarter mi",
+    "eligible": "Y",
+    "availability": "Covered",
+    "apn": "014 126604701",
+    "address": "5727 COLLEGE AVE OAKLAND 94618",
+    "source": "https://services.arcgis.com/9tC74aDHuml0x5Yz/arcgis/rest/services/Zoning_Group_Layers_/FeatureServer/7",
+    "sourceLastEdit": "2026-07-23T16:51:49.377Z",
+    "note": "Oakland's S-8 combining zone (Ord. 13875 C.M.S., effective 2026-07-01). AVAIL 'Covered' means eligible and not excluded: SB 79's standards apply."
+  },
+  "heightArea": {
+    "maxHeightFt": 95,
+    "effective": "2023-10-30T00:00:00.000Z",
+    "source": "https://services.arcgis.com/9tC74aDHuml0x5Yz/arcgis/rest/services/Height___Commercial_Corridor_Eff20241217_Ord13823/FeatureServer/0",
+    "sourceLastEdit": "2024-12-26T22:49:46.445Z"
+  },
+  "zoningClass": {
+    "value": "commercial",
+    "note": "CN-2 is a Neighborhood Commercial zone; Oakland's S-8 layer marks the parcel eligible (zoned residential, mixed, or commercial)."
+  }
+}
