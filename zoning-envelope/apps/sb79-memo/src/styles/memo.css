@@ -133,3 +133,28 @@ h2 {
     padding-top: 1rem;
   }
 }
+
+.open-issue {
+  border: 1px solid var(--ink-soft);
+  padding: 0.6rem 0.9rem;
+  margin: 0.9rem 0 0;
+  font-size: 0.9rem;
+}
+
+.open-issue-title {
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+}
+
+.footnotes {
+  font-size: 0.85rem;
+  border-top: 1px solid var(--ghost);
+  margin-top: 3rem;
+}
+
+a.cite,
+.footnotes a {
+  color: inherit;
+}

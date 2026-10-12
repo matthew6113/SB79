@@ -1,0 +1,42 @@
+---
+/**
+ * Statute citations from sb79.json (or cite strings), linked to the official
+ * text on leginfo. Repeated cites are dropped, and consecutive cites to the
+ * same section are shortened legal-style: "§ 65912.157(a)(3)(A), (a)(3)(B)".
+ * Each quote travels along as a tooltip until Phase 3's popover.
+ */
+import type { CitedLeaf } from '@zoning-envelope/law';
+
+interface Props {
+  of: CitedLeaf | string | (CitedLeaf | string)[];
+}
+
+const seen = new Set<string>();
+const items = [Astro.props.of]
+  .flat()
+  .map((x) => (typeof x === 'string' ? { cite: x, quote: undefined as string | undefined } : { cite: x.cite, quote: x.quote }))
+  .filter((it) => (seen.has(it.cite) ? false : (seen.add(it.cite), true)));
+
+const SECTION = /^(Gov\. Code § \d+(?:\.\d+)?)(\(.*\))$/;
+const parts = items.map((it, i) => {
+  const m = it.cite.match(SECTION);
+  const prev = items[i - 1]?.cite.match(SECTION);
+  const sameSection = !!m && !!prev && m[1] === prev[1];
+  return { ...it, label: sameSection ? m![2] : it.cite, sep: i === 0 ? '' : sameSection ? ', ' : '; ' };
+});
+
+function href(cite: string): string | undefined {
+  const gov = cite.match(/^Gov\. Code § (\d+(?:\.\d+)?)/);
+  if (gov) return `https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=${gov[1]}.`;
+  const cons = cite.match(/^Cal\. Const\., art\. ([IVX]+), § (\d+)/);
+  if (cons) return `https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SEC.%20${cons[2]}.&article=${cons[1]}`;
+  return undefined;
+}
+---
+
+{parts.map((p) => (
+  <>
+    {p.sep}
+    {href(p.cite) ? <a class="cite" href={href(p.cite)} title={p.quote}>{p.label}</a> : <span class="cite">{p.label}</span>}
+  </>
+))}<slot />

@@ -1,0 +1,15 @@
+{
+  "section": "BMC § 23.328.030",
+  "source": {
+    "title": "Berkeley Municipal Code ch. 23.328 (gocodebook.com mirror)",
+    "url": "https://gocodebook.com/library/us/ca/berkeley/title-23-zoning/division-3-citywide-provisions/chapter-23.328-inclusionary-housing",
+    "file": "sources/bmc-23.328-inclusionary-mirror.txt",
+    "note": "berkeley.municipal.codes blocks automated access; verify against the official code before citing."
+  },
+  "percentOfUnits": { "value": 20, "quote": "unless at least 20% of the Residential Units are Affordable Units" },
+  "rounding": { "value": "up", "quote": "When the calculation results in a fractional unit, an Applicant will round up to the nearest whole unit" },
+  "veryLowShareOfRequired": {
+    "value": 50,
+    "quote": "At least 50% of the required Affordable Units in the Housing Development Project shall be offered at a rent that is affordable to Very Low Income Households"
+  }
+}

@@ -100,6 +100,7 @@ export const sb79Schema = z
       .object({
         baseDensity: text,
         noAdditionalHeightRequired: flag,
+        roundingRule: text,
         heightExceptionFt: num,
         additionalConcessions: z.object({ extremelyLow: num, veryLow: num, low: num }).strict(),
       })

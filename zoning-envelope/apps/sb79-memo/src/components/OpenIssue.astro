@@ -1,0 +1,12 @@
+---
+/** A boxed "Open issue" note, placed at the paragraph where the issue bites (SB79_SPEC.md, guardrails). */
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<aside class="open-issue" role="note">
+  <p class="open-issue-title">Open issue: {title}</p>
+  <slot />
+</aside>

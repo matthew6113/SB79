@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-10-12T18:38:54.734Z",
+  "retrievedAt": "2026-10-12T20:41:24.138Z",
   "file": "26-0397",
   "title": "Subject: \tSenate Bill 79 Planning Code Implementation Ordinance\r",
   "status": "Passed",
@@ -34,7 +34,7 @@
   ],
   "textSource": "sources/oakland-sb79-ordinance-2026-03-05.txt",
   "rockridgeCarveOut": {
-    "section": "Oakland Planning Code § 17.86.060.A (Ord. 13875 C.M.S.)",
+    "section": "Oakland Planning Code § 17.86.060.A",
     "quote": "Not including sites within one-half mile of Ashby, MacArthur, and Rockridge BART stations"
   },
   "signedOrdinance": "https://oakland.legistar1.com/oakland/attachments/7be6e13c-d823-4482-97b9-2c1a357e6a3c.pdf",

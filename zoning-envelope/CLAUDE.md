@@ -108,8 +108,10 @@ apps/sb79-memo/
   astro.config.mjs        # MDX + React integrations
   src/content/memo.mdx    # the memo text, one <Step id> per paragraph
   src/script.ts           # paragraph id -> figure + state (the memo script table)
-  src/memo.config.ts      # letterhead config (FROM stays configurable)
-  src/components/         # Step.astro (paragraph wrapper), Letterhead.astro
+  src/memo.config.ts      # letterhead config (FROM stays configurable) and exhibit APNs
+  src/memo-data.ts        # every number the memo shows, from @zoning-envelope/law and data/
+  src/format.ts           # number, date, and address formatting (no legal values)
+  src/components/         # Step, Letterhead, Law (statute cites), Source, OpenIssue
   src/figures/            # React islands: MapFigure, EnvelopeFigure, Checklist, Timeline
   src/layouts/            # MemoLayout.astro
   src/pages/index.astro   # text column left, pinned figure right (top 45% on phones)
@@ -157,6 +159,13 @@ III.D (`density-bonus-contrast`): SB 79 requires the city to allow at least
 about 306 ft under the Density Bonus Law. The memo takes no position on that
 application. Its data is in `data/rockridge/`.
 
-**Phase status.** Phase 0 (scaffold) and Phase 1 (law and data) done.
-Exhibit parcels are proposed in `EXHIBITS.md` and await Matthew's choice.
-Phase 2 (memo text) is next.
+**Writing memo.mdx.** Every number is an MDX expression over `memo-data`
+(digits and number words both); `test/memo.test.ts` fails on hand-typed ones.
+Cites go in GFM footnotes (`[^key]`) whose definitions render `<Law of={leaf} />`
+or `<Source source={...} />`; never type a cite by hand. Open issues use
+`<OpenIssue title>` inside the paragraph's `<Step>`.
+
+**Phase status.** Phases 0 and 1 done. Exhibits are the top-ranked candidates
+(A 1731 Sacramento St, B 1510 Virginia St, C 1450 Acton Crescent), set in
+`src/memo.config.ts`. Phase 2: the memo prose is drafted and awaits Matthew's
+edit and approval; Phase 3 (static figures) is next after that.

@@ -1,0 +1,37 @@
+{
+  "berkeley": {
+    "status": "defaults",
+    "summary": "No exemption, exclusion, or alternative plan; SB 79's defaults apply in full.",
+    "source": {
+      "title": "California YIMBY, SB 79 one month in",
+      "date": "2026-08-03",
+      "url": "https://cayimby.org/blog/sb-79-one-month-in-taking-stock-of-california-yimbys-signature-bill/",
+      "file": "sources/cayimby-sb79-one-month-2026-08-03.txt",
+      "quote": "like Sacramento and Berkeley, opted not to take any deferrals or exclusions at all"
+    }
+  },
+  "oakland": {
+    "status": "exclusions",
+    "summary": "Interim exclusions under Gov. Code § 65912.161(b), not including the station areas of Ashby, MacArthur, and Rockridge BART.",
+    "ordinanceRecord": "rockridge/oakland-ordinance.json",
+    "source": {
+      "title": "Oakland Ordinance 13875 C.M.S. (text as sent to final passage)",
+      "url": "https://oakland.legistar1.com/oakland/attachments/21ed23c1-c080-4849-bd24-0c6b4a770de6.pdf",
+      "file": "rockridge/sources/oakland-sb79-ordinance-2026-03-05.txt",
+      "quote": "Not including sites within one-half mile of Ashby, MacArthur, and Rockridge BART stations"
+    }
+  },
+  "sanFrancisco": {
+    "status": "alternative-plan",
+    "ordinance": "082-26",
+    "summary": "A transit-oriented development alternative plan, which HCD found in substantial compliance.",
+    "source": {
+      "title": "HCD, review letter to San Francisco on its enacted SB 79 ordinance",
+      "date": "2026-07-01",
+      "url": "https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/HAU/san-francisco-sb79-in-070126.pdf",
+      "file": "sources/hcd-san-francisco-review-2026-07-01.txt",
+      "quote": "the Ordinance and Plan substantially comply with SB 79"
+    },
+    "ordinanceQuote": "adopted and enacted Ordinance 082-26"
+  }
+}

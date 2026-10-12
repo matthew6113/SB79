@@ -1,6 +1,6 @@
 {
   "asOf": "2026-10-12",
-  "retrievedAt": "2026-10-12T17:30:12.500Z",
+  "retrievedAt": "2026-10-12T20:33:06.338Z",
   "center": {
     "stationId": "904309",
     "lonLat": [
@@ -89,6 +89,26 @@
       "file": "sources/abag-sb79-summary-2026-07-17.txt",
       "source": "https://abag.ca.gov/sites/default/files/documents/2026-07/SB79-Summary-07172026.pdf",
       "sourceLastEdit": "2026-08-25T16:07:45.000Z"
+    },
+    {
+      "file": "sources/cayimby-sb79-one-month-2026-08-03.txt",
+      "source": "https://cayimby.org/blog/sb-79-one-month-in-taking-stock-of-california-yimbys-signature-bill/",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "sources/hcd-san-francisco-review-2026-07-01.txt",
+      "source": "https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/HAU/san-francisco-sb79-in-070126.pdf",
+      "sourceLastEdit": "2026-07-02T20:23:34.000Z"
+    },
+    {
+      "file": "sources/sfplanning-sb79-bulletin.txt",
+      "source": "https://sfplanning.org/node/3734",
+      "sourceLastEdit": "2026-10-12T18:52:06.000Z"
+    },
+    {
+      "file": "sources/bmc-23.328-inclusionary-mirror.txt",
+      "source": "https://gocodebook.com/library/us/ca/berkeley/title-23-zoning/division-3-citywide-provisions/chapter-23.328-inclusionary-housing",
+      "sourceLastEdit": null
     }
   ]
 }

@@ -1,10 +1,10 @@
 ---
 import { memoConfig } from '../memo.config';
+import { B, asOf } from '../memo-data';
+import { date } from '../format';
 
-// DATE (the data's as-of date) and the Exhibit B address arrive with the
-// Phase 1 data snapshot. Until then the letterhead shows placeholders.
-const asOf = '[as-of date: Phase 1 snapshot]';
-const site = '[Exhibit B address]';
+// DATE is the data snapshot's as-of date (data/manifest.json).
+const dated = date(asOf);
 ---
 
 <header class="letterhead">
@@ -12,8 +12,8 @@ const site = '[Exhibit B address]';
   <dl>
     <dt>To</dt><dd>{memoConfig.to}</dd>
     <dt>From</dt><dd>{memoConfig.from}</dd>
-    <dt>Date</dt><dd>{asOf}</dd>
-    <dt>Re</dt><dd>What SB 79 allows at {site}, North Berkeley</dd>
+    <dt>Date</dt><dd>{dated}</dd>
+    <dt>Re</dt><dd>What SB 79 allows at {B.address}, North Berkeley</dd>
   </dl>
-  <p class="disclaimer">For general information only. Not legal advice. Facts and law as of {asOf}.</p>
+  <p class="disclaimer">For general information only. Not legal advice. Facts and law as of {dated}.</p>
 </header>

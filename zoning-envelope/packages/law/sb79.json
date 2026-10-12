@@ -158,6 +158,7 @@
   "densityBonus": {
     "baseDensity": { "value": "the SB 79 density is the base density for the Density Bonus Law", "cite": "Gov. Code § 65912.157(d)", "source": "gov-65912.157.txt", "quote": "using the density allowed under this section as the base density" },
     "noAdditionalHeightRequired": { "value": true, "cite": "Gov. Code § 65912.157(d)", "source": "gov-65912.157.txt", "quote": "shall not be required to grant a waiver, incentive, or concession pursuant to Section 65915 for additional height beyond that specified in this section" },
+    "roundingRule": { "value": "density bonus calculations round fractional units up", "cite": "Gov. Code § 65915(f)(5)", "source": "gov-65915.txt", "quote": "All density calculations resulting in fractional units shall be rounded up to the next whole number.", "note": "Governs density bonus calculations; Chapter 4.1.5 has no rounding rule of its own for the base standards." },
     "heightExceptionFt": { "value": 33, "unit": "feet", "cite": "Gov. Code § 65915(d)(2)(D)", "source": "gov-65915.txt", "quote": "a height increase of up to three additional stories, or 33 feet", "note": "For projects meeting § 65915(b)(1)(G) (100 percent lower income, up to 20 percent moderate) within one-half mile of a major transit stop." },
     "additionalConcessions": {
       "extremelyLow": { "value": 3, "unit": "concessions", "cite": "Gov. Code § 65912.157(d)(1)", "source": "gov-65912.157.txt", "quote": "For a development providing housing for extremely low income households, three additional concessions." },

@@ -38,6 +38,10 @@ const SOURCES = {
   hcdAdvisory: 'https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/sb-79-mpo-advisory.pdf',
   berkeleyStaffReport: 'https://berkeleyca.gov/sites/default/files/2026-04/2026-04-15_PC_Item%2010A_SB%2079%20and%20AB%20893.pdf',
   abagSummary: 'https://abag.ca.gov/sites/default/files/documents/2026-07/SB79-Summary-07172026.pdf',
+  caYimby: 'https://cayimby.org/blog/sb-79-one-month-in-taking-stock-of-california-yimbys-signature-bill/',
+  hcdSanFrancisco: 'https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/HAU/san-francisco-sb79-in-070126.pdf',
+  sfPlanning: 'https://sfplanning.org/node/3734',
+  bmcInclusionary: 'https://gocodebook.com/library/us/ca/berkeley/title-23-zoning/division-3-citywide-provisions/chapter-23.328-inclusionary-housing',
 } as const;
 
 const out = createWriter(DATA);
@@ -262,6 +266,10 @@ async function main() {
   await out.pdfText('hcd-sb79-mpo-advisory', SOURCES.hcdAdvisory);
   await out.pdfText('berkeley-pc-2026-04-15-staff-report', SOURCES.berkeleyStaffReport);
   await out.pdfText('abag-sb79-summary-2026-07-17', SOURCES.abagSummary);
+  await out.htmlText('cayimby-sb79-one-month-2026-08-03', SOURCES.caYimby);
+  await out.pdfText('hcd-san-francisco-review-2026-07-01', SOURCES.hcdSanFrancisco);
+  await out.htmlText('sfplanning-sb79-bulletin', SOURCES.sfPlanning);
+  await out.htmlText('bmc-23.328-inclusionary-mirror', SOURCES.bmcInclusionary);
 
   out.writeManifest({ center: { stationId: STATION_ID, lonLat: c }, radiusFt: RADIUS_FT, accessRadiusFt: ACCESS_RADIUS_FT });
 }

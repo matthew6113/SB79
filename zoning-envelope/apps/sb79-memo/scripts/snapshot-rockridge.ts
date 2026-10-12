@@ -115,7 +115,7 @@ async function main() {
     textSource: 'sources/oakland-sb79-ordinance-2026-03-05.txt',
     // The council's March 3 amendment: the zoning-based exclusion does not reach the Rockridge station area.
     rockridgeCarveOut: {
-      section: 'Oakland Planning Code § 17.86.060.A (Ord. 13875 C.M.S.)',
+      section: 'Oakland Planning Code § 17.86.060.A',
       quote: 'Not including sites within one-half mile of Ashby, MacArthur, and Rockridge BART stations',
     },
     signedOrdinance: SOURCES.ordinanceSigned,

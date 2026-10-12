@@ -40,7 +40,7 @@ export const script = [
   { id: 'conditions', section: 'III.C Conditions', figure: 'checklist', state: 'conditions-tick' },
   { id: 'counterfactual', section: 'III.C counterfactual', figure: 'envelope', state: 'collapse' },
   { id: 'density-bonus', section: 'III.D Density bonus', figure: 'envelope', state: 'bonus-locked-height' },
-  { id: 'density-bonus-contrast', section: 'III.D Contrast: 5727 College Ave, Oakland', figure: 'envelope', state: 'contrast-three-heights' },
+  { id: 'density-bonus-contrast', section: 'III.D Contrast: Rockridge, Oakland', figure: 'envelope', state: 'contrast-three-heights' },
   { id: 'approval', section: 'III.E Approval', figure: 'timeline', state: 'approval-path' },
   { id: 'city-options', section: 'III.F How cities change it', figure: 'map', state: 'bay-area-options' },
   { id: 'other-bands', section: 'III.G The other bands', figure: 'envelope', state: 'exhibit-comparison' },
