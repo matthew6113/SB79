@@ -3,7 +3,12 @@
 const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export const num = (n: number, digits = 0) => n.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+const FORMATS = new Map<number, Intl.NumberFormat>();
+export const num = (n: number, digits = 0) => {
+  let f = FORMATS.get(digits);
+  if (!f) FORMATS.set(digits, (f = new Intl.NumberFormat('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })));
+  return f.format(n);
+};
 /** Whole numbers up to ten as words (statute style), larger ones as numerals. */
 export const word = (n: number) => (Number.isInteger(n) && n >= 0 && n <= 10 ? WORDS[n]! : num(n));
 export const ft = (n: number) => `${num(n)} feet`;

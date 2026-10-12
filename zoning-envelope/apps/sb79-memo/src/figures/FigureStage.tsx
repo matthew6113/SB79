@@ -4,13 +4,22 @@
  *
  *   setStep(stepId, progress) -> figures[entry.figure].setState(entry.state, progress)
  *
- * The Phase 4 scroll engine calls window.sb79Figures.setStep (or dispatches
- * an "sb79:step" event with { id, progress }). In development, a panel lists
- * every state and `?step=<id>&p=<0..1>` opens one directly.
+ * The scroll engine (src/scroll/engine.ts) drives setStep from the reader's
+ * scroll. Where consecutive steps use different figures, the two crossfade as
+ * the new step begins (scroll-linked, like everything else); captions do the
+ * same. Under prefers-reduced-motion each step shows settled and the stage
+ * crossfades from a snapshot of the previous view.
+ *
+ * window.sb79Figures exposes setStep and scrollTo; an "sb79:step" event with
+ * { id, progress } also sets a step. In development a panel lists every state
+ * and `?step=<id>&p=<0..1>` opens one.
  */
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { FIGURES, script, scriptEntry, type FigureId } from '../script';
 import type { FigureData, FigureHandle } from './types';
+import { stateSeconds } from './views';
+import { NEUTRAL } from './motion';
+import { REDUCED_QUERY, startEngine, type Engine } from '../scroll/engine';
 import MapFigure from './MapFigure';
 import Checklist from './Checklist';
 import Timeline from './Timeline';
@@ -25,37 +34,83 @@ export interface Active {
 
 declare global {
   interface Window {
-    sb79Figures?: { setStep(id: string, progress: number): void; steps: readonly string[] };
+    sb79Figures?: {
+      setStep(id: string, progress: number): void;
+      scrollTo(id: string, progress?: number): void;
+      steps: readonly string[];
+    };
   }
 }
 
-function initial(): Active {
-  const fallback = { step: script[0].id, progress: 1 };
-  if (!import.meta.env.DEV || typeof location === 'undefined') return fallback;
-  const q = new URLSearchParams(location.search);
-  const step = q.get('step');
-  if (!step || !script.some((e) => e.id === step)) return fallback;
-  const p = Number(q.get('p') ?? 1);
-  return { step, progress: Number.isFinite(p) ? Math.min(1, Math.max(0, p)) : 1 };
+const indexOf = (id: string) => script.findIndex((e) => e.id === id);
+
+/** Keeps one figure's failure (no WebGL, say) from taking down the others. */
+class FigureBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? <p className="fig-fallback">This figure could not be drawn in this browser (it needs WebGL).</p> : this.props.children;
+  }
+}
+
+/** A still copy of a figure for the reduced-motion crossfade; WebGL canvases are copied as 2D. */
+function snapshot(el: HTMLElement): HTMLElement {
+  const clone = el.cloneNode(true) as HTMLElement;
+  const from = el.querySelectorAll('canvas');
+  clone.querySelectorAll('canvas').forEach((c, i) => {
+    const src = from[i];
+    if (!src) return;
+    c.width = src.width;
+    c.height = src.height;
+    c.getContext('2d')?.drawImage(src, 0, 0);
+  });
+  clone.classList.add('is-active');
+  clone.setAttribute('aria-hidden', 'true');
+  return clone;
 }
 
 export default function FigureStage() {
   const [data, setData] = useState<FigureData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [active, setActive] = useState<Active>(initial);
+  const [active, setActive] = useState<Active>({ step: script[0].id, progress: 0 });
+  const [reduced, setReduced] = useState(false);
   const handles = useRef<Partial<Record<FigureId, FigureHandle>>>({});
+  const slots = useRef<Partial<Record<FigureId, HTMLDivElement | null>>>({});
+  const fade = useRef<HTMLDivElement>(null);
+  const engine = useRef<Engine | null>(null);
   const activeRef = useRef(active);
   activeRef.current = active;
+  const reducedRef = useRef(reduced);
+  reducedRef.current = reduced;
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}figure-data.json`)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`figure-data.json: HTTP ${r.status}`))))
       .then((d: FigureData) => setData(d))
       .catch((e: unknown) => setError(String(e)));
+    const mq = matchMedia(REDUCED_QUERY);
+    const onChange = () => setReduced(mq.matches);
+    onChange();
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
   }, []);
 
+  /** Seconds of motion per step, for the engine and the crossfades. */
+  const [seconds, setSeconds] = useState<number[]>([]);
+  useEffect(() => {
+    if (!data) return;
+    const ctx = { block: data.envelope.block, statuses: data.checklist.cards.map((c) => c.status) };
+    setSeconds(script.map((e) => stateSeconds(e.figure, e.state, ctx)));
+  }, [data]);
+
   const apply = useCallback((a: Active) => {
-    const e = scriptEntry(a.step);
+    const i = indexOf(a.step);
+    const e = script[i]!;
+    // Crossing into a new figure: the outgoing one holds its previous step, settled.
+    const prev = script[i - 1];
+    if (prev && prev.figure !== e.figure) handles.current[prev.figure]?.setState(prev.state, 1);
     handles.current[e.figure]?.setState(e.state, a.progress);
   }, []);
 
@@ -63,7 +118,8 @@ export default function FigureStage() {
   const attach = useCallback((figure: FigureId) => (h: FigureHandle | null) => {
     if (h) {
       handles.current[figure] = h;
-      if (scriptEntry(activeRef.current.step).figure === figure) apply(activeRef.current);
+      const i = indexOf(activeRef.current.step);
+      if (script[i]!.figure === figure || script[i - 1]?.figure === figure) apply(activeRef.current);
     } else {
       delete handles.current[figure];
     }
@@ -74,11 +130,49 @@ export default function FigureStage() {
 
   const setStep = useCallback((id: string, progress: number) => {
     scriptEntry(id); // throws on an unknown id
-    setActive({ step: id, progress: Math.min(1, Math.max(0, progress)) });
+    const p = Math.min(1, Math.max(0, progress));
+    const prev = activeRef.current;
+    if (reducedRef.current && prev.step !== id && fade.current) {
+      // Reduced motion: crossfade from a still of what was showing.
+      const from = slots.current[scriptEntry(prev.step).figure];
+      if (from) {
+        const still = snapshot(from);
+        fade.current.replaceChildren(still);
+        still.style.opacity = '1';
+        requestAnimationFrame(() => requestAnimationFrame(() => { still.style.opacity = '0'; }));
+        still.addEventListener('transitionend', () => still.remove(), { once: true });
+        // If the transition never ends (a hidden tab, a stalled compositor), the still must not linger.
+        setTimeout(() => still.remove(), 1000);
+      }
+    }
+    if (prev.step !== id || prev.progress !== p) setActive({ step: id, progress: p });
   }, []);
 
+  // Start the scroll engine once the figure data (and so every step's timing) is known.
   useEffect(() => {
-    window.sb79Figures = { setStep, steps: script.map((e) => e.id) };
+    if (!data || seconds.length !== script.length) return;
+    const steps = script.map((e, i) => {
+      const el = document.querySelector<HTMLElement>(`[data-step="${e.id}"]`);
+      if (!el) throw new Error(`<Step id="${e.id}"> is not on the page`);
+      return { id: e.id, el, seconds: seconds[i]! };
+    });
+    const eng = startEngine(steps, (i, p) => setStep(script[i]!.id, p));
+    engine.current = eng;
+    if (import.meta.env.DEV) {
+      const q = new URLSearchParams(location.search);
+      const step = q.get('step');
+      if (step && script.some((e) => e.id === step)) eng.scrollTo(step, Math.min(1, Math.max(0, Number(q.get('p') ?? 1)) || 0));
+    }
+    return () => { eng.destroy(); engine.current = null; };
+  }, [data, seconds, setStep]);
+
+  const scrollTo = useCallback((id: string, progress = 1) => {
+    if (engine.current) engine.current.scrollTo(id, progress);
+    else setStep(id, progress);
+  }, [setStep]);
+
+  useEffect(() => {
+    window.sb79Figures = { setStep, scrollTo, steps: script.map((e) => e.id) };
     const onStep = (ev: Event) => {
       const d = (ev as CustomEvent<{ id: string; progress?: number }>).detail;
       setStep(d.id, d.progress ?? 1);
@@ -88,34 +182,58 @@ export default function FigureStage() {
       window.removeEventListener('sb79:step', onStep);
       delete window.sb79Figures;
     };
-  }, [setStep]);
+  }, [setStep, scrollTo]);
 
-  const entry = scriptEntry(active.step);
+  // Crossfade window at the start of a step: the neutral "show" duration, in step progress.
+  const i = indexOf(active.step);
+  const entry = script[i]!;
+  const prev = script[i - 1];
+  const w = reduced || !seconds[i] ? 1 : Math.min(1, (active.progress * seconds[i]!) / NEUTRAL.show.seconds);
+  const opacityOf = (f: FigureId) =>
+    f === entry.figure ? (prev && prev.figure !== f ? w : 1) : prev && prev.figure === f && entry.figure !== f ? 1 - w : 0;
   const caption = data?.[entry.figure].captions[entry.state];
-  const show = (f: FigureId) => `figure-slot ${entry.figure === f ? 'is-active' : ''}`;
+  const prevCaption = prev && data?.[prev.figure].captions[prev.state];
+
+  const slot = (f: FigureId, child: ReactNode) => {
+    const o = opacityOf(f);
+    return (
+      <div ref={(el) => { slots.current[f] = el; }} className={`figure-slot ${o > 0 ? 'is-active' : ''}`} style={{ opacity: o }} aria-hidden={f !== entry.figure}>
+        {child}
+      </div>
+    );
+  };
 
   return (
-    <div className="figure-stage" data-step={entry.id} data-figure={entry.figure} data-state={entry.state} data-progress={active.progress} data-ready={Boolean(data)}>
+    <div
+      className={`figure-stage ${reduced ? 'is-reduced' : ''}`}
+      data-step={entry.id} data-figure={entry.figure} data-state={entry.state} data-progress={active.progress.toFixed(3)} data-ready={Boolean(data)}
+    >
       <div className="figure-frame">
         {error && <p className="fig-fallback">{error}</p>}
         {!data && !error && <p className="fig-fallback">Loading figures…</p>}
         {data && (
           <>
-            <div className={show('map')}><MapFigure data={data.map} ref={refs.map} /></div>
-            <div className={show('envelope')}>
-              <Suspense fallback={<p className="fig-fallback">Loading the 3D figure…</p>}>
-                <EnvelopeFigure data={data.envelope} ref={refs.envelope} />
-              </Suspense>
-            </div>
-            <div className={show('checklist')}><Checklist data={data.checklist} ref={refs.checklist} /></div>
-            <div className={show('timeline')}><Timeline data={data.timeline} ref={refs.timeline} /></div>
+            {slot('map', <MapFigure data={data.map} ref={refs.map} />)}
+            {slot('envelope', (
+              <FigureBoundary>
+                <Suspense fallback={<p className="fig-fallback">Loading the 3D figure…</p>}>
+                  <EnvelopeFigure data={data.envelope} ref={refs.envelope} />
+                </Suspense>
+              </FigureBoundary>
+            ))}
+            {slot('checklist', <Checklist data={data.checklist} ref={refs.checklist} />)}
+            {slot('timeline', <Timeline data={data.timeline} ref={refs.timeline} />)}
           </>
         )}
+        <div ref={fade} className="figure-fade" aria-hidden />
       </div>
-      <p className="figure-caption">{caption ?? ' '}</p>
+      <div className="figure-caption">
+        {prevCaption && prevCaption !== caption && w < 1 && <p style={{ opacity: 1 - w }}>{prevCaption}</p>}
+        <p style={{ opacity: prevCaption && prevCaption !== caption ? w : 1 }}>{caption ?? ' '}</p>
+      </div>
       {DevPanel && (
         <Suspense fallback={null}>
-          <DevPanel active={active} setStep={setStep} />
+          <DevPanel active={active} setStep={setStep} scrollTo={scrollTo} />
         </Suspense>
       )}
     </div>

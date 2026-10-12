@@ -3,9 +3,9 @@
  * dated axis from SB 79's signing to the denial-presumption marker. Text and
  * dates come from figure-data.ts.
  */
-import { useImperativeHandle, useState, type Ref } from 'react';
+import { memo, useImperativeHandle, useState, type Ref } from 'react';
 import type { FigureHandle, TimelineData } from './types';
-import { timelineViews, type TimelineView } from './views';
+import { timelineView } from './views';
 import { shortDate } from '../format';
 
 interface Props {
@@ -13,18 +13,17 @@ interface Props {
   ref?: Ref<FigureHandle>;
 }
 
-const views = timelineViews as Record<string, (p: number) => TimelineView>;
 const day = (iso: string) => Date.parse(`${iso}T00:00:00Z`) / 86_400_000;
 
-export default function Timeline({ data, ref }: Props) {
+function Timeline({ data, ref }: Props) {
   const [{ state, progress }, set] = useState({ state: 'approval-path', progress: 1 });
   useImperativeHandle(ref, () => ({
     setState(s: string, p: number) {
-      if (!views[s]) throw new Error(`Timeline has no state "${s}"`);
+      if (s !== 'approval-path') throw new Error(`Timeline has no state "${s}"`);
       set({ state: s, progress: p });
     },
   }), []);
-  const v = views[state]!(progress);
+  const v = timelineView(state, progress);
   const path = data.path;
   const step = (i: number, n: number) => Math.min(1, Math.max(0, v.path * n - i));
 
@@ -90,3 +89,6 @@ export default function Timeline({ data, ref }: Props) {
     </div>
   );
 }
+
+/** Re-renders only for its own state: the stage updates on every frame of every figure. */
+export default memo(Timeline);

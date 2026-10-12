@@ -1,38 +1,53 @@
 /**
- * What each figure shows in each script state, as a pure function of
- * progress (0..1). Figures render these views; they hold no state logic of
- * their own. Progress 1 is the settled look the dev panel jumps to, and every
- * value is a function of progress alone, so scrolling back plays a state in
- * reverse (CLAUDE.md rule 3).
+ * What each figure shows in each script state, as a function of progress
+ * (0..1). Every state is a motion (src/figures/motion.ts): a timeline of
+ * grammar verbs over a view object, so the timings and eases are the motion
+ * grammar's and nothing else.
  *
- * These views carry no legal numbers: heights and counts come from the
- * figure data (built from sb79.json and data/) passed in.
+ * Continuity: where two consecutive paragraphs use the same figure, the later
+ * state starts from the earlier one's settled view (`after(...)`), so the
+ * figure never jumps at a paragraph boundary, forward or back.
+ * test/figures.test.ts checks this for every such pair in src/script.ts.
+ *
+ * Views carry no legal numbers: heights and counts come from the figure data
+ * (built from sb79.json and data/) passed in.
  */
-import type { EnvelopeData } from './types';
+import { motion, type Beat, type Motion } from './motion';
+import type { CardStatus, EnvelopeData } from './types';
 
-/** Progress within the window [a, b] of the state's own progress, clamped to 0..1. */
-export const seg = (p: number, a: number, b: number) => Math.min(1, Math.max(0, (p - a) / (b - a)));
-export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+const cache = <K, V>(make: (k: K) => V) => {
+  const m = new Map<K, V>();
+  return (k: K) => {
+    if (!m.has(k)) m.set(k, make(k));
+    return m.get(k)!;
+  };
+};
 
 // ---------------------------------------------------------------- map
 
 export type MapBox = 'station' | 'rings' | 'city' | 'bayArea';
+export type MapLegend = 'counties' | 'distance' | 'eligibility' | 'bay';
 
 export interface MapView {
-  scene: 'california' | 'local';
-  box: MapBox;
-  /** California: qualifying counties fill, Alameda emphasized, Orange's open issue, legend. */
+  /** Opacity of the California scene and of the local (feet) scene. */
+  ca: number;
+  local: number;
+  /** The local viewBox moves from box[0] to box[1] as zoom runs 0..1. */
+  box: [MapBox, MapBox];
+  zoom: number;
   utc: number;
   alameda: number;
   orange: number;
-  /** Local layers, each an opacity or a draw-on fraction. */
   parcels: number;
   tint: number;
+  gray: number;
   rail: number;
   stations: number;
   tier: number;
   accessPoints: number;
+  /** Rings: draw-on fraction, and opacity. */
   rings: number;
+  ringsAlpha: number;
   ringLabels: number;
   site: number;
   measure: number;
@@ -41,45 +56,79 @@ export interface MapView {
   berkeley: number;
   stamp: number;
   bay: number;
-  legend: 'counties' | 'distance' | 'eligibility' | 'bay' | null;
+  /** The legend crossfades from legendFrom to legend as legendIn runs 0..1. */
+  legend: MapLegend | null;
+  legendFrom: MapLegend | null;
+  legendIn: number;
 }
 
-const MAP_BASE: MapView = {
-  scene: 'local', box: 'rings',
+const MAP_START: MapView = {
+  ca: 1, local: 0, box: ['station', 'station'], zoom: 1,
   utc: 0, alameda: 0, orange: 0,
-  parcels: 1, tint: 0, rail: 1, stations: 1, tier: 1, accessPoints: 1, rings: 1, ringLabels: 1,
-  site: 1, measure: 1, outerFill: 0, population: 0, berkeley: 0, stamp: 0, bay: 0, legend: null,
+  parcels: 1, tint: 0, gray: 0, rail: 0, stations: 0, tier: 0, accessPoints: 0, rings: 0, ringsAlpha: 1, ringLabels: 0,
+  site: 0, measure: 0, outerFill: 0, population: 0, berkeley: 0, stamp: 0, bay: 0,
+  legend: 'counties', legendFrom: null, legendIn: 0,
 };
 
-export const mapViews = {
-  'transit-counties': (p: number): MapView => ({
-    ...MAP_BASE, scene: 'california', utc: seg(p, 0, 0.6), alameda: seg(p, 0.5, 0.85), orange: seg(p, 0.7, 1), legend: 'counties',
-  }),
-  'station-tier': (p: number): MapView => ({
-    ...MAP_BASE, box: 'station',
-    rail: seg(p, 0, 0.4), stations: seg(p, 0.2, 0.6), tier: seg(p, 0.7, 1),
-    accessPoints: 0, rings: 0, ringLabels: 0, site: 0, measure: 0,
-  }),
-  'distance-rings': (p: number): MapView => ({
-    ...MAP_BASE,
-    tier: 0, accessPoints: seg(p, 0, 0.2), rings: seg(p, 0.1, 0.7), ringLabels: seg(p, 0.5, 0.8),
-    site: seg(p, 0.6, 0.7), measure: seg(p, 0.7, 1), legend: 'distance',
-  }),
-  'outer-band': (p: number): MapView => ({
-    ...MAP_BASE, tier: 0, outerFill: seg(p, 0, 0.6), population: seg(p, 0.4, 1), legend: 'distance',
-  }),
-  'eligibility-tint': (p: number): MapView => ({
-    ...MAP_BASE, tier: 0, measure: 0, tint: seg(p, 0, 0.9), outerFill: 0, legend: 'eligibility',
-  }),
-  'no-exclusions': (p: number): MapView => ({
-    ...MAP_BASE, box: 'city', tier: 0, measure: 0, ringLabels: 0, accessPoints: 0, stations: 0, site: 0, rings: 0.5, tint: 1,
-    berkeley: seg(p, 0, 0.5), stamp: seg(p, 0.6, 1),
-  }),
-  'bay-area-options': (p: number): MapView => ({
-    ...MAP_BASE, box: 'bayArea', tier: 0, measure: 0, ringLabels: 0, accessPoints: 0, rings: 0, rail: 0, stations: 0, site: 0,
-    parcels: 0, berkeley: 1, bay: seg(p, 0, 0.7), legend: 'bay',
-  }),
-} satisfies Record<string, (p: number) => MapView>;
+/** Start a state from `prev`'s settled view, with a new legend that fades in. */
+function mapFrom(prev: string, legend: MapLegend | null, extra: Partial<MapView> = {}): MapView {
+  const v = mapMotion(prev).at(1);
+  const shown = v.legendIn >= 0.5 ? v.legend : v.legendFrom;
+  return legend === shown
+    ? { ...v, legend, legendFrom: null, legendIn: 1, ...extra }
+    : { ...v, legend, legendFrom: shown, legendIn: 0, ...extra };
+}
+
+type MB = Beat<MapView>;
+const MAP: Record<string, () => Motion<MapView>> = {
+  'transit-counties': () => motion(MAP_START, [
+    { verb: 'show', to: { legendIn: 1 } },
+    { verb: 'fill', to: { utc: 1 }, at: '<' },
+    { verb: 'stamp', to: { alameda: 1 } },
+    { verb: 'show', to: { orange: 1 } },
+  ] satisfies MB[]),
+  'station-tier': () => motion(mapFrom('transit-counties', null, { box: ['station', 'station'], zoom: 1 }), [
+    { verb: 'show', to: { ca: 0, local: 1, legendIn: 1 } },
+    { verb: 'show', to: { rail: 1 } },
+    { verb: 'show', to: { stations: 1 }, at: '<0.2' },
+    { verb: 'stamp', to: { tier: 1 } },
+  ]),
+  'distance-rings': () => motion(mapFrom('station-tier', 'distance', { box: ['station', 'rings'], zoom: 0 }), [
+    { verb: 'show', to: { tier: 0 } },
+    { verb: 'move', to: { zoom: 1 }, at: '<' },
+    { verb: 'show', to: { accessPoints: 1, legendIn: 1 } },
+    { verb: 'draw', to: { rings: 1 } },
+    { verb: 'show', to: { ringLabels: 1, site: 1 } },
+    { verb: 'draw', to: { measure: 1 } },
+  ]),
+  'outer-band': () => motion(mapFrom('distance-rings', 'distance', { box: ['rings', 'rings'] }), [
+    { verb: 'stamp', to: { population: 1 } },
+    { verb: 'show', to: { outerFill: 1 } },
+  ]),
+  'eligibility-tint': () => motion(mapFrom('outer-band', 'eligibility'), [
+    { verb: 'show', to: { outerFill: 0, population: 0, measure: 0, legendIn: 1 } },
+    { verb: 'show', to: { tint: 1 } },
+    { verb: 'grayOut', to: { gray: 1 }, at: '<0.2' },
+  ]),
+  'no-exclusions': () => motion(mapFrom('eligibility-tint', null, { box: ['rings', 'city'], zoom: 0 }), [
+    { verb: 'show', to: { legendIn: 1, ringLabels: 0, accessPoints: 0, stations: 0, site: 0, ringsAlpha: 0.5 } },
+    { verb: 'move', to: { zoom: 1 }, at: '<' },
+    { verb: 'show', to: { berkeley: 1 } },
+    { verb: 'stamp', to: { stamp: 1 } },
+  ]),
+  'bay-area-options': () => motion(mapFrom('no-exclusions', 'bay', { box: ['city', 'bayArea'], zoom: 0 }), [
+    { verb: 'show', to: { stamp: 0, parcels: 0, ringsAlpha: 0, rail: 0 } },
+    { verb: 'move', to: { zoom: 1 }, at: '<' },
+    { verb: 'show', to: { bay: 1, legendIn: 1 } },
+  ]),
+};
+
+const mapMotion = cache((state: string) => {
+  const make = MAP[state];
+  if (!make) throw new Error(`MapFigure has no state "${state}"`);
+  return make();
+});
+export const mapView = (state: string, p: number) => mapMotion(state).at(p);
 
 // ---------------------------------------------------------------- envelope
 
@@ -87,106 +136,185 @@ export type EnvelopeScene = 'block' | 'rockridge' | 'exhibits';
 
 export interface EnvelopeView {
   scene: EnvelopeScene;
+  /** A dissolve from another scene: its settled view fades out as `mix` runs 0..1. */
+  from: EnvelopeView | null;
+  mix: number;
   ghost: number;
-  /** The SB 79 envelope on the site: its height (ft), opacity, and color. */
+  localLabel: number;
+  /** The SB 79 envelope: height (ft), opacity, and how far its color has turned to red. */
   height: number;
   solid: number;
-  collapsed: boolean;
-  /** Dashed outline at the height floor, left by the Short Answer preview. */
+  red: number;
   outline: number;
-  /** Height dimension line with its labels. */
+  previewLabel: number;
   dimension: number;
-  /** Unit dots shown, as a count (fractional at the end). */
+  /** Unit dots shown (a count, fractional at the end) and their opacity. */
   units: number;
+  dots: number;
   bonus: number;
+  levels: number;
   lock: number;
-  /** Floor area stacked, in square feet. */
+  /** Floor area stacked (sq ft) and the plates' opacity. */
   floorArea: number;
+  plates: number;
   setback: number;
   setbackGray: number;
-  stamp: number;
+  precludeStamp: number;
   toggle: number;
+  collapseStamp: number;
+  rockRise: number;
   towers: number;
+  exRise: number;
   labor: number;
   totals: number;
-  previewLabel: number;
 }
 
-const ENV_BASE = (b: EnvelopeData['block']): EnvelopeView => ({
-  scene: 'block', ghost: 1, height: b.localHeightFt, solid: 0, collapsed: false, outline: 0, dimension: 0,
-  units: 0, bonus: 0, lock: 0, floorArea: 0, setback: 0, setbackGray: 0, stamp: 0, toggle: 0,
-  towers: 0, labor: 0, totals: 0, previewLabel: 0,
+type Block = EnvelopeData['block'];
+const envStart = (b: Block, scene: EnvelopeScene = 'block'): EnvelopeView => ({
+  scene, from: null, mix: 1, ghost: 1, localLabel: 0, height: b.localHeightFt, solid: 0, red: 0, outline: 0, previewLabel: 0,
+  dimension: 0, units: 0, dots: 1, bonus: 0, levels: 0, lock: 0, floorArea: 0, plates: 1, setback: 0, setbackGray: 0,
+  precludeStamp: 0, toggle: 0, collapseStamp: 0, rockRise: 0, towers: 0, exRise: 0, labor: 0, totals: 0,
 });
 
-export const envelopeViews = {
-  ghost: (_p: number, b: EnvelopeData['block']): EnvelopeView => ENV_BASE(b),
-  'preview-rise': (p: number, b: EnvelopeData['block']): EnvelopeView => {
-    // Rise to the floor, hold, then reset to the ghost, leaving a dashed outline.
-    const up = seg(p, 0, 0.45) * (1 - seg(p, 0.7, 0.95));
-    return { ...ENV_BASE(b), height: lerp(b.localHeightFt, b.floorHeightFt, up), solid: up > 0 ? 1 : 0, outline: seg(p, 0.75, 1), previewLabel: up };
-  },
-  'height-rise': (p: number, b: EnvelopeData['block']): EnvelopeView => ({
-    ...ENV_BASE(b), height: lerp(b.localHeightFt, b.floorHeightFt, seg(p, 0, 0.8)), solid: 1, dimension: seg(p, 0.5, 1),
-  }),
-  'unit-fill': (p: number, b: EnvelopeData['block']): EnvelopeView => ({
-    ...ENV_BASE(b), height: b.floorHeightFt, solid: 0.3, units: b.unitFloor * seg(p, 0, 0.9),
-  }),
-  'plate-stack': (p: number, b: EnvelopeData['block']): EnvelopeView => ({
-    ...ENV_BASE(b), height: b.floorHeightFt, solid: 0.15, floorArea: b.residentialFloorAreaSqFt * seg(p, 0, 0.9),
-  }),
-  'setback-cannot-preclude': (p: number, b: EnvelopeData['block']): EnvelopeView => ({
-    ...ENV_BASE(b), height: b.floorHeightFt, solid: 1, setback: seg(p, 0, 0.45), setbackGray: seg(p, 0.55, 0.85), stamp: seg(p, 0.75, 1),
-  }),
-  collapse: (p: number, b: EnvelopeData['block']): EnvelopeView => {
-    const fall = seg(p, 0.2, 0.7);
-    return {
-      ...ENV_BASE(b), height: lerp(b.floorHeightFt, b.localHeightFt, fall), solid: 1, collapsed: p >= 0.2,
-      toggle: seg(p, 0, 0.2), stamp: seg(p, 0.7, 1),
-    };
-  },
-  'bonus-locked-height': (p: number, b: EnvelopeData['block']): EnvelopeView => ({
-    ...ENV_BASE(b), height: b.floorHeightFt, solid: 0.3, units: b.unitFloor, lock: seg(p, 0, 0.3), bonus: seg(p, 0.25, 0.9),
-  }),
-  'contrast-three-heights': (p: number, b: EnvelopeData['block']): EnvelopeView => ({
-    ...ENV_BASE(b), scene: 'rockridge', solid: seg(p, 0, 0.4), towers: seg(p, 0.4, 1),
-  }),
-  'exhibit-comparison': (p: number, b: EnvelopeData['block']): EnvelopeView => ({
-    ...ENV_BASE(b), scene: 'exhibits', solid: seg(p, 0, 0.6), labor: seg(p, 0.6, 1),
-  }),
-  final: (p: number, b: EnvelopeData['block']): EnvelopeView => ({
-    ...ENV_BASE(b), height: b.floorHeightFt, solid: 1, dimension: 1, totals: seg(p, 0.3, 1),
-  }),
-} satisfies Record<string, (p: number, b: EnvelopeData['block']) => EnvelopeView>;
+type EB = Beat<EnvelopeView>;
+const ENVELOPE: Record<string, (b: Block, after: (s: string) => EnvelopeView) => Motion<EnvelopeView>> = {
+  ghost: (b) => motion({ ...envStart(b), ghost: 0 }, [
+    { verb: 'show', to: { ghost: 1, localLabel: 1 } },
+  ]),
+  'preview-rise': (b, after) => motion(after('ghost'), [
+    { verb: 'rise', to: { height: b.floorHeightFt, solid: 1, previewLabel: 1 } },
+    { verb: 'show', to: { localLabel: 0 }, at: '<' },
+    { verb: 'hold' },
+    { verb: 'rise', to: { height: b.localHeightFt, solid: 0, previewLabel: 0 } },
+    { verb: 'show', to: { outline: 1 } },
+  ] satisfies EB[]),
+  'height-rise': (b) => motion({ ...envStart(b), localLabel: 1 }, [
+    { verb: 'rise', to: { height: b.floorHeightFt, solid: 1 } },
+    { verb: 'draw', to: { dimension: 1 } },
+  ]),
+  'unit-fill': (b, after) => motion(after('height-rise'), [
+    { verb: 'show', to: { solid: 0.3, dimension: 0, localLabel: 0, levels: 1 } },
+    { verb: 'fill', to: { units: b.unitFloor } },
+  ]),
+  'plate-stack': (b, after) => motion(after('unit-fill'), [
+    { verb: 'show', to: { dots: 0, levels: 0, solid: 0.15 } },
+    { verb: 'fill', to: { floorArea: b.residentialFloorAreaSqFt } },
+  ]),
+  'setback-cannot-preclude': (_b, after) => motion(after('plate-stack'), [
+    { verb: 'show', to: { plates: 0, solid: 1 } },
+    { verb: 'draw', to: { setback: 1 } },
+    { verb: 'grayOut', to: { setbackGray: 1 } },
+    { verb: 'stamp', to: { precludeStamp: 1 } },
+  ]),
+  collapse: (b) => motion({ ...envStart(b), height: b.floorHeightFt, solid: 1 }, [
+    { verb: 'show', to: { toggle: 1 } },
+    { verb: 'show', to: { red: 1 } },
+    { verb: 'collapse', to: { height: b.localHeightFt } },
+    { verb: 'stamp', to: { collapseStamp: 1 } },
+  ]),
+  'bonus-locked-height': (b, after) => motion({ ...after('collapse'), units: b.unitFloor, dots: 0 }, [
+    { verb: 'show', to: { toggle: 0, collapseStamp: 0, red: 0 } },
+    { verb: 'rise', to: { height: b.floorHeightFt } },
+    { verb: 'show', to: { solid: 0.3, levels: 1, dots: 1 } },
+    { verb: 'stamp', to: { lock: 1 } },
+    { verb: 'fill', to: { bonus: 1 } },
+  ]),
+  'contrast-three-heights': (b, after) => motion({ ...envStart(b, 'rockridge'), from: after('bonus-locked-height'), mix: 0 }, [
+    { verb: 'move', to: { mix: 1 } },
+    { verb: 'rise', to: { rockRise: 1 } },
+    { verb: 'draw', to: { towers: 1 } },
+  ]),
+  'exhibit-comparison': (b) => motion(envStart(b, 'exhibits'), [
+    { verb: 'rise', to: { exRise: 1 } },
+    { verb: 'draw', to: { labor: 1 } },
+  ]),
+  final: (b, after) => motion({ ...envStart(b), from: after('exhibit-comparison'), mix: 0, height: b.floorHeightFt, solid: 1, dimension: 1, localLabel: 1 }, [
+    { verb: 'move', to: { mix: 1 } },
+    { verb: 'stamp', to: { totals: 1 } },
+  ]),
+};
+
+const envelopeMotions = new WeakMap<Block, Map<string, Motion<EnvelopeView>>>();
+function envelopeMotion(state: string, b: Block): Motion<EnvelopeView> {
+  let m = envelopeMotions.get(b);
+  if (!m) envelopeMotions.set(b, (m = new Map()));
+  let mo = m.get(state);
+  if (!mo) {
+    const make = ENVELOPE[state];
+    if (!make) throw new Error(`EnvelopeFigure has no state "${state}"`);
+    mo = make(b, (s) => envelopeMotion(s, b).at(1));
+    m.set(state, mo);
+  }
+  return mo;
+}
+export const envelopeView = (state: string, p: number, b: Block) => envelopeMotion(state, b).at(p);
 
 // ---------------------------------------------------------------- checklist and timeline
 
 export interface ChecklistView {
-  /** How many cards have resolved (ticked or grayed); fractional while one settles. */
-  cards: number;
+  /** Each card's resolution (tick, gray, or fail), 0..1, in card order. */
+  cards: number[];
   /** Fraction of the affordability squares tinted. */
   tint: number;
 }
 
-export const checklistViews = {
-  'conditions-tick': (p: number, count: number): ChecklistView => ({ cards: count * seg(p, 0, 0.75), tint: seg(p, 0.7, 1) }),
-} satisfies Record<string, (p: number, count: number) => ChecklistView>;
+const CARD_VERB: Record<CardStatus, 'stamp' | 'grayOut' | 'collapse'> = { tick: 'stamp', gray: 'grayOut', fail: 'collapse' };
+
+const checklistMotion = cache((key: string) => {
+  const statuses = key.split(',') as CardStatus[];
+  const start: Record<string, number> = { tint: 0 };
+  statuses.forEach((_, i) => (start[`c${i}`] = 0));
+  return motion(start, [
+    ...statuses.map((s, i) => ({ verb: CARD_VERB[s], to: { [`c${i}`]: 1 } })),
+    { verb: 'fill', to: { tint: 1 } },
+  ]);
+});
+
+export function checklistView(state: string, p: number, statuses: CardStatus[]): ChecklistView {
+  if (state !== 'conditions-tick') throw new Error(`Checklist has no state "${state}"`);
+  const v = checklistMotion(statuses.join(',')).at(p);
+  return { cards: statuses.map((_, i) => v[`c${i}`]!), tint: v.tint! };
+}
 
 export interface TimelineView {
-  /** Draw-on fraction of the approval path, the SB 35 branch, the dated axis, and the 2027 marker. */
+  /** Draw-on fraction of the approval path, the SB 35 branch, and the dated axis; the presumption marker's stamp. */
   path: number;
   branch: number;
   axis: number;
   marker: number;
 }
 
-export const timelineViews = {
-  'approval-path': (p: number): TimelineView => ({ path: seg(p, 0, 0.4), branch: seg(p, 0.3, 0.6), axis: seg(p, 0.5, 0.8), marker: seg(p, 0.8, 1) }),
-} satisfies Record<string, (p: number) => TimelineView>;
+const TIMELINE: Record<string, () => Motion<TimelineView>> = {
+  'approval-path': () => motion({ path: 0, branch: 0, axis: 0, marker: 0 }, [
+    { verb: 'draw', to: { path: 1 } },
+    { verb: 'draw', to: { branch: 1 } },
+    { verb: 'draw', to: { axis: 1 } },
+    { verb: 'stamp', to: { marker: 1 } },
+  ]),
+};
+const timelineMotion = cache((state: string) => {
+  const make = TIMELINE[state];
+  if (!make) throw new Error(`Timeline has no state "${state}"`);
+  return make();
+});
+export const timelineView = (state: string, p: number) => timelineMotion(state).at(p);
+
+// ---------------------------------------------------------------- registry
 
 /** Every state each figure implements, for the dev panel and tests. */
 export const IMPLEMENTED = {
-  map: Object.keys(mapViews),
-  envelope: Object.keys(envelopeViews),
-  checklist: Object.keys(checklistViews),
-  timeline: Object.keys(timelineViews),
+  map: Object.keys(MAP),
+  envelope: Object.keys(ENVELOPE),
+  checklist: ['conditions-tick'],
+  timeline: Object.keys(TIMELINE),
 } as const;
+
+/** Natural length in seconds of a state's motion. */
+export function stateSeconds(figure: keyof typeof IMPLEMENTED, state: string, ctx: { block: Block; statuses: CardStatus[] }): number {
+  switch (figure) {
+    case 'map': return mapMotion(state).duration;
+    case 'envelope': return envelopeMotion(state, ctx.block).duration;
+    case 'checklist': return checklistMotion(ctx.statuses.join(',')).duration;
+    case 'timeline': return timelineMotion(state).duration;
+  }
+}

@@ -24,21 +24,34 @@
 .figure-slot {
   position: absolute;
   inset: 0;
-  opacity: 0;
   visibility: hidden;
 }
 
 .figure-slot.is-active {
-  opacity: 1;
   visibility: visible;
 }
 
+/* Reduced motion: states crossfade instead of moving. */
+.figure-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.figure-fade > * { transition: opacity 0.4s ease; }
+.is-reduced .figure-slot { transition: opacity 0.4s ease; }
+
 .figure-caption {
-  margin: 0;
-  min-height: 2.6em;
+  display: grid;
+  /* A fixed height: a caption change must never resize the figure (and its canvas). */
+  height: 4.1em;
+  overflow: hidden;
   font-size: 0.8rem;
   line-height: 1.35;
   color: var(--ink-soft);
+}
+.figure-caption p {
+  grid-area: 1 / 1;
+  margin: 0;
 }
 
 .fig-fallback {
@@ -113,6 +126,10 @@
 .map-land { fill: var(--parcel); stroke: none; }
 .map-city { fill: var(--accent-tint); fill-opacity: 0.45; stroke: var(--ink); }
 .map-ring { fill: none; stroke: var(--accent); }
+/* Traced on with pathLength dashes, which Chrome measures in screen pixels under
+   non-scaling-stroke; these strokes are sized in feet per pixel instead. */
+.map-layer .map-ring,
+.map-layer .map-measure { vector-effect: none; }
 .map-outer-fill { fill: var(--accent-tint); fill-opacity: 0.55; }
 .map-rail { fill: none; stroke: var(--ink-soft); }
 .map-station { fill: var(--page); stroke: var(--ink); }
@@ -163,6 +180,11 @@
 }
 
 .fig-swatch { flex: none; }
+.fig-count {
+  min-width: 1.1em;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--accent);
+}
 .fig-swatch rect { stroke: var(--ink-soft); stroke-width: 0.5px; }
 .fig-swatch .fig-swatch-pattern { stroke: none; }
 .bay-swatch-blank { fill: var(--page); }
@@ -392,7 +414,7 @@
 }
 .cl-tick { border-color: var(--accent); }
 .cl-tick .cl-mark { border-color: var(--accent); background: var(--accent); color: var(--page); }
-.cl-gray { color: var(--ink-soft); }
+.cl-gray { color: color-mix(in srgb, var(--ink) calc(100% - var(--t, 1) * 100%), var(--ink-soft)); }
 .cl-gray .cl-mark { border-color: var(--ghost); background: var(--ghost); color: var(--page); }
 .cl-fail { border-color: var(--collapse); }
 .cl-fail .cl-mark { border-color: var(--collapse); background: var(--collapse); color: var(--page); }
@@ -553,8 +575,16 @@
   .fig-counter strong { font-size: 1.25rem; }
   .timeline-figure { gap: 1rem; font-size: 0.7rem; }
   .tl-node small { font-size: 0.62rem; }
-  .cl-card { font-size: 0.72rem; }
-  .figure-caption { min-height: 0; font-size: 0.7rem; }
+  /* The paragraph beside the figure carries the detail; on phones the cards keep title, mark, and note. */
+  .checklist-figure { padding-top: 0.4rem; }
+  .fig-title { margin-bottom: 0.3rem; }
+  .cl-cards { gap: 0.25rem; margin-bottom: 0.5rem; }
+  .cl-card { font-size: 0.72rem; padding: 0.25rem 0.5rem; grid-template-columns: 1.3rem 1fr auto; }
+  .cl-body > span:not(.cl-note) { display: none; }
+  .cl-mark { width: 1.1rem; height: 1.1rem; }
+  .cl-row { grid-template-columns: minmax(6rem, 9rem) 1fr 2rem; font-size: 0.66rem; margin: 0; }
+  .cl-afford > .cl-note { display: none; }
+  .figure-caption { height: 2.8em; font-size: 0.7rem; }
   .fig-legend { font-size: 0.65rem; max-width: 70%; }
   .dev-panel { width: 15rem; max-height: 40vh; }
 }

@@ -3,13 +3,24 @@ import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
 import { polygonArea } from '@zoning-envelope/engine';
 import { FIGURES, script } from '../src/script';
-import { IMPLEMENTED, checklistViews, envelopeViews, mapViews, timelineViews } from '../src/figures/views';
+import { IMPLEMENTED, checklistView, envelopeView, mapView, stateSeconds, timelineView, type EnvelopeView, type MapView } from '../src/figures/views';
+import { GRAMMAR, motion } from '../src/figures/motion';
+import { SETTLE, stepAt, targetTime } from '../src/scroll/engine';
 import { buildFigureData } from '../src/figures/figure-data';
 import { A, B, C, L, contrast, data as memoData } from '../src/memo-data';
 
 const fig = buildFigureData();
+const block = fig.envelope.block;
+const statuses = fig.checklist.cards.map((c) => c.status);
+/** Any figure's view at progress p, as a plain record. */
+const viewOf = (figure: string, state: string, p: number): Record<string, unknown> =>
+  figure === 'map' ? { ...mapView(state, p) }
+  : figure === 'envelope' ? { ...envelopeView(state, p, block) }
+  : figure === 'checklist' ? { ...checklistView(state, p, statuses) }
+  : { ...timelineView(state, p) };
+const PS = [0, 0.05, 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 0.97, 1];
 
-describe('figure states (Phase 3)', () => {
+describe('figure states', () => {
   it('implements every script state, and no state the script does not use', () => {
     for (const f of FIGURES) {
       const used = [...new Set(script.filter((e) => e.figure === f).map((e) => e.state))].sort();
@@ -21,32 +32,112 @@ describe('figure states (Phase 3)', () => {
     for (const e of script) expect(fig[e.figure].captions[e.state], e.id).toBeTruthy();
   });
 
-  // Views are pure functions of progress: every value is finite and every
-  // opacity or draw-on fraction stays in 0..1, from progress 0 to 1.
-  const check = (name: string, view: Record<string, unknown>) => {
-    for (const [k, v] of Object.entries(view)) {
-      if (typeof v !== 'number') continue;
-      expect(Number.isFinite(v), `${name}.${k}`).toBe(true);
-      if (!['height', 'units', 'floorArea'].includes(k)) expect(v >= 0 && v <= 1, `${name}.${k} = ${v}`).toBe(true);
-    }
-  };
-  const ps = [0, 0.1, 0.25, 0.5, 0.75, 0.9, 1];
+  // Every value is finite, and every opacity or draw-on fraction stays in 0..1.
   it('keeps every view value finite and in range at any progress', () => {
-    for (const [s, v] of Object.entries(mapViews)) for (const p of ps) check(`map ${s}@${p}`, v(p) as never);
-    for (const [s, v] of Object.entries(envelopeViews)) for (const p of ps) check(`envelope ${s}@${p}`, v(p, fig.envelope.block) as never);
-    for (const [s, v] of Object.entries(checklistViews)) for (const p of ps) check(`checklist ${s}@${p}`, { ...v(p, 1) });
-    for (const [s, v] of Object.entries(timelineViews)) for (const p of ps) check(`timeline ${s}@${p}`, v(p) as never);
+    const counts = ['height', 'units', 'floorArea'];
+    for (const e of script) {
+      for (const p of PS) {
+        const v = viewOf(e.figure, e.state, p);
+        for (const [k, x] of Object.entries(v)) {
+          const xs = Array.isArray(x) && typeof x[0] === 'number' ? (x as number[]) : typeof x === 'number' ? [x] : [];
+          for (const n of xs) {
+            expect(Number.isFinite(n), `${e.state}@${p}.${k}`).toBe(true);
+            if (!counts.includes(k)) expect(n >= -1e-9 && n <= 1 + 1e-9, `${e.state}@${p}.${k} = ${n}`).toBe(true);
+          }
+        }
+      }
+    }
   });
 
   it('settles at progress 1 on the values the memo states', () => {
-    const b = fig.envelope.block;
-    expect(envelopeViews.ghost(1, b).height).toBe(B.localHeightFt);
-    expect(envelopeViews['height-rise'](1, b).height).toBe(B.floors.heightFt);
-    expect(envelopeViews['unit-fill'](1, b).units).toBeCloseTo(B.unitFloor, 9);
-    expect(envelopeViews['plate-stack'](1, b).floorArea).toBeCloseTo(B.residentialFloorAreaSqFt, 6);
-    expect(envelopeViews.collapse(1, b)).toMatchObject({ height: B.localHeightFt, collapsed: true });
-    expect(envelopeViews['bonus-locked-height'](1, b).height).toBe(B.floors.heightFt);
-    expect(envelopeViews['preview-rise'](1, b).height).toBe(B.localHeightFt); // the preview resets
+    const at1 = (s: string) => envelopeView(s, 1, block);
+    expect(at1('ghost').height).toBe(B.localHeightFt);
+    expect(at1('height-rise').height).toBe(B.floors.heightFt);
+    expect(at1('unit-fill').units).toBeCloseTo(B.unitFloor, 9);
+    expect(at1('plate-stack').floorArea).toBeCloseTo(B.residentialFloorAreaSqFt, 6);
+    expect(at1('collapse')).toMatchObject({ height: B.localHeightFt, red: 1 });
+    expect(at1('bonus-locked-height')).toMatchObject({ height: B.floors.heightFt, red: 0 });
+    expect(at1('preview-rise').height).toBe(B.localHeightFt); // the preview resets
+    expect(at1('contrast-three-heights')).toMatchObject({ scene: 'rockridge', mix: 1, rockRise: 1, towers: 1 });
+    expect(at1('final')).toMatchObject({ scene: 'block', mix: 1, height: B.floors.heightFt, totals: 1 });
+  });
+});
+
+describe('motion grammar (Phase 4)', () => {
+  it('uses the spec timings: draw 0.8 s, rise 1.2 s, stamp 0.3 s', () => {
+    expect(GRAMMAR.draw.seconds).toBe(0.8);
+    expect(GRAMMAR.rise.seconds).toBe(1.2);
+    expect(GRAMMAR.stamp.seconds).toBe(0.3);
+    for (const [verb, g] of Object.entries(GRAMMAR)) {
+      const m = motion({ x: 0 }, [{ verb: verb as keyof typeof GRAMMAR, to: { x: 1 } }]);
+      expect(m.duration, verb).toBeCloseTo(g.seconds, 9);
+      expect(m.at(0).x).toBe(0);
+      expect(m.at(1).x).toBe(1);
+    }
+  });
+
+  it('rises eased and collapses accelerating', () => {
+    const rise = motion({ h: 0 }, [{ verb: 'rise', to: { h: 1 } }]);
+    const fall = motion({ h: 1 }, [{ verb: 'collapse', to: { h: 0 } }]);
+    expect(rise.at(0.1).h).toBeLessThan(0.1); // eased in
+    expect(rise.at(0.9).h).toBeGreaterThan(0.9); // eased out
+    expect(fall.at(0.5).h).toBeGreaterThan(0.5); // drops slowly, then fast
+  });
+
+  it('gives every step a motion of positive length', () => {
+    for (const e of script) expect(stateSeconds(e.figure, e.state, { block, statuses }), e.id).toBeGreaterThan(0);
+  });
+
+  // A view depends only on progress: seeking forward, backward, or at random gives the same view.
+  it('plays the same backward as forward', () => {
+    for (const e of script) {
+      const forward = PS.map((p) => JSON.stringify(viewOf(e.figure, e.state, p)));
+      const backward = [...PS].reverse().map((p) => JSON.stringify(viewOf(e.figure, e.state, p))).reverse();
+      const shuffled = [5, 0, 10, 3, 8, 1, 9, 2, 7, 4, 6].map((k) => [k, JSON.stringify(viewOf(e.figure, e.state, PS[k]!))] as const);
+      expect(backward, e.id).toEqual(forward);
+      for (const [k, v] of shuffled) expect(v, `${e.id}@${PS[k]}`).toBe(forward[k]);
+    }
+  });
+
+  // Where consecutive paragraphs share a figure, the next state starts exactly
+  // where the last one settled, so nothing jumps at a paragraph boundary.
+  const mapLook = (v: MapView) => {
+    const { box, zoom, legend, legendFrom, legendIn, ...rest } = v;
+    return { ...rest, box: zoom >= 1 ? box[1] : zoom <= 0 ? box[0] : `${box.join('>')}@${zoom}`, legend: legendIn >= 1 ? legend : legendIn <= 0 ? legendFrom : 'mixed' };
+  };
+  const envLook = (v: EnvelopeView): Record<string, unknown> => {
+    if (v.from && v.mix === 0) return envLook(v.from);
+    const { from, mix, ...rest } = v;
+    const look: Record<string, unknown> = { ...rest };
+    // No dots or plates showing looks the same however many are counted.
+    if (v.dots === 0 || v.units === 0) { delete look.units; delete look.dots; }
+    if (v.plates === 0 || v.floorArea === 0) { delete look.floorArea; delete look.plates; }
+    return look;
+  };
+  it('starts each state where the previous paragraph left the same figure', () => {
+    const pairs = script.slice(1).map((e, i) => [script[i]!, e] as const).filter(([a, b]) => a.figure === b.figure);
+    expect(pairs.length).toBeGreaterThan(8);
+    for (const [a, b] of pairs) {
+      if (a.figure === 'map') expect(mapLook(mapView(b.state, 0)), `${a.id} -> ${b.id}`).toEqual(mapLook(mapView(a.state, 1)));
+      if (a.figure === 'envelope') expect(envLook(envelopeView(b.state, 0, block)), `${a.id} -> ${b.id}`).toEqual(envLook(envelopeView(a.state, 1, block)));
+    }
+  });
+});
+
+describe('scroll engine clock', () => {
+  const seconds = [2, 1, 3];
+  const starts = [0, 2, 3];
+  it('maps scroll progress to the clock, finishing a step at SETTLE and holding after', () => {
+    expect(targetTime(starts, seconds, 1, 0)).toBe(2);
+    expect(targetTime(starts, seconds, 1, SETTLE / 2)).toBeCloseTo(2.5, 9);
+    expect(targetTime(starts, seconds, 1, SETTLE)).toBe(3);
+    expect(targetTime(starts, seconds, 1, 1)).toBe(3);
+  });
+  it('shows the earlier step, settled, at a boundary', () => {
+    expect(stepAt(starts, seconds, 0)).toEqual([0, 0]);
+    expect(stepAt(starts, seconds, 2)).toEqual([0, 1]);
+    expect(stepAt(starts, seconds, 2.5)).toEqual([1, 0.5]);
+    expect(stepAt(starts, seconds, 6)).toEqual([2, 1]);
   });
 });
 

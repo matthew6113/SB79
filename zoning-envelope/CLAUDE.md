@@ -97,8 +97,9 @@ write "the city must allow at least", never "the project may build up to".
 | Site | Astro 7 + `@astrojs/mdx` + `@astrojs/react` (React 19 islands) | Phase 0 |
 | Law | `packages/law/sb79.json` + zod schema + `evaluateSite` | Phase 1 |
 | 2D figures | D3 + SVG | Phase 3 |
-| 3D figure | react-three-fiber + drei, geometry from `packages/engine` | Phase 3 |
-| Scroll | Scrollama-style observer + GSAP ScrollTrigger | Phase 4 |
+| 3D figure | react-three-fiber (three.js lines and meshes; drei dropped in Phase 4), geometry from `packages/engine` | Phase 3 |
+| Motion | GSAP timelines: the motion grammar, `src/figures/motion.ts` | Phase 4 |
+| Scroll | GSAP ScrollTrigger per `<Step>` + a playhead, `src/scroll/engine.ts` | Phase 4 |
 | Tests | Vitest | Phase 0 on |
 
 **Folder map.**
@@ -115,6 +116,8 @@ apps/sb79-memo/
   src/figures/            # React islands: MapFigure, EnvelopeFigure, Checklist, Timeline, FigureStage, DevPanel
   src/figures/figure-data.ts  # build-time figure data (served as /figure-data.json)
   src/figures/views.ts    # state -> view, a pure function of progress, per figure
+  src/figures/motion.ts   # the motion grammar (draw, rise, fill, stamp, grayOut, collapse)
+  src/scroll/engine.ts    # scroll -> step + progress: ScrollTrigger observer and playhead
   src/layouts/            # MemoLayout.astro
   src/pages/index.astro   # text column left, pinned figure right (top 45% on phones)
   src/styles/memo.css     # memo look: off-white page, book serif, small caps
@@ -153,10 +156,29 @@ rendered JSX text. `views.ts` maps each script state and progress (0..1) to
 what a figure shows; the test checks every script state is implemented.
 Drawing choices that are not law (story height, setback depth, spacing) live
 in `memoConfig.figures` and are never shown as numbers. `FigureStage` routes a
-step to its figure: `window.sb79Figures.setStep(id, progress)` or an
-`sb79:step` event. In `pnpm dev`, a panel lists every state (keys `[` and
-`]`), and `?step=<id>&p=<0..1>` opens one. 3D labels are HTML projected from
+step to its figure: `window.sb79Figures.setStep(id, progress)` (no scroll),
+`window.sb79Figures.scrollTo(id, progress)` (scrolls there), or an
+`sb79:step` event. In `pnpm dev`, a panel lists every state and scrolls to it
+settled (keys `[` and `]`), and `?step=<id>&p=<0..1>` opens one. 3D labels are HTML projected from
 the camera (no drei `Html`: its nested roots break on unmount).
+
+**Motion and scroll (Phase 4).** Each state is a GSAP timeline of grammar
+verbs (`motion.ts`): draw 0.8 s, rise 1.2 s, and stamp 0.3 s as the spec times
+them; fill 1.2 s, grayOut 0.6 s, and collapse 0.8 s are chosen here; `show`
+and `move` are neutral (no legal meaning). A state begins from the previous
+same-figure state's settled view (`after(...)` in `views.ts`), and
+`test/figures.test.ts` checks every such boundary, plus that views seek the
+same forward, backward, and at random. The engine maps each step's scroll
+span (top of one `<Step>` to the top of the next, at a focus line 55% down,
+72% on phones) to one clock; the motion finishes at 65% of the span and holds.
+A playhead follows the clock at natural speed (never more than 1 s behind),
+so timings are literal for a brisk reader and slower for a slow one.
+Different figures, captions, and 3D scenes crossfade or dissolve as a step
+begins. Under prefers-reduced-motion, steps show settled and crossfade from a
+snapshot. Performance rules: keep materials always `transparent` (toggling it
+recompiles shaders), keep the hidden `Warmup` in `EnvelopeFigure` so shader
+programs are never freed mid-scroll, and keep the caption a fixed height so
+the canvas never resizes.
 
 **Data conventions.** `data/` is frozen: refresh only with
 `pnpm --filter @zoning-envelope/sb79-memo snapshot` (needs network and
@@ -181,8 +203,9 @@ Cites go in GFM footnotes (`[^key]`) whose definitions render `<Law of={leaf} />
 or `<Source source={...} />`; never type a cite by hand. Open issues use
 `<OpenIssue title>` inside the paragraph's `<Step>`.
 
-**Phase status.** Phases 0–2 done (prose approved). Exhibits are set in
-`src/memo.config.ts`: A 1504 Francisco St (second-ranked, chosen over the
-top-ranked triplex), B 1510 Virginia St and C 1450 Acton Crescent
-(top-ranked). Phase 3 (static figures): all 20 states render from the dev
-panel; awaiting Matthew's review before Phase 4 (scroll animation).
+**Phase status.** Phases 0–3 done (prose approved; static figures approved).
+Exhibits are set in `src/memo.config.ts`: A 1504 Francisco St (second-ranked,
+chosen over the top-ranked triplex), B 1510 Virginia St and C 1450 Acton
+Crescent (top-ranked). Phase 4 (scroll animation) is built and checked in
+headless Chromium; it awaits Matthew's check on a real laptop and phone
+before Phase 5 (calculator, print, share links).

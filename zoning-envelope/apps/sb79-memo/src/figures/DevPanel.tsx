@@ -1,22 +1,25 @@
 /**
  * Development only (FigureStage loads it when import.meta.env.DEV): every
- * state in src/script.ts, in memo order. A click jumps to that state at
- * progress 1 and brings its paragraph into view; the slider scrubs progress.
- * Keys: "[" and "]" step back and forward.
+ * state in src/script.ts, in memo order. A click scrolls to that paragraph
+ * with its state settled (progress 1), through the scroll engine; the slider
+ * scrubs progress without scrolling. Keys: "[" and "]" step back and forward.
  */
 import { useEffect, useState } from 'react';
 import { script } from '../script';
 import { IMPLEMENTED } from './views';
 import type { Active } from './FigureStage';
 
-export default function DevPanel({ active, setStep }: { active: Active; setStep: (id: string, progress: number) => void }) {
+export default function DevPanel({ active, setStep, scrollTo }: {
+  active: Active;
+  setStep: (id: string, progress: number) => void;
+  scrollTo: (id: string, progress?: number) => void;
+}) {
   const [open, setOpen] = useState(true);
   const index = script.findIndex((e) => e.id === active.step);
 
   const jump = (i: number) => {
     const e = script[(i + script.length) % script.length]!;
-    setStep(e.id, 1);
-    document.getElementById(e.id)?.scrollIntoView({ block: 'center' });
+    scrollTo(e.id, 1);
   };
 
   useEffect(() => {
