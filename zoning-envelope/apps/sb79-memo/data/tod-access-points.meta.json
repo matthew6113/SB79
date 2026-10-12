@@ -1,0 +1,8 @@
+{
+  "retrievedAt": "2026-10-12T17:30:12.500Z",
+  "count": 10,
+  "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_access_points/FeatureServer/1",
+  "sourceLastEdit": "2026-06-02T21:59:00.036Z",
+  "query": "within 5640 ft of station 904309",
+  "notes": "isElevator is derived: true when access_point_name contains \"elevator\" (MTC publishes no elevator field)."
+}

@@ -1,0 +1,597 @@
+DISCLAIMER: This guide is intended solely as a high-level summary of Senate Bill (SB) 79 (2025). It is not legal
+advice regarding any jurisdiction’s specific policies or any proposed project. Local staff should consult with
+their city attorney or county counsel when determining how to implement this new piece of legislation.
+
+Senate Bill 79 (2025) Summary
+Last updated: July 17, 2026.
+
+Table of Contents
+  Introduction ............................................................................................................................................. 2
+  When and Where SB 79 Applies ................................................................................................................ 3
+  Project Eligibility under SB 79 ................................................................................................................... 4
+  SB 79 Development Standards .................................................................................................................. 5
+     Development Standards Available to Transit-Oriented Housing Projects Under SB 79 ................................. 6
+     State Density Bonus Law (SDBL) (Section 65915)............................................................................................ 8
+  Local Government Options to Modify ....................................................................................................... 9
+     Exempting Certain Areas ................................................................................................................................. 9
+     Excluding Certain Sites Until One Year After Adoption of the 7th Cycle Housing Element ........................... 10
+     Adopting a Local TOD Alternative Plan ......................................................................................................... 10
+  Review and Enforcement........................................................................................................................ 11
+  Transit Agency TOD Zoning Standards..................................................................................................... 12
+  Key Definitions ....................................................................................................................................... 13
+     Bus Rapid Transit (bus service meeting the standards of Public Resources Code Section 20160.2(a)(1)) ... 13
+     Heavy Rail Transit .......................................................................................................................................... 13
+     High-Frequency Commuter Rail .................................................................................................................... 14
+    Housing Development Project ....................................................................................................................... 14
+    Light Rail Transit ............................................................................................................................................ 15
+    Net Habitable Square Footage ...................................................................................................................... 15
+    Tier 1 TOD Stop .............................................................................................................................................. 15
+    Tier 2 TOD Stop .............................................................................................................................................. 15
+    TOD Stop ........................................................................................................................................................ 16
+    TOD Zone ....................................................................................................................................................... 16
+    Urban Transit County..................................................................................................................................... 16
+    Very High Frequency Commuter Rail ............................................................................................................ 16
+
+
+
+Introduction
+On October 10, 2025, Governor Gavin Newsom signed Senate Bill (SB) 79 (2025) into law. The law is codified in
+Government Code Sections 65912.155 through 65912.162. 1
+
+SB 79 makes qualified transit-oriented housing developments an allowed use on sites zoned for residential,
+mixed-use, or commercial development that are located near specified transit stops in counties with more
+than 15 passenger rail stations. In the Bay Area, eligible counties include San Francisco, Alameda, San Mateo
+and Santa Clara. SB 79 also sets statewide standards for height, density, and residential floor area ratios (FAR)
+for such housing developments, which vary based on how close a project is to the stop and how the stop is
+classified. This document summarizes the key provisions of SB 79 that are most relevant to local governments.
+
+Key takeaways include:
+
+   •    SB 79 makes housing meeting specified standards an allowed use on residential, mixed-use, or
+        commercial sites located within one-quarter or one-half mile (depending on city size) of a qualifying
+        transit-oriented development (TOD) stop, and makes such housing eligible for state-set standards for
+        building height, density and FAR. These standards vary based on how close the project is to the stop
+        (200 feet versus one-quarter mile versus one-half mile) and the level of transit service (Tier 1 versus
+        Tier 2).
+
+
+
+
+1 All statutory citations in this document refer to the California Government Code unless otherwise specified.
+
+
+7/17/26                                                                                                                                                               2
+   •   SB 79 generally goes into effect on July 1, 2026, and in the Bay Area is currently only applicable in
+       the counties of Alameda, San Francisco, San Mateo and Santa Clara.
+
+   •   SB 79 does not include a ministerial review process or amend the California Environmental Quality
+       Act (CEQA) itself, although qualifying SB 79 projects may use the ministerial review process under SB
+       35/SB 423, if otherwise eligible. SB 79 projects that are ineligible for streamlined approval are to be
+       reviewed under the jurisdiction’s standard review process and the Housing Accountability Act (HAA).
+
+   •   SB 79 allows for some local flexibility. Cities and counties may exempt certain areas from the law,
+       exclude certain sites from the law until the 7th Housing Element Cycle, or adopt their own local TOD
+       alternative plan that provides the same overall housing capacity. Any such local measures must be
+       reviewed and approved by the Department of Housing and Community Development (HCD).
+
+How to use this document:
+
+   •   Green indicates an “action item.”
+   •   Yellow indicates information that “impacts your job.”
+   •   Blue indicates information that is “good to know.”
+   •   Key terms are defined in the Key Definitions section.
+
+Wherever colors are used, the text is labeled for accessibility.
+
+When and Where SB 79 Applies
+The following provisions describe when and where SB 79 applies.
+
+   •   Effective Date. SB 79 applies beginning on July 1, 2026, except for unincorporated areas, where it will
+       not apply until the 7th Regional Housing Needs Allocation (RHNA) cycle. (Section 65912.157(n)). Cities
+       may adopt an ordinance exempting certain sites until one year after adoption of the 7th Cycle Housing
+       Element. (Section 65912.161(b).)
+
+   •   Urban Transit Counties. SB 79 applies only in an “urban transit county,” which is defined as a county
+       with more than 15 passenger rail stations. Although “passenger rail station” is not a defined term,
+       legislative analysis suggests that eight California counties currently qualify as an urban transit county,
+       including the Bay Area counties of San Francisco, San Mateo, Santa Clara, and Alameda, as well as the
+       counties of Sacramento, Los Angeles, San Diego, and Orange. (Section 65912.156(q)).
+
+   •   Transit-Oriented Development (TOD) Zone. SB 79’s requirements apply only to housing development
+       located within a TOD zone, defined as the area within one-half mile of a TOD stop. A TOD stop means a
+       transit-oriented development stop served by heavy rail, commuter rail, light rail, or bus rapid transit
+
+
+7/17/26                                                                                                        3
+       (all defined in Key Definitions section), as well as certain planned stops that meet specified criteria (see
+       the definition of TOD Stop in the Key Definitions section for further information). (Section
+       65912.156(p)). MTC has developed a map of TOD stops and zones by tier in accordance with
+       guidance from HCD. This document will be updated to reflect future developments. Action item:
+       Bookmark and visit the Regional Housing Technical Assistance Program’s SB 79 webpage and MTC’s SB
+       79 webpage to check for updates.
+
+Project Eligibility under SB 79
+All SB 79 projects must be located within a TOD zone (within one-half mile of a TOD stop) and comply with the
+following additional requirements.
+
+   •   Housing development project. The project must be a “housing development project” (defined in Key
+       Definitions section) under the HAA. No portion of the project may be designated for use as a hotel,
+       motel, bed and breakfast inn, or other transient lodging. (Section 65912.156(g)).
+
+   •   Five or more housing units. The project must include five or more housing units. (Section
+       65912.157(a)(1)).
+
+   •   Location. The project must be located on a site that is zoned for residential, mixed-use, or commercial
+       development (Section 65912.157(a)).
+
+   •   Minimum Density. The project must meet the greater of (1) a density of at least 30 dwelling units per
+       acre or (2) the minimum density required under local zoning, if applicable. (Section 65912.157(a)(1)).
+
+   •   Average Unit Size. The average floor space of the proposed dwelling units may not exceed 1,750 “net
+       habitable square feet” (defined in Key Definitions section). (Section 65912.157(a)(2)).
+
+   •   Affordable Housing. The project, if it includes at least 11 units, must include housing for lower income
+       households by dedicating at least 7% of total units to extremely low income households, 10% of total
+       units to very low income households, or 13% of total units to lower income households. (Section
+       65912.157(i)(1)).2 If a local inclusionary housing requirement mandates a higher percentage of
+
+
+
+
+2 All such affordable units must have an affordable housing cost or affordable housing rent, per Health &
+
+Safety Code Sections 50052.5 and 50053, respectively. In addition, the local agency must ensure the continued
+affordability of the units for a period of 55 years for rental units and 45 years for ownership units. (Section
+65912.157(i)(1)(C)).
+
+7/17/26                                                                                                          4
+       affordable units or a deeper level of affordability, then that local inclusionary requirement mandate
+       applies instead. (Section 65912.157(i)(2)).
+
+   •   Safety. The project must be consistent with the height, noise, and safety standards of any adopted,
+       applicable airport compatibility plan or Department of Defense Air Installation Compatible Use Zones,
+       as well as with objective statewide fire safety standards established by the California Building Code,
+       Fire Code, Wildland-Urban Interface Code, Health & Safety Code, Public Resources Code, and
+       Government Code Sections 51175 – 51189. (Section 65912.157(j)).
+
+   •   Demolition and Anti-Displacement Protections. Projects may not be located on a site containing more
+       than two units where the development requires the demolition of housing that is subject to rent or
+       price control and that has been occupied by tenants within the past seven years. Projects also may not
+       be located on a site where more than two units of housing that were subject to price or rent control
+       were demolished within the past seven years. (Section 65912.157(h)). Projects must comply with the
+       replacement housing requirements in SB 330 (Section 66300.6) 3 as well as any local requirements or
+       processes that implement these replacement housing requirements and any demolition and anti-
+       displacement standards established through local ordinance. (Section 65912.157(f)-(h)).
+
+   •   Labor Standards. Projects must meet prevailing wage and skilled and trained workforce requirements
+       for any building over 85 feet in height. (Section 65912.157(k)).
+
+Action item: Develop an SB 79 application form listing the requirements for SB 79 projects and how applicants
+can demonstrate eligibility. The Regional Housing Technical Assistance Program has developed a template
+application form to assist in this effort.
+
+SB 79 Development Standards
+SB 79 not only provides that eligible transit-oriented housing development “shall be an allowed use” on sites
+zoned for residential, mixed-use, and commercial development near qualifying TOD stops. It also establishes
+development standards for such eligible transit-oriented housing development near qualifying TOD stops,
+which vary by distance from the stop and how that stop is categorized.
+
+Local agencies may not apply lower height, density, or residential FAR limits than those set by SB 79 unless
+they adopt a local transit-oriented development alternative plan that maintains the same residential capacity
+or adopt certain other local ordinances (discussed in the Local Government Options to Modify section below).
+
+
+
+3 See ABAG’s Regional Housing Technical Assistance’s Guide to California State Replacement Housing
+
+Requirements for further information.
+
+7/17/26                                                                                                         5
+In addition, projects that achieve specified densities are eligible for additional concessions under State Density
+Bonus Law (SDBL).
+
+These standards are summarized below and are codified in Government Code Section 65912.157(a)(3)–(6) and
+(e).
+
+Development Standards Available to Transit-Oriented Housing Projects Under SB 79
+The table below provides a breakdown of the allowed height, dwelling units per acre, and residential Floor
+Area Ratio (FAR) for eligible housing development projects specified by SB79 based on distance to a Tier 1 or
+Tier 2 TOD stop. Local agencies may not require height, density, or residential FAR limits below these
+standards, unless they implement one or more of the options included in the Local Government Options to
+Modify section below. Local agencies may still enforce local standards that do not, alone or in concert,
+prevent a project from achieving the applicable SB 79 development standards, unless one or more options to
+modify SB 79 has been implemented.
+
+Key terms that determine whether a transit stop qualifies as Tier 1 or Tier 2 stop are included in Key
+Definitions section below. For example, BART and Caltrain stations are Tier 1 stops, and SF Muni Metro, V.T.A.
+light rail, and A.C. Transit Tempo stations are Tier 2 stops. Distance to a TOD stop must be measured in a
+straight line from the nearest edge of the parcel containing the project to a pedestrian access point for the
+TOD stop. (Section 65912.157(b).) “Pedestrian access point” is not a defined term in the statute; HCD has
+provided guidance on its meaning in its SB 79 Advisory Clarifications on Definitions for Metropolitan Planning
+Organizations (March 20, 2026).
+
+
+
+
+7/17/26                                                                                                          6
+Table 1. Development Standards Available to TOD Housing Projects under SB 79
+
+              Location                      Permitted Development:              Permitted Development:
+                                        Tier 1 Stop (served by heavy rail      Tier 2 Stop (excluding Tier 1
+                                         transit or very high frequency     stops, served by light rail transit,
+                                                 commuter rail)             high-frequency commuter rail, or
+                                                                                     bus rapid transit)
+ Adjacent to TOD stop (within 200       •    Height: 95 feet                •   Height: 85 feet
+ feet of a pedestrian access point4     •    Density: 160 du/ac5            •   Density: 140 du/ac
+ to stop).                              •    Residential FAR: 4.5           •   Residential FAR: 4.0
+ Within ¼-mile of TOD stop.             •    Height: 75 feet                •   Height: 65 feet
+                                        •    Density: 120 du/ac             •   Density: 100 du/ac
+                                        •    Residential FAR: 3.5           •   Residential FAR: 3.0
+ Between ¼ and ½ mile of TOD            •    Height: 65 feet                •   Height: 55 feet
+ stop in a city with at least 35,000    •    Density: 100 du/ac             •   Density: 80 du/ac
+ residents.                             •    Residential FAR: 3.0           •   Residential FAR: 2.5
+
+
+Note that the FAR limits here apply only to residential FAR, defined to include only “net habitable square
+footage dedicated to residential use.” (Section 65912.156(l).) “Net habitable square footage” is included in the
+Key Definitions section below.
+
+Action items: Conduct a zoning gap-analysis inside each TOD zone, by tier, to identify where local standards
+fall below SB 79 minimums (height, density, residential FAR) or preclude them, such as by maximum lot
+coverage standards. Consider drafting zoning code amendments to resolve any conflicts, which must be
+reviewed by HCD in accordance with Section 65912.160. Note that these standards do not need to apply to
+certain sites until one year after adoption of the 7th Cycle Housing Element if a city adopts an ordinance
+excluding them, and other areas may be excluded entirely (see Local Government Options to Modify section
+below).
+
+
+
+4 Note that although “pedestrian access point” is not a defined term in the statute, HCD has provided
+
+guidance on its meaning in its SB 79 Advisory Clarifications on Definitions for Metropolitan Planning
+Organizations (March 20, 2026).
+5 Du/ac refers to dwelling units per acre.
+
+
+7/17/26                                                                                                            7
+Good to know: Jurisdictions are not required to amend their zoning ordinances to implement SB 79, resolve
+inconsistencies with SB 79, or implement an option to modify SB 79’s requirements. If a jurisdiction takes no
+action, SB 79’s standards apply directly and supersede any conflicting local zoning.
+
+State Density Bonus Law (SDBL) (Section 65915)
+Projects developed under SB 79 are eligible for the full range of benefits provided under SDBL (Section 65915).
+This includes eligibility for density bonuses, incentives or concessions, waivers or reductions of development
+standards, and modified parking ratios, using the density permitted under SB 79 as the project’s base density.
+One major caveat is that local governments are not required to grant additional height increases through SDBL
+beyond those already authorized under SB 79, except as specifically provided in Section 65915(d)(2)(D) for
+100% affordable projects.
+
+Projects that meet both certain density thresholds under SB 79 and the affordability requirements of the SDBL
+are eligible for up to three additional concessions. These thresholds and benefits vary by the project’s
+proximity to a TOD stop, the tier of the stop, and the depth of affordability provided, as outlined in the table
+below.
+
+
+
+
+7/17/26                                                                                                         8
+Table 2. Additional SDBL Concessions Available to SB 79 Projects
+
+ Tier and Distance from TOD Stop          Minimum Density to               Additional Concessions Available
+                                          Qualify for Additional
+                                              Concessions
+ Tier 1 and within ¼ mile of stop.      90 du/ac                       •   Three additional concessions for
+                                                                           projects providing housing for
+                                                                           extremely low income households.
+                                                                       •   Two for projects providing housing
+                                                                           for very low income households.
+                                                                       •   One for projects providing housing
+                                                                           for low-income households.
+ Tier 1 and between ¼ and ½ mile        75 du/ac                       Same as above.
+ of stop in a city with at least
+ 35,000 residents.
+ Tier 2 and within ¼ mile of stop.      75 du/ac                       Same as above.
+ Tier 2 and between ¼ and ½ mile        60 du/ac                       Same as above.
+ of stop in a city with at least
+ 35,000 residents.
+
+Local Government Options to Modify
+SB 79 gives jurisdictions three main ways to adjust implementation of SB 79. For any of these options, HCD
+review is required per Section 65912.160, as discussed in the Review and Enforcement section below.
+
+Action Item: Jurisdictions pursuing any of these options should coordinate early with HCD on timing, data, and
+documentation requirements. Given HCD’s permitted review times, if jurisdictions intend to adopt a plan or
+ordinances that will be in effect when SB 79 becomes effective on July 1, 2026, they should aim to submit
+adopted ordinances to HCD by March 2026.
+
+Exempting Certain Areas
+A jurisdiction may adopt an ordinance, subject to HCD review under Section 65912.160 (as discussed in the
+Review and Enforcement section below), to exempt limited areas within one-half mile of a TOD stop from SB
+79 eligibility. These exemptions are limited to (1) sites that lack a pedestrian access path of less than one mile
+to the TOD stop, or (2) in jurisdictions with at least 15 TOD stops, areas that are designated in the
+
+
+
+7/17/26                                                                                                              9
+jurisdiction’s general plan on or before January 1, 2025 as industrial employment hubs of at least 250 acres.
+(Section 65912.160(e)).
+
+Excluding Certain Sites Until One Year After Adoption of the 7th Cycle Housing Element
+Jurisdictions may adopt an ordinance, subject to HCD review under Section 65912.160 (as discussed in the
+Review and Enforcement section below), specifying sites to exclude from SB 79’s TOD development standards
+until one year after adoption of the jurisdiction’s 7th Cycle Housing Element. To qualify for an exclusion, a site
+must fall into one or more of the following categories. (Section 65912.161(b)(1)).
+
+   •   The site’s zoning already permits density and residential FAR that is at least 50% of the SB 79
+       development standard.
+
+   •   The site is in a TOD zone where at least 33% of sites have a permitted density and residential FAR of at
+       least 50% of the SB 79 development standard and where the TOD zone cumulatively allows for at least
+       75% of SB 79’s aggregate density requirement.
+
+   •   The site is in a TOD zone that is primarily comprised of a low-resource area (see definition of low-
+       resource area in the Key Definitions section) and that cumulatively allows for at least 40% of SB 79’s
+       aggregate density requirement.
+
+   •   The site is in a low-resource area (see definition of low-resource area in the Key Definitions section)
+       within a jurisdiction that, across all TOD zones, cumulatively allows for at least 50% of the total SB 79
+       capacity for units and residential FAR.
+
+   •   The site is covered by an adopted local TOD alternative plan.
+
+   •   The site is in a very high fire hazard severity zone or state responsibility area, is vulnerable to one foot
+       of sea level rise, or contains a historic resource designated as of January 1, 2025, on a local historic
+       register.
+
+Local governments adopting such an ordinance must clearly identify excluded sites or TOD zones on the
+jurisdiction’s public zoning map. (Section 65912.161(b)(2)).
+
+Adopting a Local TOD Alternative Plan
+ A local government may satisfy SB 79 by adopting a local TOD alternative plan instead of applying the state
+standards directly. (Section 65912.161(a)). The plan must generally maintain equivalent total housing capacity
+across all TOD zones within the jurisdiction (see the definition of TOD Zone in the Key Definitions section) and
+receive HCD approval. The capacity of any site cannot be reduced more than 50%, with the exception of sites
+within a very high fire hazard zone, sites vulnerable to one foot of sea level rise, and sites with a historic
+
+
+7/17/26                                                                                                            10
+resource on a local register, and the capacity of any one TOD zone cannot be reduced more than 50%. The
+capacity of any site cannot be increased by more than 200% from the maximum densities in SB 79. In the 7th
+Cycle, a Local TOD Alternative Plan may be included in the Housing Element itself or adopted separately by
+ordinance. To become effective, an alternative plan must be reviewed and approved by HCD, as discussed in
+the Review and Enforcement section below. Once approved, the local plan replaces SB 79’s development
+standards within the area included in the alternative plan.
+
+Review and Enforcement
+The following provisions govern the process for project review, as well as the enforcement and oversight of
+local compliance with SB 79.
+
+   •   SB 79 and Project Streamlining Options. SB 79 does not create a ministerial approval process or
+       exempt projects from CEQA review. However, qualifying projects may choose to use the streamlined
+       ministerial approval process under SB 35/SB 423 if they meet that law’s other requirements. Under SB
+       79, all sites eligible for SB 79 standards are potentially eligible for SB 35/SB 423 streamlining regardless
+       of whether the jurisdiction is otherwise subject to SB 35/SB 423 based on its Housing Element or RHNA
+       progress. In addition, projects need only meet the minimum affordability standard established under
+       SB 35/SB 423, which requires at least 10% very-low-income units for rental projects or 10% low-income
+       units for ownership projects (although they must also meet the affordability standards in SB 79).
+
+   •   Impacts your job—Effect of SB 79 Compliance on Local Review. Projects that comply with the TOD
+       development standards of SB 79; any applicable local objective general plan and zoning standards (to
+       the extent those standards do not prevent achieving SB 79’s TOD development standards); and any
+       approved incentives, concessions, or waivers granted under SDBL are deemed consistent and in
+       conformity with all applicable local plans, policies, and standards for purposes of the HAA (Section
+       65589.5). (Section 65912.157(l)). If a housing development complies with all objective standards
+       existing at the time the project is deemed complete, under the HAA, it cannot be denied, have its
+       density reduced, or have an infeasible condition imposed unless the local government makes a finding
+       supported by the preponderance of the evidence that the project would cause a “specific, adverse
+       impact” that cannot be mitigated. (Section 65589.5(j)(1).) Beginning January 1, 2027, denials of
+       projects that meet SB 79’s requirements and that are located in high-resource areas are rebuttably
+       presumed to be unlawful and are subject to penalties of $10,000 per unit. (Section 65912.157(m)).
+
+   •   Impacts your job—HCD review of local ordinances. Local governments may – but are not required to –
+       enact a local ordinance to make their zoning code consistent with SB 79’s development standards or to
+
+
+
+
+7/17/26                                                                                                         11
+       implement one or more of the local options to modify SB 79’s standards.6 Local governments adopting
+       an ordinance to implement or modify SB 79 standards must submit a draft to HCD at least 14 days
+       before adoption and a final version within 60 days after enactment. HCD then has up to 90 days (with
+       one optional 30-day extension) to determine whether the ordinance substantially complies with SB 79.
+       If HCD finds noncompliance, the local government must consider HCD’s findings and either amend the
+       ordinance or, if it chooses to adopt the ordinance without changes, include findings in its adopting
+       resolution explaining why it believes the ordinance complies with SB 79. If the local government does
+       not take either step, HCD may notify the Attorney General. (Section 65912.160(d)). However, other
+       provisions in SB 79 appear to require that alternative plans and other implementing ordinances be
+       approved or found compliant by HCD to become effective. (Sections 65912.157(n) & 65912.161(d)).
+       Ordinances adopted to make zoning consistent with SB 79 are not considered a project under the
+       California Environmental Quality Act. (Section 65912.160(c)).
+
+Transit Agency TOD Zoning Standards
+SB 79 grants transit agencies new authority to adopt TOD zoning standards for land they own within one-half
+mile of qualifying transit stops. (Section 65912.158). These TOD zoning standards will establish minimum local
+zoning requirements—such as height, density, FAR, and allowed uses—that apply to agency-owned parcels.
+
+Although this authority rests with the transit agency’s board of directors, local governments have
+opportunities to participate and influence the process.
+
+   •   Notice and consultation requirements. Before adopting or amending TOD zoning standards, the
+       transit agency must hold a public hearing and consult directly with affected local governments and
+       relevant infrastructure agencies. This consultation must include a review of the local jurisdiction’s
+       housing needs, recently approved or proposed TOD projects, and any barriers to development.
+       (Section 65912.158(c)(1)).
+
+   •   Public review period. Agencies must provide at least 30 days’ public notice before the board meeting
+       where TOD standards are considered and must make draft standards available to the public during that
+       time. (Section 65912.158(c)(2)–(3)).
+
+   •   Updating and applying local zoning. Where local zoning is inconsistent with the agency’s TOD zoning
+       standards for a station, the local jurisdiction may adopt a local zoning ordinance that conforms to the
+       agency’s TOD zoning standards. (Section 65912.158(e)). The transit agency is required to make a
+
+
+6 Note that SB 79’s standards are effective and applicable in instances in which a local government does not
+
+enact a local ordinance.
+
+7/17/26                                                                                                        12
+       finding as to whether the local zoning ordinance conforms to the agency’s TOD zoning standards.
+       (Section 65912.158(f)(2)). If, after two years of the date the agency’s TOD zoning standards are
+       adopted, the local zoning still does not conform, the agency’s TOD zoning standards automatically take
+       effect for the affected agency-owned parcels, except for height limits that exceed the standards in
+       Section 65912.157, which are described in the above section on SB 79 Development Standards.
+       (Section 65912.158(f)). Jurisdictions may continue to apply objective, written development standards
+       so long as they are consistent with the agency’s adopted TOD zoning standards; where inconsistencies
+       arise, the agency’s standards govern. (Section 65912.158(h)).
+
+   •   Good to know: AB 2923, effective January 1, 2019, granted the San Francisco Bay Area Rapid Transit
+       District (BART) authority to set minimum TOD zoning standards for BART-owned parcels within one-
+       half mile of its stations. (Public Utilities Code Sections 29010.1 et seq.) SB 79 is silent on its interaction
+       with these provisions. AB 2923 remains in effect until it expires on January 1, 2029, unless it is
+       extended by the Legislature.
+
+Key Definitions
+For further clarification of key definitions, review HCD’s SB 79 Advisory Clarifications on Definitions for
+Metropolitan Planning Organizations (published March 26, 2026).
+
+Bus Rapid Transit (bus service meeting the standards of Public Resources Code Section
+20160.2(a)(1))
+Per Public Resources Code Section 21060.2(a)(1), “bus rapid transit” means a public mass transit service
+provided by a public agency or by a public-private partnership that includes full-time dedicated bus lanes or
+operation in a separate right-of-way dedicated for public transportation with a frequency of service interval of
+15 minutes or less during the morning and afternoon peak commute periods.7
+
+Heavy Rail Transit
+“Heavy rail transit” means a public electric railway line with the capacity for a heavy volume of traffic using
+high-speed and rapid acceleration passenger rail cars operating singly or in multicar trains on fixed rails,
+separate rights-of-way from which all other vehicular and foot traffic are excluded, and high platform loading.
+“Heavy rail transit” does not include California High-Speed Rail. (Section 65912.156(d)).
+
+
+
+
+7 Note that Public Resources Code Section 21060.2(a) includes additional features of bus rapid transit, but
+
+those features are not relevant for SB 79 purposes.
+
+7/17/26                                                                                                            13
+High-Frequency Commuter Rail
+“High-frequency commuter rail” means a commuter rail service operating a total of at least 48 trains per day
+across both directions, not including temporary service changes of less than one month or unplanned
+disruptions, and not meeting the standard for very high frequency commuter rail, at any point in the past
+three years. (Section 65912.156(e)).
+
+Housing Development Project
+“Housing development project” means a use consisting of any of the following:
+
+       (A) Residential units only.
+
+       (B) Mixed-use developments consisting of residential and nonresidential uses that meet any of the
+       following conditions:
+
+              (i) At least two-thirds of the new or converted square footage is designated for residential use.
+
+              (ii) At least 50% of the new or converted square footage is designated for residential use and
+              the project meets both of the following:
+
+                      (I) The project includes at least 500 net new residential units.
+
+                      (II) No portion of the project is designated for use as a hotel, motel, bed and breakfast
+                      inn, or other transient lodging, except a portion of the project may be designated for
+                      use as a residential hotel, as defined in Section 50519 of the Health and Safety Code.
+
+              (iii) At least 50% of the net new or converted square footage is designated for residential use
+              and the project meets all of the following:
+
+                      (I) The project includes at least 500 net new residential units.
+
+                      (II) The project involves the demolition or conversion of at least 100,000 square feet of
+                      nonresidential use.
+
+                      (III) The project demolishes at least 50% of the existing nonresidential uses on the site.
+
+                      (IV) No portion of the project is designated for use as a hotel, motel, bed and breakfast
+                      inn, or other transient lodging, except a portion of the project may be designated for
+                      use as a residential hotel, as defined in Section 50519 of the Health and Safety Code.
+
+       (C) Transitional housing or supportive housing.
+
+
+
+
+7/17/26                                                                                                           14
+       (D) Farmworker housing, as defined in subdivision (h) of Section 50199.7 of the Health and Safety
+       Code.
+
+(Section 65589.5(h)(2)).
+
+Note that for SB 79 purposes, a “housing development project” does not include a project where any portion
+is designated for use as transient lodging, except that a residential hotel, as defined in Health & Safety Code
+Section 50519, and use of the lodging as short-term rental after issuance of a certificate of occupancy may be
+permitted. (Section 65912.156(g).)
+
+Light Rail Transit
+“Light rail transit” includes streetcar, trolley, and tramway service. “Light rail transit” does not include airport
+people movers. (Section 65912.156(h)).
+
+Low-Resource Area
+“Low-resource area” means an area designated as low resource on the most recently adopted version of the
+opportunity area maps published by the California Tax Credit Allocation Committee and HCD.
+
+Net Habitable Square Footage
+“Net habitable square footage” means the finished and heated floor area fully enclosed by the inside surface
+of walls, windows, doors, and partitions, and having a headroom of at least six and one-half feet, including
+working, living, eating, cooking, sleeping, stair, hall, service, and storage areas, but excluding garages,
+carports, parking spaces, cellars, half-stories, and unfinished attics and basements. (Section 65912.156(i)).
+
+Tier 1 TOD Stop
+“Tier 1 TOD stop” means a TOD stop within an urban transit county that is served by heavy rail transit or very
+high-frequency commuter rail. (Section 65912.156(n)).
+
+Tier 2 TOD Stop
+“Tier 2 TOD stop” means a TOD stop within an urban transit county (excluding a Tier 1 TOD stop) served by
+light rail transit, by high-frequency commuter rail, or by bus rapid transit (as defined in Public Resources Code
+Section 21060.2(a)(1)).8 (Section 65912.156(o)).
+
+
+
+
+8 For information on what Public Resources Code Section 21060.2(a)(1) provides, review the definition of Bus
+
+Rapid Transit above.
+
+7/17/26                                                                                                            15
+TOD Stop
+“Transit-oriented development stop” (TOD stop) means a major transit stop, as defined by Section 21064.3 of
+the Public Resources Code, and also including stops on a route for which a preferred alternative has been
+selected or which are identified in a regional transportation improvement program, that is served by heavy
+rail transit, very high frequency commuter rail, high frequency commuter rail, light rail transit, or bus service
+within an urban transit county meeting the standards of paragraph (1) of subdivision (a) of Section 21060.2 of
+the Public Resources Code.9 When a new transit route or extension is planned that was not identified in the
+applicable regional transportation plan on or before January 1, 2026, those stops shall not be eligible as
+transit-oriented development stops unless they would be eligible as Tier 1 transit-oriented development
+stops. If a county becomes an urban transit county subsequent to July 1, 2026, then bus service in that county
+shall remain ineligible for designation of a transit-oriented development stop. (Section 65912.156(p)).
+
+TOD Zone
+“Transit-oriented development zone” means the area within one-half mile of a TOD stop. (Section
+65912.156(m)).
+
+Urban Transit County
+“Urban transit county” means a county with more than 15 passenger rail stations. (Section 65912.156(q)).
+
+Very High Frequency Commuter Rail
+“Very high frequency commuter rail” means a commuter rail service with a total of at least 72 trains per day
+across both directions, not including temporary service changes of less than one month or unplanned
+disruptions, at any point in the past three years. (Section 65912.156(r)).
+
+
+
+
+9 For information on what Public Resources Code Section 21060.2(a)(1) provides, review the definition of Bus
+
+Rapid Transit above.
+
+7/17/26                                                                                                        16
+

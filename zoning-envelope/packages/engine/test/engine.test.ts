@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
+  distancePointToPolygon,
+  pointInPolygon,
+  pointToSegmentDistance,
   extrude,
   polygonArea,
   prismVolume,
@@ -7,7 +10,7 @@ import {
   stackFloorPlates,
   totalFloorArea,
   type Polygon,
-} from '../src/index';
+} from '../src/index.ts';
 
 // A 50 x 100 rectangle: an ordinary 5,000 sq ft lot.
 const lot: Polygon = { outer: [[0, 0], [50, 0], [50, 100], [0, 100]] };
@@ -90,5 +93,31 @@ describe('stackFloorPlates', () => {
 
   it('rejects a non-positive floor-to-floor height', () => {
     expect(() => stackFloorPlates(lot, { floorToFloor: 0, maxHeight: 50 })).toThrow();
+  });
+});
+
+describe('distance from a parcel edge', () => {
+  it('measures to the nearest edge, not a vertex or the centroid', () => {
+    expect(distancePointToPolygon([25, 130], lot)).toBe(30); // straight above the top edge
+    expect(distancePointToPolygon([80, 50], lot)).toBe(30); // beside the right edge
+  });
+
+  it('measures to the nearest vertex when the point is off a corner', () => {
+    expect(distancePointToPolygon([53, 104], lot)).toBe(5); // 3-4-5 from (50, 100)
+  });
+
+  it('is zero inside the parcel and on its edge', () => {
+    expect(distancePointToPolygon([10, 10], lot)).toBe(0);
+    expect(distancePointToPolygon([50, 50], lot)).toBe(0);
+  });
+
+  it('treats a point inside a hole as outside the parcel', () => {
+    const withHole: Polygon = { ...lot, holes: [[[10, 10], [40, 10], [40, 40], [10, 40]]] };
+    expect(pointInPolygon([25, 25], withHole)).toBe(false);
+    expect(distancePointToPolygon([25, 25], withHole)).toBe(15);
+  });
+
+  it('handles a degenerate segment', () => {
+    expect(pointToSegmentDistance([3, 4], [0, 0], [0, 0])).toBe(5);
   });
 });

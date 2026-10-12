@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./sb79.json": "./sb79.json"
+    "./sb79.json": "./sb79.json",
+    "./zip-range": "./scripts/zip-range.ts"
   },
   "scripts": {
     "fetch-statute": "NODE_USE_ENV_PROXY=1 node --no-warnings scripts/fetch-statute.ts",

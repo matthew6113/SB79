@@ -1,4 +1,4 @@
-import { polygonArea, type Polygon } from './polygon';
+import { polygonArea, type Polygon } from './polygon.ts';
 
 /** A vertical prism: a footprint swept straight up from `base` to `top`. */
 export interface Prism {

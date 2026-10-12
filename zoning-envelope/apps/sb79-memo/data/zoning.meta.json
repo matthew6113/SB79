@@ -1,0 +1,8 @@
+{
+  "retrievedAt": "2026-10-12T17:30:12.500Z",
+  "count": 10,
+  "source": "https://gis.cityofberkeley.info/arcgis/rest/services/Public/Portal_Planning/MapServer/7",
+  "sourceLastEdit": null,
+  "query": "districts intersecting 3000 ft of station 904309, clipped to that circle",
+  "notes": "The source HEIGHT field is 0 for every district; local height limits come from berkeley-zoning-standards.json."
+}

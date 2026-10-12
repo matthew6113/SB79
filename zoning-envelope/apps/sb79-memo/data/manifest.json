@@ -1,0 +1,94 @@
+{
+  "asOf": "2026-10-12",
+  "retrievedAt": "2026-10-12T17:30:12.500Z",
+  "center": {
+    "stationId": "904309",
+    "lonLat": [
+      -122.28352,
+      37.8740000000001
+    ]
+  },
+  "radiusFt": 3000,
+  "accessRadiusFt": 5640,
+  "files": [
+    {
+      "file": "tod-stations.geojson",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_stations/FeatureServer/1",
+      "sourceLastEdit": "2026-06-02T22:02:35.014Z",
+      "count": 2
+    },
+    {
+      "file": "tod-stops.geojson",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_stops/FeatureServer/1",
+      "sourceLastEdit": "2026-06-02T22:01:57.237Z",
+      "count": 4
+    },
+    {
+      "file": "tod-access-points.geojson",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_access_points/FeatureServer/1",
+      "sourceLastEdit": "2026-06-02T21:59:00.036Z",
+      "count": 10
+    },
+    {
+      "file": "tod-zones.geojson",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_zones/FeatureServer/1",
+      "sourceLastEdit": "2026-06-02T22:00:50.883Z",
+      "count": 3
+    },
+    {
+      "file": "parcels.geojson",
+      "source": "https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Parcels/FeatureServer/0",
+      "sourceLastEdit": "2026-10-04T17:21:43.214Z",
+      "count": 4181
+    },
+    {
+      "file": "use-codes.json",
+      "source": "https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Assessor_Office_Use_Codes/FeatureServer/0",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "zoning.geojson",
+      "source": "https://gis.cityofberkeley.info/arcgis/rest/services/Public/Portal_Planning/MapServer/7",
+      "sourceLastEdit": null,
+      "count": 10
+    },
+    {
+      "file": "footprints.geojson",
+      "source": "https://gis.cityofberkeley.info/arcgis/rest/services/Planning/Building_Safety/MapServer/7",
+      "sourceLastEdit": null,
+      "count": 5420
+    },
+    {
+      "file": "counties.geojson",
+      "source": "https://services3.arcgis.com/uknczv4rpevve42E/arcgis/rest/services/California_County_Boundaries_and_Identifiers_Blue_Version_view/FeatureServer/1",
+      "sourceLastEdit": "2026-09-21T17:40:59.470Z",
+      "count": 58
+    },
+    {
+      "file": "opportunity-areas.geojson",
+      "source": "https://www.treasurer.ca.gov/sites/default/files/2025-11/shapefile.zip",
+      "sourceLastEdit": "2025-11-27T06:20:40.000Z",
+      "count": 9
+    },
+    {
+      "file": "population.json",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_jurisdictions_with_pop_acs2019_2023/FeatureServer/1",
+      "sourceLastEdit": "2026-04-08T18:03:01.815Z"
+    },
+    {
+      "file": "sources/hcd-sb79-mpo-advisory.txt",
+      "source": "https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/sb-79-mpo-advisory.pdf",
+      "sourceLastEdit": "2026-03-24T21:55:18.000Z"
+    },
+    {
+      "file": "sources/berkeley-pc-2026-04-15-staff-report.txt",
+      "source": "https://berkeleyca.gov/sites/default/files/2026-04/2026-04-15_PC_Item%2010A_SB%2079%20and%20AB%20893.pdf",
+      "sourceLastEdit": "2026-04-08T17:05:43.000Z"
+    },
+    {
+      "file": "sources/abag-sb79-summary-2026-07-17.txt",
+      "source": "https://abag.ca.gov/sites/default/files/documents/2026-07/SB79-Summary-07172026.pdf",
+      "sourceLastEdit": "2026-08-25T16:07:45.000Z"
+    }
+  ]
+}
