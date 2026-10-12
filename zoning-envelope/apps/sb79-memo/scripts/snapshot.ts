@@ -38,6 +38,7 @@ const SOURCES = {
   hcdAdvisory: 'https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/sb-79-mpo-advisory.pdf',
   berkeleyStaffReport: 'https://berkeleyca.gov/sites/default/files/2026-04/2026-04-15_PC_Item%2010A_SB%2079%20and%20AB%20893.pdf',
   abagSummary: 'https://abag.ca.gov/sites/default/files/documents/2026-07/SB79-Summary-07172026.pdf',
+  osmApi: 'https://api.openstreetmap.org/api/0.6/map.json',
   caYimby: 'https://cayimby.org/blog/sb-79-one-month-in-taking-stock-of-california-yimbys-signature-bill/',
   hcdSanFrancisco: 'https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/HAU/san-francisco-sb79-in-070126.pdf',
   sfPlanning: 'https://sfplanning.org/node/3734',
@@ -199,6 +200,65 @@ async function footprints(center: readonly [number, number], berkeleyParcels: Fe
   });
 }
 
+/** BART alignment and platforms from OpenStreetMap, fetched in small tiles (the OSM API caps nodes per call and rate-limits). */
+async function osmRail(center: readonly [number, number]) {
+  const ring = circle(center, RADIUS_FT, 64);
+  const lons = ring.map((p) => p[0]);
+  const lats = ring.map((p) => p[1]);
+  const [w, e, s, n] = [Math.min(...lons), Math.max(...lons), Math.min(...lats), Math.max(...lats)];
+  const TILES = 3;
+  const nodes = new Map<number, [number, number]>();
+  const ways = new Map<number, { tags: Record<string, string>; nodes: number[] }>();
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+  async function get(url: string, attempt = 0): Promise<Response> {
+    const res = await fetch(url);
+    if (res.status === 429 && attempt < 5) {
+      await sleep(1000 * Number(res.headers.get('retry-after') ?? 2 ** (attempt + 2)));
+      return get(url, attempt + 1);
+    }
+    if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
+    return res;
+  }
+  for (let i = 0; i < TILES; i++) {
+    for (let j = 0; j < TILES; j++) {
+      const x0 = w + ((e - w) * i) / TILES, x1 = w + ((e - w) * (i + 1)) / TILES;
+      const y0 = s + ((n - s) * j) / TILES, y1 = s + ((n - s) * (j + 1)) / TILES;
+      const res = await get(`${SOURCES.osmApi}?bbox=${x0.toFixed(5)},${y0.toFixed(5)},${x1.toFixed(5)},${y1.toFixed(5)}`);
+      const els = ((await res.json()) as { elements: { type: string; id: number; lon?: number; lat?: number; tags?: Record<string, string>; nodes?: number[] }[] }).elements;
+      for (const el of els) {
+        if (el.type === 'node' && el.lon !== undefined && el.lat !== undefined) nodes.set(el.id, [el.lon, el.lat]);
+        if (el.type === 'way' && el.tags?.railway && ['subway', 'rail', 'platform'].includes(el.tags.railway)) ways.set(el.id, { tags: el.tags, nodes: el.nodes ?? [] });
+      }
+      await sleep(1500);
+    }
+  }
+  const features: Feature[] = [...ways]
+    .sort(([a], [b]) => a - b)
+    .map(([id, way]) => ({
+      type: 'Feature' as const,
+      geometry: { type: 'LineString' as const, coordinates: way.nodes.map((nid) => nodes.get(nid)).filter((c): c is [number, number] => c !== undefined) },
+      properties: { osmId: id, railway: way.tags.railway, name: way.tags.name ?? null, tunnel: way.tags.tunnel ?? null, layer: way.tags.layer ?? null },
+    }));
+  out.writeLayer('osm-rail', { type: 'FeatureCollection', features }, {
+    source: SOURCES.osmApi, sourceLastEdit: null, query: `railway=subway|rail|platform within the bounding box of ${RADIUS_FT} ft of station ${STATION_ID}`,
+    attribution: '© OpenStreetMap contributors (ODbL)',
+    notes: 'Context for the map figure only (track alignment); not a legal input.',
+  });
+}
+
+/** SB 79 jurisdictions in MTC's four urban transit counties, for the Bay Area figure. */
+async function jurisdictions() {
+  const info = await layerInfo(SOURCES.jurisdictions);
+  const fc = await queryAll(SOURCES.jurisdictions, { where: '1=1', outFields: 'jurisdiction,fipco,total_population', maxAllowableOffset: 0.0005 }, 50);
+  fc.features = fc.features
+    .map((f) => ({ ...f, properties: { name: f.properties.jurisdiction, countyFips: f.properties.fipco, population: f.properties.total_population } }))
+    .sort(bySortKey((f) => String(f.properties.name)));
+  out.writeLayer('jurisdictions', fc, {
+    source: SOURCES.jurisdictions, sourceLastEdit: info.dataLastEditDate ?? info.lastEditDate, query: 'all jurisdictions, simplified (maxAllowableOffset 0.0005 degrees)',
+    notes: "MTC's jurisdictions with ACS 2019–2023 population, as used for its SB 79 map.",
+  });
+}
+
 async function counties() {
   const info = await layerInfo(SOURCES.counties);
   const fc = await queryAll(SOURCES.counties, { where: '1=1', outFields: 'CENSUS_GEOID,CDT_NAME_SHORT', maxAllowableOffset: 0.002 }, 20);
@@ -261,6 +321,8 @@ async function main() {
   await zoning(c);
   await footprints(c, berkeleyParcels);
   await counties();
+  await jurisdictions();
+  await osmRail(c);
   await opportunity(c);
   await population();
   await out.pdfText('hcd-sb79-mpo-advisory', SOURCES.hcdAdvisory);

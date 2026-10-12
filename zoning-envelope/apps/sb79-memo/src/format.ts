@@ -28,3 +28,16 @@ export function address(assessor: string) {
     .map((w, i) => (i === words.length - 1 && SUFFIX[w] ? SUFFIX[w] : /^\d/.test(w) ? w : w.charAt(0) + w.slice(1).toLowerCase()))
     .join(' ');
 }
+
+/** Short forms for figure labels. */
+export const ftShort = (n: number) => `${num(n)} ft`;
+export const sqftShort = (n: number) => `${num(n)} sq ft`;
+export const milesShort = (m: number) => (m === 0.25 ? '¼ mile' : m === 0.5 ? '½ mile' : `${num(m, 2)} mi`);
+/** "Gov. Code § 65912.157(a)(3)(A)" -> "§ 65912.157(a)(3)(A)" for tight figure labels. */
+export const shortCite = (cite: string) => cite.replace(/Gov\. Code /g, '');
+const MON = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
+/** "2026-07-01" -> "July 1, 2026" in the short month style figures use. */
+export function shortDate(iso: string) {
+  const [y, m, d] = iso.split('-').map(Number) as [number, number, number];
+  return `${MON[m - 1]} ${d}, ${y}`;
+}

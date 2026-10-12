@@ -112,7 +112,9 @@ apps/sb79-memo/
   src/memo-data.ts        # every number the memo shows, from @zoning-envelope/law and data/
   src/format.ts           # number, date, and address formatting (no legal values)
   src/components/         # Step, Letterhead, Law (statute cites), Source, OpenIssue
-  src/figures/            # React islands: MapFigure, EnvelopeFigure, Checklist, Timeline
+  src/figures/            # React islands: MapFigure, EnvelopeFigure, Checklist, Timeline, FigureStage, DevPanel
+  src/figures/figure-data.ts  # build-time figure data (served as /figure-data.json)
+  src/figures/views.ts    # state -> view, a pure function of progress, per figure
   src/layouts/            # MemoLayout.astro
   src/pages/index.astro   # text column left, pinned figure right (top 45% on phones)
   src/styles/memo.css     # memo look: off-white page, book serif, small caps
@@ -142,6 +144,20 @@ Also from the spec's guardrails: keep the standing line under the letterhead
 [date]."), show each open issue as a boxed "Open issue" note where it bites,
 and flag anything that reads as advice on a specific project.
 
+**Figures (Phase 3).** `figure-data.ts` builds everything the figures draw at
+build time: d3-geo path strings in feet (EPSG:2227, relative to Exhibit B),
+engine geometry (plates via `stackFloorPlates`, the measuring line via
+`nearestPointOnPolygon`), and every label, formatted from memo-data. Figure
+components only place those labels; `test/figures.test.ts` fails on a digit in
+rendered JSX text. `views.ts` maps each script state and progress (0..1) to
+what a figure shows; the test checks every script state is implemented.
+Drawing choices that are not law (story height, setback depth, spacing) live
+in `memoConfig.figures` and are never shown as numbers. `FigureStage` routes a
+step to its figure: `window.sb79Figures.setStep(id, progress)` or an
+`sb79:step` event. In `pnpm dev`, a panel lists every state (keys `[` and
+`]`), and `?step=<id>&p=<0..1>` opens one. 3D labels are HTML projected from
+the camera (no drei `Html`: its nested roots break on unmount).
+
 **Data conventions.** `data/` is frozen: refresh only with
 `pnpm --filter @zoning-envelope/sb79-memo snapshot` (needs network and
 `pdftotext`), then `propose-exhibits`. Every layer has a `.meta.json` with
@@ -165,7 +181,8 @@ Cites go in GFM footnotes (`[^key]`) whose definitions render `<Law of={leaf} />
 or `<Source source={...} />`; never type a cite by hand. Open issues use
 `<OpenIssue title>` inside the paragraph's `<Step>`.
 
-**Phase status.** Phases 0 and 1 done. Exhibits are set in `src/memo.config.ts`:
-A 1504 Francisco St (second-ranked, chosen over the top-ranked triplex),
-B 1510 Virginia St and C 1450 Acton Crescent (top-ranked). Phase 2: the memo prose is drafted and awaits Matthew's
-edit and approval; Phase 3 (static figures) is next after that.
+**Phase status.** Phases 0–2 done (prose approved). Exhibits are set in
+`src/memo.config.ts`: A 1504 Francisco St (second-ranked, chosen over the
+top-ranked triplex), B 1510 Virginia St and C 1450 Acton Crescent
+(top-ranked). Phase 3 (static figures): all 20 states render from the dev
+panel; awaiting Matthew's review before Phase 4 (scroll animation).

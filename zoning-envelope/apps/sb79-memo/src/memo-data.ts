@@ -74,6 +74,7 @@ function exhibit(key: 'A' | 'B' | 'C') {
     yearBuilt: c.yearBuilt as number,
     use: c.use as string,
     distanceFt: c.nearestAccessPoint.distanceFt,
+    accessPointId: c.nearestAccessPoint.id,
     nearestIsElevator: c.nearestAccessPoint.isElevator,
     distanceWithoutElevatorFt: c.nearestNonElevatorAccessPoint.distanceFt,
     bandWithoutElevator: c.nearestNonElevatorAccessPoint.band as BandId | null,

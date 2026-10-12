@@ -5,6 +5,7 @@ export interface Feature { type: 'Feature'; id?: number | string; geometry: Geom
 export interface FeatureCollection { type: 'FeatureCollection'; features: Feature[] }
 export type Geometry =
   | { type: 'Point'; coordinates: number[] }
+  | { type: 'LineString'; coordinates: number[][] }
   | { type: 'Polygon'; coordinates: number[][][] }
   | { type: 'MultiPolygon'; coordinates: number[][][][] };
 

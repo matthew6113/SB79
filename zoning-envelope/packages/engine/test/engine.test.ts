@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   distancePointToPolygon,
+  nearestPointOnPolygon,
   pointInPolygon,
   pointToSegmentDistance,
   extrude,
@@ -119,5 +120,17 @@ describe('distance from a parcel edge', () => {
 
   it('handles a degenerate segment', () => {
     expect(pointToSegmentDistance([3, 4], [0, 0], [0, 0])).toBe(5);
+  });
+});
+
+describe('nearestPointOnPolygon', () => {
+  it('returns the foot of the perpendicular on the nearest edge', () => {
+    expect(nearestPointOnPolygon([25, 130], lot)).toEqual({ point: [25, 100], distance: 30 });
+  });
+  it('returns the corner when that is nearest', () => {
+    expect(nearestPointOnPolygon([53, 104], lot)).toEqual({ point: [50, 100], distance: 5 });
+  });
+  it('returns the point itself inside the polygon', () => {
+    expect(nearestPointOnPolygon([10, 10], lot)).toEqual({ point: [10, 10], distance: 0 });
   });
 });

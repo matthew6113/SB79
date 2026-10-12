@@ -1,0 +1,8 @@
+{
+  "retrievedAt": "2026-10-12T21:03:08.879Z",
+  "count": 109,
+  "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_jurisdictions_with_pop_acs2019_2023/FeatureServer/1",
+  "sourceLastEdit": "2026-04-08T18:03:01.815Z",
+  "query": "all jurisdictions, simplified (maxAllowableOffset 0.0005 degrees)",
+  "notes": "MTC's jurisdictions with ACS 2019–2023 population, as used for its SB 79 map."
+}

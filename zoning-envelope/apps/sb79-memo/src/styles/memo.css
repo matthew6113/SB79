@@ -1,11 +1,15 @@
-/* Memo look (SB79_SPEC.md, "Figures and animation"). Phase 3 refines it. */
+/* Memo look (SB79_SPEC.md, "Figures and animation"). Figures: src/styles/figures.css. */
 :root {
   --page: #f7f4ec;        /* warm off-white */
   --ink: #1f1d1a;
   --ink-soft: #5c574f;
   --ghost: #cfcbc2;       /* local zoning */
   --accent: #1f3d5c;      /* the SB 79 envelope */
+  --accent-tint: #c3ccd3; /* the accent, washed toward the page: eligible, reached */
   --collapse: #a8261d;    /* red: used only for collapse */
+  --parcel: #eeeadf;      /* map ground */
+  --context: #efebe3;     /* neighbors in 3D */
+  --context-edge: #cdc7bb;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --measure: 60ch;
 }
@@ -100,15 +104,6 @@ h2 {
   margin: 0 0 0.25rem;
 }
 
-.figure-stage {
-  width: 100%;
-  height: 80%;
-  border: 1px solid var(--ghost);
-  display: grid;
-  place-items: center;
-  color: var(--ink-soft);
-  text-align: center;
-}
 
 /* Phone: figure pinned to the top 45% of the screen, text scrolling under it. */
 @media (max-width: 760px) {
@@ -123,10 +118,6 @@ h2 {
     height: 45vh;
     background: var(--page);
     z-index: 1;
-  }
-
-  .figure-stage {
-    height: 90%;
   }
 
   .memo-text {

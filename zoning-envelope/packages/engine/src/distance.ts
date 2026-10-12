@@ -1,7 +1,7 @@
 import type { Point, Polygon, Ring } from './polygon.ts';
 
-/** Shortest distance from point p to the segment a–b. */
-export function pointToSegmentDistance(p: Point, a: Point, b: Point): number {
+/** The point on segment a–b closest to p. */
+export function closestPointOnSegment(p: Point, a: Point, b: Point): Point {
   const [px, py] = p;
   const [ax, ay] = a;
   const [bx, by] = b;
@@ -9,7 +9,13 @@ export function pointToSegmentDistance(p: Point, a: Point, b: Point): number {
   const dy = by - ay;
   const lengthSq = dx * dx + dy * dy;
   const t = lengthSq === 0 ? 0 : Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / lengthSq));
-  return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+  return [ax + t * dx, ay + t * dy];
+}
+
+/** Shortest distance from point p to the segment a–b. */
+export function pointToSegmentDistance(p: Point, a: Point, b: Point): number {
+  const [cx, cy] = closestPointOnSegment(p, a, b);
+  return Math.hypot(p[0] - cx, p[1] - cy);
 }
 
 /** Even-odd ray cast. Points exactly on an edge may land either way; distance is 0 there regardless. */
@@ -45,4 +51,21 @@ function ringDistance(p: Point, ring: Ring): number {
 export function distancePointToPolygon(p: Point, polygon: Polygon): number {
   if (pointInPolygon(p, polygon)) return 0;
   return Math.min(ringDistance(p, polygon.outer), ...(polygon.holes ?? []).map((h) => ringDistance(p, h)));
+}
+
+/**
+ * The point on a polygon's boundary nearest to p, and its distance; p itself
+ * at distance 0 when p is inside. Used to draw the statute's measuring line.
+ */
+export function nearestPointOnPolygon(p: Point, polygon: Polygon): { point: Point; distance: number } {
+  if (pointInPolygon(p, polygon)) return { point: p, distance: 0 };
+  let best = { point: p, distance: Infinity };
+  for (const ring of [polygon.outer, ...(polygon.holes ?? [])]) {
+    for (let i = 0; i < ring.length; i++) {
+      const q = closestPointOnSegment(p, ring[i]!, ring[(i + 1) % ring.length]!);
+      const d = Math.hypot(p[0] - q[0], p[1] - q[1]);
+      if (d < best.distance) best = { point: q, distance: d };
+    }
+  }
+  return best;
 }

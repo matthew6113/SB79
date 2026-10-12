@@ -1,6 +1,6 @@
 {
   "asOf": "2026-10-12",
-  "retrievedAt": "2026-10-12T20:33:06.338Z",
+  "retrievedAt": "2026-10-12T21:03:08.879Z",
   "center": {
     "stationId": "904309",
     "lonLat": [
@@ -63,6 +63,18 @@
       "source": "https://services3.arcgis.com/uknczv4rpevve42E/arcgis/rest/services/California_County_Boundaries_and_Identifiers_Blue_Version_view/FeatureServer/1",
       "sourceLastEdit": "2026-09-21T17:40:59.470Z",
       "count": 58
+    },
+    {
+      "file": "jurisdictions.geojson",
+      "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_jurisdictions_with_pop_acs2019_2023/FeatureServer/1",
+      "sourceLastEdit": "2026-04-08T18:03:01.815Z",
+      "count": 109
+    },
+    {
+      "file": "osm-rail.geojson",
+      "source": "https://api.openstreetmap.org/api/0.6/map.json",
+      "sourceLastEdit": null,
+      "count": 16
     },
     {
       "file": "opportunity-areas.geojson",
