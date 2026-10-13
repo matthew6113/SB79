@@ -25,6 +25,12 @@ pnpm build    # static build of the memo into apps/sb79-memo/dist
 
 Node >= 22.12, pnpm 10. Dependency versions are pinned exactly.
 
+**Hosting.** `.github/workflows/pages.yml` (repo root) runs the tests, builds
+the memo with `BASE_PATH=/<repo>/`, and publishes it to GitHub Pages on every
+push to `main` (https://matthew6113.github.io/SB79/). Locally the base is `/`.
+Code that builds a URL to the site's own files joins `import.meta.env.BASE_URL`
+onto it; never write a root-absolute path like `/figure-data.json`.
+
 ## Working rules (whole project)
 
 - Never invent legal values. Every height, density, FAR, percentage, threshold,
