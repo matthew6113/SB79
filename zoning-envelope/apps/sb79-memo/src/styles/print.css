@@ -209,18 +209,8 @@
   font-size: 7px;
 }
 
-@media print {
-  .print-toolbar {
-    display: none;
-  }
-  .pagedjs_pages {
-    padding: 0;
-  }
-  .pagedjs_page {
-    margin: 0;
-    box-shadow: none;
-  }
-}
+/* Paper-only rules (hide the toolbar, drop the page gaps) are in PrintBuilder's
+   PAPER_ONLY: Paged.js applies @media print rules on screen too. */
 
 /* The dated axis at print size: narrow labels so close dates do not collide. */
 .print-slot .tl-event-text,

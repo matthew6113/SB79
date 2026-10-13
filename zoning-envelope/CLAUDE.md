@@ -210,7 +210,10 @@ calculator, and paginates with Paged.js. Ctrl/Cmd+P on the main page goes to
 `/print/?auto`; a plain browser print of the main page prints text only,
 with a line pointing to the print version. Paged.js rules (`@footnote`,
 `float: footnote`) live in `src/print/paged.css`, imported `?raw` so Vite's
-CSS pipeline never sees them, and `cssMinify: 'esbuild'` in
+CSS pipeline never sees them. Paged.js also applies every `@media print`
+rule it is given on screen, so paper-only rules (hiding the toolbar) go in
+`PAPER_ONLY` in `PrintBuilder.tsx`, added as a `media="print"` style after it
+runs, never in a stylesheet; and `cssMinify: 'esbuild'` in
 `astro.config.mjs` stays: lightningcss rewrites media queries to range
 syntax, which Paged.js's parser rejects. Each `<Step>` has a ¶ link: clicking
 it copies `…#<step id>`, and opening that URL scrolls to the paragraph with

@@ -27,6 +27,17 @@ export const PRINT_SIZE: Record<FigureId, [number, number]> = {
   timeline: [300, 340],
 };
 
+/**
+ * Rules for paper only, added after Paged.js runs. Paged.js applies the
+ * @media print rules in the stylesheets it is given on screen as well, which
+ * would hide the toolbar (its print button and the way back) in the preview.
+ */
+const PAPER_ONLY = `
+  .print-toolbar { display: none; }
+  .pagedjs_pages { padding: 0; }
+  .pagedjs_page { margin: 0; box-shadow: none; }
+`;
+
 const frames = (n: number) => new Promise<void>((done) => {
   const tick = (k: number) => (k <= 0 ? done() : requestAnimationFrame(() => tick(k - 1)));
   tick(n);
@@ -141,6 +152,10 @@ export default function PrintBuilder() {
       const previewer = new Previewer();
       // The page's own stylesheets, then the page box and footnote rules.
       await previewer.preview(content, [...previewer.removeStyles(), { [location.href]: pagedCss }], pages);
+      const paper = document.createElement('style');
+      paper.media = 'print';
+      paper.textContent = PAPER_ONLY;
+      document.head.append(paper);
       setStatus({ phase: 'ready', done: script.length });
       document.documentElement.dataset.printReady = 'true';
       if (new URLSearchParams(location.search).has('auto')) window.print();
