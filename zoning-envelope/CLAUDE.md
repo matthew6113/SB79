@@ -152,7 +152,8 @@ apps/sb79-memo/
 
 Also from the spec's guardrails: keep the standing line under the letterhead
 ("For general information only. Not legal advice. Facts and law as of
-[date]."), show each open issue as a boxed "Open issue" note where it bites,
+[date]."), followed by the line saying AI was used and may make mistakes
+(Matthew's call; `test/memo.test.ts` checks both), show each open issue as a boxed "Open issue" note where it bites,
 and flag anything that reads as advice on a specific project.
 
 **Figures (Phase 3).** `figure-data.ts` builds everything the figures draw at

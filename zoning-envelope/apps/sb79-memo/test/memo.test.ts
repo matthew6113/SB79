@@ -33,6 +33,16 @@ describe('memo.mdx', () => {
     expect(allowed.match(new RegExp(`.{0,25}${words.source}.{0,25}`, 'gi')) ?? []).toEqual([]);
   });
 
+  it('keeps the standing line under the letterhead, then the AI line', () => {
+    const head = readFileSync(new URL('../src/components/Letterhead.astro', import.meta.url), 'utf8');
+    const lines = [...head.matchAll(/<p class="disclaimer[^"]*">([\s\S]*?)<\/p>/g)].map((m) => m[1]);
+    expect(lines).toEqual([
+      'For general information only. Not legal advice. Facts and law as of {dated}.', // SB79_SPEC.md, verbatim
+      expect.stringMatching(/^AI was used to research and draft this memo .*it may make mistakes\./),
+    ]);
+    expect(head.indexOf('class="disclaimer"')).toBeGreaterThan(head.indexOf('</dl>'));
+  });
+
   it('puts the not-legal-advice and AI disclaimer before the calculator, which opens blank', () => {
     const block = raw.slice(raw.indexOf('<div class="calculator"'));
     const disclaimer = block.slice(block.indexOf('<div class="calc-disclaimer"'), block.indexOf('<Calculator '));
