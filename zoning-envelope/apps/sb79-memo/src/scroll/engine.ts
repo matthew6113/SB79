@@ -36,8 +36,12 @@ export interface EngineStep {
 }
 
 export interface Engine {
-  /** Scroll so step `id` shows at `progress` (1: settled, mid-hold), without playing the steps between. */
-  scrollTo(id: string, progress?: number): void;
+  /**
+   * Scroll so step `id` shows at `progress` (1: settled, mid-hold), without
+   * playing the steps between. With `reveal`, a long paragraph stops short of
+   * settled if that keeps its first line in view (share links).
+   */
+  scrollTo(id: string, progress?: number, opts?: { reveal?: boolean }): void;
   destroy(): void;
 }
 
@@ -124,12 +128,18 @@ export function startEngine(steps: EngineStep[], apply: (i: number, p: number) =
   });
 
   return {
-    scrollTo(id, progress = 1) {
+    scrollTo(id, progress = 1, opts = {}) {
       const i = steps.findIndex((s) => s.id === id);
       const st = triggers[i];
       if (!st) throw new Error(`No step "${id}"`);
       // Settled: the middle of the hold; otherwise the scroll point that plays to `progress`.
-      const ps = progress >= 1 ? (1 + SETTLE) / 2 : progress * SETTLE;
+      let ps = progress >= 1 ? (1 + SETTLE) / 2 : progress * SETTLE;
+      if (opts.reveal) {
+        // Keep the paragraph's first line on screen: below the pinned figure on phones, near the top otherwise.
+        const phone = matchMedia(PHONE_QUERY).matches;
+        const room = ((phone ? FOCUS.phone : FOCUS.desktop) - (phone ? 0.47 : 0.08)) * innerHeight;
+        ps = Math.min(ps, Math.max(0, room / Math.max(1, st.end - st.start)));
+      }
       window.scrollTo({ top: st.start + ps * (st.end - st.start), behavior: 'instant' });
       if (reduced) { shown = i; apply(i, 1); } else jump(targetTime(starts, seconds, i, ps));
     },

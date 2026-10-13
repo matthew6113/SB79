@@ -100,6 +100,8 @@ write "the city must allow at least", never "the project may build up to".
 | 3D figure | react-three-fiber (three.js lines and meshes; drei dropped in Phase 4), geometry from `packages/engine` | Phase 3 |
 | Motion | GSAP timelines: the motion grammar, `src/figures/motion.ts` | Phase 4 |
 | Scroll | GSAP ScrollTrigger per `<Step>` + a playhead, `src/scroll/engine.ts` | Phase 4 |
+| Calculator | `calculate()` over `evaluateSite` + a small R3F envelope | Phase 5 |
+| Print | Paged.js 0.4 (`/print/`: page box, footnotes at each page foot) | Phase 5 |
 | Tests | Vitest | Phase 0 on |
 
 **Folder map.**
@@ -114,17 +116,23 @@ apps/sb79-memo/
   src/format.ts           # number, date, and address formatting (no legal values)
   src/components/         # Step, Letterhead, Law (statute cites), Source, OpenIssue
   src/figures/            # React islands: MapFigure, EnvelopeFigure, Checklist, Timeline, FigureStage, DevPanel
+  src/figures/three-parts.tsx # R3F pieces shared by EnvelopeFigure and the calculator (Prism, Band, Projector, Warmup)
   src/figures/figure-data.ts  # build-time figure data (served as /figure-data.json)
   src/figures/views.ts    # state -> view, a pure function of progress, per figure
   src/figures/motion.ts   # the motion grammar (draw, rise, fill, stamp, grayOut, collapse)
   src/scroll/engine.ts    # scroll -> step + progress: ScrollTrigger observer and playhead
+  src/scroll/share.ts     # share links: the ¶ on each <Step>, #<step id> opens it settled
+  src/calculator/         # model.ts (pure: form strings -> evaluateSite -> rows), Calculator, CalcEnvelope
+  src/print/              # PrintBuilder (stills + Paged.js), still.ts (DOM/canvas copies), paged.css (raw)
   src/layouts/            # MemoLayout.astro
   src/pages/index.astro   # text column left, pinned figure right (top 45% on phones)
+  src/pages/print.astro   # the print version: same memo, paginated, figures as stills
   src/styles/memo.css     # memo look: off-white page, book serif, small caps
+  src/styles/calculator.css, print.css
   data/                   # frozen snapshots, *.meta.json, manifest.json (asOf), sources/ text
   scripts/                # snapshot.ts, snapshot-rockridge.ts (refresh data), propose-exhibits.ts
   EXHIBITS.md             # generated exhibit candidates (Matthew chooses)
-  test/                   # Vitest: memo/script contract, later calculator and data checks
+  test/                   # Vitest: memo/script contract, figures, calculator, data checks
 ```
 
 **Rules.**
@@ -180,6 +188,26 @@ recompiles shaders), keep the hidden `Warmup` in `EnvelopeFigure` so shader
 programs are never freed mid-scroll, and keep the caption a fixed height so
 the canvas never resizes.
 
+**Calculator, print, share links (Phase 5).** `src/calculator/model.ts`
+turns the form (strings, as typed) into `evaluateSite` inputs and its answer
+into rows; `test/calculator.test.ts` runs the spec's cases 1-6 through it.
+Fixed assumptions, stated beside it: urban transit county, residential
+zoning, no local opt-out. A failed project condition collapses the small
+envelope to local zoning in red. The memo's main page is for the screen;
+`/print/` is the paper memo: it renders the four figures off screen at
+`PRINT_SIZE`, copies each state settled as a still beside its paragraph,
+inlines footnotes (numbered in document order; Paged.js's own marker counter
+does not reset per note), keeps headings with their paragraph, drops the
+calculator, and paginates with Paged.js. Ctrl/Cmd+P on the main page goes to
+`/print/?auto`; a plain browser print of the main page prints text only,
+with a line pointing to the print version. Paged.js rules (`@footnote`,
+`float: footnote`) live in `src/print/paged.css`, imported `?raw` so Vite's
+CSS pipeline never sees them, and `cssMinify: 'esbuild'` in
+`astro.config.mjs` stays: lightningcss rewrites media queries to range
+syntax, which Paged.js's parser rejects. Each `<Step>` has a ¶ link: clicking
+it copies `…#<step id>`, and opening that URL scrolls to the paragraph with
+its figure settled and its first line in view.
+
 **Data conventions.** `data/` is frozen: refresh only with
 `pnpm --filter @zoning-envelope/sb79-memo snapshot` (needs network and
 `pdftotext`), then `propose-exhibits`. Every layer has a `.meta.json` with
@@ -203,9 +231,9 @@ Cites go in GFM footnotes (`[^key]`) whose definitions render `<Law of={leaf} />
 or `<Source source={...} />`; never type a cite by hand. Open issues use
 `<OpenIssue title>` inside the paragraph's `<Step>`.
 
-**Phase status.** Phases 0–3 done (prose approved; static figures approved).
-Exhibits are set in `src/memo.config.ts`: A 1504 Francisco St (second-ranked,
-chosen over the top-ranked triplex), B 1510 Virginia St and C 1450 Acton
-Crescent (top-ranked). Phase 4 (scroll animation) is built and checked in
-headless Chromium; it awaits Matthew's check on a real laptop and phone
-before Phase 5 (calculator, print, share links).
+**Phase status.** Phases 0–4 done and approved. Exhibits are set in
+`src/memo.config.ts`: A 1504 Francisco St (second-ranked, chosen over the
+top-ranked triplex), B 1510 Virginia St and C 1450 Acton Crescent
+(top-ranked). Phase 5 (calculator, print, share links) is built and checked
+in headless Chromium; it awaits Matthew's check of the calculator and of the
+printed memo in his own browser.

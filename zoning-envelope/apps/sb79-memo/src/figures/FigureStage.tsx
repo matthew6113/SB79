@@ -20,6 +20,8 @@ import type { FigureData, FigureHandle } from './types';
 import { stateSeconds } from './views';
 import { NEUTRAL } from './motion';
 import { REDUCED_QUERY, startEngine, type Engine } from '../scroll/engine';
+import { startShareLinks } from '../scroll/share';
+import { still } from '../print/still';
 import MapFigure from './MapFigure';
 import Checklist from './Checklist';
 import Timeline from './Timeline';
@@ -53,22 +55,6 @@ class FigureBoundary extends Component<{ children: ReactNode }, { failed: boolea
   render() {
     return this.state.failed ? <p className="fig-fallback">This figure could not be drawn in this browser (it needs WebGL).</p> : this.props.children;
   }
-}
-
-/** A still copy of a figure for the reduced-motion crossfade; WebGL canvases are copied as 2D. */
-function snapshot(el: HTMLElement): HTMLElement {
-  const clone = el.cloneNode(true) as HTMLElement;
-  const from = el.querySelectorAll('canvas');
-  clone.querySelectorAll('canvas').forEach((c, i) => {
-    const src = from[i];
-    if (!src) return;
-    c.width = src.width;
-    c.height = src.height;
-    c.getContext('2d')?.drawImage(src, 0, 0);
-  });
-  clone.classList.add('is-active');
-  clone.setAttribute('aria-hidden', 'true');
-  return clone;
 }
 
 export default function FigureStage() {
@@ -136,13 +122,14 @@ export default function FigureStage() {
       // Reduced motion: crossfade from a still of what was showing.
       const from = slots.current[scriptEntry(prev.step).figure];
       if (from) {
-        const still = snapshot(from);
-        fade.current.replaceChildren(still);
-        still.style.opacity = '1';
-        requestAnimationFrame(() => requestAnimationFrame(() => { still.style.opacity = '0'; }));
-        still.addEventListener('transitionend', () => still.remove(), { once: true });
+        const copy = still(from, 'fade', { canvasAsImage: false });
+        copy.classList.add('is-active');
+        fade.current.replaceChildren(copy);
+        copy.style.opacity = '1';
+        requestAnimationFrame(() => requestAnimationFrame(() => { copy.style.opacity = '0'; }));
+        copy.addEventListener('transitionend', () => copy.remove(), { once: true });
         // If the transition never ends (a hidden tab, a stalled compositor), the still must not linger.
-        setTimeout(() => still.remove(), 1000);
+        setTimeout(() => copy.remove(), 1000);
       }
     }
     if (prev.step !== id || prev.progress !== p) setActive({ step: id, progress: p });
@@ -158,12 +145,14 @@ export default function FigureStage() {
     });
     const eng = startEngine(steps, (i, p) => setStep(script[i]!.id, p));
     engine.current = eng;
+    // Share links: #<step id> opens the memo at that paragraph, settled.
+    const stopShare = startShareLinks((id) => eng.scrollTo(id, 1, { reveal: true }));
     if (import.meta.env.DEV) {
       const q = new URLSearchParams(location.search);
       const step = q.get('step');
       if (step && script.some((e) => e.id === step)) eng.scrollTo(step, Math.min(1, Math.max(0, Number(q.get('p') ?? 1)) || 0));
     }
-    return () => { eng.destroy(); engine.current = null; };
+    return () => { stopShare(); eng.destroy(); engine.current = null; };
   }, [data, seconds, setStep]);
 
   const scrollTo = useCallback((id: string, progress = 1) => {

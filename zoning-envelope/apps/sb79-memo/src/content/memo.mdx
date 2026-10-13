@@ -2,7 +2,8 @@ import Step from '../components/Step.astro';
 import Law from '../components/Law.astro';
 import Source from '../components/Source.astro';
 import OpenIssue from '../components/OpenIssue.astro';
-import { A, B, C, L, asOf, contrast, data, derived, law, nextLaw } from '../memo-data';
+import Calculator from '../calculator/Calculator';
+import { A, B, C, L, asOf, calcDefaults, contrast, data, derived, law, nextLaw } from '../memo-data';
 import { date, duac, far, ft, ftAdj, miles, money, num, pct, sqft, word } from '../format';
 
 {/*
@@ -194,6 +195,16 @@ Exhibit A is within {ft(L.adjacent.value)} only if the elevator entrance counts.
 Berkeley must allow at least {ft(B.floors.heightFt)}, {duac(B.floors.densityDuPerAcre)}, and a residential floor area ratio of {far(B.floors.residentialFar)} at {B.address}, a lot its own zoning caps at {ft(B.localHeightFt)}: a floor of {num(B.unitFloor, 2)} units and {sqft(B.residentialFloorAreaSqFt)} of residential floor area, so long as the project meets SB 79's conditions.
 
 </Step>
+
+## Apply the Rule
+
+<div class="calculator" id="calculator">
+
+Change the facts and the answer updates. The calculator runs on the same law data as this memo, so the memo and the calculator cannot disagree. It opens on {B.address}. For general information only: it is not legal advice and not an analysis of any particular project.
+
+<Calculator client:visible asOf={asOf} defaults={calcDefaults} site={B.address} />
+
+</div>
 
 [^staff]: <Source source={data.zoningSource} />, table "Height Standards, North Berkeley BART Area."
 [^short]: <Law of={[L.q.heightLimitAtLeastFt, L.q.maxDensityAtLeastDuPerAcre, L.q.residentialFarNotPrecludedUpTo]} />.

@@ -203,22 +203,22 @@ describe('figure data', () => {
 // and render no numbers of their own. Rendered JSX text (and string literals
 // placed as JSX children) may not contain digits, bill names aside. Numbers in
 // code (layout, geometry) are not rendered text and are not checked.
-describe('figure components', () => {
-  const dir = new URL('../src/figures/', import.meta.url);
-  const files = readdirSync(dir).filter((f) => f.endsWith('.tsx'));
+describe('figure and calculator components', () => {
+  const dirs = ['../src/figures/', '../src/calculator/'].map((d) => new URL(d, import.meta.url));
+  const files = dirs.flatMap((dir) => readdirSync(dir).filter((f) => f.endsWith('.tsx')).map((f) => new URL(f, dir)));
   const names = (t: string) => t.replace(/\b(?:SB|AB) \d+\b/g, '').replace(/\b3D\b/g, '');
 
   it('render no hand-typed numbers', () => {
     const offenders: string[] = [];
     for (const f of files) {
-      const sf = ts.createSourceFile(f, readFileSync(new URL(f, dir), 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+      const sf = ts.createSourceFile(f.pathname, readFileSync(f, 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
       const visit = (n: ts.Node) => {
         const rendered =
           ts.isJsxText(n) ? n.text
           : ts.isJsxExpression(n) && n.expression && (ts.isStringLiteral(n.expression) || ts.isNoSubstitutionTemplateLiteral(n.expression)) && !ts.isJsxAttribute(n.parent)
             ? n.expression.text
             : null;
-        if (rendered && /\d/.test(names(rendered))) offenders.push(`${f}: ${rendered.trim()}`);
+        if (rendered && /\d/.test(names(rendered))) offenders.push(`${f.pathname.split('/src/')[1]}: ${rendered.trim()}`);
         ts.forEachChild(n, visit);
       };
       visit(sf);

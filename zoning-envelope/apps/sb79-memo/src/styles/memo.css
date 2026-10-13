@@ -95,7 +95,47 @@ h2 {
 }
 
 .step {
+  position: relative;
   margin: 0 0 2rem;
+  /* A plain anchor jump (before the scroll engine loads) lands near the focus line. */
+  scroll-margin-top: 40vh;
+}
+
+/* Share link: a ¶ in the left margin, shown on hover or focus. */
+.step-link {
+  position: absolute;
+  left: -1.4rem;
+  top: 0.1rem;
+  color: var(--ghost);
+  text-decoration: none;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.step:hover .step-link,
+.step-link:focus-visible {
+  opacity: 1;
+}
+.step-link:hover,
+.step-link:focus-visible {
+  color: var(--accent);
+}
+.share-toast {
+  position: absolute;
+  left: -1.4rem;
+  top: -1.4rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.7rem;
+  background: var(--ink);
+  color: var(--page);
+  white-space: nowrap;
+}
+@media (hover: none) {
+  .step-link { opacity: 0.6; }
+}
+@media (max-width: 760px) {
+  .step-link { left: auto; right: -0.6rem; }
+  .share-toast { left: auto; right: 0; }
 }
 
 .step-label {
@@ -148,4 +188,48 @@ h2 {
 a.cite,
 .footnotes a {
   color: inherit;
+}
+
+/* The memo's Print link (screen), and a plain printout when printed from the browser menu. */
+.print-link {
+  margin: 0.8rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.print-link a {
+  color: var(--accent);
+}
+.print-hint {
+  display: none;
+}
+
+@media print {
+  html {
+    background: #fff;
+    font-size: 11pt;
+  }
+  .memo {
+    display: block;
+    padding: 0;
+  }
+  .memo-text {
+    padding: 0;
+  }
+  .memo-figure,
+  .dev-panel,
+  .calculator,
+  #apply-the-rule,
+  .step-link,
+  .print-link {
+    display: none !important;
+  }
+  .print-hint {
+    display: block;
+    font-size: 9pt;
+    color: var(--ink-soft);
+  }
+  .step,
+  .open-issue {
+    break-inside: avoid;
+  }
 }

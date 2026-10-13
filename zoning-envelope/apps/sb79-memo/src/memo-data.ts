@@ -18,7 +18,8 @@ import rockZoning from '../data/rockridge/oakland-zoning.json';
 import rockProject from '../data/rockridge/project.json';
 import rockOrdinance from '../data/rockridge/oakland-ordinance.json';
 import { memoConfig } from './memo.config';
-import { address } from './format';
+import { address, num } from './format';
+import type { CalcForm } from './calculator/model';
 
 /** The memo speaks as of the data snapshot's date (the letterhead date). */
 export const asOf = manifest.asOf;
@@ -73,6 +74,7 @@ function exhibit(key: 'A' | 'B' | 'C') {
     units: c.units as number,
     yearBuilt: c.yearBuilt as number,
     use: c.use as string,
+    tier,
     distanceFt: c.nearestAccessPoint.distanceFt,
     accessPointId: c.nearestAccessPoint.id,
     nearestIsElevator: c.nearestAccessPoint.isElevator,
@@ -169,6 +171,24 @@ export const contrast = {
     sfYimby: { title: 'SF YIMBY, Reduced height and increased retail for Rockridge tower', url: 'https://sfyimby.com/2026/08/reduced-height-and-increased-retail-for-rockridge-tower-oakland.html' },
     ordinance: { title: `Oakland Ordinance ${rockOrdinance.enactmentNumber}`, date: rockOrdinance.passed, url: localOptions.oakland.source.url },
   },
+};
+
+/** The calculator opens on Exhibit B's facts (a project left blank). */
+export const calcDefaults: CalcForm = {
+  tier: B.tier,
+  where: 'distance',
+  distanceFt: String(B.distanceFt),
+  band: B.band,
+  cityPopulation: num(data.population.mtc),
+  lotAreaSqFt: num(B.lotSqFt),
+  localHeightFt: String(B.localHeightFt),
+  existingUnits: String(B.units),
+  rentControlledTenants: false,
+  units: '',
+  averageUnitSizeNetSqFt: '',
+  affordableUnits: '',
+  affordableLevel: 'veryLow',
+  heightFt: '',
 };
 
 export type Leaf = CitedLeaf;

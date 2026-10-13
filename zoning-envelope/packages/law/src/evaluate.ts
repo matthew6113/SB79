@@ -195,7 +195,7 @@ function projectConditions(law: LawAsOf, site: SiteInputs): Condition[] {
             detail:
               `Needs ${o.extremelyLow.value}% extremely low, ${o.veryLow.value}% very low, or ${o.lower.value}% lower income. ` +
               `Proposed: ${fmt(share(eli))}% / ${fmt(share(vli))}% / ${fmt(share(li))}% (deeper levels counted toward shallower). ` +
-              'A stricter local inclusionary rule applies instead.',
+              'A stricter local inclusionary rule, where one exists, applies instead.',
             cite: `${parentCite(o.extremelyLow.cite, 2)}; ${a.stricterLocalInclusionaryControls.cite}`,
           },
     );
