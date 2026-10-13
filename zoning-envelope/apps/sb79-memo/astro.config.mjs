@@ -4,6 +4,10 @@ import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 
 export default defineConfig({
+  // The site's path: "/" locally, "/<repo>/" on GitHub Pages (set by
+  // .github/workflows/pages.yml). Keep the trailing slash: code joins
+  // import.meta.env.BASE_URL straight onto file names.
+  base: process.env.BASE_PATH ?? '/',
   integrations: [mdx(), react()],
   vite: {
     build: {
