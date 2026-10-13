@@ -193,7 +193,14 @@ turns the form (strings, as typed) into `evaluateSite` inputs and its answer
 into rows; `test/calculator.test.ts` runs the spec's cases 1-6 through it.
 Fixed assumptions, stated beside it: urban transit county, residential
 zoning, no local opt-out. A failed project condition collapses the small
-envelope to local zoning in red. The memo's main page is for the screen;
+envelope to local zoning in red. It opens blank (`BLANK`: no tier, no site
+facts) so it never describes a particular site, and lists what is still
+needed instead of guessing. A boxed disclaimer in `memo.mdx` comes before
+it (not legal advice, no attorney-client relationship, built with AI and may
+make mistakes, check the statute and consult an attorney), and a short
+not-legal-advice line stays under the results; `test/memo.test.ts` checks
+both are there. On phones the pinned figure fades out once the "Apply the
+Rule" heading reaches it, so the calculator gets the whole screen. The memo's main page is for the screen;
 `/print/` is the paper memo: it renders the four figures off screen at
 `PRINT_SIZE`, copies each state settled as a still beside its paragraph,
 inlines footnotes (numbered in document order; Paged.js's own marker counter
@@ -231,9 +238,9 @@ Cites go in GFM footnotes (`[^key]`) whose definitions render `<Law of={leaf} />
 or `<Source source={...} />`; never type a cite by hand. Open issues use
 `<OpenIssue title>` inside the paragraph's `<Step>`.
 
-**Phase status.** Phases 0–4 done and approved. Exhibits are set in
+**Phase status.** Phases 0–5 done and approved. Exhibits are set in
 `src/memo.config.ts`: A 1504 Francisco St (second-ranked, chosen over the
 top-ranked triplex), B 1510 Virginia St and C 1450 Acton Crescent
-(top-ranked). Phase 5 (calculator, print, share links) is built and checked
-in headless Chromium; it awaits Matthew's check of the calculator and of the
-printed memo in his own browser.
+(top-ranked). Phase 5 (calculator, print, share links) was approved with
+two changes from Matthew: the calculator opens blank, and it carries a clear
+not-legal-advice disclaimer that says AI was used and may make mistakes.

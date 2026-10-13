@@ -11,17 +11,18 @@
  * transit county, zoned residential, mixed-use, or commercial, and no local
  * exemption, exclusion, or alternative plan covers it.
  */
-import { evaluateSite, lawAsOf, milesToFeet, type BandId, type Condition, type Evaluation, type SiteInputs, type Tier } from '@zoning-envelope/law';
+import { evaluateSite, lawAsOf, type BandId, type Condition, type Evaluation, type SiteInputs, type Tier } from '@zoning-envelope/law';
 import { duac, far, ftShort, milesShort, num, shortCite, sqftShort } from '../format';
 
 export type IncomeLevel = 'extremelyLow' | 'veryLow' | 'lower';
 
 export interface CalcForm {
-  tier: Tier;
+  /** null until the reader picks one. */
+  tier: Tier | null;
   /** Give a distance in feet, or pick a band. */
   where: 'distance' | 'band';
   distanceFt: string;
-  band: BandId;
+  band: BandId | '';
   cityPopulation: string;
   lotAreaSqFt: string;
   /** Optional: draws the ghost. */
@@ -37,6 +38,24 @@ export interface CalcForm {
   heightFt: string;
 }
 
+/** The form as the calculator opens: blank, so it describes no particular site. */
+export const BLANK: CalcForm = {
+  tier: null,
+  where: 'distance',
+  distanceFt: '',
+  band: '',
+  cityPopulation: '',
+  lotAreaSqFt: '',
+  localHeightFt: '',
+  existingUnits: '',
+  rentControlledTenants: false,
+  units: '',
+  averageUnitSizeNetSqFt: '',
+  affordableUnits: '',
+  affordableLevel: 'veryLow',
+  heightFt: '',
+};
+
 export interface Row {
   label: string;
   value: string;
@@ -45,7 +64,9 @@ export interface Row {
 }
 
 export interface CalcResult {
-  /** Messages for missing or invalid entries; when present there is no evaluation. */
+  /** Required entries still blank, by their form label; when any are, there is no evaluation. */
+  needed: string[];
+  /** Messages for invalid entries; when present there is no evaluation. */
   errors: string[];
   inputs: SiteInputs | null;
   evaluation: Evaluation | null;
@@ -74,11 +95,11 @@ const parse = (s: string): number | undefined => {
 
 export function calculate(form: CalcForm, asOf: string): CalcResult {
   const law = lawAsOf(asOf);
-  const key = form.tier === 1 ? 'tier1' : 'tier2';
+  const needed: string[] = [];
   const errors: string[] = [];
-  const need = (label: string, s: string, min = 0) => {
+  const need = (field: string, label: string, s: string, min = 0) => {
     const n = parse(s);
-    if (n === undefined) errors.push(`Enter the ${label}.`);
+    if (n === undefined) needed.push(field);
     else if (Number.isNaN(n) || n < min) errors.push(`The ${label} must be a number of at least ${num(min)}.`);
     return n ?? Number.NaN;
   };
@@ -88,26 +109,34 @@ export function calculate(form: CalcForm, asOf: string): CalcResult {
     return n;
   };
 
-  const lotAreaSqFt = need('lot area', form.lotAreaSqFt, 1);
-  const cityPopulation = need('city population', form.cityPopulation);
-  const distanceFt = form.where === 'distance' ? need('distance to the nearest access point', form.distanceFt) : undefined;
+  // In form order.
+  if (form.tier === null) needed.push('Stop tier');
+  let place: { distanceFt: number } | { band: BandId } | null = null;
+  if (form.where === 'distance') place = { distanceFt: need('Distance to the nearest access point', 'distance to the nearest access point', form.distanceFt) };
+  else if (form.band !== '') place = { band: form.band };
+  else needed.push('Band');
+  const cityPopulation = need('City population', 'city population', form.cityPopulation);
+  const lotAreaSqFt = need('Lot area', 'lot area', form.lotAreaSqFt, 1);
   const localHeightFt = optional('local height limit', form.localHeightFt, 1);
   const existingUnits = optional('number of existing units', form.existingUnits);
   const units = optional('number of proposed units', form.units, 1);
   const size = optional('average unit size', form.averageUnitSizeNetSqFt, 1);
   const affordable = optional('number of affordable units', form.affordableUnits);
   const heightFt = optional('proposed height', form.heightFt, 1);
-  if (units !== undefined && size === undefined) errors.push("Enter the average unit size to check the project's conditions.");
+  if (units !== undefined && size === undefined) needed.push('Average unit size, to check the project');
   if (units !== undefined && affordable !== undefined && affordable > units) errors.push('Affordable units cannot exceed the proposed units.');
 
-  if (errors.length) return { errors, inputs: null, evaluation: null, headline: '', rows: [], conditions: [], envelope: null };
+  if (needed.length || errors.length || form.tier === null || !place) {
+    return { needed, errors, inputs: null, evaluation: null, headline: '', rows: [], conditions: [], envelope: null };
+  }
 
+  const key = form.tier === 1 ? 'tier1' : 'tier2';
   const inputs: SiteInputs = {
     urbanTransitCounty: true,
     zoningClass: 'residential',
     localOptOut: 'none',
     tier: form.tier,
-    ...(form.where === 'distance' ? { distanceFt } : { band: form.band }),
+    ...place,
     cityPopulation,
     lotAreaSqFt,
     ...(localHeightFt !== undefined ? { localHeightLimitFt: localHeightFt } : {}),
@@ -168,6 +197,7 @@ export function calculate(form: CalcForm, asOf: string): CalcResult {
 
   const conditionFailed = ev.conditions.some((c) => c.status === 'fail');
   return {
+    needed,
     errors,
     inputs,
     evaluation: ev,
@@ -182,16 +212,5 @@ export function calculate(form: CalcForm, asOf: string): CalcResult {
       laborFt: law.labor.buildingHeightOverFt.value,
       collapsed: conditionFailed,
     },
-  };
-}
-
-/** Distance in feet that ends each band, for the form's hint (statute values converted, not typed). */
-export function bandEdgesFt(asOf: string, tier: Tier) {
-  const law = lawAsOf(asOf);
-  const key = tier === 1 ? 'tier1' : 'tier2';
-  return {
-    adjacent: law.definitions.adjacentWithin.value,
-    quarterMile: milesToFeet(law.bands.quarterMile[key].value),
-    halfMile: milesToFeet(law.bands.halfMile[key].value),
   };
 }

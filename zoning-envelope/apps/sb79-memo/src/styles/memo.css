@@ -158,6 +158,13 @@ h2 {
     height: 45vh;
     background: var(--page);
     z-index: 1;
+    transition: opacity 0.3s;
+  }
+
+  /* At the calculator the pinned figure steps aside (set in index.astro). */
+  .memo.is-calculator .memo-figure {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .memo-text {

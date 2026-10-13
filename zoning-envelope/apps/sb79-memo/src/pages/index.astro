@@ -20,6 +20,24 @@ import FigureStage from '../figures/FigureStage';
 </MemoLayout>
 
 <script>
+  // Phones: once the calculator's heading reaches the pinned figure, the
+  // figure steps aside so the disclaimer and the form get the whole screen.
+  const calc = document.getElementById('apply-the-rule');
+  const memo = document.querySelector('.memo');
+  if (calc && memo) {
+    let queued = false;
+    const update = () => {
+      queued = false;
+      memo.classList.toggle('is-calculator', calc.getBoundingClientRect().top < innerHeight * 0.45);
+    };
+    const queue = () => {
+      if (!queued) { queued = true; requestAnimationFrame(update); }
+    };
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', queue);
+    update();
+  }
+
   // Ctrl/Cmd+P opens the print version, which lays out the figures and the
   // page footnotes and then opens the print dialog.
   addEventListener('keydown', (e) => {

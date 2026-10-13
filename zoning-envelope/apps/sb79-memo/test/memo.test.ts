@@ -33,6 +33,15 @@ describe('memo.mdx', () => {
     expect(allowed.match(new RegExp(`.{0,25}${words.source}.{0,25}`, 'gi')) ?? []).toEqual([]);
   });
 
+  it('puts the not-legal-advice and AI disclaimer before the calculator, which opens blank', () => {
+    const block = raw.slice(raw.indexOf('<div class="calculator"'));
+    const disclaimer = block.slice(block.indexOf('<div class="calc-disclaimer"'), block.indexOf('<Calculator '));
+    expect(disclaimer).toMatch(/\*\*Not legal advice\.\*\*/);
+    expect(disclaimer).toMatch(/attorney-client relationship/);
+    expect(disclaimer).toMatch(/AI was used to build it, and it may make mistakes/);
+    expect(block).toMatch(/<Calculator client:visible asOf=\{asOf\} \/>/); // no site facts passed in
+  });
+
   it('cites every paragraph to a footnote or a statute', () => {
     const steps = [...raw.matchAll(/<Step id="([^"]+)">([\s\S]*?)<\/Step>/g)];
     const uncited = steps.filter(([, id, body]) => id !== 'conclusion' && !/\[\^[\w-]+\]|<Law /.test(body!)).map(([, id]) => id);

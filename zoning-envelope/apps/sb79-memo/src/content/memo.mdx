@@ -3,7 +3,7 @@ import Law from '../components/Law.astro';
 import Source from '../components/Source.astro';
 import OpenIssue from '../components/OpenIssue.astro';
 import Calculator from '../calculator/Calculator';
-import { A, B, C, L, asOf, calcDefaults, contrast, data, derived, law, nextLaw } from '../memo-data';
+import { A, B, C, L, asOf, contrast, data, derived, law, nextLaw } from '../memo-data';
 import { date, duac, far, ft, ftAdj, miles, money, num, pct, sqft, word } from '../format';
 
 {/*
@@ -200,9 +200,15 @@ Berkeley must allow at least {ft(B.floors.heightFt)}, {duac(B.floors.densityDuPe
 
 <div class="calculator" id="calculator">
 
-Change the facts and the answer updates. The calculator runs on the same law data as this memo, so the memo and the calculator cannot disagree. It opens on {B.address}. For general information only: it is not legal advice and not an analysis of any particular project.
+Enter a site's facts to see what SB 79 would require the city to allow. The calculator reads the same law data and citations as this memo, and the answer updates as you type.
 
-<Calculator client:visible asOf={asOf} defaults={calcDefaults} site={B.address} />
+<div class="calc-disclaimer" role="note">
+
+**Not legal advice.** This calculator is for general information only. It does not give legal advice, it is not an analysis of any particular site or project, and using it does not create an attorney-client relationship. AI was used to build it, and it may make mistakes: in the law it applies, in its arithmetic, or in how it reads an entry. Its answers are only as good as the facts entered, and it leaves out much that decides a real project, including local rules and the statute's safety standards. Check any result against the statute, and consult a qualified attorney before relying on it.
+
+</div>
+
+<Calculator client:visible asOf={asOf} />
 
 </div>
 

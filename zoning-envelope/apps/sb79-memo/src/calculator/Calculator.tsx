@@ -1,22 +1,24 @@
 /**
- * The what-if calculator (SB79_SPEC.md): change the facts and watch the
+ * The what-if calculator (SB79_SPEC.md): enter a site's facts and watch the
  * answer and a small envelope update. It runs evaluateSite on the same law
  * data as the memo, through model.ts. Changes apply at once; nothing animates.
+ *
+ * It opens blank, so it never describes a particular site, and the results
+ * carry their own not-legal-advice line (Matthew's call). The full disclaimer
+ * is prose in memo.mdx, above the calculator.
  */
 import { Component, lazy, Suspense, useId, useMemo, useState, type ReactNode } from 'react';
-import { lawAsOf } from '@zoning-envelope/law';
-import { calculate, bandEdgesFt, type CalcForm, type IncomeLevel } from './model';
+import { lawAsOf, milesToFeet } from '@zoning-envelope/law';
+import { BLANK, calculate, type CalcForm, type IncomeLevel } from './model';
 import { ftShort, milesShort, num, pct, shortCite, word } from '../format';
 
 const CalcEnvelope = lazy(() => import('./CalcEnvelope'));
 
 interface Props {
   asOf: string;
-  /** Exhibit B's facts, from memo-data. */
-  defaults: CalcForm;
-  /** Exhibit B's address, for the reset button. */
-  site: string;
 }
+
+type TierKey = 'tier1' | 'tier2';
 
 class Boundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -30,13 +32,25 @@ class Boundary extends Component<{ children: ReactNode }, { failed: boolean }> {
 
 const STATUS = { pass: '✓', fail: '✕', 'not-evaluated': '·', 'not-applicable': '–', passed: '✓', failed: '✕', skipped: '–', pending: '·' } as const;
 
-export default function Calculator({ asOf, defaults, site }: Props) {
-  const [form, setForm] = useState<CalcForm>(defaults);
+export default function Calculator({ asOf }: Props) {
+  const [form, setForm] = useState<CalcForm>(BLANK);
   const set = <K extends keyof CalcForm>(k: K) => (v: CalcForm[K]) => setForm((f) => ({ ...f, [k]: v }));
   const result = useMemo(() => calculate(form, asOf), [form, asOf]);
   const law = useMemo(() => lawAsOf(asOf), [asOf]);
-  const edges = bandEdgesFt(asOf, form.tier);
-  const key = form.tier === 1 ? 'tier1' : 'tier2';
+  /** A per-tier value for the hints: the chosen tier's, or, before one is chosen, the value both tiers share (null if they differ). */
+  const pick = (get: (k: TierKey) => number): number | null => {
+    if (form.tier !== null) return get(form.tier === 1 ? 'tier1' : 'tier2');
+    const v = get('tier1');
+    return v === get('tier2') ? v : null;
+  };
+  const quarter = pick((k) => law.bands.quarterMile[k].value);
+  const half = pick((k) => law.bands.halfMile[k].value);
+  const outerPop = pick((k) => law.eligibility.outerBandMinCityPopulation[k].value);
+  const adjacent = law.definitions.adjacentWithin.value;
+  const tierDef = (t: 1 | 2) => {
+    const d = t === 1 ? law.definitions.tier1 : law.definitions.tier2;
+    return `Tier ${t}: ${d.value} (${shortCite(d.cite)})`;
+  };
   const id = useId();
   const a = law.affordability.options;
   const anti = law.antiDisplacement.rentControlledSite;
@@ -62,7 +76,7 @@ export default function Calculator({ asOf, defaults, site }: Props) {
                 <label key={t}><input type="radio" name="tier" checked={form.tier === t} onChange={() => set('tier')(t)} /> Tier {t}</label>
               ))}
             </div>
-            <small>{form.tier === 1 ? `Tier 1: ${law.definitions.tier1.value}` : `Tier 2: ${law.definitions.tier2.value}`} ({shortCite((form.tier === 1 ? law.definitions.tier1 : law.definitions.tier2).cite)})</small>
+            <small>{form.tier !== null ? tierDef(form.tier) : `${tierDef(1)}. ${tierDef(2)}`}</small>
           </div>
           <div className="calc-field">
             <span>Distance to the nearest access point</span>
@@ -72,16 +86,21 @@ export default function Calculator({ asOf, defaults, site }: Props) {
             </div>
             {form.where === 'distance'
               ? <input inputMode="decimal" aria-label="Distance in feet" name="distanceFt" value={form.distanceFt} onChange={(e) => set('distanceFt')(e.target.value)} />
-              : (
+              : quarter !== null && half !== null ? (
                 <select aria-label="Band" name="band" value={form.band} onChange={(e) => set('band')(e.target.value as CalcForm['band'])}>
-                  <option value="adjacent">Within {ftShort(edges.adjacent)}</option>
-                  <option value="quarterMile">Within {milesShort(law.bands.quarterMile[key].value)}</option>
-                  <option value="halfMile">{milesShort(law.bands.quarterMile[key].value)} to {milesShort(law.bands.halfMile[key].value)}</option>
+                  <option value="" disabled>Choose a band</option>
+                  <option value="adjacent">Within {ftShort(adjacent)}</option>
+                  <option value="quarterMile">Within {milesShort(quarter)}</option>
+                  <option value="halfMile">{milesShort(quarter)} to {milesShort(half)}</option>
                 </select>
+              ) : (
+                <select aria-label="Band" name="band" value="" disabled><option value="">Choose the stop tier first</option></select>
               )}
-            <small>Bands end at {ftShort(edges.adjacent)}, {num(edges.quarterMile)} ft, and {num(edges.halfMile)} ft ({shortCite(law.eligibility.distanceMeasurement.cite)})</small>
+            {quarter !== null && half !== null && (
+              <small>Bands end at {ftShort(adjacent)}, {num(milesToFeet(quarter))} ft, and {num(milesToFeet(half))} ft ({shortCite(law.eligibility.distanceMeasurement.cite)})</small>
+            )}
           </div>
-          {text('cityPopulation', 'City population', `The outer band counts in cities of at least ${num(law.eligibility.outerBandMinCityPopulation[key].value)}`)}
+          {text('cityPopulation', 'City population', outerPop !== null ? `The outer band counts in cities of at least ${num(outerPop)}` : undefined)}
           {text('lotAreaSqFt', 'Lot area (sq ft)')}
           {text('localHeightFt', 'Local height limit (ft)', 'Optional: draws the pale ghost', 'optional')}
         </fieldset>
@@ -114,14 +133,22 @@ export default function Calculator({ asOf, defaults, site }: Props) {
           {text('heightFt', 'Proposed height (ft)', 'Optional: tests the labor rule against the project', 'optional')}
         </fieldset>
         <div className="calc-actions">
-          <button type="button" onClick={() => setForm(defaults)}>Reset to {site}</button>
+          <button type="button" onClick={() => setForm(BLANK)}>Clear the form</button>
           <button type="button" onClick={() => setForm({ ...form, units: '', averageUnitSizeNetSqFt: '', affordableUnits: '', heightFt: '' })}>Clear the project</button>
         </div>
       </form>
 
       <div className="calc-out" aria-live="polite">
-        {result.errors.length > 0 ? (
-          <ul className="calc-errors">{result.errors.map((e) => <li key={e}>{e}</li>)}</ul>
+        {result.needed.length > 0 || result.errors.length > 0 ? (
+          <>
+            {result.errors.length > 0 && <ul className="calc-errors">{result.errors.map((e) => <li key={e}>{e}</li>)}</ul>}
+            {result.needed.length > 0 && (
+              <div className="calc-needed">
+                <p>To see a result, fill in:</p>
+                <ul>{result.needed.map((n) => <li key={n}>{n}</li>)}</ul>
+              </div>
+            )}
+          </>
         ) : (
           <>
             <p className={`calc-headline ${result.evaluation?.outcome === 'local-rules' ? 'is-local' : ''}`}>{result.headline}</p>
@@ -165,6 +192,7 @@ export default function Calculator({ asOf, defaults, site }: Props) {
             </details>
           </>
         )}
+        <p className="calc-note">Not legal advice. Built with the help of AI; it may make mistakes. Check every result against the statute.</p>
       </div>
     </div>
   );

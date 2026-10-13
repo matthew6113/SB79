@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculate, type CalcForm } from '../src/calculator/model';
+import { BLANK, calculate, type CalcForm } from '../src/calculator/model';
 import { asOf } from '../src/memo-data';
 
 // SB79_SPEC.md, "The what-if calculator": cases 1-6, entered as a reader
@@ -90,9 +90,19 @@ describe('calculator: entry handling', () => {
   });
 
   it('asks for missing or invalid entries instead of guessing', () => {
-    expect(calculate({ ...blank, lotAreaSqFt: '' }, asOf).errors).toEqual(['Enter the lot area.']);
+    expect(calculate({ ...blank, lotAreaSqFt: '' }, asOf)).toMatchObject({ needed: ['Lot area'], errors: [], evaluation: null });
     expect(calculate({ ...blank, lotAreaSqFt: 'abc' }, asOf).errors[0]).toMatch(/lot area must be a number/);
-    expect(calculate({ ...blank, units: '12' }, asOf).errors).toEqual(["Enter the average unit size to check the project's conditions."]);
+    expect(calculate({ ...blank, units: '12' }, asOf).needed).toEqual(['Average unit size, to check the project']);
     expect(calculate({ ...blank, units: '12', averageUnitSizeNetSqFt: '900', affordableUnits: '13' }, asOf).errors).toEqual(['Affordable units cannot exceed the proposed units.']);
+    expect(calculate({ ...blank, where: 'band', band: '' }, asOf).needed).toEqual(['Band']);
+  });
+
+  it('opens blank: no site facts and no result until the site is filled in', () => {
+    const facts = Object.entries(BLANK).filter(([k]) => !['where', 'affordableLevel', 'rentControlledTenants'].includes(k));
+    expect(facts.filter(([, v]) => v !== '' && v !== null)).toEqual([]);
+    expect(BLANK.rentControlledTenants).toBe(false);
+    const r = calculate(BLANK, asOf);
+    expect(r).toMatchObject({ errors: [], evaluation: null, envelope: null, rows: [] });
+    expect(r.needed).toEqual(['Stop tier', 'Distance to the nearest access point', 'City population', 'Lot area']);
   });
 });

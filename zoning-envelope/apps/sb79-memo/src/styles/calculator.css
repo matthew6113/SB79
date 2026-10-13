@@ -11,6 +11,19 @@
   line-height: 1.4;
 }
 
+/* The disclaimer above the calculator: boxed, so it is read before the form. */
+.calc-disclaimer {
+  border: 1.5px solid var(--ink);
+  padding: 0.6rem 0.9rem;
+  margin: 0 0 1.2rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.calc-disclaimer p {
+  margin: 0;
+}
+
 .calc-assume {
   margin: 0 0 0.6rem;
   font-size: 0.78rem;
@@ -124,6 +137,28 @@
   margin: 0;
   padding-left: 1.1rem;
   color: var(--collapse);
+}
+
+.calc-needed {
+  color: var(--ink-soft);
+}
+
+.calc-needed p {
+  margin: 0 0 0.3rem;
+}
+
+.calc-needed ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+/* Travels with the results (a screenshot of them keeps it). */
+.calc-note {
+  margin: 0.9rem 0 0;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--ghost);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
 }
 
 .calc-envelope {
