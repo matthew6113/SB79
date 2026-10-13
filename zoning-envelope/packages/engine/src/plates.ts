@@ -1,4 +1,4 @@
-import { polygonArea, type Polygon } from './polygon';
+import { polygonArea, type Polygon } from './polygon.ts';
 
 export interface FloorPlate {
   /** 0 for the ground floor. */

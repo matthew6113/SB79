@@ -1,0 +1,22 @@
+---
+/**
+ * The print version: the memo as a paper memo, each paragraph's figure at its
+ * final state beside it, footnotes at the foot of each page (Paged.js). The
+ * memo's Print link and Ctrl/Cmd+P open it; ?auto opens the print dialog
+ * once the pages are laid out.
+ */
+import MemoLayout from '../layouts/MemoLayout.astro';
+import Letterhead from '../components/Letterhead.astro';
+import Memo from '../content/memo.mdx';
+import PrintBuilder from '../print/PrintBuilder';
+import '../styles/print.css';
+---
+
+<MemoLayout title="SB 79 Memo (print version)">
+  <PrintBuilder client:only="react" />
+  <article id="print-source" class="print-source">
+    <Letterhead />
+    <Memo />
+  </article>
+  <div id="print-pages"></div>
+</MemoLayout>

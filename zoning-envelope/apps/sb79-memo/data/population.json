@@ -1,0 +1,17 @@
+{
+  "retrievedAt": "2026-10-12T17:30:12.500Z",
+  "city": "Berkeley",
+  "shown": "mtcAcs",
+  "mtcAcs": {
+    "value": 120223,
+    "vintage": "ACS 2019–2023 5-year",
+    "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_jurisdictions_with_pop_acs2019_2023/FeatureServer/1",
+    "note": "The figure MTC used to decide which cities get the 1/4–1/2 mile band on its SB 79 map (presumed valid, Gov. Code § 65912.160(f))."
+  },
+  "census2020": {
+    "value": 124321,
+    "vintage": "2020 Census (P.L. 94-171), POP100",
+    "source": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Census2020/MapServer/26"
+  },
+  "note": "The statute does not say which population figure applies. Matthew chose the MTC figure for the memo (2026-10-12)."
+}

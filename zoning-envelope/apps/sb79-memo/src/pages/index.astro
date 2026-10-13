@@ -9,6 +9,8 @@ import FigureStage from '../figures/FigureStage';
   <main class="memo">
     <article class="memo-text">
       <Letterhead />
+      <p class="print-link"><a href="print/?auto">Print or save as PDF</a> <span>(figures beside each paragraph, footnotes on each page)</span></p>
+      <p class="print-hint">This printout has no figures. For figures beside each paragraph and footnotes on each page, use “Print or save as PDF” in the online memo.</p>
       <Memo />
     </article>
     <aside class="memo-figure" aria-label="Figure">
@@ -16,3 +18,32 @@ import FigureStage from '../figures/FigureStage';
     </aside>
   </main>
 </MemoLayout>
+
+<script>
+  // Phones: once the calculator's heading reaches the pinned figure, the
+  // figure steps aside so the disclaimer and the form get the whole screen.
+  const calc = document.getElementById('apply-the-rule');
+  const memo = document.querySelector('.memo');
+  if (calc && memo) {
+    let queued = false;
+    const update = () => {
+      queued = false;
+      memo.classList.toggle('is-calculator', calc.getBoundingClientRect().top < innerHeight * 0.45);
+    };
+    const queue = () => {
+      if (!queued) { queued = true; requestAnimationFrame(update); }
+    };
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', queue);
+    update();
+  }
+
+  // Ctrl/Cmd+P opens the print version, which lays out the figures and the
+  // page footnotes and then opens the print dialog.
+  addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 'p') {
+      e.preventDefault();
+      location.href = `${import.meta.env.BASE_URL}print/?auto`;
+    }
+  });
+</script>

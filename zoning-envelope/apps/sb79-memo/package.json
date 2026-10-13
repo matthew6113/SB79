@@ -8,22 +8,36 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "vitest run"
+    "test": "vitest run",
+    "snapshot": "NODE_USE_ENV_PROXY=1 node --no-warnings scripts/snapshot.ts",
+    "propose-exhibits": "node --no-warnings scripts/propose-exhibits.ts",
+    "snapshot-rockridge": "NODE_USE_ENV_PROXY=1 node --no-warnings scripts/snapshot-rockridge.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "8.0.2",
     "@astrojs/react": "7.0.0",
+    "@react-three/fiber": "9.8.0",
     "@zoning-envelope/engine": "workspace:*",
     "@zoning-envelope/law": "workspace:*",
     "astro": "7.3.5",
+    "d3-geo": "3.1.1",
+    "d3-shape": "3.2.0",
+    "gsap": "3.15.0",
+    "pagedjs": "0.4.3",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "three": "0.186.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@types/d3-geo": "3.1.1",
+    "@types/d3-shape": "3.2.0",
     "@types/node": "22.20.5",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "@types/three": "0.186.0",
+    "polyclip-ts": "0.16.8",
+    "proj4": "2.22.0",
     "typescript": "6.0.3",
     "vitest": "5.0.3"
   }

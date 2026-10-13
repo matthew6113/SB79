@@ -1,54 +1,267 @@
 import Step from '../components/Step.astro';
+import Law from '../components/Law.astro';
+import Source from '../components/Source.astro';
+import OpenIssue from '../components/OpenIssue.astro';
+import Calculator from '../calculator/Calculator';
+import { A, B, C, L, asOf, contrast, data, derived, law, nextLaw } from '../memo-data';
+import { date, duac, far, ft, ftAdj, miles, money, num, pct, sqft, word } from '../format';
 
 {/*
-  Scaffold only. Phase 2 drafts the prose. Rules:
+  Phase 2 draft for Matthew's edit. Rules:
   - One <Step id> per paragraph, ids and order exactly as in src/script.ts.
-  - No hand-typed legal numbers: every value comes from @zoning-envelope/law
-    or the dated snapshots in data/.
+  - No hand-typed legal numbers (digits or number words): every value is an
+    expression over memo-data, which reads @zoning-envelope/law and data/.
+    test/memo.test.ts enforces this.
 */}
 
 ## I. Question Presented
 
-<Step id="question-presented">*Draft in Phase 2.*</Step>
+<Step id="question-presented">
+
+After {date(L.operative.value)}, what must the City of Berkeley allow on {B.address}, a {num(B.lotSqFt)}-square-foot lot zoned {B.district} about {num(B.distanceFt)} feet from North Berkeley BART? Berkeley's zoning caps the lot at {ft(B.localHeightFt)}.[^staff]
+
+</Step>
 
 ## II. Short Answer
 
-<Step id="short-answer">*Draft in Phase 2.*</Step>
+<Step id="short-answer">
+
+Berkeley must allow at least {ft(B.floors.heightFt)} and {duac(B.floors.densityDuPerAcre)} on the site, and may not block a residential floor area ratio of up to {far(B.floors.residentialFar)}, if the project meets SB 79's conditions.[^short] On this lot that is a floor of {num(B.unitFloor, 2)} units and {sqft(B.residentialFloorAreaSqFt)} of residential floor area. These are floors on the city's limits, not caps on the project.
+
+</Step>
 
 ## III. Discussion
 
-<Step id="transit-county">*Draft in Phase 2.*</Step>
+### A. SB 79 reaches the site
 
-<Step id="stop-tier">*Draft in Phase 2.*</Step>
+<Step id="transit-county">
 
-<Step id="distance">*Draft in Phase 2.*</Step>
+SB 79 reaches only urban transit counties: counties with more than {num(L.utc.value)} passenger rail stations.[^utc] The statute names no counties. HCD's advisory lists {word(derived.utcCountyCount)}, Alameda among them.[^hcd]
 
-<Step id="city-size">*Draft in Phase 2.*</Step>
+<OpenIssue title="Orange County">
+ABAG's summary adds Orange County, citing legislative analysis; HCD's list does not include it.[^abag] The difference does not affect Alameda. This memo follows HCD.
+</OpenIssue>
 
-<Step id="zoning-class">*Draft in Phase 2.*</Step>
+</Step>
 
-<Step id="local-opt-outs">*Draft in Phase 2.*</Step>
+<Step id="stop-tier">
 
-<Step id="height">*Draft in Phase 2.*</Step>
+North Berkeley BART is a Tier 1 stop: it lies in an urban transit county and is served by heavy rail transit,[^tier1] which HCD's advisory says includes BART.[^hcd] MTC's regional SB 79 map shows it as Tier 1,[^mtcmap] and the statute presumes that map valid unless rebutted.[^map]
 
-<Step id="density">*Draft in Phase 2.*</Step>
+<OpenIssue title="BART’s own land">
+The station sits on BART-owned parcels. AB 2923 separately governs zoning on BART-owned land, and SB 79 does not say how the statutes interact. The exhibits in this memo stay off BART land.
+</OpenIssue>
 
-<Step id="residential-far">*Draft in Phase 2.*</Step>
+</Step>
 
-<Step id="local-rules">*Draft in Phase 2.*</Step>
+<Step id="distance">
 
-<Step id="conditions">*Draft in Phase 2.*</Step>
+Distance runs in a straight line from the nearest edge of the parcel to a pedestrian access point of the stop.[^measure] The site's nearest edge is {num(B.distanceFt)} feet from the nearest station entrance{B.nearestIsElevator ? ', an elevator,' : ''} and {num(B.distanceWithoutElevatorFt)} feet from the nearest non-elevator entrance. Either way it is within {miles(L.quarter.value)}.[^quarter]
 
-<Step id="counterfactual">*Draft in Phase 2.*</Step>
+<OpenIssue title="Which access point counts">
+The statute does not define "pedestrian access point." HCD's advisory treats any station entrance, platform access point, or stop location on the regional map as a pedestrian access point.[^hcd] The choice can move a parcel between bands. Exhibit A, {A.address}, is {num(A.distanceFt)} feet from North Berkeley's elevator entrance but {num(A.distanceWithoutElevatorFt)} feet from its nearest other entrance: it is within {ft(L.adjacent.value)} only if the elevator counts.
+</OpenIssue>
 
-<Step id="density-bonus">*Draft in Phase 2.*</Step>
+</Step>
 
-<Step id="approval">*Draft in Phase 2.*</Step>
+<Step id="city-size">
 
-<Step id="city-options">*Draft in Phase 2.*</Step>
+The band from {miles(L.quarter.value)} to {miles(L.half.value)} applies only in cities of at least {num(L.pop.value)} people.[^pop] Berkeley has {num(data.population.mtc)} by the count MTC used for its map and {num(data.population.census)} by the decennial census.[^popsrc] The test does not matter for this site, which is inside {miles(L.quarter.value)}, but it decides Exhibit C.
 
-<Step id="other-bands">*Draft in Phase 2.*</Step>
+<OpenIssue title="Which population count">
+The statute does not say which count or date applies. Both counts clear the threshold, so the choice does not change any result in this memo.
+</OpenIssue>
+
+</Step>
+
+<Step id="zoning-class">
+
+SB 79 applies on sites zoned for residential, mixed, or commercial development.[^zoning] The site is in Berkeley's {B.district} ({B.districtName}) district, a residential zone. Sites zoned for open space or industry fall outside the statute.
+
+</Step>
+
+<Step id="local-opt-outs">
+
+A city may exempt some areas, exclude some sites for a time, or replace the defaults with an alternative plan, each subject to HCD review.[^options] As of {date(data.localOptions.berkeley.source.date)}, Berkeley had done none of these, so the defaults govern in full.[^yimby]
+
+</Step>
+
+### B. What Berkeley must allow
+
+<Step id="height">
+
+Berkeley's zoning caps the site at {ft(B.localHeightFt)}.[^staff] SB 79 bars the city from imposing any height limit below {ft(B.floors.heightFt)}.[^qh] The state floor sits {ft(B.heightGainFt)} above the local ceiling.
+
+</Step>
+
+<Step id="density">
+
+Berkeley may not impose a maximum density below {duac(B.floors.densityDuPerAcre)}.[^qd] The lot is {num(B.acres, 3)} acres, so the city must allow at least {num(B.unitFloor, 2)} units.
+
+<OpenIssue title="Rounding">
+SB 79 does not say how a fractional unit count rounds. The Density Bonus Law rounds its own calculations up,[^round] but that rule governs bonus calculations, not the SB 79 floor. This memo shows the unrounded figure.
+</OpenIssue>
+
+</Step>
+
+<Step id="residential-far">
+
+Berkeley may not enforce any standard that would physically preclude a residential floor area ratio of up to {far(B.floors.residentialFar)}.[^qf] Residential floor area counts net habitable space, finished and heated, against the area of the lot.[^rfar] On this lot that is {sqft(B.residentialFloorAreaSqFt)}.
+
+</Step>
+
+<Step id="local-rules">
+
+Local standards still apply if they do not, alone or in concert, prevent a project from reaching those numbers.[^prevent] A rear setback, for example, may apply only so far as the project can still reach its height, density, and floor area.
+
+<OpenIssue title={'What "prevent" means'}>
+Which local standards survive is contestable, and the setback is an illustration, not a ruling. From {date(law.acts.sb1361.effective.value)}, this rule moves to <Law of={nextLaw.localStandards.mayNotPrevent} /> without change to its text.
+</OpenIssue>
+
+</Step>
+
+### C. What the project must do
+
+<Step id="conditions">
+
+The floors come with conditions. The project must include at least {word(L.cond.minUnits.value)} units[^units] at a density of at least {duac(L.cond.minDensityDuPerAcre.value)} or any higher local minimum,[^mindensity] and its units may average no more than {num(L.cond.maxAverageUnitSizeNetSqFt.value)} net habitable square feet.[^unitsize] A project of more than {word(L.aff.appliesAboveUnits.value)} units must reserve {pct(L.aff.options.extremelyLow.value)} of its units for extremely low income households, {pct(L.aff.options.veryLow.value)} for very low income households, or {pct(L.aff.options.lower.value)} for lower income households,[^afford] unless a stricter local rule applies.[^local] Berkeley's does: it requires {pct(data.inclusionary.percentOfUnits.value)} of units to be affordable.[^bmc] The site holds {B.units === 1 ? 'one home' : `${word(B.units)} units`}, built in {B.yearBuilt}, so the bar on demolishing tenant-occupied rent-controlled housing on a site of more than {word(L.anti.rentControlledSite.moreThanUnits.value)} units does not reach it.[^h1]
+
+<OpenIssue title="Berkeley’s inclusionary rule">
+The percentage comes from a mirror of the Berkeley Municipal Code; the official site was not reachable for this memo. Berkeley also requires at least {pct(data.inclusionary.veryLowShareOfRequired.value)} of the required affordable units to be offered to very low income households. In applying SB 79's own options, this memo counts a unit at a deeper income level toward the shallower options too.
+</OpenIssue>
+
+</Step>
+
+<Step id="counterfactual">
+
+A single failed condition ends the inquiry. Had the lot held {word(derived.rentControlledSiteUnits)} units, and had the project required demolishing rent-controlled housing occupied by tenants within the past {word(L.anti.rentControlledSite.tenantLookbackYears.value)} years, SB 79 would not apply and local zoning would govern.[^h1] The same holds for a site that lost more than {word(L.anti.demolishedRentControlledSite.moreThanUnits.value)} units, some rent-controlled, to demolition within {word(L.anti.demolishedRentControlledSite.lookbackYears.value)} years before the application,[^h2] and for a mobilehome, RV, or special occupancy park.[^h3]
+
+</Step>
+
+### D. The density bonus
+
+<Step id="density-bonus">
+
+SB 79's density becomes the base density for the State Density Bonus Law.[^dbase] Bonus units stack on top of it; extra height does not. Berkeley need not grant height beyond SB 79's {ft(B.floors.heightFt)} through the bonus law,[^dheight] except that an all-affordable project near transit may gain up to {ft(L.bonus.heightExceptionFt.value)}.[^dexc] A project that reaches {duac(L.q.concessionMinDensityDuPerAcre.value)} and otherwise qualifies earns up to {word(L.bonus.additionalConcessions.extremelyLow.value)} more concessions, depending on how deep its affordability goes.[^dconc]
+
+</Step>
+
+<Step id="density-bonus-contrast">
+
+The density bonus and SB 79 can point in different directions. At {contrast.address} in Oakland, {num(contrast.distanceFt)} feet from a Rockridge BART entrance, SB 79 requires the city to allow at least {ft(contrast.sb79HeightFt)};[^qh] Oakland's zoning already allows {ft(contrast.localHeightFt)}.[^oakh] The pending application there relies on the Density Bonus Law, not SB 79, with towers of {ft(contrast.towerHeightsFt[0])} and {ft(contrast.towerHeightsFt[1])} and no affordable units,[^proj] under rules vested by a preliminary application filed {date(contrast.preliminaryApplication)}, before SB 79 reached cities on {date(L.operative.value)}.[^operative]
+
+<OpenIssue title="A pending application">
+This paragraph describes the application only to contrast the statutes; it takes no position on the application. Its facts come from press and advocacy sources and should be checked against Oakland's project file. Oakland's SB 79 ordinance leaves the Rockridge station area under SB 79's defaults.[^oakord]
+</OpenIssue>
+
+</Step>
+
+### E. Approval
+
+<Step id="approval">
+
+SB 79 creates no approval process of its own and does not change CEQA.[^noprocess] A compliant project is deemed consistent with local plans for purposes of the Housing Accountability Act,[^haa] and may seek streamlined ministerial approval under SB 35.[^sb35] Beginning {date(L.approval.denialPresumption.beginsOn.value)}, a city that denies a compliant project in a high-resource area is presumed to violate that Act and is liable for fines of at least {money(L.approval.denialPresumption.minFinePerUnitUsd.value)} per unit, unless it shows a health, life, or safety reason for the denial.[^presume] The site lies in a {B.opportunity} area on the state's opportunity map.[^opp]
+
+</Step>
+
+### F. How cities change the defaults
+
+<Step id="city-options">
+
+A city may change the defaults, subject to HCD review.[^review] It may exempt areas with no walking path to the stop shorter than {miles(L.options.exemptions.noWalkingPathUnderMiles.value)}, or large industrial employment hubs;[^exempt] exclude qualifying sites until {word(L.options.exclusions.untilYearsAfterSeventhHousingElement.value)} year after its seventh housing element;[^exclude] or adopt an alternative plan that keeps total capacity and cuts no site or zone by more than {pct(L.options.alternativePlan.maxSiteDensityCutPercent.value)}.[^alt] Berkeley took none of these.[^yimby] Oakland's exclusion of sites already zoned near SB 79's levels reaches many of its station areas, but by its terms not those around Ashby, MacArthur, and Rockridge BART.[^oakord] San Francisco adopted an alternative plan, which HCD found in substantial compliance.[^hcdsf]
+
+<OpenIssue title={`Amendments effective ${date(law.acts.ab2576.effective.value)}`}>
+AB 2576 and SB 1361 take effect on {date(law.acts.ab2576.effective.value)}.[^amend] They renumber parts of the provisions on local standards and alternative plans, widen the historic-site exclusion, and add protections for transit service. This memo states the law in force on {date(asOf)}.
+</OpenIssue>
+
+</Step>
+
+### G. The other bands
+
+<Step id="other-bands">
+
+Distance steps the standards down. Within {ft(L.adjacent.value)} of an access point, an adjacency intensifier adds {ft(L.intens.heightAddFt.value)} of height, {duac(L.intens.densityAddDuPerAcre.value)} of density, and {far(L.intens.residentialFarAdd.value)} of residential floor area ratio to the standards within {miles(L.quarter.value)}.[^intens] Exhibit A, {A.address}, gets at least {ft(A.floors.heightFt)}, {A.laborTriggered ? 'above' : 'below'} the {ftAdj(L.labor.buildingHeightOverFt.value)} line over which prevailing-wage and skilled-workforce standards apply.[^labor] Exhibit C, {C.address}, lies between {miles(L.quarter.value)} and {miles(L.half.value)} out and gets at least {ft(C.floors.heightFt)}, {duac(C.floors.densityDuPerAcre)}, and a residential floor area ratio of {far(C.floors.residentialFar)}.[^outer]
+
+<OpenIssue title="Exhibit A">
+Exhibit A is within {ft(L.adjacent.value)} only if the elevator entrance counts. Its existing building has {word(A.units)} units. {A.units > L.anti.rentControlledSite.moreThanUnits.value ? `If any are rent-controlled and were occupied by tenants within the past ${word(L.anti.rentControlledSite.tenantLookbackYears.value)} years, a project that demolished them could not use SB 79 at all.` : `The bar on demolishing tenant-occupied rent-controlled housing reaches only sites of more than ${word(L.anti.rentControlledSite.moreThanUnits.value)} units, so it does not apply here.`}[^h1] A project that demolished existing units would still have to meet the state's replacement-housing rules.[^repl]
+</OpenIssue>
+
+</Step>
 
 ## IV. Conclusion
 
-<Step id="conclusion">*Draft in Phase 2.*</Step>
+<Step id="conclusion">
+
+Berkeley must allow at least {ft(B.floors.heightFt)}, {duac(B.floors.densityDuPerAcre)}, and a residential floor area ratio of {far(B.floors.residentialFar)} at {B.address}, a lot its own zoning caps at {ft(B.localHeightFt)}: a floor of {num(B.unitFloor, 2)} units and {sqft(B.residentialFloorAreaSqFt)} of residential floor area, so long as the project meets SB 79's conditions.
+
+</Step>
+
+## Apply the Rule
+
+<div class="calculator" id="calculator">
+
+Enter a site's facts to see what SB 79 would require the city to allow. The calculator reads the same law data and citations as this memo, and the answer updates as you type.
+
+<div class="calc-disclaimer" role="note">
+
+**Not legal advice.** This calculator is for general information only. It does not give legal advice, it is not an analysis of any particular site or project, and using it does not create an attorney-client relationship. AI was used to build it, and it may make mistakes: in the law it applies, in its arithmetic, or in how it reads an entry. Its answers are only as good as the facts entered, and it leaves out much that decides a real project, including local rules and the statute's safety standards. Check any result against the statute, and consult a qualified attorney before relying on it.
+
+</div>
+
+<Calculator client:visible asOf={asOf} />
+
+</div>
+
+[^staff]: <Source source={data.zoningSource} />, table "Height Standards, North Berkeley BART Area."
+[^short]: <Law of={[L.q.heightLimitAtLeastFt, L.q.maxDensityAtLeastDuPerAcre, L.q.residentialFarNotPrecludedUpTo]} />.
+[^utc]: <Law of={L.utc} />.
+[^hcd]: <Source source={data.counties.source} />.
+[^abag]: <Source source={data.counties.openIssue.source} />.
+[^tier1]: <Law of={L.tier1} />.
+[^map]: <Law of={L.map} />.
+[^mtcmap]: <Source source={data.mtcMap} />.
+[^measure]: <Law of={L.measure} />.
+[^quarter]: <Law of={L.quarter} />.
+[^pop]: <Law of={L.pop} />.
+[^popsrc]: <Source source={data.mtcPopulationSource} />, {data.population.mtcVintage}; <Source source={data.censusSource} />, {data.population.censusVintage}.
+[^zoning]: <Law of={L.zoning} />.
+[^options]: <Law of={[L.options.exemptions.noWalkingPathUnderMiles, L.options.exclusions.untilYearsAfterSeventhHousingElement, L.options.alternativePlan.replacesDefaults]} />.
+[^yimby]: <Source source={data.localOptions.berkeley.source} />.
+[^qh]: <Law of={L.q.heightLimitAtLeastFt} />.
+[^qd]: <Law of={L.q.maxDensityAtLeastDuPerAcre} />.
+[^qf]: <Law of={L.q.residentialFarNotPrecludedUpTo} />.
+[^rfar]: <Law of={[L.rfar, L.nhsf]} />.
+[^round]: <Law of={L.bonus.roundingRule} />.
+[^prevent]: <Law of={L.mayNotPrevent} />.
+[^units]: <Law of={L.cond.minUnits} />.
+[^mindensity]: <Law of={[L.cond.minDensityDuPerAcre, L.cond.localMinDensityIfGreater]} />.
+[^unitsize]: <Law of={L.cond.maxAverageUnitSizeNetSqFt} />.
+[^afford]: <Law of={[L.aff.options.extremelyLow, L.aff.options.veryLow, L.aff.options.lower, L.aff.appliesAboveUnits]} />.
+[^local]: <Law of={L.aff.stricterLocalInclusionaryControls} />.
+[^bmc]: <Source source={data.inclusionary.source} />, {data.inclusionary.section}.
+[^h1]: <Law of={L.anti.rentControlledSite.moreThanUnits} />.
+[^h2]: <Law of={L.anti.demolishedRentControlledSite.moreThanUnits} />.
+[^h3]: <Law of={L.parkSite} />.
+[^repl]: <Law of={L.anti.replacementHousing} />.
+[^dbase]: <Law of={L.bonus.baseDensity} />.
+[^dheight]: <Law of={L.bonus.noAdditionalHeightRequired} />.
+[^dexc]: <Law of={L.bonus.heightExceptionFt} />.
+[^dconc]: <Law of={[L.q.concessionMinDensityDuPerAcre, L.bonus.additionalConcessions.extremelyLow, L.bonus.additionalConcessions.veryLow, L.bonus.additionalConcessions.low]} />.
+[^oakh]: <Source source={contrast.sources.height} />; <Source source={contrast.sources.s8} />.
+[^proj]: <Source source={contrast.sources.piedmont} />; <Source source={contrast.sources.factSheet} />; <Source source={contrast.sources.sfYimby} />.
+[^operative]: <Law of={L.operative} />.
+[^oakord]: <Source source={contrast.sources.ordinance} />, {contrast.ordinance.rockridgeCarveOut.section}.
+[^noprocess]: <Law of={[L.approval.noMinisterialProcessRequired, L.approval.ceqaUnchanged]} />.
+[^haa]: <Law of={L.approval.deemedConsistent} />.
+[^sb35]: <Law of={L.approval.sb35Eligible} />.
+[^presume]: <Law of={[L.approval.denialPresumption.beginsOn, L.highResource, L.approval.denialPresumption.minFinePerUnitUsd]} />.
+[^opp]: <Source source={data.opportunityMap} />.
+[^review]: <Law of={[L.options.hcdReview.draftDaysBeforeAdoption, L.options.hcdReview.reviewDays]} />.
+[^exempt]: <Law of={[L.options.exemptions.noWalkingPathUnderMiles, L.options.exemptions.industrialHubMinAcres]} />.
+[^exclude]: <Law of={L.options.exclusions.untilYearsAfterSeventhHousingElement} />.
+[^alt]: <Law of={[L.options.alternativePlan.sameTotalCapacity, L.options.alternativePlan.maxSiteDensityCutPercent, L.options.alternativePlan.maxZoneCapacityCutPercent]} />.
+[^hcdsf]: <Source source={data.localOptions.sanFrancisco.source} />.
+[^amend]: <Law of={[law.acts.ab2576.citation, law.acts.sb1361.citation, law.acts.ab2576.effective]} />.
+[^intens]: <Law of={[L.intens.heightAddFt, L.adjacent]} />.
+[^labor]: <Law of={L.labor.buildingHeightOverFt} />.
+[^outer]: <Law of={[L.h.heightLimitAtLeastFt, L.h.maxDensityAtLeastDuPerAcre, L.h.residentialFarNotPrecludedUpTo]} />.

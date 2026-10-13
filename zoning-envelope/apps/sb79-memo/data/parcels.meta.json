@@ -1,0 +1,11 @@
+{
+  "retrievedAt": "2026-10-12T17:30:12.500Z",
+  "count": 4181,
+  "source": "https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Parcels/FeatureServer/0",
+  "joinedSource": "https://gis.cityofberkeley.info/arcgis/rest/services/Public/Portal_Planning/MapServer/6",
+  "sourceLastEdit": "2026-10-04T17:21:43.214Z",
+  "joinedSourceLatestRecordedDocument": "2026-09-14T00:00:00.000Z",
+  "query": "within 3000 ft of station 904309",
+  "joinedByApn": "4181 of 4181",
+  "notes": "Geometry, APN, address and use code from the Alameda County assessor layer; lot size, units, year built, stories and building area from the City of Berkeley parcel layer (synchronized annually to the county roll), joined by APN. Owner names are not stored: ownerClass is derived from them (BART, City of Berkeley, other public, private). gisAreaSqFt is computed from the geometry in EPSG:2227."
+}

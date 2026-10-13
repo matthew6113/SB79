@@ -1,0 +1,9 @@
+{
+  "retrievedAt": "2026-10-12T21:03:08.879Z",
+  "count": 16,
+  "source": "https://api.openstreetmap.org/api/0.6/map.json",
+  "sourceLastEdit": null,
+  "query": "railway=subway|rail|platform within the bounding box of 3000 ft of station 904309",
+  "attribution": "© OpenStreetMap contributors (ODbL)",
+  "notes": "Context for the map figure only (track alignment); not a legal input."
+}

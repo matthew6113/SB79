@@ -1,0 +1,8 @@
+{
+  "retrievedAt": "2026-10-12T17:30:12.500Z",
+  "count": 5420,
+  "source": "https://gis.cityofberkeley.info/arcgis/rest/services/Planning/Building_Safety/MapServer/7",
+  "sourceLastEdit": null,
+  "query": "within 3000 ft of station 904309",
+  "notes": "The source has no height or date fields. parcelStories is the assessor story count of the parcel the outline sits on (context only)."
+}

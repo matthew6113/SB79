@@ -1,0 +1,26 @@
+{
+  "source": {
+    "title": "City of Berkeley Planning Commission, Item 10A: SB 79 and AB 893, staff report",
+    "date": "2026-04-15",
+    "url": "https://berkeleyca.gov/sites/default/files/2026-04/2026-04-15_PC_Item%2010A_SB%2079%20and%20AB%20893.pdf",
+    "file": "sources/berkeley-pc-2026-04-15-staff-report.txt",
+    "table": "Height Standards, North Berkeley BART Area (p. 12): existing maximum height by district"
+  },
+  "code": {
+    "title": "Berkeley Municipal Code, Title 23",
+    "mirror": "https://gocodebook.com/library/us/ca/berkeley/title-23-zoning",
+    "note": "Table numbers were read from the gocodebook.com mirror on 2026-10-12; berkeley.municipal.codes blocks automated access. Verify against the official code before citing."
+  },
+  "classNote": "Statutory class under Gov. Code § 65912.157(a) (residential, mixed, or commercial), assigned from each district's name and purpose. To be confirmed by Matthew.",
+  "districts": {
+    "R-1": { "name": "Multi-Unit 1", "class": "residential", "heightFt": 35, "quote": "R-1 R-2 35’ 75’ R-2A", "bmc": "BMC Table 23.202-2: 35 ft. and 3 stories" },
+    "R-2": { "name": "Multi-Unit 2", "class": "residential", "heightFt": 35, "quote": "R-1 R-2 35’ 75’ R-2A", "bmc": "BMC Table 23.202-5: 35 ft. and 3 stories" },
+    "R-2A": { "name": "Multi-Unit 2A", "class": "residential", "heightFt": 35, "quote": "R-1 R-2 35’ 75’ R-2A", "bmc": "BMC Table 23.202-9: 35 ft. and 3 stories" },
+    "R-3": { "name": "Multiple-Family Residential", "class": "residential", "heightFt": 35, "quote": "R-3 R-4 35’ C-N", "bmc": "BMC Table 23.202-13: 35 ft. and 3 stories (45 ft. in the Southside Plan area)" },
+    "R-4": { "name": "Multi-Family Residential", "class": "residential", "heightFt": 35, "quote": "R-3 R-4 35’ C-N", "bmc": "BMC Table 23.202-14" },
+    "R-BMU": { "name": "Residential BART Mixed Use", "class": "mixed", "heightFt": 80, "quote": "R-BMU 80’ 95’", "bmc": "BMC Table 23.202-23" },
+    "C-N": { "name": "Neighborhood Commercial", "class": "commercial", "heightFt": 35, "quote": "R-3 R-4 35’ C-N", "bmc": "BMC Table 23.204-17: 35 ft. (2 or 3 stories)" },
+    "C-U": { "name": "University Avenue Commercial", "class": "commercial", "heightFt": 48, "quote": "C-U 48’ 65’", "bmc": "BMC Table 23.204-11", "note": "48 ft is the staff report's existing maximum; it depends on use." },
+    "C-W": { "name": "West Berkeley Commercial", "class": "commercial", "heightFt": 50, "quote": "C-W 50’", "bmc": "BMC Table 23.204-41: 40 ft. and 3 stories", "note": "50 ft is the staff report's existing maximum; the BMC table's main building height is 40 ft." }
+  }
+}

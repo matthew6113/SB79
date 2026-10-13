@@ -1,0 +1,8 @@
+{
+  "retrievedAt": "2026-10-12T17:30:12.500Z",
+  "count": 3,
+  "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_zones/FeatureServer/1",
+  "sourceLastEdit": "2026-06-02T22:00:50.883Z",
+  "query": "intersecting 3000 ft of station 904309",
+  "notes": "MTC zones are non-overlapping rings dissolved by label across the region; they carry no station id. Geometry is the full regional polygon."
+}

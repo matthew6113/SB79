@@ -1,11 +1,15 @@
-/* Memo look (SB79_SPEC.md, "Figures and animation"). Phase 3 refines it. */
+/* Memo look (SB79_SPEC.md, "Figures and animation"). Figures: src/styles/figures.css. */
 :root {
   --page: #f7f4ec;        /* warm off-white */
   --ink: #1f1d1a;
   --ink-soft: #5c574f;
   --ghost: #cfcbc2;       /* local zoning */
   --accent: #1f3d5c;      /* the SB 79 envelope */
+  --accent-tint: #c3ccd3; /* the accent, washed toward the page: eligible, reached */
   --collapse: #a8261d;    /* red: used only for collapse */
+  --parcel: #eeeadf;      /* map ground */
+  --context: #efebe3;     /* neighbors in 3D */
+  --context-edge: #cdc7bb;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --measure: 60ch;
 }
@@ -90,8 +94,52 @@ h2 {
   margin: 1rem 0 0;
 }
 
+.disclaimer-ai {
+  margin-top: 0.3rem;
+}
+
 .step {
+  position: relative;
   margin: 0 0 2rem;
+  /* A plain anchor jump (before the scroll engine loads) lands near the focus line. */
+  scroll-margin-top: 40vh;
+}
+
+/* Share link: a ¶ in the left margin, shown on hover or focus. */
+.step-link {
+  position: absolute;
+  left: -1.4rem;
+  top: 0.1rem;
+  color: var(--ghost);
+  text-decoration: none;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.step:hover .step-link,
+.step-link:focus-visible {
+  opacity: 1;
+}
+.step-link:hover,
+.step-link:focus-visible {
+  color: var(--accent);
+}
+.share-toast {
+  position: absolute;
+  left: -1.4rem;
+  top: -1.4rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.7rem;
+  background: var(--ink);
+  color: var(--page);
+  white-space: nowrap;
+}
+@media (hover: none) {
+  .step-link { opacity: 0.6; }
+}
+@media (max-width: 760px) {
+  .step-link { left: auto; right: -0.6rem; }
+  .share-toast { left: auto; right: 0; }
 }
 
 .step-label {
@@ -100,15 +148,6 @@ h2 {
   margin: 0 0 0.25rem;
 }
 
-.figure-stage {
-  width: 100%;
-  height: 80%;
-  border: 1px solid var(--ghost);
-  display: grid;
-  place-items: center;
-  color: var(--ink-soft);
-  text-align: center;
-}
 
 /* Phone: figure pinned to the top 45% of the screen, text scrolling under it. */
 @media (max-width: 760px) {
@@ -123,13 +162,85 @@ h2 {
     height: 45vh;
     background: var(--page);
     z-index: 1;
+    transition: opacity 0.3s;
   }
 
-  .figure-stage {
-    height: 90%;
+  /* At the calculator the pinned figure steps aside (set in index.astro). */
+  .memo.is-calculator .memo-figure {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .memo-text {
     padding-top: 1rem;
+  }
+}
+
+.open-issue {
+  border: 1px solid var(--ink-soft);
+  padding: 0.6rem 0.9rem;
+  margin: 0.9rem 0 0;
+  font-size: 0.9rem;
+}
+
+.open-issue-title {
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+}
+
+.footnotes {
+  font-size: 0.85rem;
+  border-top: 1px solid var(--ghost);
+  margin-top: 3rem;
+}
+
+a.cite,
+.footnotes a {
+  color: inherit;
+}
+
+/* The memo's Print link (screen), and a plain printout when printed from the browser menu. */
+.print-link {
+  margin: 0.8rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.print-link a {
+  color: var(--accent);
+}
+.print-hint {
+  display: none;
+}
+
+@media print {
+  html {
+    background: #fff;
+    font-size: 11pt;
+  }
+  .memo {
+    display: block;
+    padding: 0;
+  }
+  .memo-text {
+    padding: 0;
+  }
+  .memo-figure,
+  .dev-panel,
+  .calculator,
+  #apply-the-rule,
+  .step-link,
+  .print-link {
+    display: none !important;
+  }
+  .print-hint {
+    display: block;
+    font-size: 9pt;
+    color: var(--ink-soft);
+  }
+  .step,
+  .open-issue {
+    break-inside: avoid;
   }
 }

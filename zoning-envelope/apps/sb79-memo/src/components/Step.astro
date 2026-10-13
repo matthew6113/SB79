@@ -2,7 +2,9 @@
 /**
  * One memo paragraph. The id must exist in src/script.ts; the build fails
  * otherwise. The scroll engine (Phase 4) observes [data-step] elements and
- * drives the paragraph's figure state.
+ * drives the paragraph's figure state. Discussion paragraphs (III.*) show
+ * their section number as a paragraph label; I, II, and IV have headings.
+ * The ¶ link copies a share link that opens the memo at this paragraph.
  */
 import { scriptEntry } from '../script';
 
@@ -12,9 +14,11 @@ interface Props {
 
 const { id } = Astro.props;
 const entry = scriptEntry(id);
+const showLabel = entry.section.startsWith('III.');
 ---
 
 <section class="step" id={id} data-step={id} data-figure={entry.figure} data-state={entry.state}>
-  <p class="step-label">{entry.section}</p>
+  <a class="step-link" href={`#${id}`} data-share={id} aria-label={`Link to this paragraph (${entry.section})`} title="Copy a link to this paragraph">¶</a>
+  {showLabel && <p class="step-label">{entry.section}</p>}
   <slot />
 </section>

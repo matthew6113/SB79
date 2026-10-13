@@ -1,0 +1,24 @@
+{
+  "counties": ["Alameda", "Los Angeles", "Sacramento", "San Diego", "San Francisco", "San Mateo", "Santa Clara"],
+  "source": {
+    "title": "HCD, Senate Bill 79 advisory for metropolitan planning organizations",
+    "date": "2026-03-20",
+    "url": "https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/sb-79-mpo-advisory.pdf",
+    "file": "sources/hcd-sb79-mpo-advisory.txt",
+    "page": 9,
+    "quote": "will take effect on July 1, 2026, in Alameda, Los Angeles, Sacramento, San Francisco, San Mateo, Santa Clara, and San Diego Counties"
+  },
+  "statute": "Gov. Code § 65912.156(q) defines an urban transit county by its count of passenger rail stations and lists no counties.",
+  "openIssue": {
+    "county": "Orange",
+    "summary": "ABAG's SB 79 summary counts Orange County as an eighth urban transit county, citing legislative analysis; HCD's advisory does not list it.",
+    "source": {
+      "title": "ABAG, Senate Bill 79 (2025) Summary",
+      "date": "2026-07-17",
+      "url": "https://abag.ca.gov/sites/default/files/documents/2026-07/SB79-Summary-07172026.pdf",
+      "file": "sources/abag-sb79-summary-2026-07-17.txt",
+      "quote": "legislative analysis suggests that eight California counties currently qualify as an urban transit county"
+    }
+  },
+  "decision": "Use HCD's seven counties; show Orange County as an open issue (Matthew, 2026-10-12)."
+}

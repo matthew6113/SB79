@@ -1,0 +1,7 @@
+{
+  "retrievedAt": "2026-10-12T18:38:54.734Z",
+  "count": 1,
+  "source": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/mtc_sb79_tod_stations/FeatureServer/1",
+  "sourceLastEdit": "2026-06-02T22:02:35.014Z",
+  "query": "within 3000 ft of parcel 14-1266-47-1"
+}

@@ -1,0 +1,1084 @@
+                                                                      Item 10A: SB 79 and AB 893
+                                                                                      Staff Report
+                                                                             Planning Commission
+                                                                                    April 15, 2026
+
+
+
+
+Planning and Development Department
+Land Use Planning Division
+
+
+TO:                Members of the Planning Commission
+
+FROM:              Joshua Muller, Associate Planner
+                   Branka Tatarevic, Associate Planner
+
+SUBJECT: Housing Development Bills Senate Bill 79 and Assembly Bill 893
+______________________________________________________________________
+
+RECOMMENDATION
+Staff recommend that the Planning Commission review the staff report, receive the staff
+presentation, consider public comments, and provide feedback on policy issues
+regarding Senate Bill 79 (SB 79) and Assembly Bill 893 (AB 893) and potential
+implementation pathways.
+
+SUMMARY
+Senate Bill (SB) 79 (Abundant and Affordable Homes Near Transit Act) was signed by
+Governor Newsom on October 10, 2025, and will go into effect on July 1, 2026. As of
+that date, areas within ½ mile of each transit stop would be designated as transit-
+oriented development (TOD) zones and parcels within them would be subject to special
+development standards. Staff studied designated TOD zones located in the vicinity of
+the three BART stations within the city limits and where the ½ mile radius of Rockridge
+station overlaps within the city limits.
+Assembly Bill (AB) 893 (an amendment to the Affordable Housing and High Road Jobs
+Act; AB 2011), was also signed by Governor Newsom on October 10, 2025, and went
+into effect on January 1, 2026. The law establishes a new eligibility category for AB
+2011 called a campus development zone, defined as areas within ½ mile of a main
+campus of a University of California, a California State University or a California
+Community College. Projects within the designated zone that meet specific eligibility
+criteria and affordability requirements are eligible for special development standards
+and streamlined ministerial review pursuant to AB 2011.
+
+
+
+
+      1947 Center Street, Berkeley, CA 94704 Tel: 510.981.7410 TDD: 510.981.6903   Fax: 510.981.7420
+                                        E-mail: planning@berkeleyca.gov
+                                                                       Item 10A: SB 79 and AB 893
+                                                                                       Staff Report
+                                                                              Planning Commission
+                                                                                     April 15, 2026
+
+Summaries of both bills are included in the table below.
+          Law                  Effective Date             Locations in                   Applicability
+                                                             Berkeley
+         SB 79                   July 1, 2026         Applies to areas           These areas would be
+                                                      within ½ mile of           designated as transit-
+                                                      BART stations.             oriented development
+                                                                                 (TOD) zones and parcels
+                                                                                 within them would be
+                                                                                 subject to special
+                                                                                 development standards.
+         AB 893               January 1, 2026         Applies to areas           These areas would be
+                                                      within ½ mile of the       eligible for special
+                                                      main campuses of           development standards
+                                                      the University of          and streamlined ministerial
+                                                      California, Berkeley       review pursuant to AB
+                                                      and Berkeley City          2011.*
+                                                      College
+ * AB 2011 is a CEQA exempt ministerial approval process for multifamily housing developments on sites in
+ zones where office, retail or parking are a principally permitted use. The law provided two types of qualifying
+ criteria depending on whether a project is 100-percent affordable or mixed-income within a “commercial
+ corridor”.
+
+SB 79 BACKGROUND
+TOD Zones: SB 79 designates parcels zoned for residential, mixed-use, or commercial
+development within ½ mile of a transit-oriented development stop to be Transit Oriented
+Development (TOD) zones. SB 79 identifies two tiers of transit stops.
+
+   •   Tier 1 stops are served by heavy rail transit or very high frequency commuter rail
+       (including BART).
+   •   Tier 2 transit-oriented development stops are served by light rail transit, high-
+       frequency commuter rail, or Bus Rapid Transit (BRT) service.
+
+Berkeley has three Tier 1 stops (Ashby, Downtown and North Berkeley BART stations),
+and no Tier 2 stops. Additionally, a few parcels in the vicinity of Alcatraz and College
+Avenues fall within a ½ mile of the Rockridge BART station, a Tier 1 stop.
+
+TOD Projects: Qualifying projects within TOD zones are designated as TOD projects
+and are subject to special development standards. To qualify as a TOD project under
+SB 79, a proposed project must include at least five dwelling units and meet either a
+minimum density of 30 dwelling units per acre or the maximum density required under
+local zoning, whichever is greater. The average total area of floor space for the
+proposed units must not exceed 1,750 net habitable square feet. TOD projects cannot
+propose the demolition of more than two rent or price-controlled units that were
+
+
+
+
+Page 2 of 21
+                                                                           Item 10A: SB 79 and AB 893
+                                                                                           Staff Report
+                                                                                  Planning Commission
+                                                                                         April 15, 2026
+
+occupied by tenants or demolished within the past seven years. 1 TOD projects are also
+subject to State and local demolition controls.
+
+SB 79 Development Standards
+SB 79 sets development standards, specifically height, density, and floor area ratio
+(FAR), for TOD projects. The specific standards that apply to a TOD project depend on
+the Tier classification of the transit stop. Parcels within 200 feet of any pedestrian
+access point are considered adjacent to the TOD stop and are allowed an adjacency
+intensifier. The SB 79 development standards for Tier 1 TOD zones are shown in the
+following table.
+                              Tier 1 SB 79 Development Standards
+        Range                  Height Limit*     Max Density (du/ac)                             FAR
+    Adjacent (200’)               95 feet               160                                       4.5
+        ¼ Mile                    75 feet               120                                       3.5
+        ½ Mile                    65 feet               100                                        3
+*Projects may be up to the height permitted by SB 79, or up to the local height limit, whichever is greater
+
+SB 79 Affordability Requirements
+TOD projects proposing more than 10 units are required to provide one of the following
+minimum amounts of affordable housing on-site:
+    •   At least 7 percent of the total units dedicated to Extremely Low-Income
+        households;
+    •   At least 10 percent of the total units dedicated to Very Low-Income households;
+        or
+    •   At least 13 percent of the total units dedicated to Low Income households.
+These units must be provided on-site and an applicant cannot use an in-lieu fee. If the
+City’s local inclusionary housing requirements are greater than the above minimums,
+then the local requirements shall apply to the project. Berkeley Municipal Code Section
+23.328.030(A) requires at least 20 percent of proposed residential units are affordable
+units 2. As Berkeley’s Inclusionary Housing requirements exceed SB 79’s minimum
+affordability requirements, the local ordinance would supersede the requirements within
+SB 79. Similar to how the City’s Inclusionary Housing Ordinance 3 intersects with State
+Density Bonus law, an applicant could use affordable units required per SB 79 to satisfy
+the local requirements, and if more units are required locally, they could use an in-lieu
+fee to satisfy the rest.
+
+
+1 The Rent Board determines the presence of rent controlled units on properties in Berkeley. If an applicant
+
+proposes to preserve the existing units on a lot and proposes new units, the project can qualify as a TOD
+project.
+2 “Affordable Unit” is defined in the Inclusionary Housing ordinance as a Residential Unit that is in perpetuity
+
+affordable to Very Low-Income or Lower-Income Households, as defined in California Health and Safety
+Code sections 50052.5 and 50052
+3 https://berkeley.municipal.codes/BMC/23.328
+
+
+
+
+Page 3 of 21
+                                                              Item 10A: SB 79 and AB 893
+                                                                              Staff Report
+                                                                     Planning Commission
+                                                                            April 15, 2026
+
+SB 79 and State Density Bonus
+TOD projects may utilize the State Density Bonus, pursuant to Government Code
+Section 65915, using the SB 79 standards to calculate the base project. In addition,
+TOD projects that meet the SB 79 density standard for the site’s location are eligible for
+additional concessions:
+   •   Housing for extremely low-income households: three additional concessions.
+   •   Housing for very low-income households: two additional concessions.
+   •   Housing for low-income households: one additional concession.
+SB 79’s requirement that the average total area of floor space for all units in the project
+must not exceed 1,750 net habitable square feet would apply to the density bonus
+project.
+
+Unlike regular State Density Bonus projects, local governments are not required to grant
+waivers or concessions of height limits for SB 79 projects seeking to exceed SB 79's
+statutory height limits. SB 79 projects can also be paired with other streamlining laws,
+including SB 330 and the Housing Accountability Act (HAA).
+
+SB 79 Labor Requirements
+TOD projects more than 85 feet in height must meet specified prevailing wage and
+skilled and trained workforce requirements.
+
+SB 79 and CEQA
+SB 79 does not include specific provisions related to the California Environmental
+Quality Act (CEQA) and does not identify any new specific pathway exemption for TOD
+projects. TOD projects could utilize existing applicable statutory or categorical CEQA
+exemptions, or ministerial review processes pursuant to AB 2011 or SB 35. Ministerial
+projects are statutorily exempt from CEQA pursuant to Section 15268 of the CEQA
+Guidelines. If a TOD project is ineligible for streamlined approval it would be reviewed
+under the City’s standard application and environmental review processes and the
+Housing Accountability Act (HAA).
+
+Applicability of SB 79 Standards to Berkeley
+The following map provides a citywide view of the applicability of SB 79 to parcels in
+Berkeley. More detailed maps for each BART station are found below and in the
+Attachments.
+
+
+
+
+Page 4 of 21
+               Item 10A: SB 79 and AB 893
+                               Staff Report
+                      Planning Commission
+                             April 15, 2026
+
+
+
+
+Page 5 of 21
+                                                             Item 10A: SB 79 and AB 893
+                                                                             Staff Report
+                                                                    Planning Commission
+                                                                           April 15, 2026
+
+The following sections compare existing local development standards for parcels within
+the TOD zones for each Berkeley BART station (and Rockridge station) to what SB 79
+allows.
+
+                                  Ashby BART Station
+The map below shows the parcels that are adjacent to the Ashby BART station, per SB
+79’s definition, those parcels that are a ¼ mile from the station entrance, and those that
+are ½ mile from the station entrance.
+
+
+
+
+Page 6 of 21
+                                                           Item 10A: SB 79 and AB 893
+                                                                           Staff Report
+                                                                  Planning Commission
+                                                                         April 15, 2026
+
+The following tables compare the existing maximum development standards for parcels
+indicated in the map above, and how they would be increased with the implementation
+of SB 79.
+Height Standards
+                                 Ashby BART Area
+                                                           SB 79 Standards
+  Zoning District    Existing Maximum Height
+                                                Adjacent        ¼ Mile     ½ Mile
+      R-BMU                    80’
+                                                   95’
+       C-AC
+        R-2                    35’
+                                                                  75’
+       R-2A
+                                                                               65’
+        R-4                    48’
+       C-SA
+        R-3                    35’
+       C-C
+Density Standards
+                                 Ashby BART Area
+                                                         SB 79 Standards
+  Zoning District    Existing Maximum Du/ac
+                                                Adjacent      ¼ Mile     ½ Mile
+      R-BMU                  No max
+                                               160 du/acre
+       C-AC              123-300 du/acre
+        R-2                                                      120
+                           70 du/acre
+       R-2A                                                     du/acre
+                                                                           100 du/acre
+        R-4
+       C-SA
+                            No max
+        R-3
+       C-C
+
+
+
+
+Page 7 of 21
+                                                         Item 10A: SB 79 and AB 893
+                                                                         Staff Report
+                                                                Planning Commission
+                                                                       April 15, 2026
+
+FAR Standards
+                                 Ashby BART Area
+                                                         SB 79 Standards
+  Zoning District     Existing Maximum FAR
+                                              Adjacent        ¼ Mile     ½ Mile
+      R-BMU                   4.2
+                                                   4.5
+       C-AC                   2.5
+        R-2
+        R-2A                No max
+                                                                3.5
+        R-4
+       C-SA
+     Mixed-Use                4.0
+      Projects
+       C-SA                                                                 3.0
+ All Other Projects
+        R-3                 No max
+ Outside Southside
+     Plan Area
+        R-3
+ Within Southside
+                              3.0
+     Plan Area
+        C-C
+
+
+
+
+Page 8 of 21
+                                                             Item 10A: SB 79 and AB 893
+                                                                             Staff Report
+                                                                    Planning Commission
+                                                                           April 15, 2026
+
+                           Downtown Berkeley BART Station
+The map below shows the parcels that are adjacent to the Downtown Berkeley BART
+station, per SB 79’s definition, those parcels that are a ¼ mile from the station entrance,
+and those that are ½ mile from the station entrance.
+
+
+
+
+Page 9 of 21
+                                                         Item 10A: SB 79 and AB 893
+                                                                         Staff Report
+                                                                Planning Commission
+                                                                       April 15, 2026
+
+The following tables compare the existing maximum development standards for parcels
+indicated in the map above, and how they would be increased with the implementation
+of SB 79.
+
+Height Standards
+                              Downtown Berkeley BART Area
+                                Existing Maximum           SB 79 Standards
+      Zoning District
+                                   Height Limit      Adjacent     ¼ Mile     ½ Mile
+          C-DMU
+                                      75’              95’
+ Core, Outer Core, Corridor
+          C-DMU
+                                      60’
+          Buffer
+           R-2A                                                     75’
+            R-3                       35’
+            R-4
+           R-5H                       65’
+          R-SMU                       85’                                      65’
+           C-C                        40’
+            R-1
+           R-1H
+                                      35’
+           R-3H
+           R-4H
+            R-S                       55’
+           C-NS                       35’
+            C-T                       85’
+          C-N(H)                      35’
+
+
+
+
+Page 10 of 21
+                                                  Item 10A: SB 79 and AB 893
+                                                                  Staff Report
+                                                         Planning Commission
+                                                                April 15, 2026
+
+Density Standards
+                       Downtown Berkeley BART Area
+                        Existing Maximum            SB 79 Standards
+     Zoning District
+                              Density         Adjacent     ¼ Mile   ½ Mile
+  C-DMU Core, Outer                             160
+    Core, Corridor          No max            du/acre
+     C-DMU Buffer
+         R-2A              70 du/acre                        120
+          R-3                                              du/acre
+          R-4
+         R-5H               No max
+        R-SMU                                                         100
+         C-C                                                         du/acre
+          R-1              70 du/acre
+         R-1H
+         R-3H
+         R-4H
+          R-S               No max
+         C-NS
+          C-T
+        C-N(H)
+FAR Standards
+                       Downtown Berkeley BART Area
+                            Existing                SB 79 Standards
+     Zoning District
+                         Maximum FAR          Adjacent     ¼ Mile   ½ Mile
+                                                4.5
+   C-DMU Core, Outer
+     Core, Corridor
+     C-DMU Buffer
+         R-2A
+                                                             3.5
+          R-3
+          R-4
+         R-5H
+        R-SMU
+                            No max                                      3
+         C-C
+          R-1
+         R-1H
+         R-3H
+         R-4H
+          R-S
+         C-NS
+          C-T
+        C-N(H)
+
+
+
+
+Page 11 of 21
+                                                          Item 10A: SB 79 and AB 893
+                                                                          Staff Report
+                                                                 Planning Commission
+                                                                        April 15, 2026
+
+                            North Berkeley BART Station
+The map below shows the parcels that are adjacent to the Norh Berkeley BART station,
+per SB 79’s definition, those parcels that are a ¼ mile from the station entrance, and
+those that are ½ mile from the station entrance.
+
+
+
+
+Page 12 of 21
+                                                        Item 10A: SB 79 and AB 893
+                                                                        Staff Report
+                                                               Planning Commission
+                                                                      April 15, 2026
+
+The following tables compare the existing maximum development standards for parcels
+indicated in the map above, and how they would be increased with the implementation
+of SB 79.
+Height Standards
+                               North Berkeley BART Area
+                    Existing Maximum                  SB 79 Standards
+  Zoning District
+                          Height            Adjacent    Within ¼ Mile Within ½ Mile
+      R-BMU                 80’               95’
+       R-1
+       R-2                 35’                              75’
+       R-2A
+       C-U                 48’                                             65’
+       R-3
+       R-4                 35’
+       C-N
+       C-W                 50’
+Density Standards
+                               North Berkeley BART Area
+                    Existing Maximum                  SB 79 Standards
+  Zoning District
+                           du/ac            Adjacent    Within ¼ Mile Within ½ Mile
+      R-BMU               No max              160
+       R-1
+       R-2                 70                              120
+       R-2A
+       C-U                                                                 100
+       R-3
+       R-4              No max
+       C-N
+       C-W
+
+
+
+
+Page 13 of 21
+                                                            Item 10A: SB 79 and AB 893
+                                                                            Staff Report
+                                                                   Planning Commission
+                                                                          April 15, 2026
+
+FAR Standards
+                                North Berkeley BART Area
+                         Existing Maximum                SB 79 Standards
+     Zoning District
+                                FAR           Adjacent   Within ¼ Mile  Within ½ Mile
+        R-BMU                    4.2            4.5
+          R-1
+          R-2                 No max
+                                                                3.5
+          R-2A
+          C-U
+                                2.2
+  Mixed-Use Projects
+          C-U
+                              No max
+   All Other Projects
+          R-3
+                                                                                3.0
+ Within Southside Plan          3.0
+          Area
+          R-3
+  Outside Southside           No max
+       Plan Area
+          R-4                 No max
+          C-N
+                                3.0
+          C-W
+
+                                Rockridge BART Station
+The map below shows the parcels that are adjacent to the Rockridge BART station.
+Although the station is located in Oakland per SB 79’s definition, those parcels that are
+½ mile from the station entrance are considered within a TOD zone regardless of local
+jurisdictional boundaries.
+
+
+
+
+Page 14 of 21
+                                                           Item 10A: SB 79 and AB 893
+                                                                           Staff Report
+                                                                  Planning Commission
+                                                                         April 15, 2026
+
+The following tables compare the existing maximum development standards for parcels
+indicated in the map above, and how they would be increased with the implementation
+of SB 79.
+Height Standards
+                                  Rockridge BART Area
+                                                             SB 79 Standards
+      Zoning District      Existing Maximum Height Limit
+                                                                 ½ mile
+           R-1H
+            R-2
+                                        35’                          65’
+           R-2A
+           C-N
+Density Standards
+                                  Rockridge BART Area
+                                                             SB 79 Standards
+      Zoning District        Existing Maximum Du/ac
+                                                                 ½ mile
+           R-1H                      No max
+            R-2
+                                    70 du/acre                  100 du/acre
+           R-2A
+           C-N                       No max
+FAR Standards
+                                  Rockridge BART Area
+                                                             SB 79 Standards
+      Zoning District         Existing Maximum FAR
+                                                                 ½ mile
+           R-1H
+            R-2                      No max
+           R-2A                                                      3.0
+           C-N                          3.0
+     Mixed-Use Projects
+            C-N                      No max
+      All Other Projects
+
+
+Interim Exclusions from SB 79
+SB 79 includes provisions allowing cities to exclude parcels from the SB 79
+requirements through a Local TOD Alternative Plan, discussed below. While local
+governments are preparing a Local TOD Alternative Plan, parcels can be temporarily
+excluded from SB 79 standards through adoption of an exclusion ordinance. If identified
+within a valid ordinance, sites can only be exempt from SB 79 development standards
+until prior to one year following the adoption of the 7th revision of the City’s housing
+element, which in Berkeley’s case is 2032. The following eligibility categories for
+exemptions apply to the City’s TOD zones:
+
+
+
+
+Page 15 of 21
+                                                             Item 10A: SB 79 and AB 893
+                                                                             Staff Report
+                                                                    Planning Commission
+                                                                           April 15, 2026
+
+   •   A site identified which permits density and residential FAR at no less than 50% of
+       the SB 79 standards.
+   •   Sites with a historic resource designated prior to January 2, 2025, on a local
+       register.
+Local governments adopting an ordinance to implement or modify SB 79 standards
+must submit a draft to HCD. If HCD finds noncompliance, the local government must
+consider HCD’s findings and either amend the ordinance or, if it chooses to adopt the
+ordinance without changes, include findings in its adopting resolution explaining why it
+believes the ordinance complies with SB 79.
+Local TOD Alternative Plan
+SB 79 also includes provisions allowing cities to exclude some of parcels from the SB
+79 requirements through a Local TOD Alternative Plan. An interim exclusion ordinance
+would suspend implementation of the new standards in qualifying areas and allow the
+substitution of existing Berkeley zoning until approximately 2032. In the absence of
+adopted exclusions, SB 79, once effective, would override local zoning wherever it does
+not comply with new state requirements in TOD areas.
+A local government may satisfy SB 79 by adopting a Local TOD Alternative Plan instead
+of applying the state standards directly. The plan must generally maintain equivalent
+total housing capacity across all TOD zones within the jurisdiction and receive HCD
+approval. The capacity of any site cannot be reduced more than 50%, with the
+exception of sites within a Very High Hire Hazard Severity Zone, sites vulnerable to one
+foot of sea level rise, and sites with a historic resource on a local register. The overall
+capacity of any one TOD zone cannot be reduced more than 50%. The capacity of any
+individual site cannot be increased by more than 200% from the maximum densities in
+SB 79.
+In the 7th Cycle, a Local TOD Alternative Plan may be included in the Housing Element
+itself or adopted separately by ordinance. To become effective, a Local TOD Alternative
+Plan must be reviewed and approved by HCD, as discussed in the Review and
+Enforcement section below. Once approved, the Local TOD Alternative Plan replaces
+SB 79’s development standards within the area included in the alternative plan.
+
+AB 893 BACKGROUND
+Parcel Eligibility
+AB 893 adds “campus development zone” as an eligible category for ministerial review
+pursuant to AB 2011. AB 893 defines this zone parcels within ½ mile of the main campus
+of the University of California (UC), California State University (CSU) or California
+Community Colleges (CCC). For Berkeley, this applies to parcels within ½ mile of UC
+Berkeley’s and Berkeley City College’s main campuses. The following map shows the
+parcels that are within campus development zones in Berkeley. Although a portion of the
+R-1H district is within the zone, vacant lots and lots containing one to four dwelling units
+do not meet the other eligibility criteria in the law.
+
+
+
+Page 16 of 21
+                                                            Item 10A: SB 79 and AB 893
+                                                                            Staff Report
+                                                                   Planning Commission
+                                                                          April 15, 2026
+
+
+
+
+AB 893 Development Standards
+To qualify for streamlined ministerial review in a campus development zone, a
+development project must be located within a zone where office, retail or parking are
+principally permitted uses. A principally permitted use is defined as a use, as of January
+
+
+Page 17 of 21
+                                                               Item 10A: SB 79 and AB 893
+                                                                               Staff Report
+                                                                      Planning Commission
+                                                                             April 15, 2026
+
+1, 2023 or thereafter, occupying more than one-third of the square footage of a site and
+does not require a conditional use permit. The definition also specifies that parking uses
+are considered principally permitted whether or not they require a conditional use permit.
+Berkeley’s allowed uses table for residential districts allows a parking lot or structure with
+a Use Permit, so therefore residential parcels within campus development zones that
+meet this standard are eligible for AB 893.
+AB 893 cannot be utilized on a parcel that contains 4 or fewer dwelling units, or an
+historical structure placed on a national, state or local historic register. A proposed project
+cannot require the demolition of any rent or price-controlled housing or housing that has
+been occupied by tenants within the past ten years and cannot be located on a site where
+any permanent housing was demolished within the past ten years.
+Projects within a campus development zone are allowed a residential density of 80
+dwelling units per acre and a maximum height of 65 feet. For the purposes of State
+Density Bonus, these development standards would define the base project. If there is a
+local requirement that is higher than either of those it would supersede the statutory
+requirements. The following tables compare the existing maximum development
+standards for parcels indicated in the map above.
+Height Standards
+                         Campus Development Zone
+        Zoning District       Existing Maximum Height                   AB 893 Standard
+            C-AC                         75’
+             C-C                         60’
+    C-DMU Core, Outer Core,
+                                         35’
+           Corridor
+        C-DMU Buffer                     35’
+             C-N                         35’
+           C-N(H)                        65’
+            C-NS                         85’
+            C-SA                         40’
+             C-U
+             R-1                                                                65’
+            R-1H
+             R-2
+            R-2H
+            R-2A
+                                         35’
+           R-2AH
+             R-3
+            R-3H
+             R-4
+            R-4H
+             R-S
+
+
+
+Page 18 of 21
+                                                               Item 10A: SB 79 and AB 893
+                                                                               Staff Report
+                                                                      Planning Commission
+                                                                             April 15, 2026
+
+Density Standards
+                                    Campus Development Zone
+         Zoning District                    Existing Maximum          AB 893 Standard
+             C-AC                                123-300
+              C-C
+     C-DMU Core, Outer Core,
+            Corridor
+         C-DMU Buffer
+              C-N                                No max
+            C-N(H)
+             C-NS
+             C-SA
+              C-U
+              R-1                               70 du/acre                80 du/acre
+             R-1H                                No max
+              R-2                               70 du/acre
+             R-2H                                No max
+             R-2A                               70 du/acre
+            R-2AH
+              R-3
+             R-3H
+                                                 No max
+              R-4
+             R-4H
+              R-S
+
+Additionally, AB 893 enacts specific affordability requirements for projects based on the
+occupancy type (rental vs. ownership). Each type has multiple compliance pathways
+based on affordability levels relative to the number of base units the project proposes:
+                                Rental-Occupied Housing*
+                          Extremely Low-Income     Very Low-Income           Low Income
+ Percentage of
+                                      5%                       8%                15%
+ Base Units
+*55-year affordability commitment
+                                    Owner-Occupied Housing*
+                                          Low Income                Moderate Income
+Percentage of Base Units                     30%                         15%
+*45-year affordability commitment
+
+AB 893 uniquely includes students, faculty and staff as eligible for affordable housing for
+Extremely Low, Very Low, and Low-Income units, as well as students experiencing
+homelessness specifically for Extremely Low-Income rental units.
+
+
+
+Page 19 of 21
+                                                                    Item 10A: SB 79 and AB 893
+                                                                                    Staff Report
+                                                                           Planning Commission
+                                                                                  April 15, 2026
+
+These units must be provided on-site and cannot use an in-lieu fee. If the City’s local
+inclusionary housing requirements are greater than the above minimums, then the local
+requirements shall apply to the project. Similar to how the City’s inclusionary ordinance
+intersects with State Density Bonus law, an applicant could use affordable units required
+per AB 893 to satisfy the local requirements, and if more units are required locally, they
+could use an in-lieu fee to satisfy the rest.
+
+Exemptions to AB 893
+The process to exempt parcels from AB 893 is the same as exempting parcels from AB
+2011. To do this, the City would need to adopt an ordinance to exempt specific parcels.
+To exempt a parcel, the jurisdiction must identify a replacement parcel(s) that is/are
+otherwise not subject to AB 2011 or can be developed beyond the development standards
+included in AB 2011, and find that the substitution of the replacement parcels would result
+in no net loss of total residential capacity, no net loss of total affordable housing capacity,
+and that the substitution affirmatively furthers fair housing. 4
+
+Areas Where AB 893 and SB 79 Intersect
+As shown in the maps, there are areas subject to both AB 893 and SB 79. Projects on
+parcels with overlapping zones could utilize SB 79 development standards while utilizing
+a streamlined ministerial review process, such as SB 35 or AB 2011. Due to the specific
+requirements concerning affordability for low-income college students, faculty or staff
+members, Land Use Division staff anticipate the City will see a larger number of projects
+utilizing SB 79 than the additional eligible pathway pursuant to AB 893.
+
+Policy Questions
+   -   Should the City adopt an ordinance exempting specific parcels from SB 79
+       standards?
+   -   Should the City explore the development of a Local TOD Alternative Plan per SB
+       79?
+   -   Should the City adopt an ordinance exempting specific parcels from AB 893
+       standards/ministerial processing?
+
+Environmental Review
+There are no identifiable environmental effects or opportunities associated with this
+informational report.
+
+
+
+
+4 See Dept of Housing and Community Development, Assembly Bill 2011 Parcel Exemptions—Letter of
+
+Technical Assistance to City of Santa Ana, December 10, 2024.
+https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/HAU/santa-ana-hau-244-
+121024.pdf
+
+
+Page 20 of 21
+                                                           Item 10A: SB 79 and AB 893
+                                                                           Staff Report
+                                                                  Planning Commission
+                                                                         April 15, 2026
+
+Next Steps
+If the Planning Commission were to recommend the preparation of either an ordinance
+exempting parcels or the development of a Local TOD Alternative Plan, staff would return
+to the Planning Commission to hold a public hearing and request a recommendation to
+City Council.
+
+Staff Contacts
+Joshua Muller, Planning and Development Department, 510-981-7488
+Branka Tatarevic, Planning and Development Department, 510-981-7472
+
+Attachments
+   1. SB 79 TOD Zone maps
+         a. City Overview Map
+         b. Adjacent Parcels Maps
+         c. Ashby BART Station Maps
+         d. Downtown Berkeley BART Station Maps
+         e. North Berkeley BART Station Maps
+         f. Rockridge BART Station Map
+   2. AB 893 Campus Development Zone Map.
+
+
+
+
+Page 21 of 21
+Item 10A: SB 79 and AB 893
+  ATT1A: City Overview Map
+       Planning Commission
+              April 15, 2026
+  Item 10A: SB 79 and AB 893
+ATT1B: Adjacent Parcels Maps
+         Planning Commission
+                April 15, 2026
+    Item 10A: SB 79 and AB 893
+ATT1C: Ashby BART Station Maps
+           Planning Commission
+                  April 15, 2026
+                                                                                                                  Item 10A: SB 79 and AB 893
+                                                                                                              ATT1C: Ashby BART Station Maps
+                                                                                                                         Planning Commission
+                                                                                                                                April 15, 2026
+                                                                                                                                     ward St
+
+
+
+
+                                      Ashby BART Transit Oriented Plvelopmegt rt st
+                                                                                                  -i �
+                                            Eligible parcels within quarter-mile ra�ius                                                                                    -n
+                                                                                                                                                                           C:
+                                                                                                                                                                           ;:;-
+                                                                                                                                                                           0
+                                                       Stuart St                                                                                                           ::,
+                                                                                                                                                                            \fl
+                                                                                                                                                                            ,..,
+
+
+
+
+             C\
+             ro
+              ro
+
+               ro                                                                                                                     r-
+                                                                                                                                       0
+
+                                                                                                                                       3·�
+                                                                                                                                       0)
+
+                                                                                                                                        ,..,
+                                                                                                                                       \fl
+
+
+
+
+                                                                                                                                                                  -:,­
+                                                                                                                                                                  ro
+St                                                                                                                                                                 ro
+
+
+                                                                                                                                                                    ,..,
+                                                                                                                                                                    \fl
+
+
+                         R-2AA
+                            '°
+                            ::,
+
+
+
+
+     ,':/\er St
+
+                         R-2A
+
+
+
+      prince St
+
+
+
+
+                    St
+      woo\se':/                                                                                                                                             St
+                                                                                                                                                 fairvieW
+
+
+                                                                                                       � Historic Resources
+                                                                                                                                               t11 st
+        faiflJieW
+                  St                                                                                   • Bart Entrances 65
+                                                                                                    Gs�ohing Districts
+
+                                                                                                               R-2
+                                                                                                       1111 R-2A
+                                             ·ev
+                      t                     R�
+           1-1arrnon s
+                                                                                                       1111 R-4
+                                               �-                                                      1111 C-SA
+                                                                                                                                                        63rd St
+                                                                                                         C-AC
+                                                                                                 63rdlll
+
+
+                                                                   63rd St
+                                                                               �ti  Community Maps Contributors, California State Parks, © OpenStreetM,a,,d st
+                                                                              Micyosoft, Esri, TomT�r;IT,\«b�fiTiin, SafeGraph, GeoTechnologies, Inc, METI/NASA,
+                                  63rd St                                    USGli, Bureau of Land Management, EPA, NPS, US Census Bureau, USDA, USFWS
+    Item 10A: SB 79 and AB 893
+ATT1C: Ashby BART Station Maps
+           Planning Commission
+                  April 15, 2026
+                Item 10A: SB 79 and AB 893
+ATT1D: Downtown Berkeley BART Station Maps
+                       Planning Commission
+                              April 15, 2026
+                Item 10A: SB 79 and AB 893
+ATT1D: Downtown Berkeley BART Station Maps
+                       Planning Commission
+                              April 15, 2026
+                Item 10A: SB 79 and AB 893
+ATT1D: Downtown Berkeley BART Station Maps
+                       Planning Commission
+                              April 15, 2026
+       Item 10A: SB 79 and AB 893
+ATT1E: North Berkeley Station Maps
+              Planning Commission
+                     April 15, 2026
+                                                                                                                        Item 10A: SB 79 and AB 893
+                                                                                                                 ATT1E: North Berkeley Station Maps
+                                                                                                                               Planning Commission
+                                                                                                                                      April 15, 2026
+                 �                             �      �                                                                  �
+               ��                              g                      ��
+                                                                                                                         {Oto
+
+
+
+                                                                 l'                                                              "'
+               "'                             t:                      ,:-;                              ('                   -v,,_
+                          C it                                                                          %,
+              North �etkeley� BART Tr�nsit Oriented\,Oevelopment
+                                                                                                             �
+                                       Eligible parcels within quarter-mile radius
+
+
+� Historic Resources
+ • Bart Entrances
+Zoning Districts
+    R-1
+    R-1H
+    R-2
+    R-2A
+1111 R-BMU
+    C-U
+               \
+                      .                 R-1
+    CedarRos    •R-2 \::--:-i
+       Park
+                     �
+
+
+
+
+                                                                              1
+                                                                                                         R-2
+                                                                                                                             0                -
+                                                                                                                                               2
+
+
+
+
+                                                                                                               0
+                                                                                                                                 St
+                                                                                                                       Virgi nia
+
+
+
+                                                                                                               CJ
+                                                                                                                                                  R-2
+
+                                                                                                    2
+
+                                                                                                                             n
+                                                                                                                             �
+                                                                                                                             ..,,
+                                                          f.
+                                                       l/)        •
+
+
+
+                                                          ,..
+                                                                                                                                ..
+                                                                                                                             0
+                                                                                                                                                   R-2
+                                                                                                                             �-
+                                                           ,..
+                                                           l/)
+                                                                                                             R-2
+                                                                                                                                l/)
+
+
+
+
+                                                                                   ..�.. ==-----7_"�--
+                                                                                   l/)
+
+                                                                                                                                      R-2
+                                                                                   3
+                                                                                    11>
+
+                                                                                    ,..
+                                                                                    :,
+                                                                             R-2    0
+                                                                                    l/)
+                                                     R-2                            rr
+
+                                                                                                                                             R-2A
+                                 R-2
+
+
+                                                                                                                                      y way
+                                                                                                                                      n
+                                                                                                                                      �
+                                                                                                                                      ..,,
+                                                                                                                                      0
+
+                                                                                                                                      :l
+                                                                                                                                      .;·
+
+
+
+                                                                                                                                                         I
+                                                                                                                                       ,..
+                                                                                                                                       l/)
+
+
+                     Berkeley
+                       Ww
+                     Min t'ark
+   N
+
+
+ A I
+                     �
+
+
+
+                                                                                          0.125                                              0.25Miles   II
+                                                                                          l/) l/)
+       Item 10A: SB 79 and AB 893
+ATT1E: North Berkeley Station Maps
+              Planning Commission
+                     April 15, 2026
+       Item 10A: SB 79 and AB 893
+ATT1F: Rockridge BART Station Map
+              Planning Commission
+                     April 15, 2026
+                Item 10A: SB 79 and AB 893
+ATT2: AB 893 Campus Development Zone Map
+                       Planning Commission
+                              April 15, 2026
+

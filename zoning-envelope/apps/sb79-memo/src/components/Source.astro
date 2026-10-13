@@ -1,0 +1,10 @@
+---
+/** A non-statute source (agency letter, staff report, ordinance, news) from a data file. */
+interface Props {
+  source: { title: string; date?: string; url?: string };
+}
+import { date } from '../format';
+const { source } = Astro.props;
+---
+
+{source.url ? <a href={source.url}>{source.title}</a> : source.title}{source.date && <>, {date(source.date)}</>}<slot />

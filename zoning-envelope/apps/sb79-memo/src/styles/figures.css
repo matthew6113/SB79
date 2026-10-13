@@ -1,0 +1,590 @@
+/*
+ * Figures in ink tones (SB79_SPEC.md, "Figures and animation"): ghost in pale
+ * gray, the SB 79 envelope in one deep accent, red (--collapse) only for
+ * collapse. Type is the memo's serif; titles and stamps in small caps.
+ */
+
+.figure-stage {
+  position: relative;
+  width: 100%;
+  height: 88%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.figure-frame {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ghost);
+}
+
+.figure-slot {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+}
+
+.figure-slot.is-active {
+  visibility: visible;
+}
+
+/* Reduced motion: states crossfade instead of moving. */
+.figure-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.figure-fade > * { transition: opacity 0.4s ease; }
+.is-reduced .figure-slot { transition: opacity 0.4s ease; }
+
+.figure-caption {
+  display: grid;
+  /* A fixed height: a caption change must never resize the figure (and its canvas). */
+  height: 4.1em;
+  overflow: hidden;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+.figure-caption p {
+  grid-area: 1 / 1;
+  margin: 0;
+}
+
+.fig-fallback {
+  margin: 0;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.fig-title,
+.fig-subtitle {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin: 0 0 0.6rem;
+}
+
+.fig-subtitle {
+  font-size: 0.8rem;
+  margin: 0 0 0.4rem;
+}
+
+/* ------------------------------------------------------------------ map */
+
+.map-figure,
+.envelope-figure,
+.checklist-figure,
+.timeline-figure {
+  position: absolute;
+  inset: 0;
+}
+
+.map-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-layer path,
+.map-layer line,
+.map-layer circle,
+.map-layer rect {
+  vector-effect: non-scaling-stroke;
+}
+
+.ca-county { fill: var(--parcel); stroke: var(--page); stroke-width: 0.8px; }
+.ca-utc { fill: var(--accent); stroke: var(--page); stroke-width: 0.8px; }
+.ca-alameda { fill: none; stroke: var(--ink); }
+.ca-open-issue { fill: none; stroke: var(--accent); }
+
+.fig-text {
+  fill: var(--ink);
+  stroke: var(--page);
+  paint-order: stroke;
+  stroke-linejoin: round;
+  font-family: var(--serif);
+}
+.fig-text-soft { fill: var(--ink-soft); }
+.fig-text-accent { fill: var(--accent); }
+.fig-leader { stroke: var(--ink); }
+.fig-hatch { stroke: var(--accent); }
+.fig-dot { fill: var(--accent); }
+
+.map-parcel { fill: var(--parcel); stroke: var(--ghost); stroke-width: 0.5px; }
+.map-eligible { fill: var(--accent-tint); stroke: var(--page); stroke-width: 0.5px; }
+.map-not-qualifying { fill: var(--ghost); stroke: var(--page); stroke-width: 0.5px; }
+.map-bart { stroke: none; }
+.map-land { fill: var(--parcel); stroke: none; }
+.map-city { fill: var(--accent-tint); fill-opacity: 0.45; stroke: var(--ink); }
+.map-ring { fill: none; stroke: var(--accent); }
+/* Traced on with pathLength dashes, which Chrome measures in screen pixels under
+   non-scaling-stroke; these strokes are sized in feet per pixel instead. */
+.map-layer .map-ring,
+.map-layer .map-measure { vector-effect: none; }
+.map-outer-fill { fill: var(--accent-tint); fill-opacity: 0.55; }
+.map-rail { fill: none; stroke: var(--ink-soft); }
+.map-station { fill: var(--page); stroke: var(--ink); }
+.map-ap { fill: var(--accent); stroke: var(--accent); }
+.map-ap-elevator { fill: var(--page); }
+.map-site { fill: none; stroke: var(--ink); }
+.map-site-b { fill: var(--accent); fill-opacity: 0.35; }
+.map-measure { stroke: var(--ink); }
+.map-measure-end { fill: var(--ink); }
+
+.bay-city { stroke: var(--page); stroke-width: 0.8px; fill: none; }
+.bay-defaults { fill: var(--accent); fill-opacity: 0.8; stroke: var(--ink); }
+.bay-exclusions,
+.bay-alternative-plan { stroke: var(--ink); }
+
+.fig-stamp rect { fill: var(--page); stroke-width: 1.6px; }
+.fig-stamp .fig-stamp-inner { fill: none; stroke-width: 0.8px; }
+.fig-stamp-accent rect { stroke: var(--accent); }
+.fig-stamp-collapse rect { stroke: var(--collapse); }
+.fig-stamp-text,
+.fig-stamp-sub {
+  font-family: var(--serif);
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+.fig-stamp-accent text { fill: var(--accent); }
+.fig-stamp-collapse text { fill: var(--collapse); }
+.fig-stamp-sub { font-weight: 400; }
+
+.fig-legend {
+  position: absolute;
+  left: 0;
+  bottom: 0.4rem;
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  list-style: none;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  background: color-mix(in srgb, var(--page) 88%, transparent);
+  max-width: 24rem;
+}
+
+.fig-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.fig-swatch { flex: none; }
+.fig-count {
+  min-width: 1.1em;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--accent);
+}
+.fig-swatch rect { stroke: var(--ink-soft); stroke-width: 0.5px; }
+.fig-swatch .fig-swatch-pattern { stroke: none; }
+.bay-swatch-blank { fill: var(--page); }
+.legend-dashed { fill: var(--page); stroke: var(--accent); stroke-dasharray: 3 2; stroke-width: 1.2px; }
+
+.legend-ap,
+.legend-ring {
+  display: inline-block;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin: 0 2.5px;
+  background: var(--accent);
+  border: 1.4px solid var(--accent);
+  transform: rotate(45deg);
+}
+.legend-ap-elevator { background: var(--page); }
+.legend-ring {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  border-radius: 50%;
+  background: none;
+  transform: none;
+}
+
+.fig-badge {
+  position: absolute;
+  top: 0.6rem;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.45rem 0.7rem;
+  border: 1.5px solid var(--accent);
+  background: var(--page);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+.fig-badge strong {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------------ envelope */
+
+.envelope-figure canvas { display: block; }
+
+.env-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.env-label {
+  position: absolute;
+  font-family: var(--serif);
+  font-size: 0.74rem;
+  line-height: 1.25;
+  color: var(--ink);
+  width: max-content;
+  transform: translate(0.4rem, -50%);
+  text-shadow: 0 0 3px var(--page), 0 0 3px var(--page), 0 0 2px var(--page);
+}
+.env-label.is-flipped {
+  transform: translate(calc(-100% - 0.4rem), -50%);
+  text-align: right;
+}
+.env-label.is-flipped small { margin-left: auto; }
+.env-label small {
+  display: block;
+  font-size: 0.66rem;
+  color: var(--ink-soft);
+  max-width: 15rem;
+}
+.env-label-strong { font-weight: 600; }
+.env-label-accent { color: var(--accent); font-weight: 600; }
+.env-label-soft { color: var(--ink-soft); }
+.env-label-center {
+  transform: translate(-50%, 0.4rem);
+  text-align: center;
+  font-weight: 600;
+}
+.env-label-center small {
+  width: auto;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.env-stamp {
+  transform: translate(-50%, -50%) rotate(-4deg);
+  padding: 0.2rem 0.55rem;
+  border: 1.5px double var(--ink-soft);
+  outline: 1px solid var(--ink-soft);
+  outline-offset: 2px;
+  background: var(--page);
+  color: var(--ink-soft);
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.fig-counter {
+  position: absolute;
+  top: 0.6rem;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  pointer-events: none;
+}
+.fig-counter p { margin: 0; }
+.fig-counter strong {
+  font-size: 1.7rem;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--accent);
+}
+.fig-counter span { color: var(--ink-soft); font-size: 0.72rem; }
+.fig-counter .fig-counter-note { color: var(--ink); }
+
+.fig-toggle {
+  position: absolute;
+  top: 0.6rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+.fig-switch {
+  flex: none;
+  position: relative;
+  width: 2rem;
+  height: 1.05rem;
+  border-radius: 1rem;
+  border: 1.5px solid var(--ink-soft);
+  background: var(--page);
+}
+.fig-switch::after {
+  content: "";
+  position: absolute;
+  top: 0.12rem;
+  left: 0.12rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--ink-soft);
+}
+.fig-switch.is-on { border-color: var(--collapse); }
+.fig-switch.is-on::after { left: auto; right: 0.12rem; background: var(--collapse); }
+
+.fig-stamp-html {
+  position: absolute;
+  top: 3.2rem;
+  right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.35rem 0.8rem;
+  border: 2px solid var(--collapse);
+  outline: 1px solid var(--collapse);
+  outline-offset: 2px;
+  background: var(--page);
+  color: var(--collapse);
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+}
+.fig-stamp-html strong { font-size: 1rem; }
+.fig-stamp-html span { font-size: 0.75rem; }
+
+.fig-totals {
+  position: absolute;
+  left: 0;
+  bottom: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.45rem 0.7rem;
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--page) 90%, transparent);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.fig-totals strong { color: var(--accent); }
+
+/* ------------------------------------------------------------------ checklist */
+
+.checklist-figure {
+  overflow: auto;
+  padding: 0.8rem 0 0.4rem;
+}
+
+.cl-cards {
+  list-style: none;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.cl-card {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr auto;
+  gap: 0.6rem;
+  align-items: start;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--ghost);
+  background: var(--page);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+.cl-body { display: flex; flex-direction: column; }
+.cl-body strong { font-variant: small-caps; letter-spacing: 0.04em; }
+.cl-card cite { font-style: normal; font-size: 0.68rem; color: var(--ink-soft); white-space: nowrap; }
+.cl-mark {
+  display: grid;
+  place-items: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  border: 1.5px solid var(--ghost);
+  font-weight: 700;
+}
+.cl-tick { border-color: var(--accent); }
+.cl-tick .cl-mark { border-color: var(--accent); background: var(--accent); color: var(--page); }
+.cl-gray { color: color-mix(in srgb, var(--ink) calc(100% - var(--t, 1) * 100%), var(--ink-soft)); }
+.cl-gray .cl-mark { border-color: var(--ghost); background: var(--ghost); color: var(--page); }
+.cl-fail { border-color: var(--collapse); }
+.cl-fail .cl-mark { border-color: var(--collapse); background: var(--collapse); color: var(--page); }
+.cl-pending { color: var(--ink-soft); }
+.cl-note { font-size: 0.72rem; color: var(--ink-soft); }
+
+.cl-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 12rem) 1fr 2.4rem;
+  gap: 0.6rem;
+  align-items: center;
+  font-size: 0.74rem;
+  margin: 0 0 0.25rem;
+}
+.cl-row-pct { text-align: right; font-variant-numeric: tabular-nums; }
+.cl-squares { width: 100%; height: 14px; }
+.cl-squares .sq { fill: var(--parcel); }
+.cl-squares .sq-on { fill: var(--accent-tint); }
+.cl-squares .sq-deep { fill: var(--accent); }
+
+/* ------------------------------------------------------------------ timeline */
+
+.timeline-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  overflow: auto;
+  padding: 0.8rem 0 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.tl-flow { display: flex; flex-direction: column; }
+.tl-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.tl-node {
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem 0.6rem;
+  border: 1.5px solid var(--accent);
+  background: var(--page);
+}
+.tl-node strong { font-variant: small-caps; letter-spacing: 0.04em; }
+.tl-node small { color: var(--ink-soft); font-size: 0.7rem; }
+.tl-app { align-self: start; width: calc(50% - 0.5rem); font-variant: small-caps; letter-spacing: 0.04em; font-weight: 600; }
+.tl-branch { border-style: dashed; }
+.tl-presumption { border: 2px solid var(--accent); outline: 1px solid var(--accent); outline-offset: 2px; }
+.tl-presumption .tl-site { color: var(--ink); margin-top: 0.2rem; }
+
+.tl-links { position: relative; height: 1.4rem; }
+.tl-link {
+  position: absolute;
+  left: 1.2rem;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: var(--accent);
+  transform-origin: top;
+}
+.tl-elbow {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  height: 50%;
+  width: calc(50% + 0.5rem);
+  border-top: 1.5px dashed var(--accent);
+  border-right: 1.5px dashed var(--accent);
+}
+
+.tl-axis {
+  position: relative;
+  height: calc(1.2rem + var(--rows, 1) * 2.6rem);
+  margin: 1rem 0.5rem 0 0.2rem;
+}
+.tl-axis-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.5rem;
+  height: 1.5px;
+  background: var(--ink);
+  transform-origin: left;
+}
+.tl-event {
+  position: absolute;
+  top: 0.5rem;
+  width: 0;
+}
+.tl-tick {
+  position: absolute;
+  left: -0.3rem;
+  top: -0.3rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--page);
+  border: 1.5px solid var(--ink);
+}
+.tl-event-text {
+  position: absolute;
+  top: calc(0.7rem + var(--row, 0) * 2.6rem);
+  left: -0.3rem;
+  display: flex;
+  flex-direction: column;
+  width: 8.5rem;
+  font-size: 0.7rem;
+  line-height: 1.25;
+  border-left: 1px solid var(--ghost);
+  padding-left: 0.3rem;
+}
+.tl-event-text strong { font-variant-numeric: lining-nums; }
+.tl-event-text small { color: var(--ink-soft); }
+.tl-memo .tl-tick { background: var(--ink); }
+.tl-presumption .tl-tick,
+.tl-event.tl-presumption .tl-tick { background: var(--accent); border-color: var(--accent); }
+.tl-event.tl-presumption .tl-event-text { left: auto; right: -0.3rem; border-left: none; border-right: 1px solid var(--ghost); padding: 0 0.3rem 0 0; text-align: right; }
+
+/* ------------------------------------------------------------------ dev panel */
+
+.dev-panel {
+  position: fixed;
+  left: 0.6rem;
+  bottom: 0.6rem;
+  z-index: 50;
+  width: 19rem;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--ink-soft);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.12);
+  font: 12px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.dev-panel header { display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--ghost); }
+.dev-panel ol { list-style: none; margin: 0; padding: 0; overflow: auto; }
+.dev-panel li button {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  border-bottom: 1px solid #eee;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+.dev-panel li button:hover { background: #f3f3f3; }
+.dev-panel li button[aria-current] { background: var(--accent); color: #fff; }
+.dev-panel li button.is-missing code { color: var(--collapse); }
+.dev-section { font-size: 10.5px; opacity: 0.75; }
+.dev-progress { display: grid; grid-template-columns: auto auto 1fr; gap: 0.4rem; align-items: center; padding: 0.4rem 0.5rem; border-top: 1px solid var(--ghost); }
+.dev-panel.is-closed { width: auto; }
+
+@media (max-width: 760px) {
+  .figure-stage { height: 96%; }
+  .env-label { font-size: 0.64rem; }
+  .env-label small { display: none; }
+  .fig-counter strong { font-size: 1.25rem; }
+  .timeline-figure { gap: 1rem; font-size: 0.7rem; }
+  .tl-node small { font-size: 0.62rem; }
+  /* The paragraph beside the figure carries the detail; on phones the cards keep title, mark, and note. */
+  .checklist-figure { padding-top: 0.4rem; }
+  .fig-title { margin-bottom: 0.3rem; }
+  .cl-cards { gap: 0.25rem; margin-bottom: 0.5rem; }
+  .cl-card { font-size: 0.72rem; padding: 0.25rem 0.5rem; grid-template-columns: 1.3rem 1fr auto; }
+  .cl-body > span:not(.cl-note) { display: none; }
+  .cl-mark { width: 1.1rem; height: 1.1rem; }
+  .cl-row { grid-template-columns: minmax(6rem, 9rem) 1fr 2rem; font-size: 0.66rem; margin: 0; }
+  .cl-afford > .cl-note { display: none; }
+  .figure-caption { height: 2.8em; font-size: 0.7rem; }
+  .fig-legend { font-size: 0.65rem; max-width: 70%; }
+  .dev-panel { width: 15rem; max-height: 40vh; }
+}

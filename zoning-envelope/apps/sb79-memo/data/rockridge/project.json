@@ -1,0 +1,60 @@
+{
+  "address": "5727 College Ave, Oakland (the Rockridge Trader Joe's)",
+  "role": "III.D contrast: a pending application near Rockridge BART that relies on the State Density Bonus Law, not SB 79.",
+  "caveat": "Facts below come from news reports and a neighborhood advocacy group's fact sheet, quoted from data/rockridge/sources. The primary record is Oakland's project file (Planning No. ZW2601986; preliminary application ZP260014). The memo uses the project only to illustrate how the two laws differ and takes no position on the application.",
+  "facts": {
+    "preliminaryApplication": {
+      "value": "2026-04-22",
+      "label": "SB 330 vesting preliminary application ZP260014",
+      "source": "sources/ubaoakland-fact-sheet.txt",
+      "quote": "Preliminary Application Date: 4/22/2026 (SB 330 vesting preliminary application ZP260014)"
+    },
+    "formalApplication": {
+      "value": "2026-08-19",
+      "label": "Formal application, Planning No. ZW2601986",
+      "source": "sources/ubaoakland-fact-sheet.txt",
+      "quote": "Formal Application Date: 8/19/2026 (Planning No. ZW2601986)"
+    },
+    "developer": {
+      "value": "Align Real Estate / Albertsons",
+      "source": "sources/ubaoakland-fact-sheet.txt",
+      "quote": "Developer Align Real Estate / Albertsons (Rockridge Property Owners, LLC)"
+    },
+    "towerHeightsFt": {
+      "value": [306, 276],
+      "source": "sources/sfyimby-2026-08.txt",
+      "quote": "with rooftop heights of 276 feet and 306 feet, respectively"
+    },
+    "stories": {
+      "value": [26, 23],
+      "source": "sources/sfyimby-2026-08.txt",
+      "quote": "The proposal is now expected to reach 23 floors and 26 floors above ground"
+    },
+    "units": {
+      "value": 372,
+      "source": "sources/ubaoakland-fact-sheet.txt",
+      "quote": "Units 372 units total (senior living / continuing care)"
+    },
+    "originalUnits": {
+      "value": 415,
+      "source": "sources/piedmont-exedra-2026-07.txt",
+      "quote": "to build a 415-unit senior housing complex at the site on 5727 College Ave."
+    },
+    "affordableUnits": {
+      "value": "none",
+      "source": "sources/ubaoakland-fact-sheet.txt",
+      "quote": "Affordable None (no dedicated affordable units)"
+    },
+    "densityBonusPath": {
+      "value": "State Density Bonus Law: density bonus and height waiver",
+      "source": "sources/piedmont-exedra-2026-07.txt",
+      "quote": "qualifies for a 20% density bonus and height waiver under California’s Density Bonus Law"
+    },
+    "vestedRules": {
+      "value": "SB 330 preliminary application froze the local rules in effect when filed",
+      "source": "sources/ubaoakland-fact-sheet.txt",
+      "quote": "the developers effectively froze the local zoning rules, policies, and fees in effect at that moment"
+    }
+  },
+  "note": "The preliminary application predates the date SB 79's standards began to apply to cities (sb79.json operative.cities). Whether the applicant could later elect SB 79 is not addressed by these sources."
+}

@@ -1,0 +1,7 @@
+{
+  "retrievedAt": "2026-10-12T17:30:12.500Z",
+  "count": 58,
+  "source": "https://services3.arcgis.com/uknczv4rpevve42E/arcgis/rest/services/California_County_Boundaries_and_Identifiers_Blue_Version_view/FeatureServer/1",
+  "sourceLastEdit": "2026-09-21T17:40:59.470Z",
+  "query": "all counties, simplified (maxAllowableOffset 0.002 degrees)"
+}
