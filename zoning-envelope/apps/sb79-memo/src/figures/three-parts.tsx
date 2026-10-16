@@ -1,8 +1,8 @@
 /**
- * three.js pieces shared by the memo's 3D figure and the calculator's small
- * envelope: unit-depth prisms, perimeter bands, one-pixel lines (these share
- * shader programs, so lines can come and go mid-scroll), the shader warm-up,
- * and the projector that places HTML labels over the canvas.
+ * three.js pieces for the 3D envelope figure: unit-depth prisms, perimeter
+ * bands, one-pixel lines (these share shader programs, so lines can come and
+ * go mid-scroll), the shader warm-up, and the projector that places HTML
+ * labels over the canvas.
  */
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useThree } from '@react-three/fiber';

@@ -1,0 +1,50 @@
+---
+/**
+ * The standards table: the floors on the city's limits for each stop tier and
+ * distance band, from sb79.json (via memo-data, computed as evaluateSite
+ * computes them). Rows where an exhibit falls carry its letter; Exhibit B is
+ * the running example.
+ */
+import { A, B, C, law, standards } from '../memo-data';
+import { far, ftShort, milesShort, num } from '../format';
+
+const label = (tier: 1 | 2, band: string) => {
+  const key = tier === 1 ? 'tier1' : 'tier2';
+  const quarter = milesShort(law.bands.quarterMile[key].value);
+  if (band === 'adjacent') return `Within ${ftShort(law.definitions.adjacentWithin.value)} of an access point`;
+  if (band === 'quarterMile') return `Within ${quarter}`;
+  return `${quarter} to ${milesShort(law.bands.halfMile[key].value)}`;
+};
+const exhibitsIn = (tier: number, band: string) => [A, B, C].filter((e) => e.tier === tier && e.band === band).map((e) => e.key);
+---
+
+<table class="standards">
+  <caption>What the city must allow, by stop and distance</caption>
+  <thead>
+    <tr>
+      <th scope="col">Stop and distance</th>
+      <th scope="col">Height limit at least</th>
+      <th scope="col">Density limit at least (units per acre)</th>
+      <th scope="col">Residential floor area ratio up to</th>
+    </tr>
+  </thead>
+  {standards.map((t) => (
+    <tbody>
+      <tr class="standards-tier"><th scope="rowgroup" colspan="4">Tier {t.tier}</th></tr>
+      {t.rows.map((r) => {
+        const marks = exhibitsIn(t.tier, r.band);
+        return (
+          <tr class:list={[{ 'is-example': marks.includes('B') }]}>
+            <th scope="row">
+              {label(t.tier, r.band)}
+              {marks.length > 0 && <span class="standards-exhibit">{marks.map((k) => `Exhibit ${k}`).join(', ')}</span>}
+            </th>
+            <td>{ftShort(r.floors.heightFt.value)}</td>
+            <td>{num(r.floors.densityDuPerAcre.value)}</td>
+            <td>{far(r.floors.residentialFar.value)}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  ))}
+</table>

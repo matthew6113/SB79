@@ -8,7 +8,7 @@ A pnpm monorepo for zoning-envelope tools. The build spec for the SB 79 memo is
 ```
 zoning-envelope/
   apps/web/              # reserved: the zoning envelope tool (not in this repo yet)
-  apps/sb79-memo/        # SB 79 animated memo (Astro + MDX + React islands)
+  apps/sb79-memo/        # SB 79 animated explainer (Astro + MDX + React islands)
   packages/engine/       # shared geometry: area, extrude, floor plates, volume, edge distance
   packages/law/          # sb79.json (cited), statute snapshots, lawAsOf, evaluateSite
 ```
@@ -87,14 +87,16 @@ holes? }` rings in a local projected frame (the memo uses feet).
   Add a legal value only together with its cite and quote.
 - `VERIFICATION.md` lists where the spec differs from the statute and data.
 
-## apps/sb79-memo — SB 79 animated memo
+## apps/sb79-memo — SB 79 animated explainer
 
-**Goal.** A law-firm memo about one real North Berkeley BART site. Every
-paragraph plays a figure state beside it as the reader scrolls: a pale ghost
-envelope (local zoning) and a solid envelope rising to what SB 79 requires the
-city to allow. A what-if calculator after the conclusion runs on the same law
-data. The standards are floors on the city's limits, not caps on the project:
-write "the city must allow at least", never "the project may build up to".
+**Goal.** An SB 79 explainer in the format of a law-firm client alert (key
+points, question headings, key takeaways, a closing disclaimer), with one real
+North Berkeley BART site as its running example. Every paragraph plays a
+figure state beside it as the reader scrolls: a pale ghost envelope (local
+zoning) and a solid envelope rising to what SB 79 requires the city to allow.
+The standards are floors on the city's limits, not caps on the project: write
+"the city must allow at least", never "the project may build up to". The app
+keeps its `sb79-memo` name and `memo.*` file names.
 
 **Stack.**
 
@@ -106,7 +108,6 @@ write "the city must allow at least", never "the project may build up to".
 | 3D figure | react-three-fiber (three.js lines and meshes; drei dropped in Phase 4), geometry from `packages/engine` | Phase 3 |
 | Motion | GSAP timelines: the motion grammar, `src/figures/motion.ts` | Phase 4 |
 | Scroll | GSAP ScrollTrigger per `<Step>` + a playhead, `src/scroll/engine.ts` | Phase 4 |
-| Calculator | `calculate()` over `evaluateSite` + a small R3F envelope | Phase 5 |
 | Print | Paged.js 0.4 (`/print/`: page box, footnotes at each page foot) | Phase 5 |
 | Tests | Vitest | Phase 0 on |
 
@@ -115,30 +116,29 @@ write "the city must allow at least", never "the project may build up to".
 ```
 apps/sb79-memo/
   astro.config.mjs        # MDX + React integrations
-  src/content/memo.mdx    # the memo text, one <Step id> per paragraph
-  src/script.ts           # paragraph id -> figure + state (the memo script table)
-  src/memo.config.ts      # letterhead config (FROM stays configurable) and exhibit APNs
-  src/memo-data.ts        # every number the memo shows, from @zoning-envelope/law and data/
+  src/content/memo.mdx    # the explainer text, one <Step id> per paragraph
+  src/script.ts           # paragraph id -> figure + state (the spec's script table)
+  src/memo.config.ts      # header config (the byline stays configurable) and exhibit APNs
+  src/memo-data.ts        # every number the explainer shows, from @zoning-envelope/law and data/
   src/format.ts           # number, date, and address formatting (no legal values)
-  src/components/         # Step, Letterhead, Law (statute cites), Source, OpenIssue
+  src/components/         # Step, Letterhead (the header), Law (statute cites), Source, OpenIssue, StandardsTable
   src/figures/            # React islands: MapFigure, EnvelopeFigure, Checklist, Timeline, FigureStage, DevPanel
-  src/figures/three-parts.tsx # R3F pieces shared by EnvelopeFigure and the calculator (Prism, Band, Projector, Warmup)
+  src/figures/three-parts.tsx # R3F pieces for EnvelopeFigure (Prism, Band, Projector, Warmup)
   src/figures/figure-data.ts  # build-time figure data (served as /figure-data.json)
   src/figures/views.ts    # state -> view, a pure function of progress, per figure
   src/figures/motion.ts   # the motion grammar (draw, rise, fill, stamp, grayOut, collapse)
   src/scroll/engine.ts    # scroll -> step + progress: ScrollTrigger observer and playhead
   src/scroll/share.ts     # share links: the ¶ on each <Step>, #<step id> opens it settled
-  src/calculator/         # model.ts (pure: form strings -> evaluateSite -> rows), Calculator, CalcEnvelope
   src/print/              # PrintBuilder (stills + Paged.js), still.ts (DOM/canvas copies), paged.css (raw)
   src/layouts/            # MemoLayout.astro
   src/pages/index.astro   # text column left, pinned figure right (top 45% on phones)
-  src/pages/print.astro   # the print version: same memo, paginated, figures as stills
-  src/styles/memo.css     # memo look: off-white page, book serif, small caps
-  src/styles/calculator.css, print.css
+  src/pages/print.astro   # the print version: same text, paginated, figures as stills
+  src/styles/memo.css     # the look: off-white page, book serif, small caps
+  src/styles/print.css
   data/                   # frozen snapshots, *.meta.json, manifest.json (asOf), sources/ text
   scripts/                # snapshot.ts, snapshot-rockridge.ts (refresh data), propose-exhibits.ts
   EXHIBITS.md             # generated exhibit candidates (Matthew chooses)
-  test/                   # Vitest: memo/script contract, figures, calculator, data checks
+  test/                   # Vitest: memo/script contract, figures, data checks
 ```
 
 **Rules.**
@@ -156,11 +156,13 @@ apps/sb79-memo/
    nothing fires once on a timer. Scrolling up plays every state in reverse.
    Under `prefers-reduced-motion`, states crossfade instead of moving.
 
-Also from the spec's guardrails: keep the standing line under the letterhead
+Also from the spec's guardrails: keep the standing line under the header
 ("For general information only. Not legal advice. Facts and law as of
-[date]."), followed by the line saying AI was used and may make mistakes
-(Matthew's call; `test/memo.test.ts` checks both), show each open issue as a boxed "Open issue" note where it bites,
-and flag anything that reads as advice on a specific project.
+[date]."), followed by the line saying AI was used and may make mistakes, and
+end with the boxed not-legal-advice disclaimer (Matthew's calls;
+`test/memo.test.ts` checks all three); show each open issue as a boxed "Open
+issue" note where it bites, and flag anything that reads as advice on a
+specific project.
 
 **Figures (Phase 3).** `figure-data.ts` builds everything the figures draw at
 build time: d3-geo path strings in feet (EPSG:2227, relative to Exhibit B),
@@ -195,24 +197,15 @@ recompiles shaders), keep the hidden `Warmup` in `EnvelopeFigure` so shader
 programs are never freed mid-scroll, and keep the caption a fixed height so
 the canvas never resizes.
 
-**Calculator, print, share links (Phase 5).** `src/calculator/model.ts`
-turns the form (strings, as typed) into `evaluateSite` inputs and its answer
-into rows; `test/calculator.test.ts` runs the spec's cases 1-6 through it.
-Fixed assumptions, stated beside it: urban transit county, residential
-zoning, no local opt-out. A failed project condition collapses the small
-envelope to local zoning in red. It opens blank (`BLANK`: no tier, no site
-facts) so it never describes a particular site, and lists what is still
-needed instead of guessing. A boxed disclaimer in `memo.mdx` comes before
-it (not legal advice, no attorney-client relationship, built with AI and may
-make mistakes, check the statute and consult an attorney), and a short
-not-legal-advice line stays under the results; `test/memo.test.ts` checks
-both are there. On phones the pinned figure fades out once the "Apply the
-Rule" heading reaches it, so the calculator gets the whole screen. The memo's main page is for the screen;
-`/print/` is the paper memo: it renders the four figures off screen at
+**Print and share links (Phase 5).** The calculator Phase 5 built was
+dropped on 2026-10-16 (Matthew). On phones the pinned figure fades out once
+the closing disclaimer reaches it, so the disclaimer and notes get the whole
+screen (`is-end`, set in `index.astro`). The main page is for the screen;
+`/print/` is the paper version: it renders the four figures off screen at
 `PRINT_SIZE`, copies each state settled as a still beside its paragraph,
 inlines footnotes (numbered in document order; Paged.js's own marker counter
-does not reset per note), keeps headings with their paragraph, drops the
-calculator, and paginates with Paged.js. Ctrl/Cmd+P on the main page goes to
+does not reset per note), keeps headings with their paragraph, and paginates with
+Paged.js. Ctrl/Cmd+P on the main page goes to
 `/print/?auto`; a plain browser print of the main page prints text only,
 with a line pointing to the print version. Paged.js rules (`@footnote`,
 `float: footnote`) live in `src/print/paged.css`, imported `?raw` so Vite's
@@ -228,29 +221,37 @@ its figure settled and its first line in view.
 **Data conventions.** `data/` is frozen: refresh only with
 `pnpm --filter @zoning-envelope/sb79-memo snapshot` (needs network and
 `pdftotext`), then `propose-exhibits`. Every layer has a `.meta.json` with
-its source, query, and dates; `data/manifest.json` `asOf` is the letterhead
+its source, query, and dates; `data/manifest.json` `asOf` is the header
 date. Owner names are never stored. Curated files
 (`urban-transit-counties.json`, `berkeley-zoning-standards.json`) quote
 `data/sources/*.txt`, and `test/data.test.ts` checks the quotes.
 
 **Decisions so far (Matthew).** Law stored with both versions keyed by date;
 urban transit counties per HCD's seven, with Orange as an open issue;
-population badge uses MTC's ACS figure. North Berkeley stays the memo's site;
+population badge uses MTC's ACS figure. North Berkeley stays the running example;
 5727 College Ave, Oakland (the Rockridge Trader Joe's) is a contrast exhibit in
-III.D (`density-bonus-contrast`): SB 79 requires the city to allow at least
+the density-bonus section (`density-bonus-contrast`): SB 79 requires the city to allow at least
 75 ft there, Oakland already allows 95 ft, and the pending application seeks
-about 306 ft under the Density Bonus Law. The memo takes no position on that
-application. Its data is in `data/rockridge/`.
+about 306 ft under the Density Bonus Law. The explainer takes no position on that
+application. Its data is in `data/rockridge/`. On 2026-10-16 Matthew dropped the
+calculator and moved the memo to the explainer format; a city-by-city
+implementation tracker is deferred.
 
-**Writing memo.mdx.** Every number is an MDX expression over `memo-data`
+**Writing memo.mdx.** Order: an introduction (no heading), Key Points
+(bullets), question headings ("Where does SB 79 apply?", "What must the city
+allow?", ...), Key Takeaways (bullets), then the `foot-disclaimer` box. State
+the rule first, then show it on the example lot. The standards table
+(`StandardsTable.astro`, both tiers and every band, the exhibits' rows marked)
+sits in the height paragraph. Every number is an MDX expression over `memo-data`
 (digits and number words both); `test/memo.test.ts` fails on hand-typed ones.
 Cites go in GFM footnotes (`[^key]`) whose definitions render `<Law of={leaf} />`
 or `<Source source={...} />`; never type a cite by hand. Open issues use
 `<OpenIssue title>` inside the paragraph's `<Step>`.
 
-**Phase status.** Phases 0–5 done and approved. Exhibits are set in
+**Phase status.** Phases 0–5 done and approved; the explainer format and the
+calculator's removal (2026-10-16) await Matthew's review. Exhibits are set in
 `src/memo.config.ts`: A 1504 Francisco St (second-ranked, chosen over the
 top-ranked triplex), B 1510 Virginia St and C 1450 Acton Crescent
-(top-ranked). Phase 5 (calculator, print, share links) was approved with
-two changes from Matthew: the calculator opens blank, and it carries a clear
-not-legal-advice disclaimer that says AI was used and may make mistakes.
+(top-ranked). The closing not-legal-advice disclaimer, which says AI was
+used and may make mistakes, carries over from the dropped calculator
+(Matthew's call in Phase 5).

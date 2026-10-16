@@ -121,7 +121,8 @@ function bandFor(law: LawAsOf, tier: Tier, distanceFt: number): BandId | null {
   return null;
 }
 
-function floorsFor(law: LawAsOf, tier: Tier, band: BandId): NonNullable<Evaluation['floors']> {
+/** The floors for one tier and band. The adjacent band adds the adjacency intensifier to the quarter-mile standards. */
+export function floorsFor(law: LawAsOf, tier: Tier, band: BandId): NonNullable<Evaluation['floors']> {
   const s = law.standards[tier === 1 ? 'tier1' : 'tier2'][band === 'halfMile' ? 'halfMile' : 'quarterMile'];
   const floor = (base: CitedLeaf<number>, add?: CitedLeaf<number>): Floor =>
     add

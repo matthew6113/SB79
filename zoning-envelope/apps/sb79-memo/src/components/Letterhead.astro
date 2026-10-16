@@ -1,20 +1,22 @@
 ---
+/**
+ * The explainer's header, in the style of a law-firm client alert: kicker,
+ * title, dek, byline and date, then the standing lines (SB79_SPEC.md,
+ * guardrails).
+ */
 import { memoConfig } from '../memo.config';
-import { B, asOf } from '../memo-data';
+import { asOf } from '../memo-data';
 import { date } from '../format';
 
-// DATE is the data snapshot's as-of date (data/manifest.json).
+// The date is the data snapshot's as-of date (data/manifest.json).
 const dated = date(asOf);
 ---
 
 <header class="letterhead">
-  <p class="letterhead-title">Memorandum</p>
-  <dl>
-    <dt>To</dt><dd>{memoConfig.to}</dd>
-    <dt>From</dt><dd>{memoConfig.from}</dd>
-    <dt>Date</dt><dd>{dated}</dd>
-    <dt>Re</dt><dd>What SB 79 allows at {B.address}, North Berkeley</dd>
-  </dl>
+  <p class="letterhead-kicker">Explainer</p>
+  <h1 class="letterhead-title">How SB 79 Works</h1>
+  <p class="letterhead-dek">What California's transit housing law requires cities to allow, shown on one North Berkeley lot</p>
+  <p class="letterhead-byline">By {memoConfig.byline} · {dated}</p>
   <p class="disclaimer">For general information only. Not legal advice. Facts and law as of {dated}.</p>
-  <p class="disclaimer disclaimer-ai">AI was used to research and draft this memo and to build its figures and calculator, and it may make mistakes. Check every point against the cited statute and sources.</p>
+  <p class="disclaimer disclaimer-ai">AI was used to research and draft this explainer and to build its figures, and it may make mistakes. Check every point against the cited statute and sources.</p>
 </header>

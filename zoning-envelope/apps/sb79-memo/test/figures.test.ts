@@ -203,8 +203,8 @@ describe('figure data', () => {
 // and render no numbers of their own. Rendered JSX text (and string literals
 // placed as JSX children) may not contain digits, bill names aside. Numbers in
 // code (layout, geometry) are not rendered text and are not checked.
-describe('figure and calculator components', () => {
-  const dirs = ['../src/figures/', '../src/calculator/'].map((d) => new URL(d, import.meta.url));
+describe('figure components', () => {
+  const dirs = ['../src/figures/'].map((d) => new URL(d, import.meta.url));
   const files = dirs.flatMap((dir) => readdirSync(dir).filter((f) => f.endsWith('.tsx')).map((f) => new URL(f, dir)));
   const names = (t: string) => t.replace(/\b(?:SB|AB) \d+\b/g, '').replace(/\b3D\b/g, '');
 

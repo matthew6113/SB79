@@ -1,4 +1,4 @@
-/* Memo look (SB79_SPEC.md, "Figures and animation"). Figures: src/styles/figures.css. */
+/* Explainer look (SB79_SPEC.md, "Figures and animation"). Figures: src/styles/figures.css. */
 :root {
   --page: #f7f4ec;        /* warm off-white */
   --ink: #1f1d1a;
@@ -32,12 +32,9 @@ body {
   margin: 0;
 }
 
-h1,
 h2,
 h3,
-.letterhead-title,
-.step-label,
-.letterhead dt {
+.letterhead-kicker {
   font-variant: small-caps;
   letter-spacing: 0.04em;
   font-weight: 600;
@@ -72,19 +69,27 @@ h2 {
   padding-bottom: 1rem;
 }
 
-.letterhead-title {
-  font-size: 1.6rem;
-  margin: 0 0 1rem;
-}
-
-.letterhead dl {
-  display: grid;
-  grid-template-columns: 5rem 1fr;
-  gap: 0.25rem 1rem;
+.letterhead-kicker {
+  font-size: 0.85rem;
+  color: var(--accent);
   margin: 0;
 }
 
-.letterhead dd {
+.letterhead-title {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0.2rem 0 0.5rem;
+}
+
+.letterhead-dek {
+  font-size: 1.1rem;
+  font-style: italic;
+  margin: 0 0 0.8rem;
+}
+
+.letterhead-byline {
+  font-size: 0.9rem;
   margin: 0;
 }
 
@@ -142,10 +147,72 @@ h2 {
   .share-toast { left: auto; right: 0; }
 }
 
-.step-label {
-  font-size: 0.8rem;
+.step ul {
+  padding-left: 1.2rem;
+}
+
+.step li + li {
+  margin-top: 0.5rem;
+}
+
+/* The standards table (StandardsTable.astro): the example's row in the accent. */
+.standards {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  margin: 1rem 0;
+}
+.standards caption {
+  text-align: left;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.standards th,
+.standards td {
+  padding: 0.3rem 0.4rem;
+  border-bottom: 1px solid var(--ghost);
+  text-align: left;
+  vertical-align: top;
+}
+.standards thead th {
+  font-weight: 600;
+  font-size: 0.78rem;
   color: var(--ink-soft);
-  margin: 0 0 0.25rem;
+  border-bottom: 1px solid var(--ink-soft);
+}
+.standards td {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.standards tbody th {
+  font-weight: normal;
+}
+.standards .standards-tier th {
+  font-weight: 600;
+  padding-top: 0.6rem;
+}
+.standards-exhibit {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+.standards .is-example {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* The closing disclaimer: boxed, like the open-issue notes. */
+.foot-disclaimer {
+  border: 1px solid var(--ink-soft);
+  padding: 0.6rem 0.9rem;
+  margin: 2.5rem 0 0;
+  font-size: 0.85rem;
+}
+.foot-disclaimer p {
+  margin: 0;
 }
 
 
@@ -165,8 +232,8 @@ h2 {
     transition: opacity 0.3s;
   }
 
-  /* At the calculator the pinned figure steps aside (set in index.astro). */
-  .memo.is-calculator .memo-figure {
+  /* Past the last paragraph the pinned figure steps aside (set in index.astro). */
+  .memo.is-end .memo-figure {
     opacity: 0;
     pointer-events: none;
   }
@@ -228,8 +295,6 @@ a.cite,
   }
   .memo-figure,
   .dev-panel,
-  .calculator,
-  #apply-the-rule,
   .step-link,
   .print-link {
     display: none !important;

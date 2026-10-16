@@ -11,7 +11,7 @@ const base = { urbanTransitCounty: true, zoningClass: 'residential', localOptOut
 const case1: SiteInputs = { ...base, lotAreaSqFt: 5000, tier: 1, band: 'quarterMile' };
 const compliantProject = { units: 14, averageUnitSizeNetSqFt: 900, affordableUnits: { veryLow: 2 } };
 
-describe('calculator cases from SB79_SPEC.md', () => {
+describe('worked cases from SB79_SPEC.md', () => {
   it('case 1: 5,000 sq ft, Tier 1, within 1/4 mi -> 75 ft; 13.77 du; 17,500 sq ft', () => {
     const r = evaluateSite(case1, { asOf });
     expect(r.outcome).toBe('floors-apply-if-conditions-met');

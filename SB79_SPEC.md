@@ -1,12 +1,12 @@
 # SB 79 Animated Memo — Claude Code Build Spec
 
-As of October 9, 2026 · Matthew Huguet
+As of October 9, 2026 · Matthew Huguet · Amended October 16, 2026 (Matthew): explainer format, calculator dropped
 
 ## Concept
 
-The piece reads like a law-firm memo, but every argument it makes plays out on a figure beside it. The reader scrolls through Question Presented, Short Answer, and Discussion, and the figures pin in place and change as each paragraph lands.
+The piece reads like a law-firm client alert that explains SB 79, with one real site as its running example, and every point it makes plays out on a figure beside it. The reader scrolls through an introduction, Key Points, sections headed by the questions a reader would ask, and Key Takeaways, and the figures pin in place and change as each paragraph lands.
 
-It follows the statute's own logic, as a lawyer would brief it: does SB 79 reach this site, what does it allow, what must the project give in return, how does it stack with other laws, how is it approved, and how can a city change it.
+It follows the statute's own logic, as a lawyer would brief it: does SB 79 reach a site, what does it allow, what must the project give in return, how does it stack with other laws, how is it approved, and how can a city change it.
 
 How it differs from the zoning envelope tool:
 
@@ -15,8 +15,8 @@ How it differs from the zoning envelope tool:
 | Question | What does local zoning forbid on any parcel? | How does one state law work, shown on one real site? |
 | Motion | Subtractive: the block is carved down | Additive: the local ceiling lifts to the state floor |
 | Form | App: pick, watch, explore | Document: read top to bottom, figures follow |
-| Scope | Any SF parcel | One canonical site, plus a calculator at the end |
-| Voice | Neutral tool UI | Memo: headings, numbered paragraphs, footnoted cites |
+| Scope | Any SF parcel | One canonical site as the running example |
+| Voice | Neutral tool UI | Explainer: key points, question headings, takeaways, footnoted cites |
 
 The central visual idea is the contrast between two envelopes. A pale ghost shows what local zoning allows today. A solid envelope rises out of it to what SB 79 requires the city to allow. The gap between them is the law.
 
@@ -35,7 +35,7 @@ Use three real parcels, one per distance band, so the memo can compare them as e
 | Exhibit | Band | Default standards | Role in the memo |
 | --- | --- | --- | --- |
 | A | Within 200 ft of a pedestrian access point | 95 ft, 160 du/ac, 4.5 FAR | Shows the labor trigger above 85 ft |
-| B (canonical) | Within 1/4 mile | 75 ft, 120 du/ac, 3.5 FAR | The site the memo is written about |
+| B (canonical) | Within 1/4 mile | 75 ft, 120 du/ac, 3.5 FAR | The running example |
 | C | 1/4 to 1/2 mile | 65 ft, 100 du/ac, 3.0 FAR | Shows the step-down with distance |
 
 Claude Code picks the actual parcels in Phase 1 from Alameda County parcel data and MTC's TOD zone map, and Matthew confirms them. Each must be zoned residential, mixed-use, or commercial, and Exhibit B should be an ordinary lot on a residential block.
@@ -44,7 +44,7 @@ Why not San Francisco: SF adopted an alternative plan in May 2026, and the city 
 
 ## The law as source of truth
 
-SB 79 is codified at Government Code §§ 65912.155–65912.162, signed October 10, 2025, effective in cities July 1, 2026. These tables become one JSON file in the repo, and every number the memo or calculator shows must come from it.
+SB 79 is codified at Government Code §§ 65912.155–65912.162, signed October 10, 2025, effective in cities July 1, 2026. These tables become one JSON file in the repo, and every number the explainer shows must come from it.
 
 One framing point the whole piece must get right: the standards are floors on the city's limits, not caps on the project. A city may not impose a height limit, density limit, or residential FAR limit below these numbers (§ 65912.157(a)(3)–(6)). The figure language should say "the city must allow at least," never "the project may build up to."
 
@@ -86,7 +86,7 @@ FAR here is residential FAR only, counted in net habitable square feet (§ 65912
 
 ## How the law decides
 
-Section III.A of the memo walks this chain in order. Implement `evaluateSite` as exactly this sequence so the calculator's reasons match the memo's. Failing any test sends the parcel to "Local rules govern; SB 79's floors do not apply."
+The explainer's "Where does SB 79 apply?" section walks this chain in order. Implement `evaluateSite` as exactly this sequence so its reasons match the explainer's. Failing any test sends the parcel to "Local rules govern; SB 79's floors do not apply."
 
 1. **In an urban transit county?** County has more than 15 passenger rail stations. No → local rules.
 2. **Within 1/2 mile of a TOD stop?** Straight line from the parcel's nearest edge to a pedestrian access point. No → local rules.
@@ -96,33 +96,46 @@ Section III.A of the memo walks this chain in order. Implement `evaluateSite` as
 6. **Project meets SB 79's conditions?** 5+ units, minimum density, unit size, affordability, anti-displacement, labor, safety. No → local rules.
 7. **All passed → the city must allow at least the SB 79 floors.** Tier and distance band pick the row of the standards table.
 
+**Worked cases** (Vitest tests for `evaluateSite`):
+
+| Case | Inputs | Expected |
+| --- | --- | --- |
+| 1 | 5,000 sq ft, Tier 1, within 1/4 mi | 75 ft; 13.77 du (120 x 0.1148 ac); 17,500 sq ft residential floor area |
+| 2 | Same lot, Tier 1, 1/4–1/2 mi, city 122,580 | 65 ft; 11.48 du; 15,000 sq ft |
+| 3 | Same as 2, city of 30,000 | Band does not apply; SB 79 standards not available |
+| 4 | 10,000 sq ft, Tier 2, within 200 ft | 85 ft; 32.14 du; 40,000 sq ft; labor rule not triggered (applies only over 85 ft) |
+| 5 | Case 1 with rent-controlled tenants in past 7 years (3+ units) | Ineligible; envelope collapses to local zoning |
+| 6 | Case 1 with 4 units | Ineligible: fewer than 5 units |
+
+Show fractional unit floors as decimals with a note. How fractions round under SB 79 is an open question to settle before launch (see guardrails).
+
 ## Memo script
 
-The memo is the spine; each paragraph owns exactly one figure state, and scrolling into the paragraph plays that state. Write the prose first, in memo voice, then wire figures to it. This table is the contract between text and animation.
+The text is the spine; each paragraph owns exactly one figure state, and scrolling into the paragraph plays that state. Write the prose first, in explainer voice (state the rule, then show it on the example lot), then wire figures to it. This table is the contract between text and animation.
 
-Letterhead: MEMORANDUM · TO: The reader · FROM: (configurable) · DATE · RE: What SB 79 allows at [Exhibit B address], North Berkeley.
+Header: kicker "Explainer" · title "How SB 79 Works" · a one-line dek · BY (configurable) · DATE, then the standing lines (see guardrails). A boxed not-legal-advice disclaimer closes the piece, after Key Takeaways.
 
-| Memo section | Point the paragraph makes | Figure state | Cite |
+| Section | Point the paragraph makes | Figure state | Cite |
 | --- | --- | --- | --- |
-| I. Question Presented | What may be built here after July 1, 2026? | Aerial of the block; site outlined; pale ghost envelope at the local 35 ft | — |
-| II. Short Answer | The city must allow at least 75 ft, 120 du/ac, 3.5 FAR, if the project meets SB 79's conditions | Preview: envelope rises to 75 ft, then resets | § 65912.157 |
-| III.A.1 Urban transit county | Alameda has more than 15 rail stations | California counties; the eight qualifying counties fill in; Alameda pulses | § 65912.156(q) |
-| III.A.2 Stop and tier | BART is heavy rail, so the stop is Tier 1 | Station, tracks, "Tier 1" tag | § 65912.156(d), (n) |
-| III.A.3 Distance | Straight line from the parcel's nearest edge to an access point | Access points appear; rings draw at 200 ft, 1/4 mi, 1/2 mi; a measuring line snaps from parcel edge to nearest point | § 65912.157(b) |
-| III.A.4 City size | Berkeley exceeds 35,000, so the outer band counts | Outer ring solidifies; population badge | § 65912.157 |
-| III.A.5 Zoning class | Residential, mixed-use, and commercial sites qualify | Parcels tint eligible; open space and industrial gray out | § 65912.157(a) |
-| III.A.6 Local opt-outs | Berkeley took none | "No exclusions" stamp on the city | §§ 65912.160–.161 |
-| III.B.1 Height | Local limit 35 ft; state floor 75 ft | Ghost stays; solid envelope rises to 75 ft with a dimension line | (a)(3)–(6) |
-| III.B.2 Density | 120 du/ac times lot area gives the unit floor | Unit dots fill the envelope; counter shows the number | same |
-| III.B.3 Residential FAR | 3.5 times lot area in net habitable sq ft | Floor plates stack until the FAR total is reached | § 65912.156(l) |
-| III.B.4 Local rules that remain | Local standards apply only if they do not prevent the SB 79 numbers | A setback starts to cut, stops, and turns gray: "cannot preclude" | (a), (l) |
-| III.C Conditions | Five-plus units, unit size, affordability, anti-displacement | Checklist cards tick; affordable units tint | (a), (i), (h) |
-| III.C counterfactual | One failed condition loses everything | Toggle "rent-controlled tenants in the last 7 years": envelope collapses back to the ghost | (h) |
-| III.D Density bonus | SB 79 density is the base; no extra height is owed | Unit count grows inside a locked height line | § 65915 |
-| III.E Approval | HAA protection; optional SB 35/423; 2027 presumption | Small timeline with branches and the January 1, 2027 marker | (l), (m) |
-| III.F How cities change it | Exempt, exclude, or replace with an alternative plan | Bay Area map: Berkeley defaults, Oakland exclusions, SF alternative plan | §§ 65912.160–.161 |
-| III.G The other bands | Distance steps the standards down | Exhibits A, B, C side by side at 95, 75, 65 ft; an 85 ft line marks the labor trigger | (k) |
-| IV. Conclusion | The entitlement in one sentence | Final envelope with totals; calculator opens below | — |
+| Introduction | What SB 79 does, and the example lot: what may be built here after July 1, 2026? | Aerial of the block; site outlined; pale ghost envelope at the local 35 ft | § 65912.157(n) |
+| Key Points | The law in brief (where, what the city must allow, project conditions, approval, local options), then the example: at least 75 ft, 120 du/ac, 3.5 FAR, if the project meets SB 79's conditions | Preview: envelope rises to 75 ft, then resets | § 65912.157 |
+| Where it applies: urban transit county | Alameda has more than 15 rail stations | California counties; the eight qualifying counties fill in; Alameda pulses | § 65912.156(q) |
+| Where it applies: stop and tier | BART is heavy rail, so the stop is Tier 1 | Station, tracks, "Tier 1" tag | § 65912.156(d), (n) |
+| Where it applies: distance | Straight line from the parcel's nearest edge to an access point | Access points appear; rings draw at 200 ft, 1/4 mi, 1/2 mi; a measuring line snaps from parcel edge to nearest point | § 65912.157(b) |
+| Where it applies: city size | Berkeley exceeds 35,000, so the outer band counts | Outer ring solidifies; population badge | § 65912.157 |
+| Where it applies: zoning | Residential, mixed-use, and commercial sites qualify | Parcels tint eligible; open space and industrial gray out | § 65912.157(a) |
+| Where it applies: local changes | Berkeley took none | "No exclusions" stamp on the city | §§ 65912.160–.161 |
+| What the city must allow: height | The standards table for both tiers and every band; on the example, local limit 35 ft, state floor 75 ft | Ghost stays; solid envelope rises to 75 ft with a dimension line | (a)(3)–(6) |
+| What the city must allow: density | 120 du/ac times lot area gives the unit floor | Unit dots fill the envelope; counter shows the number | same |
+| What the city must allow: residential floor area | 3.5 times lot area in net habitable sq ft | Floor plates stack until the FAR total is reached | § 65912.156(l) |
+| What the city must allow: local rules that remain | Local standards apply only if they do not prevent the SB 79 numbers | A setback starts to cut, stops, and turns gray: "cannot preclude" | (a), (l) |
+| What a project must do: conditions | Five-plus units, unit size, affordability, anti-displacement | Checklist cards tick; affordable units tint | (a), (i), (h) |
+| What a project must do: one failed condition | One failed condition loses everything | Toggle "rent-controlled tenants in the last 7 years": envelope collapses back to the ghost | (h) |
+| Density bonus | SB 79 density is the base; no extra height is owed | Unit count grows inside a locked height line | § 65915 |
+| Approval | HAA protection; optional SB 35/423; 2027 presumption | Small timeline with branches and the January 1, 2027 marker | (l), (m) |
+| How cities change the defaults | Exempt, exclude, or replace with an alternative plan | Bay Area map: Berkeley defaults, Oakland exclusions, SF alternative plan | §§ 65912.160–.161 |
+| Sites nearer and farther | Distance steps the standards down | Exhibits A, B, C side by side at 95, 75, 65 ft; an 85 ft line marks the labor trigger | (k) |
+| Key Takeaways | The rules to remember, and the example's entitlement | Final envelope with totals | — |
 
 Footnotes carry pinpoint cites and link to the statute text. Each "Cite" cell above is the footnote for that paragraph.
 
@@ -154,30 +167,9 @@ Four figures carry the whole memo, and every animation is tied to scroll positio
 
 **Scroll engine.** One scroll observer marks the active paragraph and its progress from 0 to 1. Each figure exposes `setState(id, progress)`; the script table in the previous section is literally the config that maps paragraph ids to figure states.
 
-## The what-if calculator
-
-After the conclusion, the memo hands the reader the controls: change the facts and watch the answer and the envelope update. It is the memo's "apply the rule" section, and it runs on the same law JSON, so it can never disagree with the prose.
-
-**Inputs:** stop tier (1 or 2); distance to the nearest access point in feet, or a band; city population at least 35,000 (yes/no); lot area in sq ft; local height limit (optional, for the ghost); proposed units and average unit size; affordability option; "rent-controlled units occupied by tenants in the past 7 years" (yes/no); proposed height.
-
-**Outputs:** the band; the height, density, and residential FAR the city must allow; the unit floor (du/ac x acres); the residential floor area (FAR x lot area); a pass/fail list of conditions with cites; whether the 85 ft labor rule is triggered; whether the density-bonus concession threshold is met; and a small live envelope.
-
-Test cases with expected answers:
-
-| Case | Inputs | Expected |
-| --- | --- | --- |
-| 1 | 5,000 sq ft, Tier 1, within 1/4 mi | 75 ft; 13.77 du (120 x 0.1148 ac); 17,500 sq ft residential floor area |
-| 2 | Same lot, Tier 1, 1/4–1/2 mi, city 122,580 | 65 ft; 11.48 du; 15,000 sq ft |
-| 3 | Same as 2, city of 30,000 | Band does not apply; SB 79 standards not available |
-| 4 | 10,000 sq ft, Tier 2, within 200 ft | 85 ft; 32.14 du; 40,000 sq ft; labor rule not triggered (applies only over 85 ft) |
-| 5 | Case 1 with rent-controlled tenants in past 7 years (3+ units) | Ineligible; envelope collapses to local zoning |
-| 6 | Case 1 with 4 units | Ineligible: fewer than 5 units |
-
-Show fractional unit floors as decimals with a note. How fractions round under SB 79 is an open question to settle before launch (see guardrails).
-
 ## Data, stack, and reuse
 
-Build it as a second app in the zoning tool's monorepo. The memo is a fixed, dated document, so its data is frozen into the repo at build time rather than queried live; the as-of date on the letterhead is the data's date.
+Build it as a second app in the zoning tool's monorepo. The memo is a fixed, dated document, so its data is frozen into the repo at build time rather than queried live; the as-of date in the header is the data's date.
 
 **Data (snapshot to GeoJSON in Phase 1):**
 
@@ -197,8 +189,8 @@ Build it as a second app in the zoning tool's monorepo. The memo is a fixed, dat
 | Scroll | Scrollama-style observer + GSAP ScrollTrigger | Scroll-linked, reversible states |
 | 2D figures | D3 + SVG | Full typographic control |
 | 3D figure | react-three-fiber + drei | Same as the zoning tool |
-| Law | `packages/law/sb79.json` + zod schema | One source for prose numbers, figures, and calculator |
-| Tests | Vitest | Calculator cases and data checks |
+| Law | `packages/law/sb79.json` + zod schema | One source for prose numbers and figures |
+| Tests | Vitest | Worked cases and data checks |
 
 **Reuse.** The zoning tool's engine already extrudes parcels, stacks floor plates, and measures volume; the memo imports it rather than rebuilding it. Writing SB 79 as a law package also sets up a later feature in the zoning tool: an "SB 79 overlay" step that lifts the carved envelope where state law applies.
 
@@ -217,6 +209,8 @@ zoning-envelope/
 ## Build phases and prompts
 
 Six phases (0 to 5), one Claude Code session each. Matthew pastes each phase prompt in order; do not start a phase until the previous one's "Done when" is true.
+
+Phases 0 to 5 are done. On October 16, 2026, Matthew dropped the Phase 5 calculator and moved the memo to the explainer format above. The phase prompts below are kept as written; where they say "memo" or "calculator," read the sections above.
 
 **Phase 0 — Kickoff.** Done when the app scaffold exists and CLAUDE.md covers both apps.
 
@@ -260,18 +254,18 @@ A memo earns trust by naming what is unsettled. The piece should show each open 
 
 **Open issues to resolve or flag before launch:**
 
-- **"Pedestrian access point" is undefined.** MTC added elevator access points at four East Bay BART stations, and the choice of access point can move a parcel between bands. Make this a visible beat in III.A.3: show the band shift when the measuring point moves.
-- **Rounding the unit floor.** Decide how fractional du/ac results round under SB 79, with authority, before the calculator shows whole numbers.
-- **Berkeley's inclusionary rule.** Berkeley staff say the city's inclusionary requirements exceed SB 79's and therefore govern. Pull the actual percentages from the Berkeley Municipal Code for III.C.
+- **"Pedestrian access point" is undefined.** MTC added elevator access points at four East Bay BART stations, and the choice of access point can move a parcel between bands. Make this a visible beat in "Where it applies: distance": show the band shift when the measuring point moves.
+- **Rounding the unit floor.** Decide how fractional du/ac results round under SB 79, with authority, before the explainer shows whole numbers.
+- **Berkeley's inclusionary rule.** Berkeley staff say the city's inclusionary requirements exceed SB 79's and therefore govern. Pull the actual percentages from the Berkeley Municipal Code for the project-conditions section.
 - **High-resource status.** The January 1, 2027 denial presumption applies only in high-resource areas. Confirm the Exhibit B site's status on the state opportunity map.
 - **BART-owned land.** AB 2923 gives BART its own zoning authority on its station parcels until January 1, 2029, and SB 79 is silent on how the two interact. Keep exhibits off BART-owned parcels.
-- **"Precludes" is a judgment call.** Which local standards survive because they do not prevent the SB 79 numbers is contestable; III.B.4 should present the setback example as an illustration, not a ruling.
+- **"Precludes" is a judgment call.** Which local standards survive because they do not prevent the SB 79 numbers is contestable; "Local rules that remain" should present the setback example as an illustration, not a ruling.
 - **Later amendments.** Check for 2026 amendments to §§ 65912.155–.162 and new HCD guidance before publishing, and date the memo accordingly.
 
 **Guardrails:**
 
 - Every number on screen traces to `sb79.json` or the dated data snapshot; no hand-typed figures in prose or code.
-- A standing line under the letterhead: "For general information only. Not legal advice. Facts and law as of [date]."
+- A standing line under the header: "For general information only. Not legal advice. Facts and law as of [date]."
 - The memo may go out under Matthew's name as a California attorney; flag anything that reads as advice on a specific project.
 - Phase 2 prose is a draft; Matthew edits it before anything ships.
 
