@@ -273,8 +273,10 @@ or `<Source source={...} />`; never type a cite by hand. Open issues use
 `<OpenIssue title>` inside the paragraph's `<Step>`.
 
 **Phase status.** Phases 0–5 done and approved; the explainer format
-(merged 2026-10-17) and the map-zoom storyboard (2026-10-17) await Matthew's
-review of the prose. Exhibits are set in
+(merged 2026-10-17) and the map-zoom storyboard (merged 2026-10-17) await
+Matthew's review of the prose; the spec amendments for both (the
+October 16 and 17 notes in `../SB79_SPEC.md`) are approved (Matthew,
+2026-10-17). Exhibits are set in
 `src/memo.config.ts`: A 1504 Francisco St (second-ranked, chosen over the
 top-ranked triplex), B 1510 Virginia St and C 1450 Acton Crescent
 (top-ranked). The closing not-legal-advice disclaimer, which says AI was
