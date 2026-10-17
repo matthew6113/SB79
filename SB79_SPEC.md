@@ -1,6 +1,6 @@
 # SB 79 Animated Memo — Claude Code Build Spec
 
-As of October 9, 2026 · Matthew Huguet · Amended October 16, 2026 (Matthew): explainer format, calculator dropped · Amended October 17, 2026 (Matthew): the map zooms from California to the parcel, then a building render
+As of October 9, 2026 · Matthew Huguet · Amended October 16, 2026 (Matthew): explainer format, calculator dropped · Amended October 17, 2026 (Matthew): the map zooms from California to the parcel, then a building render · Amendments approved October 17, 2026 (Matthew)
 
 ## Concept
 
