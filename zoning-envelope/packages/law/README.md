@@ -13,6 +13,6 @@ The single source of truth for every legal number in this monorepo.
   which runs the seven steps of SB79_SPEC.md "How the law decides".
 - `VERIFICATION.md`: where the spec and the statute differ.
 
-Tests (`pnpm test`) check the calculator cases, and that every quote appears at
+Tests (`pnpm test`) check the spec's worked cases, and that every quote appears at
 its cited pinpoint, states its value, and that no number in `sb79.json` lacks a
 citation.

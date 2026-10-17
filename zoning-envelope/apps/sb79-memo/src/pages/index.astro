@@ -5,12 +5,12 @@ import Memo from '../content/memo.mdx';
 import FigureStage from '../figures/FigureStage';
 ---
 
-<MemoLayout title="SB 79 Memo">
+<MemoLayout title="How SB 79 Works">
   <main class="memo">
     <article class="memo-text">
       <Letterhead />
       <p class="print-link"><a href="print/?auto">Print or save as PDF</a> <span>(figures beside each paragraph, footnotes on each page)</span></p>
-      <p class="print-hint">This printout has no figures. For figures beside each paragraph and footnotes on each page, use “Print or save as PDF” in the online memo.</p>
+      <p class="print-hint">This printout has no figures. For figures beside each paragraph and footnotes on each page, use “Print or save as PDF” in the online explainer.</p>
       <Memo />
     </article>
     <aside class="memo-figure" aria-label="Figure">
@@ -20,15 +20,15 @@ import FigureStage from '../figures/FigureStage';
 </MemoLayout>
 
 <script>
-  // Phones: once the calculator's heading reaches the pinned figure, the
-  // figure steps aside so the disclaimer and the form get the whole screen.
-  const calc = document.getElementById('apply-the-rule');
+  // Phones: once the closing disclaimer reaches the pinned figure, the figure
+  // steps aside so the disclaimer and the notes get the whole screen.
+  const end = document.getElementById('disclaimer');
   const memo = document.querySelector('.memo');
-  if (calc && memo) {
+  if (end && memo) {
     let queued = false;
     const update = () => {
       queued = false;
-      memo.classList.toggle('is-calculator', calc.getBoundingClientRect().top < innerHeight * 0.45);
+      memo.classList.toggle('is-end', end.getBoundingClientRect().top < innerHeight * 0.45);
     };
     const queue = () => {
       if (!queued) { queued = true; requestAnimationFrame(update); }

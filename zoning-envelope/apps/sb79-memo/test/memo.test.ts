@@ -33,28 +33,28 @@ describe('memo.mdx', () => {
     expect(allowed.match(new RegExp(`.{0,25}${words.source}.{0,25}`, 'gi')) ?? []).toEqual([]);
   });
 
-  it('keeps the standing line under the letterhead, then the AI line', () => {
+  it('keeps the standing line under the header, then the AI line', () => {
     const head = readFileSync(new URL('../src/components/Letterhead.astro', import.meta.url), 'utf8');
     const lines = [...head.matchAll(/<p class="disclaimer[^"]*">([\s\S]*?)<\/p>/g)].map((m) => m[1]);
     expect(lines).toEqual([
       'For general information only. Not legal advice. Facts and law as of {dated}.', // SB79_SPEC.md, verbatim
-      expect.stringMatching(/^AI was used to research and draft this memo .*it may make mistakes\./),
+      expect.stringMatching(/^AI was used to research and draft this explainer .*it may make mistakes\./),
     ]);
-    expect(head.indexOf('class="disclaimer"')).toBeGreaterThan(head.indexOf('</dl>'));
+    expect(head.indexOf('class="disclaimer"')).toBeGreaterThan(head.indexOf('class="letterhead-byline"'));
   });
 
-  it('puts the not-legal-advice and AI disclaimer before the calculator, which opens blank', () => {
-    const block = raw.slice(raw.indexOf('<div class="calculator"'));
-    const disclaimer = block.slice(block.indexOf('<div class="calc-disclaimer"'), block.indexOf('<Calculator '));
+  it('ends with the not-legal-advice and AI disclaimer, after the last paragraph', () => {
+    const start = raw.indexOf('<div class="foot-disclaimer"');
+    expect(start).toBeGreaterThan(raw.lastIndexOf('</Step>'));
+    const disclaimer = raw.slice(start, raw.indexOf('</div>', start));
     expect(disclaimer).toMatch(/\*\*Not legal advice\.\*\*/);
     expect(disclaimer).toMatch(/attorney-client relationship/);
-    expect(disclaimer).toMatch(/AI was used to build it, and it may make mistakes/);
-    expect(block).toMatch(/<Calculator client:visible asOf=\{asOf\} \/>/); // no site facts passed in
+    expect(disclaimer).toMatch(/AI was used to research and draft it .*it may make mistakes/);
   });
 
   it('cites every paragraph to a footnote or a statute', () => {
     const steps = [...raw.matchAll(/<Step id="([^"]+)">([\s\S]*?)<\/Step>/g)];
-    const uncited = steps.filter(([, id, body]) => id !== 'conclusion' && !/\[\^[\w-]+\]|<Law /.test(body!)).map(([, id]) => id);
+    const uncited = steps.filter(([, , body]) => !/\[\^[\w-]+\]|<Law /.test(body!)).map(([, id]) => id);
     expect(uncited).toEqual([]);
   });
 });

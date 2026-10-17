@@ -632,7 +632,7 @@ function buildTimeline(): TimelineData {
       { date: law.acts.sb79.effective.value, label: 'SB 79 takes effect', kind: 'law' },
       { date: L.operative.value, label: 'Standards reach cities', kind: 'law' },
       { date: law.acts.sb722.effective.value, label: 'SB 722', kind: 'law' },
-      { date: asOf, label: 'This memo', kind: 'memo' },
+      { date: asOf, label: 'This explainer', kind: 'memo' },
       { date: dp.beginsOn.value, label: 'Denial presumption', sub: 'AB 2576 and SB 1361 take effect', kind: 'presumption' },
     ],
     path: {

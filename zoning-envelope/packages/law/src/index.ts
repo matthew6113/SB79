@@ -3,6 +3,7 @@ export { sb79Schema, type Sb79Law, type CitedLeaf } from './schema.ts';
 export { FEET_PER_MILE, SQ_FT_PER_ACRE, milesToFeet, sqFtToAcres } from './units.ts';
 export {
   evaluateSite,
+  floorsFor,
   parentCite,
   type BandId,
   type Condition,

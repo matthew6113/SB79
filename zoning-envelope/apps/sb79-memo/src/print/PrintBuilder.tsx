@@ -142,8 +142,6 @@ export default function PrintBuilder() {
       }
       inlineFootnotes(source);
       keepHeadingsWithText(source);
-      // The calculator is for the screen.
-      source.querySelectorAll('.calculator, #apply-the-rule').forEach((n) => n.remove());
       setStatus({ phase: 'pages', done: script.length });
       const { Previewer } = await import('pagedjs');
       const content = document.createDocumentFragment();
@@ -183,7 +181,7 @@ export default function PrintBuilder() {
           </>
         )}
         {status.phase === 'error' && <span>The print version could not be built: {status.message}</span>}
-        <a href={import.meta.env.BASE_URL}>Back to the memo</a>
+        <a href={import.meta.env.BASE_URL}>Back to the explainer</a>
       </div>
       {data && status.phase === 'figures' && (
         <div className="print-stage" aria-hidden>

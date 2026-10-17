@@ -1,8 +1,7 @@
-/** Memo settings that are choices, not law or data. */
+/** Explainer settings that are choices, not law or data. */
 export const memoConfig = {
-  to: 'The reader',
-  /** Left configurable on purpose (SB79_SPEC.md, "Memo script"). */
-  from: '(configurable)',
+  /** The byline, left configurable on purpose (SB79_SPEC.md, "Memo script"). */
+  byline: '(configurable)',
   /**
    * Exhibit parcels by APN, chosen from data/exhibit-candidates.json.
    * B and C are the top-ranked candidates; A is the second-ranked, 1504 Francisco St, chosen over the

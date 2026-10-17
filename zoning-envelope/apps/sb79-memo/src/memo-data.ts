@@ -1,9 +1,9 @@
 /**
- * Every number the memo shows, assembled from @zoning-envelope/law and the
- * frozen snapshots in data/. memo.mdx reads only from here (CLAUDE.md rule 1);
- * nothing below is a hand-typed legal value.
+ * Every number the explainer shows, assembled from @zoning-envelope/law and
+ * the frozen snapshots in data/. memo.mdx reads only from here (CLAUDE.md
+ * rule 1); nothing below is a hand-typed legal value.
  */
-import { evaluateSite, lawAsOf, sqFtToAcres, type BandId, type CitedLeaf, type Evaluation } from '@zoning-envelope/law';
+import { evaluateSite, floorsFor, lawAsOf, sqFtToAcres, type BandId, type CitedLeaf, type Evaluation, type Tier } from '@zoning-envelope/law';
 import manifest from '../data/manifest.json';
 import exhibits from '../data/exhibit-candidates.json';
 import accessPoints from '../data/tod-access-points.geojson?raw';
@@ -18,9 +18,9 @@ import rockZoning from '../data/rockridge/oakland-zoning.json';
 import rockProject from '../data/rockridge/project.json';
 import rockOrdinance from '../data/rockridge/oakland-ordinance.json';
 import { memoConfig } from './memo.config';
-import { address, num } from './format';
+import { address } from './format';
 
-/** The memo speaks as of the data snapshot's date (the letterhead date). */
+/** The explainer speaks as of the data snapshot's date (the header date). */
 export const asOf = manifest.asOf;
 export const law = lawAsOf(asOf);
 /** The law as the January 1, 2027 amendments leave it, for notes on what changes. */
@@ -99,6 +99,7 @@ const std = law.standards.tier1;
 export const L = {
   utc: law.definitions.urbanTransitCountyMoreThanRailStations,
   tier1: law.definitions.tier1,
+  tier2: law.definitions.tier2,
   adjacent: law.definitions.adjacentWithin,
   highResource: law.definitions.highResourceArea,
   nhsf: law.definitions.netHabitableSquareFootage,
@@ -110,6 +111,9 @@ export const L = {
   half: law.bands.halfMile.tier1,
   q: std.quarterMile,
   h: std.halfMile,
+  /** Tier 2 standards, for the standards table. */
+  t2q: law.standards.tier2.quarterMile,
+  t2h: law.standards.tier2.halfMile,
   intens: law.adjacencyIntensifier,
   cond: law.conditions,
   aff: law.affordability,
@@ -125,7 +129,22 @@ export const L = {
   amendments: [law.acts.ab2576, law.acts.sb1361],
 } as const;
 
-/** Numbers the memo derives (shown so the arithmetic is visible). */
+/**
+ * The standards table: what the city must allow for each stop tier and
+ * distance band (§ 65912.157(a)(3)-(6), with the adjacency intensifier in the
+ * band within 200 feet), computed as evaluateSite computes them.
+ */
+export const BANDS = ['adjacent', 'quarterMile', 'halfMile'] as const satisfies readonly BandId[];
+export const TIERS = [1, 2] as const satisfies readonly Tier[];
+export const standards = TIERS.map((tier) => ({ tier, rows: BANDS.map((band) => ({ band, floors: floorsFor(law, tier, band) })) }));
+const allFloors = standards.flatMap((t) => t.rows.map((r) => r.floors));
+/** The lowest and highest floors in the table, for the key points. */
+export const range = {
+  heightFt: { min: Math.min(...allFloors.map((f) => f.heightFt.value)), max: Math.max(...allFloors.map((f) => f.heightFt.value)) },
+  densityDuPerAcre: { min: Math.min(...allFloors.map((f) => f.densityDuPerAcre.value)), max: Math.max(...allFloors.map((f) => f.densityDuPerAcre.value)) },
+};
+
+/** Numbers the explainer derives (shown so the arithmetic is visible). */
 export const derived = {
   /** One more than the anti-displacement threshold: the smallest site that trips (h)(1). */
   rentControlledSiteUnits: L.anti.rentControlledSite.moreThanUnits.value + 1,
