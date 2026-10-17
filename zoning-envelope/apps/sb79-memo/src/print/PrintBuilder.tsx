@@ -13,7 +13,6 @@ import { FIGURES, script, type FigureId } from '../script';
 import type { FigureData, FigureHandle } from '../figures/types';
 import MapFigure from '../figures/MapFigure';
 import EnvelopeFigure from '../figures/EnvelopeFigure';
-import Checklist from '../figures/Checklist';
 import Timeline from '../figures/Timeline';
 import { still } from './still';
 import pagedCss from './paged.css?raw';
@@ -23,7 +22,6 @@ import { num } from '../format';
 export const PRINT_SIZE: Record<FigureId, [number, number]> = {
   map: [300, 270],
   envelope: [300, 270],
-  checklist: [300, 360],
   timeline: [300, 340],
 };
 
@@ -187,7 +185,6 @@ export default function PrintBuilder() {
         <div className="print-stage" aria-hidden>
           {slot('map', <MapFigure data={data.map} ref={refs.map} />)}
           {slot('envelope', <EnvelopeFigure data={data.envelope} ref={refs.envelope} preserve />)}
-          {slot('checklist', <Checklist data={data.checklist} ref={refs.checklist} />)}
           {slot('timeline', <Timeline data={data.timeline} ref={refs.timeline} />)}
         </div>
       )}

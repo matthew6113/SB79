@@ -1,0 +1,8 @@
+{
+  "retrievedAt": "2026-10-17T17:08:38.285Z",
+  "count": 1,
+  "source": "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Census_Populated_Places/FeatureServer/0",
+  "sourceLastEdit": "2024-11-21T21:52:12.260Z",
+  "query": "NAME='Beverly Hills' AND ST='CA', simplified (maxAllowableOffset 0.0005 degrees)",
+  "notes": "Esri Living Atlas, U.S. Census populated places."
+}

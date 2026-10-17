@@ -1,0 +1,119 @@
+{
+  "asOf": "2026-10-17",
+  "source": {
+    "title": "City of Berkeley, Landmarks and Structures of Merit (Landmarks Preservation Commission)",
+    "url": "https://gis.cityofberkeley.info/arcgis/rest/services/Public/Portal_Planning/MapServer/2"
+  },
+  "query": "within 914.4 m (3,000 ft) of the station; fields APN_SORT, NAME, LM_SOM_DIS, DES_DATE, DES_NUM, situs address; 14 records on 12 parcels (Fox Commons has three addresses)",
+  "note": "Read 2026-10-17 with a fetch tool (this environment's scripts cannot reach gis.cityofberkeley.info). Geometry comes from data/parcels.geojson by APN. Whether a Structure of Merit is a resource 'on a local register' under Gov. Code § 65912.161(b)(1)(F) is not settled here.",
+  "records": [
+    {
+      "apn": "56-2006-1-6",
+      "sourceApn": "056 200600106",
+      "name": "Saint Joseph the Worker",
+      "type": "Landmark",
+      "designated": "1991-03-18",
+      "designationNumber": 164,
+      "address": "1640 ADDISON ST"
+    },
+    {
+      "apn": "56-2004-29",
+      "sourceApn": "056 200402900",
+      "name": "Fox Commons",
+      "type": "Landmark",
+      "designated": "1998-12-07",
+      "designationNumber": 207,
+      "address": "1670-1674 UNIVERSITY AVE"
+    },
+    {
+      "apn": "56-1996-25",
+      "sourceApn": "056 199602500",
+      "name": "Fox Court",
+      "type": "Landmark",
+      "designated": "1977-11-20",
+      "designationNumber": 24,
+      "address": "1476 UNIVERSITY AVE"
+    },
+    {
+      "apn": "56-1993-15-1",
+      "sourceApn": "056 199301501",
+      "name": "Corporation Yard Building",
+      "type": "Landmark",
+      "designated": "2002-07-01",
+      "designationNumber": 247,
+      "address": "2208 ACTON ST"
+    },
+    {
+      "apn": "56-1990-1-1",
+      "sourceApn": "056 199000101",
+      "name": "Cooper Woodworking Building",
+      "type": "Landmark",
+      "designated": "1986-04-21",
+      "designationNumber": 102,
+      "address": "2121 BONAR ST"
+    },
+    {
+      "apn": "56-1982-7",
+      "sourceApn": "056 198200700",
+      "name": "John Brennan House",
+      "type": "Landmark",
+      "designated": "2001-07-09",
+      "designationNumber": 240,
+      "address": "1124 ADDISON ST"
+    },
+    {
+      "apn": "56-1981-15-1",
+      "sourceApn": "056 198101501",
+      "name": "Santa Fe Railway Station",
+      "type": "Landmark",
+      "designated": "2001-09-10",
+      "designationNumber": 241,
+      "address": "1310 UNIVERSITY AVE"
+    },
+    {
+      "apn": "56-1979-20",
+      "sourceApn": "056 197902000",
+      "name": "Weisbrod Building Guys Drugs",
+      "type": "Structure of Merit",
+      "designated": "1985-07-15",
+      "designationNumber": 95,
+      "address": "2001 SAN PABLO AVE"
+    },
+    {
+      "apn": "57-2085-11",
+      "sourceApn": "057 208501100",
+      "name": "West Berkeley Branch Library",
+      "type": "Structure of Merit",
+      "designated": "2003-05-05",
+      "designationNumber": 256,
+      "address": "1125 UNIVERSITY AVE"
+    },
+    {
+      "apn": "57-2081-34",
+      "sourceApn": "057 208103400",
+      "name": "Elizabeth M Kenney Cottage",
+      "type": "Structure of Merit",
+      "designated": "2001-02-05",
+      "designationNumber": 236,
+      "address": "1281 UNIVERSITY AVE"
+    },
+    {
+      "apn": "60-2431-3",
+      "sourceApn": "060 243100300",
+      "name": "Jefferson School",
+      "type": "Structure of Merit",
+      "designated": "1987-03-16",
+      "designationNumber": 117,
+      "address": "1475 ROSE ST"
+    },
+    {
+      "apn": "60-2395-35",
+      "sourceApn": "060 239503500",
+      "name": "Franklin Market Building",
+      "type": "Landmark",
+      "designated": "1985-07-15",
+      "designationNumber": 94,
+      "address": "1103 HOPKINS ST"
+    }
+  ]
+}

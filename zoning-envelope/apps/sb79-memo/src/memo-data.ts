@@ -17,6 +17,19 @@ import rockSite from '../data/rockridge/site.json';
 import rockZoning from '../data/rockridge/oakland-zoning.json';
 import rockProject from '../data/rockridge/project.json';
 import rockOrdinance from '../data/rockridge/oakland-ordinance.json';
+import altPlans from '../data/explainer/alternative-plans.json';
+import hazards from '../data/explainer/hazards.json';
+import landmarks from '../data/explainer/landmarks.json';
+import rentControl from '../data/explainer/rent-control.json';
+import firms from '../data/explainer/law-firm-memos.json';
+import bartParcels from '../data/explainer/bart-ab2923-parcels.geojson?raw';
+import bartParcelsMeta from '../data/explainer/bart-ab2923-parcels.meta.json';
+import sfZonesMeta from '../data/explainer/sf-tod-zones.meta.json';
+import bartStationsRaw from '../data/explainer/bart-stations.geojson?raw';
+import jurisdictionsRaw from '../data/jurisdictions.geojson?raw';
+import { pointInPolygon } from '@zoning-envelope/engine';
+import { parcelCounts } from './parcel-classes';
+import { pointDistanceFt, polygonsFt, projectFt } from '../scripts/lib/geo.ts';
 import { memoConfig } from './memo.config';
 import { address } from './format';
 
@@ -123,9 +136,12 @@ export const L = {
   bonus: law.densityBonus,
   mayNotPrevent: need(law.localStandards.mayNotPrevent, 'localStandards.mayNotPrevent'),
   approval: law.approval,
+  streamlining: law.streamlining,
+  agencyLand: law.transitAgencyLand,
   operative: law.operative.cities,
   map: law.mapPresumption,
   options: law.cityOptions,
+  historicExclusion: need(law.cityOptions.exclusions.historicSites, 'cityOptions.exclusions.historicSites'),
   amendments: [law.acts.ab2576, law.acts.sb1361],
 } as const;
 
@@ -142,6 +158,83 @@ const allFloors = standards.flatMap((t) => t.rows.map((r) => r.floors));
 export const range = {
   heightFt: { min: Math.min(...allFloors.map((f) => f.heightFt.value)), max: Math.max(...allFloors.map((f) => f.heightFt.value)) },
   densityDuPerAcre: { min: Math.min(...allFloors.map((f) => f.densityDuPerAcre.value)), max: Math.max(...allFloors.map((f) => f.densityDuPerAcre.value)) },
+};
+
+/** Feet per meter, for the hazard queries run in meters (a unit conversion, not law). */
+const FT_PER_M = 3.28084;
+const FT_PER_MILE = 5280;
+const stationLonLat = manifest.center.lonLat as [number, number];
+const bartAb2923 = (JSON.parse(bartParcels) as { features: { properties: { ab2923: string; acres: number; station: string } }[] }).features
+  .filter((f) => f.properties.ab2923 === 'Yes' && f.properties.station === 'North Berkeley');
+
+const berkeleyLimits = (JSON.parse(jurisdictionsRaw) as { features: { properties: { name: string }; geometry: Parameters<typeof polygonsFt>[0] }[] }).features
+  .find((f) => f.properties.name === 'Berkeley');
+if (!berkeleyLimits) throw new Error('Berkeley missing from data/jurisdictions.geojson');
+const berkeleyStations = (JSON.parse(bartStationsRaw) as { features: { properties: { Station: string }; geometry: { coordinates: number[] } }[] }).features
+  .filter((f) => polygonsFt(berkeleyLimits.geometry).some((poly) => pointInPolygon(projectFt(f.geometry.coordinates), poly)))
+  .map((f) => f.properties.Station);
+const source = (s: { title: string; url: string; date?: string }) => s;
+const firmSource = (f: { publisher: string; title: string; date: string; url: string }) => ({ title: `${f.publisher}, “${f.title}”`, date: f.date, url: f.url });
+
+/** The explainer's map beyond North Berkeley's parcels: cities' plans, hazards, landmarks, rent control, BART land. */
+export const explainer = {
+  berkeleyStations,
+  sources: {
+    coblentz: firmSource(firms.coblentz),
+    hollandKnight: firmSource(firms.hollandKnight),
+    hcdSf: altPlans.sanFrancisco.hcd.source,
+    hcdBh: altPlans.beverlyHills.hcd.source,
+    sfBulletin: altPlans.sanFrancisco.noDefaults.source,
+    sfExec: altPlans.sanFrancisco.capacity.source,
+    sfOrdinance: altPlans.sanFrancisco.ordinance.source,
+    lawsuit: altPlans.sanFrancisco.lawsuit.source,
+    calfire: source({ title: hazards.fire.lra.title, url: hazards.fire.lra.url }),
+    calfireSra: source({ title: hazards.fire.sra.title, url: hazards.fire.sra.url }),
+    aluc: source({ title: hazards.airport.title, url: hazards.airport.url }),
+    landmarks: landmarks.source,
+    rso: rentControl.newConstruction.source,
+  },
+  altPlans,
+  firms,
+  sfZonesSource: { title: 'San Francisco Planning, SB 79 zones (copy of MTC\'s map)', url: sfZonesMeta.source },
+  hazards: {
+    ...hazards,
+    fireRadiusFt: hazards.fire.lra.radiusM * FT_PER_M,
+    airportMiles: pointDistanceFt(stationLonLat, [stationLonLat[0], hazards.airport.northernmostLatitude]) / FT_PER_MILE,
+  },
+  landmarks,
+  rentControl,
+  parcels: parcelCounts,
+  bart: {
+    count: bartAb2923.length,
+    acres: bartAb2923.reduce((s, f) => s + f.properties.acres, 0),
+    source: { title: 'BART, AB 2923 parcels', url: bartParcelsMeta.source },
+  },
+};
+
+/** The project-condition and affordability arithmetic for Exhibit B (no legal values: products of the law's numbers and the lot). */
+const wholeUnits = Math.floor(B.unitFloor);
+const nextUnits = L.aff.appliesAboveUnits.value + 1;
+const berkeleyShare = (n: number) => Math.ceil((n * inclusionary.percentOfUnits.value) / 100);
+export const project = {
+  /** Units the minimum density gives on this lot. */
+  minDensityUnits: L.cond.minDensityDuPerAcre.value * B.acres,
+  /** Units needed to use all the residential floor area at the largest average unit size allowed. */
+  unitsToFillFloorArea: B.residentialFloorAreaSqFt / L.cond.maxAverageUnitSizeNetSqFt.value,
+  /** Whole units at the unit floor, if the fraction rounds down. */
+  wholeUnits,
+  sb79AffordabilityAtFloor: wholeUnits > L.aff.appliesAboveUnits.value,
+  /** Berkeley's inclusionary share, rounded up as the ordinance says, and its very-low-income part. */
+  berkeleyAtFloor: berkeleyShare(wholeUnits),
+  berkeleyVeryLowAtFloor: Math.ceil((berkeleyShare(wholeUnits) * inclusionary.veryLowShareOfRequired.value) / 100),
+  /** The smallest project SB 79's own rule reaches, and what each option and Berkeley's rule would require there. */
+  nextUnits,
+  sb79AtNext: {
+    extremelyLow: (nextUnits * L.aff.options.extremelyLow.value) / 100,
+    veryLow: (nextUnits * L.aff.options.veryLow.value) / 100,
+    lower: (nextUnits * L.aff.options.lower.value) / 100,
+  },
+  berkeleyAtNext: berkeleyShare(nextUnits),
 };
 
 /** Numbers the explainer derives (shown so the arithmetic is visible). */
@@ -162,6 +255,7 @@ export const data = {
   zoningSource: zoning.source,
   localOptions,
   inclusionary,
+  districts: zoning.districts as Record<string, { class: string; heightFt: number }>,
   opportunityMap: { title: 'CTCAC/HCD Opportunity Map', url: opportunityMeta.source },
   mtcMap: { title: 'MTC, Senate Bill 79 regional map', url: 'https://mtc.ca.gov/planning/land-use/senate-bill-79-regional-map' },
   mtcPopulationSource: { title: 'MTC, SB 79 map jurisdiction populations', url: population.mtcAcs.source },

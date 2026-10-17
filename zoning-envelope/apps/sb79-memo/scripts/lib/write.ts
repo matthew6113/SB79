@@ -1,7 +1,7 @@
 /** Writers for frozen snapshots: GeoJSON layers, JSON data, and source-document text, plus a manifest. */
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { FeatureCollection } from './arcgis.ts';
@@ -50,17 +50,31 @@ export function createWriter(dir: URL) {
       console.log(`  ${name}.json`);
     },
 
-    /** Keep a PDF's text (pdftotext -layout, optionally a page range) and its hash. */
+    /**
+     * Keep a PDF's text (pdftotext -layout, optionally a page range) and its hash.
+     * When the host cannot be reached and SB79_DOCS_DIR holds `<name>.pdf` (a copy
+     * downloaded by hand), that copy is used and the meta says so.
+     */
     async pdfText(name: string, url: string, pages?: { first: number; last: number }) {
-      const res = await fetchOk(url);
-      const pdf = Buffer.from(await res.arrayBuffer());
+      let pdf: Buffer, lastModified: string | null = null, via: Record<string, unknown> = {};
+      try {
+        const res = await fetchOk(url);
+        pdf = Buffer.from(await res.arrayBuffer());
+        lastModified = res.headers.get('last-modified');
+      } catch (err) {
+        const local = process.env.SB79_DOCS_DIR && join(process.env.SB79_DOCS_DIR, `${name}.pdf`);
+        if (!local || !existsSync(local)) throw err;
+        pdf = readFileSync(local);
+        via = { retrievedVia: `local copy of the document (fetching it failed: ${(err as Error).message})` };
+        console.log(`  ${name}: using the local copy (${(err as Error).message})`);
+      }
       const tmp = mkdtempSync(join(tmpdir(), 'sb79-pdf-'));
       try {
         const path = join(tmp, 'doc.pdf');
         writeFileSync(path, pdf);
         const range = pages ? ['-f', String(pages.first), '-l', String(pages.last)] : [];
         const text = execFileSync('pdftotext', ['-layout', ...range, path, '-'], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
-        writeSourceText(name, url, text, { pdfSha256: createHash('sha256').update(pdf).digest('hex'), extractedWith: 'pdftotext -layout', ...(pages ? { pages } : {}) }, res.headers.get('last-modified'));
+        writeSourceText(name, url, text, { pdfSha256: createHash('sha256').update(pdf).digest('hex'), extractedWith: 'pdftotext -layout', ...(pages ? { pages } : {}), ...via }, lastModified);
       } finally {
         rmSync(tmp, { recursive: true, force: true });
       }

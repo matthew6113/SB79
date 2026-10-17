@@ -56,6 +56,23 @@ from each bill's approval date.
 | Oakland adopted exclusions (spec, III.F) | Confirmed with a carve-out: Ordinance 13875 C.M.S. (passed 2026-03-16) adopts exclusions, but § 17.86.060.A excludes "Not including sites within one-half mile of Ashby, MacArthur, and Rockridge BART stations" (council amendment of 2026-03-03). Oakland's S-8 GIS layer marks 5727 College Ave "Covered". | `apps/sb79-memo/data/rockridge/` |
 | Alameda County parcels give lot area and owner | The county layer has neither; Berkeley's parcel layer (synced to the county roll) has both | Joined by APN; owner names reduced to an owner class |
 
+## Law-firm summaries vs. the statute
+
+The explainer cites Coblentz Patch Duffy & Bass ("Coming to a Major Transit
+Stop Near You: Upzoning Under SB 79," October 1, 2025) and Holland & Knight
+("Tracking SB 79 Implementation Before the Train Leaves the Station," June 16,
+2026) for practitioners' readings, never for a legal value. Checked
+2026-10-16 against `source/`:
+
+| Summary says | Statute | Handling |
+| --- | --- | --- |
+| Coblentz: eight urban transit counties, with Orange | No list in the statute; HCD's advisory lists seven | HCD's seven; Orange stays an open issue |
+| Coblentz: a site cannot have had more than two rent-controlled units in seven years | § 65912.157(h)(1) counts units on the site (more than two) where the project would demolish tenant-occupied rent-controlled housing | Statute's reading |
+| Coblentz: SB 35 path at 10% very low income (rental) or 10% low income (for sale) | Right, § 65913.4(a)(4)(B)(i)(I)–(II), but (III) also lets Bay Area projects dedicate 20% below 100% AMI, averaging 80% | `streamlining.affordability` carries all three |
+| Holland & Knight: temporary exclusions last until one year after the start of the seventh housing element cycle | § 65912.161(b)(1): "Prior to one year following the adoption of the seventh revision of the housing element" | Statute's wording |
+| Holland & Knight: three limits on alternative plans | § 65912.161(a) has four; it omits (a)(3), no zone cut more than 50% | All four in `cityOptions.alternativePlan` |
+| Holland & Knight: San Francisco pursuing exclusions and a plan; San Jose's hub exclusion approved June 4, 2026 | San Francisco's plan was approved July 1, 2026 (HCD letter, `apps/sb79-memo/data/sources/`) | The explainer maps only plans HCD has ruled on |
+
 ## Open items for Matthew
 
 1. **Rounding.** Chapter 4.1.5 has no rounding rule for the base standards

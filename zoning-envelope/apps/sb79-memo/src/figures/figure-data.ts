@@ -7,7 +7,7 @@
  * that are not law (story height, setback depth, spacing) come from
  * memoConfig.figures and are never shown as numbers.
  */
-import { geoConicEqualArea, geoIdentity, geoPath, geoTransform, type GeoPermissibleObjects, type GeoStream } from 'd3-geo';
+import { geoIdentity, geoPath, geoTransform, type GeoPermissibleObjects, type GeoStream } from 'd3-geo';
 import * as polyclip from 'polyclip-ts';
 import {
   distancePointToPolygon,
@@ -31,13 +31,19 @@ import railRaw from '../../data/osm-rail.geojson?raw';
 import railMeta from '../../data/osm-rail.meta.json';
 import countiesRaw from '../../data/counties.geojson?raw';
 import jurisdictionsRaw from '../../data/jurisdictions.geojson?raw';
+import opportunityRaw from '../../data/opportunity-areas.geojson?raw';
+import sfZonesRaw from '../../data/explainer/sf-tod-zones.geojson?raw';
+import bartStationsRaw from '../../data/explainer/bart-stations.geojson?raw';
+import bartParcelsRaw from '../../data/explainer/bart-ab2923-parcels.geojson?raw';
+import beverlyRaw from '../../data/explainer/beverly-hills.geojson?raw';
 import rockParcelRaw from '../../data/rockridge/parcel.geojson?raw';
 import zoningStandards from '../../data/berkeley-zoning-standards.json';
 import manifest from '../../data/manifest.json';
-import { A, B, C, L, asOf, contrast, data, derived, law } from '../memo-data';
+import { A, B, C, L, asOf, contrast, data, derived, explainer, law, project } from '../memo-data';
+import { inBand, parcelClasses } from '../parcel-classes';
 import { memoConfig } from '../memo.config';
-import { date, duac, far, ftShort, milesShort, money, num, pct, shortCite, sqftShort, word } from '../format';
-import type { Box, ChecklistData, EnvelopeData, FigureData, Label, MapData, Plate, Solid, TimelineData, XY } from './types';
+import { date, duac, far, ftShort, milesShort, money, num, pct, shortCite, shortDate, sqftShort, word } from '../format';
+import type { Box, EnvelopeData, FigureData, Label, MapData, Plate, Solid, TimelineData, XY } from './types';
 
 const cfg = memoConfig.figures;
 const parse = (raw: string) => JSON.parse(raw) as FeatureCollection;
@@ -132,61 +138,61 @@ const quarterFt = milesToFeet(L.quarter.value);
 
 // ---------------------------------------------------------------- map
 
+/** Lon/lat features to rings in the map frame (feet, SVG axes). */
+type Rings = number[][][];
+const svgRings = (g: Geometry): Rings[] => polygonsFt(g).map((p) => [p.outer, ...(p.holes ?? [])].map((r) => r.map((q) => toSvg(q) as number[])));
+const ringsPath = (polys: Rings[]) => geoPath(geoIdentity()).digits(0)({ type: 'MultiPolygon', coordinates: polys } as GeoPermissibleObjects) ?? '';
+const boxOf = (polys: Rings[], margin: number) => boxAround(polys.flatMap((p) => p[0]!.map((q) => [q[0]!, q[1]!] as XY)), margin);
+const overlaps = (a: Box, b: Box) => a[0] < b[0] + b[2] && b[0] < a[0] + a[2] && a[1] < b[1] + b[3] && b[1] < a[1] + a[3];
+const largestPiece = (polys: Rings[]) => polys.map((p) => p[0]!.map(([x, y]) => [x!, y!] as Point))
+  .reduce((a, b) => (Math.abs(signedArea(b)) > Math.abs(signedArea(a)) ? b : a));
+const centerOf = (polys: Rings[]): XY => {
+  const [x, y] = centroid(largestPiece(polys));
+  return [Math.round(x), Math.round(y)];
+};
+/** A view `w` wide around a point, at the figure's usual aspect (5:4). */
+const viewAround = (c: XY, w: number): Box => [c[0] - w / 2, c[1] - (w * 0.8) / 2, w, w * 0.8];
+
 function buildMap(): MapData {
-  // California counties, conic equal-area (California Albers parallels).
+  const ex = explainer;
+  const stationFt = projectFt(manifest.center.lonLat);
+  const nb = toSvg(stationFt);
+
+  // California, in the same frame as the parcels.
   const counties = parse(countiesRaw).features;
-  const size: [number, number] = [600, 700];
-  // d3-geo is spherical: exterior rings must wind clockwise in lon/lat.
-  const rewind = (f: Feature): Feature => {
-    const fix = (poly: number[][][]) => poly.map((ring, i) => {
-      const cw = signedArea(ring as unknown as Point[]) < 0;
-      return (i === 0) === cw ? ring : [...ring].reverse();
-    });
-    const g = f.geometry!;
-    const geometry = g.type === 'Polygon' ? { ...g, coordinates: fix(g.coordinates) }
-      : g.type === 'MultiPolygon' ? { ...g, coordinates: g.coordinates.map(fix) } : g;
-    return { ...f, geometry } as Feature;
-  };
-  const caFeatures = counties.map(rewind);
-  const ca = geoConicEqualArea().parallels([34, 40.5]).rotate([120, 0])
-    .fitExtent([[12, 12], [size[0] - 12, size[1] - 12]], { type: 'FeatureCollection', features: caFeatures } as GeoPermissibleObjects);
-  const caPath = geoPath(ca).digits(1);
   const utc = new Set(data.counties.counties);
   const orange = data.counties.openIssue.county;
-  const countyAt = (name: string): XY => {
-    const f = caFeatures.find((x) => x.properties.name === name);
-    if (!f) throw new Error(`County ${name} missing`);
-    const [x, y] = caPath.centroid(f as GeoPermissibleObjects);
-    return [Math.round(x), Math.round(y)];
+  const countyRings = new Map(counties.map((f) => [String(f.properties.name), svgRings(f.geometry!)]));
+  const allCounties = [...countyRings.values()].flat();
+  const caBox = boxOf(allCounties, 60000);
+
+  // Bay Area city limits, clipped to the counties' shoreline so they read as land.
+  const jurisdictions = parse(jurisdictionsRaw).features;
+  const juris = (name: string) => {
+    const f = jurisdictions.find((j) => j.properties.name === name);
+    if (!f) throw new Error(`Jurisdiction ${name} missing`);
+    return f;
   };
+  const roughBay = boxOf([...svgRings(juris('Berkeley').geometry!), ...svgRings(juris('San Francisco').geometry!)], 30000);
+  const land = polyclip.union(
+    ...(allCounties.filter((p) => overlaps(boxOf([p], 0), roughBay)) as never[]) as [never, ...never[]],
+  ) as unknown as Rings[];
+  const onLand = (f: Feature): Rings[] => polyclip.intersection(svgRings(f.geometry!) as never, land as never) as unknown as Rings[];
+  const sfLand = onLand(juris('San Francisco'));
+  // The main piece only: San Francisco's limits include the Farallon Islands.
+  const sfMain: Rings[] = [[largestPiece(sfLand).map(([x, y]) => [x, y])]];
+  const berkeleyLand = onLand(juris('Berkeley'));
+  const beverly = parse(beverlyRaw).features[0]!;
+  const beverlyRings = svgRings(beverly.geometry!);
 
-  // Block scale.
-  const zoning = parse(zoningRaw).features.map((f) => ({ district: String(f.properties.district), polys: polygonsFt(f.geometry!) }));
-  const districts = zoningStandards.districts as Record<string, { class: string }>;
-  const accessPoints = parse(accessRaw).features;
-  const apFt = accessPoints.map((f) => projectFt((f.geometry as { coordinates: number[] }).coordinates));
-  const groups: Record<'eligible' | 'bart' | 'notQualifying' | 'outside', Feature[]> = { eligible: [], bart: [], notQualifying: [], outside: [] };
-  // Zoning was snapshotted within manifest.radiusFt of the station; parcels
-  // beyond it are drawn but not classified.
-  const zoningReach = manifest.radiusFt;
-  const stationFt = projectFt(manifest.center.lonLat);
-  let noDistrict = 0, otherClass = 0;
-  for (const f of parcels) {
-    if (!f.geometry) continue;
-    const polys = polygonsFt(f.geometry);
-    const big = polys.reduce((a, b) => (polygonArea(b) > polygonArea(a) ? b : a));
-    let probe = centroid(open(big.outer));
-    if (!pointInPolygon(probe, big)) probe = big.outer[0]!;
-    const dist = Math.min(...apFt.map((a) => Math.min(...polys.map((p) => distancePointToPolygon(a, p)))));
-    if (dist > reachFt || Math.hypot(...sub(probe, stationFt)) > zoningReach) { groups.outside.push(f); continue; }
-    if (f.properties.ownerClass === 'BART') { groups.bart.push(f); continue; }
-    const district = zoning.find((z) => z.polys.some((p) => pointInPolygon(probe, p)))?.district;
-    const cls = district ? districts[district]?.class : undefined;
-    if (cls && (L.zoning.value as readonly string[]).includes(cls)) { groups.eligible.push(f); continue; }
-    if (district) otherClass++; else noDistrict++;
-    groups.notQualifying.push(f);
-  }
+  // San Francisco's SB 79 zones (its copy of MTC's map).
+  const sfZones = parse(sfZonesRaw).features.map((f) => {
+    const label = String(f.properties.zone_label);
+    const tier = label.startsWith('Tier 1') ? 1 as const : 2 as const;
+    return { tier, band: label.replace(/^Tier \d - /, ''), d: pathOf([f]) };
+  }).sort((a, b) => ['Half Mile', 'Quarter Mile', '200ft'].indexOf(a.band) - ['Half Mile', 'Quarter Mile', '200ft'].indexOf(b.band) || b.tier - a.tier);
 
+  // North Berkeley: MTC's zones, access points, the station, the track.
   const zones = parse(zonesRaw).features;
   const zone = (word: string) => {
     const z = zones.find((f) => String(f.properties.zone_label).includes(word));
@@ -194,14 +200,10 @@ function buildMap(): MapData {
     return z;
   };
   const zoneFeatures = { adjacent: zone('200ft'), quarter: zone('Quarter'), half: zone('Half') };
-
-  const stations = parse(stationsRaw).features;
+  const accessPoints = parse(accessRaw).features;
+  const apFt = accessPoints.map((f) => projectFt((f.geometry as { coordinates: number[] }).coordinates));
   const primaryId = manifest.center.stationId;
-  const nbStation = stations.find((s) => s.properties.station_id === primaryId);
-  if (!nbStation) throw new Error('North Berkeley station missing');
-  const nbFt = projectFt((nbStation.geometry as { coordinates: number[] }).coordinates);
-  const nb = toSvg(nbFt);
-
+  const stationName = String(parse(stationsRaw).features.find((s) => s.properties.station_id === primaryId)?.properties.station_name ?? '');
   // Ring labels where a ray from the station to the west-southwest leaves each zone.
   const ray = unit([-0.94, -0.34]); // in projected feet (y north)
   const exitAlong = (f: Feature): number => {
@@ -209,7 +211,7 @@ function buildMap(): MapData {
     for (const poly of polygonsFt(f.geometry!)) {
       for (const ring of [poly.outer, ...(poly.holes ?? [])]) {
         for (let i = 0; i < ring.length - 1; i++) {
-          const a = sub(ring[i]!, nbFt), b = sub(ring[i + 1]!, nbFt);
+          const a = sub(ring[i]!, stationFt), b = sub(ring[i + 1]!, stationFt);
           const e = sub(b, a);
           const den = ray[0] * e[1] - ray[1] * e[0];
           if (Math.abs(den) < 1e-9) continue;
@@ -223,150 +225,188 @@ function buildMap(): MapData {
   };
   const ringLabel = (f: Feature, text: string): Label => {
     const t = exitAlong(f);
-    return { at: toSvg([nbFt[0] + ray[0] * t, nbFt[1] + ray[1] * t]), text };
+    return { at: toSvg([stationFt[0] + ray[0] * t, stationFt[1] + ray[1] * t]), text };
   };
-
   // The measuring line: Exhibit B's nearest edge to its nearest access point.
   const apIndex = accessPoints.findIndex((f) => f.properties.access_id === B.accessPointId);
   if (apIndex < 0) throw new Error(`Access point ${B.accessPointId} missing`);
   const ap = apFt[apIndex]!;
   const near = nearestPointOnPolygon(ap, site);
-
-  const jurisdictions = parse(jurisdictionsRaw).features;
-  const juris = (name: string) => {
-    const f = jurisdictions.find((j) => j.properties.name === name);
-    if (!f) throw new Error(`Jurisdiction ${name} missing`);
-    return f;
-  };
-  // City limits run into the Bay; clip them to the counties' shoreline so the
-  // city and Bay Area views read as land. All in the map frame (feet, y south).
-  type Rings = number[][][];
-  const svgRings = (g: Geometry): Rings[] => polygonsFt(g).map((p) => [p.outer, ...(p.holes ?? [])].map((r) => r.map((q) => toSvg(q) as number[])));
-  const bbox = (polys: Rings[]) => boxAround(polys.flatMap((p) => p[0]!.map((q) => [q[0]!, q[1]!] as XY)), 0);
-  const overlaps = (a: Box, b: Box) => a[0] < b[0] + b[2] && b[0] < a[0] + a[2] && a[1] < b[1] + b[3] && b[1] < a[1] + a[3];
-  const around = (names: string[], margin: number) => boxAround(names.flatMap((n) => svgRings(juris(n).geometry!).flatMap((p) => p[0]!.map((q) => [q[0]!, q[1]!] as XY))), margin);
-  const roughBay = around(['Berkeley', 'Oakland', 'San Francisco'], 30000);
-  const land = polyclip.union(
-    ...(counties.flatMap((c) => svgRings(c.geometry!)).filter((p) => overlaps(bbox([p]), roughBay)) as never[]) as [never, ...never[]],
-  ) as unknown as Rings[];
-  const onLand = (f: Feature): Rings[] => polyclip.intersection(svgRings(f.geometry!) as never, land as never) as unknown as Rings[];
-  const planar = geoPath(geoIdentity()).digits(0);
-  const ringsPath = (polys: Rings[]) => planar({ type: 'MultiPolygon', coordinates: polys } as GeoPermissibleObjects) ?? '';
-  const largestPiece = (polys: Rings[]) => polys.map((p) => p[0]!.map(([x, y]) => [x!, y!] as Point))
-    .reduce((a, b) => (Math.abs(signedArea(b)) > Math.abs(signedArea(a)) ? b : a));
-  const landOf = new Map(['Berkeley', 'Oakland', 'San Francisco'].map((n) => [n, onLand(juris(n))]));
-  const centerOf = (name: string): XY => {
-    const [x, y] = centroid(largestPiece(landOf.get(name)!));
-    return [Math.round(x), Math.round(y)];
-  };
-  const berkeleyLand = landOf.get('Berkeley')!;
-  const cityBox = boxAround(berkeleyLand.flatMap((p) => p[0]!.map((q) => [q[0]!, q[1]!] as XY)), 3000);
-  // The main piece of each city only: San Francisco's land includes the Farallon Islands.
-  const bayBox = boxAround([...landOf.values()].flatMap((polys) => largestPiece(polys).map((q) => [q[0], q[1]] as XY)), 8000);
-  const statusOf: Record<string, MapData['local']['jurisdictions'][number]['status']> = {
-    Berkeley: data.localOptions.berkeley.status as 'defaults',
-    Oakland: data.localOptions.oakland.status as 'exclusions',
-    'San Francisco': data.localOptions.sanFrancisco.status as 'alternative-plan',
-  };
-  const bayJurisdictions = jurisdictions
-    .filter((f) => overlaps(bbox(svgRings(f.geometry!)), bayBox))
-    .map((f) => ({ name: String(f.properties.name), polys: onLand(f) }))
-    .filter((j) => j.polys.length > 0);
-
-  const sites = ([['A', A], ['B', B], ['C', C]] as const).map(([key, x]) => {
-    const f = byApn(x.apn);
-    return { key, d: pathOf([f]), at: toSvg(centroid(open(largest(f.geometry!).outer))), label: key };
-  });
-
   const railFeatures = parse(railRaw).features.filter((f) => f.properties.railway === 'subway');
 
+  // Zoning districts, labeled at a parcel near the middle of each district's parcels in the band.
+  const districts = zoningStandards.districts as Record<string, { class: 'residential' | 'mixed' | 'commercial' | 'other'; heightFt: number }>;
+  const zoning = parse(zoningRaw).features.map((f) => {
+    const district = String(f.properties.district);
+    const std = districts[district];
+    if (!std) throw new Error(`No standards for district ${district}`);
+    const probes = inBand.filter((p) => p.district === district).map((p) => p.probe);
+    const pool = probes.length ? probes : [centroid(open(largest(f.geometry!).outer))];
+    const mx = pool.reduce((s, q) => s + q[0], 0) / pool.length, my = pool.reduce((s, q) => s + q[1], 0) / pool.length;
+    const at = pool.reduce((a, b) => (Math.hypot(b[0] - mx, b[1] - my) < Math.hypot(a[0] - mx, a[1] - my) ? b : a));
+    return { district, cls: std.class, d: pathOf([f]), label: { at: toSvg(at), text: district, sub: ftShort(std.heightFt) } };
+  });
+  const byClass = (cls: string) => Object.entries(districts).filter(([, d]) => d.class === cls);
+  const heightsOf = (cls: string) => {
+    const hs = [...new Set(byClass(cls).map(([, d]) => d.heightFt))];
+    return hs.length === 1 ? ftShort(hs[0]!) : byClass(cls).map(([k, d]) => `${k} ${ftShort(d.heightFt)}`).join(', ');
+  };
+
+  // BART's AB 2923 parcels at North Berkeley.
+  const bartFeatures = parse(bartParcelsRaw).features.filter((f) => f.properties.ab2923 === 'Yes' && f.properties.station === stationName);
+  const bartRings = bartFeatures.flatMap((f) => svgRings(f.geometry!));
+
+  // Hazards: the radius CAL FIRE was queried at, and the direction of Oakland airport's influence area.
+  const fireR = Math.round(ex.hazards.fireRadiusFt);
+  // Room above the circle for its label, and below it for the airport arrow.
+  const hazardsBox: Box = [nb[0] - fireR - 2400, nb[1] - fireR - 900, 2 * fireR + 4800, 2 * fireR + 3300];
+
+  const opportunity = parse(opportunityRaw).features;
+  const oppOf = (cat: string) => opportunity.filter((f) => String(f.properties.category).toLowerCase() === cat.toLowerCase());
+  const oppHighest = oppOf('Highest Resource'), oppHigh = oppOf('High Resource');
+  const oppOther = opportunity.filter((f) => !oppHighest.includes(f) && !oppHigh.includes(f));
+
+  const pathsOf = (ps: typeof inBand) => pathOf(ps.map((p) => p.feature));
+  const clear = inBand.filter((p) => p.qualifyingZoning && !p.bart && !p.rentEstimate && !p.landmark);
+  const flagged = inBand.filter((p) => !clear.includes(p));
+  const siteCenter = toSvg(centroid(open(site.outer)));
+  const pc = ex.parcels;
+  const berkeleyStations = parse(bartStationsRaw).features
+    .map((f) => ({ name: String(f.properties.Station), at: toSvg(projectFt((f.geometry as { coordinates: number[] }).coordinates)) }))
+    .filter((st) => berkeleyLand.some((poly) => pointInPolygon(st.at as unknown as Point, { outer: poly[0]!.map(([x, y]) => [x!, y!] as Point) })));
+  const alt = ex.altPlans;
+  const sfCenter = centerOf(sfMain);
+
   return {
+    views: {
+      california: caBox,
+      sf: boxOf(sfMain, 9000),
+      berkeley: boxOf(berkeleyLand, 3000),
+      rings: [nb[0] - reachFt - 500, nb[1] - reachFt - 500, 2 * reachFt + 1000, 2 * reachFt + 1000],
+      hazards: hazardsBox,
+      parcel: viewAround(siteCenter, 1500),
+    },
     california: {
-      size,
-      counties: caFeatures.map((f) => ({
+      counties: counties.map((f) => ({
         name: String(f.properties.name),
-        d: caPath(f as GeoPermissibleObjects) ?? '',
+        d: ringsPath(countyRings.get(String(f.properties.name))!),
         utc: utc.has(String(f.properties.name)),
         openIssue: f.properties.name === orange,
       })),
       labels: {
-        alameda: { at: countyAt('Alameda'), text: 'Alameda' },
-        orange: { at: countyAt(orange), text: orange, sub: 'open issue' },
-      },
-      legend: {
-        utc: `Urban transit counties per HCD (${word(derived.utcCountyCount)})`,
-        openIssue: `${orange}: counted by ABAG, not HCD`,
+        alameda: { at: centerOf(countyRings.get('Alameda')!), text: 'Alameda' },
+        orange: { at: centerOf(countyRings.get(orange)!), text: orange, sub: 'open issue' },
       },
     },
-    local: {
-      views: {
-        station: [nb[0] - 1300, nb[1] - 1100, 2600, 2200],
-        rings: [nb[0] - reachFt - 500, nb[1] - reachFt - 500, 2 * reachFt + 1000, 2 * reachFt + 1000],
-        city: cityBox,
-        bayArea: bayBox,
-      },
-      parcels: {
-        eligible: pathOf(groups.eligible),
-        bart: pathOf(groups.bart),
-        notQualifying: pathOf(groups.notQualifying),
-        outside: pathOf(groups.outside),
-      },
-      sites,
-      zones: { adjacent: pathOf([zoneFeatures.adjacent]), quarter: pathOf([zoneFeatures.quarter]), half: pathOf([zoneFeatures.half]) },
-      ringLabels: [
-        ringLabel(zoneFeatures.adjacent, ftShort(L.adjacent.value)),
-        ringLabel(zoneFeatures.quarter, milesShort(L.quarter.value)),
-        ringLabel(zoneFeatures.half, milesShort(L.half.value)),
+    altPlans: [
+      { name: alt.sanFrancisco.name, d: ringsPath(sfMain), at: sfCenter },
+      { name: alt.beverlyHills.name, d: ringsPath(beverlyRings), at: centerOf(beverlyRings) },
+    ],
+    sf: {
+      zones: sfZones,
+      stamp: { at: [sfCenter[0], sfCenter[1] - 6000], text: 'Alternative plan', sub: 'No parcel under the defaults' },
+    },
+    berkeley: {
+      d: ringsPath(berkeleyLand),
+      stamp: { at: [centerOf(berkeleyLand)[0] + 3500, centerOf(berkeleyLand)[1] - 6500], text: 'No exclusions', sub: 'SB 79 defaults govern' },
+      stations: berkeleyStations,
+    },
+    population: {
+      title: 'Berkeley',
+      lines: [`Population ${num(data.population.mtc)}`, `The outer band needs ${num(L.pop.value)}`],
+    },
+    parcels: pathOf(parcelClasses.map((p) => p.feature)),
+    rail: pathOf(railFeatures),
+    station: { name: `${stationName} BART`, at: nb },
+    accessPoints: accessPoints.map((f, i) => ({ at: toSvg(apFt[i]!), elevator: Boolean(f.properties.isElevator), primary: f.properties.station_id === primaryId })),
+    zones: { adjacent: pathOf([zoneFeatures.adjacent]), quarter: pathOf([zoneFeatures.quarter]), half: pathOf([zoneFeatures.half]) },
+    ringLabels: [
+      ringLabel(zoneFeatures.adjacent, ftShort(L.adjacent.value)),
+      ringLabel(zoneFeatures.quarter, milesShort(L.quarter.value)),
+      ringLabel(zoneFeatures.half, milesShort(L.half.value)),
+    ],
+    tierStamp: { at: [nb[0] + 1000, nb[1] - 1100], text: 'Tier 1', sub: 'Heavy rail (BART)' },
+    site: { d: pathOf([byApn(B.apn)]), at: siteCenter, label: 'B' },
+    measure: { from: toSvg(near.point), to: toSvg(ap), label: ftShort(B.distanceFt) },
+    zoning,
+    bart: { d: ringsPath(bartRings), label: { at: centerOf(bartRings), text: 'BART land', sub: 'AB 2923; § 65912.158' } },
+    hazards: {
+      fire: { at: nb, r: fireR, label: `No very high fire hazard zone within ${num(ex.hazards.fire.lra.radiusM)} m` },
+      airport: { from: [nb[0], nb[1] + fireR + 300], to: [nb[0], hazardsBox[1] + hazardsBox[3] - 500], label: `Oakland airport influence area: ${num(ex.hazards.airportMiles, 1)} mi south` },
+    },
+    rent: {
+      estimate: pathsOf(inBand.filter((p) => p.rentEstimate)),
+      unknown: pathsOf(inBand.filter((p) => p.units > L.anti.rentControlledSite.moreThanUnits.value && p.yearBuilt === null)),
+    },
+    historic: {
+      landmark: pathsOf(inBand.filter((p) => p.landmark === 'Landmark')),
+      merit: pathsOf(inBand.filter((p) => p.landmark === 'Structure of Merit')),
+    },
+    opportunity: { highest: pathOf(oppHighest), high: pathOf(oppHigh), other: pathOf(oppOther) },
+    pick: { clear: pathsOf(clear), flagged: pathsOf(flagged), label: { at: siteCenter, text: B.address, sub: `${B.district}, ${ftShort(B.distanceFt)} from the station` } },
+    legends: {
+      counties: [
+        { swatch: 'ca-utc', text: 'urban transit counties per HCD' },
+        { swatch: 'ca-open-issue legend-dashed', text: `${orange}: counted by ABAG, not HCD` },
       ],
-      rail: pathOf(railFeatures),
-      stations: stations.map((s) => ({
-        name: String(s.properties.station_name),
-        at: toSvg(projectFt((s.geometry as { coordinates: number[] }).coordinates)),
-        primary: s.properties.station_id === primaryId,
-      })),
-      accessPoints: accessPoints.map((f, i) => ({
-        at: toSvg(apFt[i]!),
-        elevator: Boolean(f.properties.isElevator),
-        primary: f.properties.station_id === primaryId,
-      })),
-      measure: { from: toSvg(near.point), to: toSvg(ap), label: ftShort(B.distanceFt) },
-      tierStamp: { at: [nb[0] + 260, nb[1] - 240], text: 'Tier 1', sub: 'Heavy rail (BART)' },
-      population: {
-        at: [nb[0] + reachFt * 0.55, nb[1] - reachFt * 0.95],
-        title: 'Berkeley',
-        lines: [`Population ${num(data.population.mtc)}`, `Outer band needs ${num(L.pop.value)}`],
-      },
-      eligibility: {
-        eligible: 'Zoned residential, mixed-use, or commercial',
-        bart: 'BART-owned (see open issue)',
-        notQualifying: otherClass === 0
-          ? (noDistrict ? "No zoning district in the City's layer" : `None zoned open space or industrial within ${milesShort(L.half.value)}`)
-          : noDistrict ? "Zoned open space or industrial, or no district in the City's layer" : 'Zoned open space or industrial',
-        outside: `Beyond ${milesShort(L.half.value)} or the zoning snapshot`,
-      },
-      land: ringsPath(land.filter((p) => overlaps(bbox([p]), bayBox))),
-      berkeley: {
-        d: ringsPath(berkeleyLand),
-        label: { at: centerOf('Berkeley'), text: 'Berkeley' },
-        // The stamp sits north of the city's center, clear of the station rings.
-        stamp: { at: [centerOf('Berkeley')[0], Math.round(centerOf('Berkeley')[1] - cityBox[3] * 0.2)], text: 'No exclusions', sub: 'SB 79 defaults govern' },
-      },
-      jurisdictions: bayJurisdictions.map((j) => ({ name: j.name, d: ringsPath(j.polys), status: statusOf[j.name] ?? null })),
-      bayLabels: ['Berkeley', 'Oakland', 'San Francisco'].map((n) => ({ at: centerOf(n), text: n })),
-      bayLegend: {
-        defaults: 'Berkeley: SB 79 defaults',
-        exclusions: 'Oakland: interim exclusions, not near Ashby, MacArthur, or Rockridge BART',
-        alternativePlan: 'San Francisco: alternative plan, found in substantial compliance by HCD',
-      },
+      alt: [
+        { swatch: 'map-alt', text: `${alt.sanFrancisco.name}: plan in substantial compliance (HCD, ${shortDate(alt.sanFrancisco.hcd.date)})` },
+        { swatch: 'map-alt', text: `${alt.beverlyHills.name}: plan needs revisions (HCD, ${shortDate(alt.beverlyHills.hcd.date)})` },
+        { swatch: 'ca-utc', text: 'Urban transit county' },
+      ],
+      sf: [
+        { swatch: 'sf-tier1', text: 'Tier 1 zones: 200 ft, ¼ mile, ½ mile' },
+        { swatch: 'sf-tier2', text: 'Tier 2 zones' },
+        { swatch: 'map-alt', text: 'Replaced by the alternative plan' },
+      ],
+      distance: [
+        { swatch: 'legend-ap', text: 'Station entrance (MTC)' },
+        { swatch: 'legend-ap legend-ap-elevator', text: 'Elevator entrance' },
+        { swatch: 'legend-ring', text: 'MTC SB 79 zones' },
+      ],
+      zoning: [
+        { swatch: 'zone-residential', text: `Residential (${byClass('residential').map(([k]) => k).join(', ')}): ${heightsOf('residential')}` },
+        { swatch: 'zone-mixed', text: `Mixed use (${byClass('mixed').map(([k]) => k).join(', ')}): ${heightsOf('mixed')}` },
+        { swatch: 'zone-commercial', pattern: 'dots', text: `Commercial: ${heightsOf('commercial')}` },
+        { swatch: 'map-parcel', text: `No district in the city's layer (${num(pc.otherZoning)})` },
+      ],
+      bart: [{ swatch: 'zone-residential', pattern: 'hatch', text: `BART's AB 2923 parcels (${word(ex.bart.count)}, ${num(ex.bart.acres, 1)} acres)` }],
+      hazards: [
+        { swatch: 'legend-ring', text: `${num(ex.hazards.fire.lra.radiusM)} m: no very high fire hazard zone or state responsibility area` },
+        { swatch: 'legend-arrow', text: `Oakland airport influence area, ${num(ex.hazards.airportMiles, 1)} mi south` },
+      ],
+      rent: [
+        { swatch: 'map-rent', pattern: 'cross', text: `More than two units, built by ${ex.rentControl.estimate.lastYearBuilt} (${num(pc.rentEstimate)}): estimate` },
+        { swatch: 'map-rent-unknown', text: `More than two units, year built unknown (${num(pc.rentUnknownYear)})` },
+      ],
+      historic: [
+        { swatch: 'map-landmark', text: `Berkeley Landmark (${word(pc.landmark)})` },
+        { swatch: 'map-merit', text: `Structure of Merit (${word(pc.structureOfMerit)})` },
+      ],
+      opportunity: [
+        { swatch: 'opp-highest', text: 'Highest resource' },
+        { swatch: 'opp-high', text: 'High resource' },
+      ],
+      pick: [
+        { swatch: 'map-clear', text: `Zoned to qualify, no flag on this map (${num(pc.clear)})` },
+        { swatch: 'map-flagged', text: 'BART land, a flag, or not zoned to qualify' },
+      ],
     },
     captions: {
-      'transit-counties': `Urban transit counties have more than ${num(L.utc.value)} passenger rail stations. HCD lists ${word(derived.utcCountyCount)}; Orange County is an open issue.`,
-      'station-tier': `North Berkeley BART, a heavy rail stop: Tier 1. Track alignment ${railMeta.attribution}.`,
-      'distance-rings': `MTC's SB 79 zones at ${ftShort(L.adjacent.value)}, ${milesShort(L.quarter.value)}, and ${milesShort(L.half.value)}. Exhibit B's nearest edge is ${ftShort(B.distanceFt)} from the nearest entrance.`,
-      'outer-band': `The band from ${milesShort(L.quarter.value)} to ${milesShort(L.half.value)} counts in cities of at least ${num(L.pop.value)} people.`,
-      'eligibility-tint': 'Parcels by zoning class, from City of Berkeley zoning.',
-      'no-exclusions': `Berkeley took no exemption, exclusion, or alternative plan (as of ${date(data.localOptions.berkeley.source.date)}).`,
-      'bay-area-options': 'Three Bay Area cities, three positions under SB 79.',
+      california: 'California, county by county.',
+      'utc-fill': `Urban transit counties: more than ${num(L.utc.value)} passenger rail stations.`,
+      'transit-counties': `HCD lists ${word(derived.utcCountyCount)}, Alameda among them; Orange County is an open issue.`,
+      'alt-plan-cities': 'Gray: cities whose alternative plans HCD has ruled on.',
+      'sf-plan': `San Francisco's SB 79 zones, replaced by its alternative plan (HCD, ${shortDate(alt.sanFrancisco.hcd.date)}).`,
+      berkeley: `Berkeley: ${word(berkeleyStations.length)} BART stations; no exemption, exclusion, or alternative plan (as of ${shortDate(data.localOptions.berkeley.source.date)}).`,
+      'station-rings': `North Berkeley BART, Tier 1. MTC's zones at ${ftShort(L.adjacent.value)}, ${milesShort(L.quarter.value)}, and ${milesShort(L.half.value)}; Exhibit B is ${ftShort(B.distanceFt)} from the nearest entrance. Track ${railMeta.attribution}.`,
+      zoning: 'Every district in the half mile is residential, mixed use, or commercial.',
+      'bart-land': "BART's own station land: AB 2923 and SB 79's transit-agency rule.",
+      hazards: 'No very high fire hazard zone or airport influence area reaches the half mile.',
+      'rent-control': 'Where the rent-control bar could reach: an estimate from unit counts and year built.',
+      historic: 'Berkeley Landmarks and Structures of Merit in the half mile.',
+      'high-resource': 'The state opportunity map: every tract here is high or highest resource.',
+      'pick-parcel': `${B.address}: zoned to qualify, and no flag on this map.`,
     },
   };
 }
@@ -525,6 +565,8 @@ function buildEnvelope(): EnvelopeData {
       levels: Array.from({ length: levels }, (_, i) => (i + 1) * f2f).filter((h) => h < B.floors.heightFt),
       dots,
       bonusDots,
+      minUnits: L.cond.minUnits.value,
+      affordable: project.berkeleyAtFloor,
       setback: { slab, line: setbackLine, depth: r1(setDepth) },
       inward: [r1(inward[0] * 1000) / 1000, r1(inward[1] * 1000) / 1000],
     },
@@ -542,7 +584,6 @@ function buildEnvelope(): EnvelopeData {
       local: `Local limit ${ftShort(B.localHeightFt)}`,
       floor: `SB 79 floor ${ftShort(B.floors.heightFt)}`,
       gain: `+${ftShort(B.heightGainFt)}`,
-      preview: `At least ${ftShort(B.floors.heightFt)}, if the project meets SB 79's conditions`,
       unitsOf: `${duac(B.floors.densityDuPerAcre)} × ${num(B.acres, 3)} acres`,
       plateOf: `FAR ${far(B.floors.residentialFar)} × ${sqftShort(B.lotSqFt)} lot = ${sqftShort(B.residentialFloorAreaSqFt)}`,
       setback: 'Rear setback (illustrative)',
@@ -564,58 +605,38 @@ function buildEnvelope(): EnvelopeData {
       totals: `At least ${ftShort(B.floors.heightFt)} · ${duac(B.floors.densityDuPerAcre)} · FAR ${far(B.floors.residentialFar)}`,
       totalsSub: `${num(B.unitFloor, 2)} units · ${sqftShort(B.residentialFloorAreaSqFt)} residential floor area`,
     },
+    panels: {
+      minimums: {
+        title: 'What the project must include',
+        rows: [
+          { text: `At least ${word(L.cond.minUnits.value)} units`, cite: shortCite(L.cond.minUnits.cite), strong: true },
+          { text: `At least ${duac(L.cond.minDensityDuPerAcre.value)}: ${num(project.minDensityUnits, 2)} units on this lot, so the ${word(L.cond.minUnits.value)}-unit minimum governs`, cite: shortCite(L.cond.minDensityDuPerAcre.cite) },
+          { text: `Units averaging no more than ${num(L.cond.maxAverageUnitSizeNetSqFt.value)} net sq ft: using all ${sqftShort(B.residentialFloorAreaSqFt)} takes at least ${num(project.unitsToFillFloorArea, 2)} units`, cite: shortCite(L.cond.maxAverageUnitSizeNetSqFt.cite) },
+        ],
+      },
+      affordable: {
+        title: 'Affordable units',
+        rows: [
+          { text: `At the floor, ${word(project.wholeUnits)} whole units: SB 79's own rule starts above ${word(L.aff.appliesAboveUnits.value)}`, cite: shortCite(L.aff.appliesAboveUnits.cite) },
+          { text: `Berkeley: ${pct(data.inclusionary.percentOfUnits.value)}, rounded up: ${word(project.berkeleyAtFloor)} of ${word(project.wholeUnits)} units, at least ${word(project.berkeleyVeryLowAtFloor)} very low income`, cite: data.inclusionary.section, strong: true },
+          { text: `At ${word(project.nextUnits)} units, SB 79 asks ${num(project.sb79AtNext.extremelyLow, 2)} extremely low, ${num(project.sb79AtNext.veryLow, 2)} very low, or ${num(project.sb79AtNext.lower, 2)} lower income units; Berkeley's ${word(project.berkeleyAtNext)} apply instead`, cite: shortCite(L.aff.stricterLocalInclusionaryControls.cite) },
+        ],
+      },
+    },
     captions: {
       ghost: `${B.address}. Pale: what Berkeley's zoning allows, ${ftShort(B.localHeightFt)}.`,
-      'preview-rise': `Preview: Berkeley must allow at least ${ftShort(B.floors.heightFt)}.`,
       'height-rise': `Height: local limit ${ftShort(B.localHeightFt)}; SB 79 floor ${ftShort(B.floors.heightFt)}.`,
       'unit-fill': `Density: ${duac(B.floors.densityDuPerAcre)} × ${num(B.acres, 3)} acres = ${num(B.unitFloor, 2)} units, unrounded.`,
       'plate-stack': `Residential FAR: ${far(B.floors.residentialFar)} × ${sqftShort(B.lotSqFt)} = ${sqftShort(B.residentialFloorAreaSqFt)}. Plates drawn at full lot coverage.`,
       'setback-cannot-preclude': 'A local setback applies only so far as it does not prevent the SB 79 standards. Illustrative.',
+      minimums: `What the project must include: at least ${word(L.cond.minUnits.value)} units, a minimum density, and an average unit size cap.`,
+      'affordable-units': `Affordable units at the floor: Berkeley's ${pct(data.inclusionary.percentOfUnits.value)} rule, rounded up.`,
       collapse: 'Counterfactual: one failed condition, and local zoning governs.',
       'bonus-locked-height': 'Density bonus: more units on the SB 79 base; no added height owed.',
       'contrast-three-heights': `${contrast.address}, Oakland: the SB 79 floor, Oakland's limit, and the proposed towers.`,
       'exhibit-comparison': 'Exhibits A, B, and C: the standards step down with distance.',
       final: `${B.address}: what Berkeley must allow.`,
     },
-  };
-}
-
-// ---------------------------------------------------------------- checklist
-
-function buildChecklist(): ChecklistData {
-  const c = L.cond, a = L.aff, anti = L.anti.rentControlledSite;
-  const inc = data.inclusionary;
-  const reached = B.units > anti.moreThanUnits.value;
-  return {
-    title: 'What the project must do',
-    cards: [
-      { id: 'min-units', title: 'Units', text: `At least ${word(c.minUnits.value)} units`, cite: shortCite(c.minUnits.cite), status: 'tick' },
-      { id: 'min-density', title: 'Density', text: `At least ${duac(c.minDensityDuPerAcre.value)}, or the local minimum if higher`, cite: shortCite(c.minDensityDuPerAcre.cite), status: 'tick' },
-      { id: 'unit-size', title: 'Unit size', text: `Average no more than ${num(c.maxAverageUnitSizeNetSqFt.value)} net habitable sq ft`, cite: shortCite(c.maxAverageUnitSizeNetSqFt.cite), status: 'tick' },
-      { id: 'affordability', title: 'Affordability', text: `Over ${word(a.appliesAboveUnits.value)} units: one of SB 79's options, or Berkeley's stricter rule`, cite: shortCite(`${parentCite(a.options.extremelyLow.cite, 2)}; ${a.stricterLocalInclusionaryControls.cite}`), status: 'tick' },
-      {
-        id: 'rent-controlled-site', title: 'Anti-displacement',
-        text: `No demolition of tenant-occupied rent-controlled housing on a site of more than ${word(anti.moreThanUnits.value)} units`,
-        cite: shortCite(anti.moreThanUnits.cite),
-        status: reached ? 'tick' : 'gray',
-        ...(reached ? {} : { note: `The site holds ${B.units === 1 ? 'one home' : `${word(B.units)} units`}: the bar does not reach it.` }),
-      },
-    ],
-    affordability: {
-      title: 'Affordable share of units',
-      rows: [
-        { label: 'SB 79: extremely low income', percent: a.options.extremelyLow.value },
-        { label: 'or very low income', percent: a.options.veryLow.value },
-        { label: 'or lower income', percent: a.options.lower.value },
-        {
-          label: `Berkeley (${inc.section})`,
-          percent: inc.percentOfUnits.value,
-          deeper: { label: 'very low income', percent: (inc.percentOfUnits.value * inc.veryLowShareOfRequired.value) / 100 },
-        },
-      ],
-      note: `Each square is one percent of units. Berkeley's ${pct(inc.percentOfUnits.value)} governs where stricter.`,
-    },
-    captions: { 'conditions-tick': 'The conditions that come with the floors.' },
   };
 }
 
@@ -652,7 +673,7 @@ function buildTimeline(): TimelineData {
 
 let cached: FigureData | undefined;
 export function buildFigureData(): FigureData {
-  cached ??= { asOf, map: buildMap(), envelope: buildEnvelope(), checklist: buildChecklist(), timeline: buildTimeline() };
+  cached ??= { asOf, map: buildMap(), envelope: buildEnvelope(), timeline: buildTimeline() };
   return cached;
 }
 

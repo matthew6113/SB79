@@ -1,0 +1,72 @@
+{
+  "asOf": "2026-10-17",
+  "note": "Cities whose SB 79 alternative plans HCD has ruled on, from HCD's letters. Other cities are drafting plans; they are not mapped.",
+  "sanFrancisco": {
+    "name": "San Francisco",
+    "ordinance": {
+      "number": "082-26",
+      "source": {
+        "title": "San Francisco Ordinance 082-26",
+        "url": "https://media.api.sf.gov/documents/o0082-26.pdf",
+        "file": "explainer/sources/sf-ordinance-082-26.txt"
+      }
+    },
+    "hcd": {
+      "finding": "substantial compliance, with a condition",
+      "date": "2026-07-01",
+      "source": {
+        "title": "HCD, review letter to San Francisco on its enacted SB 79 ordinance",
+        "date": "2026-07-01",
+        "url": "https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/HAU/san-francisco-sb79-in-070126.pdf",
+        "file": "sources/hcd-san-francisco-review-2026-07-01.txt"
+      },
+      "quote": "the Ordinance and Plan substantially comply with SB 79",
+      "conditionQuote": "HCD’s finding of compliance is contingent on the City not enforcing Section 207.11(b)(5)"
+    },
+    "noDefaults": {
+      "source": {
+        "title": "San Francisco Planning, SB 79 implementation bulletin (updated October 1, 2026)",
+        "url": "https://sfplanning.org/node/3734",
+        "file": "sources/sfplanning-sb79-bulletin.txt"
+      },
+      "quote": "no parcel in San Francisco is subject to the default provisions of SB 79"
+    },
+    "capacity": {
+      "sb79Units": 644500,
+      "planUnits": 768000,
+      "sb79FloorAreaMillionSqFt": 758,
+      "planFloorAreaMillionSqFt": 946,
+      "source": {
+        "title": "San Francisco Planning, executive summary, SB 79 Planning Code amendment (Planning Commission, March 19, 2026)",
+        "date": "2026-03-19",
+        "url": "https://citypln-m-extnl.sfgov.org/Commissions/CPC/3_19_2026/Commission%20Packet/2026-001412PCA.pdf",
+        "file": "explainer/sources/sfplanning-sb79-exec-summary-2026-03-19.txt"
+      },
+      "quote": "the net Unit Capacity under SB 79 is about 644,500 units compared with the Alternative Plan’s 768,000 units",
+      "floorAreaQuote": "SB 79 has a net floor area capacity of about 758 million square feet in comparison with the Alternative Plan’s 946 million square feet"
+    },
+    "lawsuit": {
+      "filed": "2026-07-31",
+      "source": {
+        "title": "YIMBY Law, San Francisco SB 79",
+        "url": "https://www.yimbylaw.org/san-francisco-sb79"
+      },
+      "note": "Read 2026-10-17 with a fetch tool (no text snapshot: this environment's scripts cannot reach the host). Petitioners: YIMBY Law, California Housing Defense Fund, Californians for Homeownership; respondents: the City and County of San Francisco and HCD."
+    }
+  },
+  "beverlyHills": {
+    "name": "Beverly Hills",
+    "hcd": {
+      "finding": "does not substantially comply",
+      "date": "2026-05-08",
+      "source": {
+        "title": "HCD, review of the City of Beverly Hills enacted SB 79 alternative plan",
+        "date": "2026-05-08",
+        "url": "https://beverlyhills.org/DocumentCenter/View/15917",
+        "file": "explainer/sources/hcd-beverly-hills-review-2026-05-08.txt"
+      },
+      "quote": "revisions will be necessary to substantially comply",
+      "importQuote": "the “import” sites will receive twice the amount of density allowed in SB 79, but the height and Floor Area Ratio (FAR) limits would remain the same"
+    }
+  }
+}

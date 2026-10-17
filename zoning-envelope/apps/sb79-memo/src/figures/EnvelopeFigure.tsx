@@ -118,6 +118,8 @@ function EnvelopeFigure({ data, ref, preserve = false }: Props) {
           <span>{data.labels.collapseSub}</span>
         </div>
       )}
+      {view.minPanel > 0 && <Panel panel={data.panels.minimums} opacity={view.minPanel} />}
+      {view.affordPanel > 0 && <Panel panel={data.panels.affordable} opacity={view.affordPanel} />}
       {view.totals > 0 && (
         <div className="fig-totals" style={{ opacity: view.totals, transform: `scale(${1 + 0.2 * (1 - view.totals)})` }}>
           <strong>{data.labels.totals}</strong>
@@ -218,6 +220,23 @@ function rightCorner(ring: XY[], dir: V3, by = 8): XY {
 }
 
 /** Every label a view shows, anchored in 3D; drawn as HTML over the canvas. */
+/** A short list of conditions or counts beside the render (HTML, in the memo's type). */
+function Panel({ panel, opacity }: { panel: EnvelopeData['panels']['minimums']; opacity: number }) {
+  return (
+    <div className="fig-panel" style={{ opacity }}>
+      <strong className="fig-panel-title">{panel.title}</strong>
+      <ul>
+        {panel.rows.map((r) => (
+          <li key={r.text} className={r.strong ? 'is-strong' : undefined}>
+            {r.text}
+            {r.cite && <cite>{r.cite}</cite>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function sceneLabels(data: EnvelopeData, view: EnvelopeView, alpha: number): LabelSpec[] {
   const L = data.labels;
   const all = presetsOf(data);
@@ -228,7 +247,6 @@ function sceneLabels(data: EnvelopeData, view: EnvelopeView, alpha: number): Lab
     out.push({ id: 'local', at: w3(x, y, b.localHeightFt), text: L.local!, opacity: Math.max(view.localLabel, view.dimension) });
     out.push({ id: 'floor', at: w3(x, y, view.height), text: L.floor!, className: 'env-label-accent', opacity: view.dimension });
     out.push({ id: 'gain', at: w3(x, y, (b.localHeightFt + view.height) / 2), text: L.gain!, className: 'env-label-soft', opacity: view.dimension });
-    out.push({ id: 'preview', at: w3(x, y, Math.max(view.height, b.localHeightFt + 2)), text: L.preview!, className: 'env-label-accent', opacity: Math.max(view.previewLabel, view.outline) });
     out.push({ id: 'lock', at: w3(x, y, b.floorHeightFt + 4), text: L.lock!, sub: L.lockSub!, className: 'env-label-strong', opacity: view.lock });
     out.push({ id: 'bonus', at: w3(x, y, b.floorHeightFt * 0.45), text: L.bonus!, opacity: view.bonus > 0 ? 1 : 0 });
     if (view.setback > 0) {
@@ -291,22 +309,26 @@ function Block({ data, view, t, alpha }: { data: EnvelopeData; view: EnvelopeVie
         <Prism ring={b.site} base={b.localHeightFt} height={view.height - b.localHeightFt} color={envColor} opacity={solid} edge={t.page} edgeOpacity={0.5 * edgeAlpha} />
       )}
       <Prism ring={b.site} height={Math.min(view.height, b.localHeightFt)} color={envColor} opacity={solid} edge={view.red > 0.5 ? envColor : t.page} edgeOpacity={(view.red > 0.5 ? 1 : 0.5) * edgeAlpha} />
-      <Prism ring={b.site} height={b.floorHeightFt} edge={t.accent} edgeOpacity={view.outline * alpha} dashed />
 
       {/* Floor plates, filled in sequence */}
       {plates.map((p, i) => p.shown > 0 && (
         <Prism key={i} ring={p.ring} base={p.elevation} height={p.thickness} color={t.accent} opacity={p.shown * view.plates * alpha} edge={t.ink} edgeOpacity={0.4 * p.shown * view.plates * alpha} />
       ))}
 
-      {/* Unit dots, filled in sequence; the last one is the fraction */}
+      {/* Unit dots, filled in sequence; the last one is the fraction. The first
+          minUnits are emphasized for the project minimum; affordable units tint in turn. */}
       {dotAlpha > 0.001 && b.dots.map((d, i) => {
         if (i > whole || (i === whole && frac <= 0)) return null;
         const f = i < whole ? 1 : frac;
         const o = (f < 1 ? 0.35 + 0.65 * f : 1) * dotAlpha;
+        const emphasis = i < b.minUnits ? view.minUnits : 0;
+        const tint = Math.min(1, Math.max(0, view.afford * b.affordable - i));
+        // Affordable units turn page-light, so they read against the envelope.
+        const color = tint > 0 ? new THREE.Color(t.ink).lerp(new THREE.Color(t.page), tint).getStyle() : t.ink;
         return (
-          <mesh key={i} position={w3(d[0], d[1], d[2])} scale={0.45 + 0.55 * f}>
+          <mesh key={i} position={w3(d[0], d[1], d[2])} scale={(0.45 + 0.55 * f) * (1 + 0.45 * emphasis + 0.35 * tint)}>
             <sphereGeometry args={[2.2, 16, 12]} />
-            <meshLambertMaterial color={t.ink} transparent opacity={o} />
+            <meshLambertMaterial color={color} transparent opacity={o} />
           </mesh>
         );
       })}

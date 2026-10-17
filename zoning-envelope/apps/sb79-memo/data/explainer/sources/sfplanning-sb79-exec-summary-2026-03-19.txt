@@ -1,0 +1,1601 @@
+                  Executive Summary
+ Planning Code Amendment and California Senate Bill 79
+                    Implementation
+                                   HEARING DATE: March 19, 2026
+                                         90-Day Deadline: May 11, 2026
+
+
+
+Project Name:    Transit-Oriented Residential Development (SB 79 Implementation)
+Case Number:     2026-001412PCA [Board File No. 260132]
+Initiated by:    Mayor Daniel Lurie / Introduced February 10, 2026
+Staff Contact:   Sarah Richardson, Planner
+                 sarah.richardson@sfgov.org, 628-652-7450
+Reviewed by:     Joshua Switzky, Deputy Director of Community Planning
+                 joshua.switzky@sfgov.org, 628-652-7464
+Environmental
+Review:       Not a Project Under CEQA
+
+
+
+RECOMMENDATION:         Adopt a Recommendation for Approval with Modifications
+
+
+
+
+Summary
+On March 19, 2026, the Planning Commission will consider approval of the proposed Transit-Oriented
+Residential Development Ordinance (proposed ordinance) as introduced by Mayor Daniel Lurie on February
+10, 2026.
+
+The proposed ordinance does the following:
+   • Permanently excludes three Industrial Employment Hubs from being subject to Senate Bill (SB) 79.
+   • Temporarily exempts low resource tracts south of 16th street and in Mission Bay.
+   • Amends the Planning Code to add a new density and height exception to Article 2. The exception
+       would only apply to housing development projects that meet certain conditions and is necessary for
+       the City and County of San Francisco (City) to qualify for an “Alternative Plan” pursuant to SB 79.
+   • Adopts an Alternative Plan under SB 79, including demonstrating that San Francisco’s housing
+Executive Summary                                                                          Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                               Transit-Oriented Residential Development
+
+
+
+
+        capacity under existing zoning, when factoring in the permanent exclusions, temporary exemptions,
+        and Planning Code Amendment, meets the Alternative Plan Requirements.
+
+This staff report also discusses issues and considerations related to the proposed ordinance, describes the
+consistency with the General Plan and impact on racial and social equity, and provides a basis for
+recommendation.
+
+Note that the Planning Code amendment is presented at the beginning of the Executive Summary as this is
+the convention, however, the entire ordinance is before the Commission for consideration and discussion.
+The Planning Code Amendment is discussed further in the body of the report in reference to how it functions
+within the proposed ordinance.
+
+Planning Code Amendment
+
+The Way It Is Now
+Where residential uses are permitted, residential density is regulated by zoning district, applicable special
+use districts, or other provisions and exceptions in the Code, including but not limited to Section 207. SB 79
+would take effect on July 1, 2026.
+
+
+The Way It Would Be
+The proposed ordinance adds Section 207.11 (Transit-Oriented Development—Density and Height
+Exception) to the Planning Code, to permit additional density and height for residential projects on certain
+parcels within one-half mile of a transit-oriented development stop, in accordance with SB 79’s
+specifications.
+
+The exception would apply to residential development projects on parcels that meet all of the following
+conditions:
+   1. Is all or partially located within one-half mile of a “transit-oriented development stop,” as defined in
+        California Government Code Section 65912.156
+   2. Is located in a zoning district that principally permits residential uses.
+   3. Either limits housing density by numeric density or has a height limit of less than 40 feet.
+   4. Is located outside of the R-4 height and bulk district.
+   5. Is not seeking a density bonus pursuant to Section 206.6.
+   6. Is not a parcel permanently or temporarily exempted from SB 79 pursuant to the ordinance enacting
+        this Section 207.11.
+   7. Is not a parcel with a Historic Building that is individually designated as a landmark or listed as a
+        contributor to a historic district under Article 10 of this Code, or listed as a Significant or Contributory
+        Building under Article 11 with a Category I, II, III, or IV rating.
+   8. The permitted density prior to applying the density and height exception in subsection (c) does not
+        meet the minimum density required by California Government Code Section 65912.157.
+
+For parcels meeting the criteria above, the Density and Height Exception would be as follows:
+    • For any housing development project, the applicable residential density shall be up to 50% of the
+
+
+
+
+                                                                                                                  2
+Executive Summary                                                                       Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                            Transit-Oriented Residential Development
+
+
+
+
+        density permitted on that parcel pursuant to the requirements in California Government Code
+        Section 65912.157.
+    •   For any parcel that is partially located in the Coastal Zone, the density exception shall apply to the
+        entire parcel, however residential development shall be limited to the portions of the parcel located
+        outside of the Coastal Zone.
+    •   For any housing development project located on a parcel with a height limit of less than 40 feet, the
+        applicable height limit shall be 40 feet.
+
+
+Background on SB 79
+SB 79, the Abundant and Affordable Homes Near Transit Act, was signed into law by Governor Newsom on
+October 10, 2025, and takes effect on July 1, 2026 (California Government Code §65912.155-162.) SB 79 sets
+zoning rules for minimum permitted height and density limits for housing near major transit stops. The law is
+applicable to all properties zoned for residential, mixed use, and commercial uses. The bill is aimed at
+increasing housing affordability and availability, strengthening transit systems, and decreasing carbon
+emissions. The law does the following:
+
+    1. Establishes statewide minimum zoning standards for allowed housing density and building height
+       limits within ½-mile around qualifying transit stops such as for rail and bus rapid transit.
+
+    2. Allows for the ministerial approval of certain housing projects in transit station areas under the
+       streamlining provisions of SB 423.
+
+    3. Provides local jurisdictions with the ability to establish a local alternative plan that does all of the
+       following:
+            • Provides equivalent or greater aggregate housing capacity compared to SB 79’s default
+               provisions across SB 79 station areas;
+            • Maintains zoning that allows at least 50% of SB 79 densities on every parcel that allows
+               housing; and,
+            • Maintains zoning to accommodate at least 50% of the total unit capacity in each station area
+               compared to SB 79.
+
+    4. Allows for parcels that meet certain criteria to be permanently excluded, and others to be
+       temporarily exempted from SB 79’s provisions.
+       • Parcels that can be permanently excluded include:
+               o Those that are within an Industrial Employment Hub that is at least 250 contiguous
+                   acres, and as of January 1, 2025, is both designated as an employment area in the
+                   General Plan and does not principally permit housing development; and
+               o Those that are more than 1 mile walk from the entrance to a qualifying transit stop.
+       • Parcels that meet any of the following conditions qualify for a temporary exemption that expires
+           in 2032, (1 year after the next Housing Element is due):
+               o The site’s zoning allows at least 50% of the density permitted under SB 79;
+               o It is in an area vulnerable to one-foot or more of sea level rise;
+               o It is in a census tract identified as “low resource” by the state opportunity maps provided
+                   that the city cumulatively has housing capacity for at least 50% of what SB79 would
+
+
+
+                                                                                                                 3
+Executive Summary                                                                             Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                                  Transit-Oriented Residential Development
+
+
+
+
+                       permit across all station areas; or,
+                  o    It was listed on a local historic register as of January 1, 2025.
+
+    4. Provides transit agencies with the authority to develop their own development standards for
+       housing development and mixed-use projects on transit agency-owned land near transit stops.
+
+Qualifying transit stations are divided into two tiers with different height and density requirements in
+the half mile surrounding each stop.
+
+Tier 1: Heavy rail stations. In San Francisco, these stations are BART and Caltrain stations, including the
+Salesforce Transit Center, which is a planned Caltrain station.
+
+Tier 2: Light rail stations and major bus stops. In San Francisco, light rail includes Muni Metro (but not
+cable cars). Major bus stops are defined as those served by buses operating in dedicated transit lanes, such
+as those along Van Ness Ave and Geary Blvd, and that have a headway of under 15 minutes during commute
+hours.
+
+Around each Tier 1 and Tier 2 stop, there are three concentric radii of geography to which the varying zoning
+provisions apply. The radii include: (1) within 200 feet of a stop, (2) within ¼-mile of a stop, and (3) within ½-
+mile of a stop. Figure 1 lists the SB 79 maximum heights, densities (in units per acre), and floor area ratios
+(FAR) by tier and distance from each stop. Within these station areas, a housing development project would
+be principally permitted use on all properties zoned for residential, mixed use, and commercial uses up to
+the following limits, unless the local zoning is more permissive.
+
+Figure 1: SB 79 Allowed Heights and Densities by Tier and Distance from Transit Stops
+
+
+ Transit Stop                     Max Height       Max Density
+                      Radius                                          Max FAR
+ Tier                             (ft)             (units/ac)
+ 1 (BART,             200'        95               160                4.5
+ Caltrain)            1/4-mi      75               120                3.5
+                      1/2-mi      65               100                3
+ 2 (light rail,       200'        85               140                4
+ major bus            1/4-mi      65               100                3
+ stops)               1/2-mi      55               80                 2.5
+
+Distances are measured in “a straight line from the nearest edge of the parcel containing the proposed project
+to a pedestrian access point for the transit-oriented development stop.” This means that the relevant SB 79
+rules, or the more intensive of such rules, would apply to the entirety of a parcel if any portion of the parcel is
+within one of these radii.
+
+Figure 2 shows the eligible stops by tier as the Planning Department interprets eligibility as well as the
+applicable areas covered by each station area. The Metropolitan Planning Commission and the Association
+of Bay Area Governments (MTC/ABAG) have not yet published the authoritative map of qualifying transit
+
+
+
+
+                                                                                                                     4
+Executive Summary                                                                        Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                             Transit-Oriented Residential Development
+
+
+
+
+stations and their station area geographies under SB 79, which is the responsibility of each region’s
+metropolitan planning organization.
+
+Figure 2: Qualifying Tier 1 and Tier 2 Transit Stops and Qualifying Geographies at 200 ft., ¼ mi.,
+and ½ mi. Radii
+
+
+
+
+Figures 3 and 4 show how these height and density limits would apply to parcels in San Francisco’s
+applicable transit station areas. More than three-quarters of properties in San Francisco (120,000 parcels) fall
+within areas subject to SB 79. Approximately 75% of the parcels, covering approximately 65% of the City’s
+land area, would be subject to SB 79. Over 60% of the properties subject to SB 79 (75,000 parcels) are within
+the geography of the Family Zoning Plan.
+
+
+
+
+                                                                                                                5
+Executive Summary                                                                          Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                               Transit-Oriented Residential Development
+
+
+
+
+Figure 3: Default SB 79 Height Limits for Parcels within Qualifying Transit Stop Geographies
+
+
+
+
+Note: The Hunters Point Shipyard and Candlestick Point Redevelopment areas are not subject to the San Francisco
+Planning Code and have been removed from this map.
+
+
+
+
+                                                                                                                  6
+Executive Summary                                                                                 Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                                      Transit-Oriented Residential Development
+
+
+
+
+Figure 4: Default SB 79 Density Limits for Parcels within Qualifying Transit Stop Geographies
+
+
+
+
+Note: The Hunters Point Shipyard and Candlestick Point Redevelopment Areas are not subject to the San Francisco
+Planning Code and have been removed from this map.
+
+
+San Francisco’s Local Implementation Ordinance for SB 79
+The following map shows how San Francisco’s existing height maximums compare with what would be
+allowed by SB 79. Generally, San Francisco allows for taller buildings downtown and along transit and
+commercial corridors, while SB 79 heights are more evenly distributed across the city and are taller than
+existing heights in residential areas. Figure 5 illustrates this difference between the SB 79 default height
+limits and San Francisco’s existing height limits. 1
+
+1
+  It is important to note that while SB79 may allow for taller buildings in certain areas, such as residential areas, it does
+not necessarily permit more units (i.e. more housing density) per parcel than existing zoning permits. SB79 uses
+numerical density limits that are lower than what would typically be yielded through form-based zoning at the height
+limits set by the law. In other words, SB79 caps densities at levels assuming significantly larger average unit sizes than
+
+
+
+
+                                                                                                                                7
+Executive Summary                                                                              Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                                   Transit-Oriented Residential Development
+
+
+
+
+The proposed ordinance would permanently and temporarily exclude certain parcels, as described in the
+sections that follow, which will limit the parcels where SB 79 would be applicable. Even so, the existing
+zoning in most of San Francisco, particularly within the Family Zoning Plan area, as well as other dense areas
+of the city, already substantially exceeds the zoning standards of SB 79.
+
+Figure 5. Default SB 79 Height Limits Compared to Existing Height Limits
+
+
+
+
+Note: Redevelopment areas such as Mission Bay, Candlestick, and Hunter’s Point Shipyard, have height limits that are at
+or above the SB 79 default height limits. However, the city’s parcel map has not been updated to reflect both recently
+developed and planned parcel and street layouts in those areas. Additionally, the applicable existing height limits for
+those areas are contained within those redevelopment plans based on those unmapped block and street patterns. For
+these reasons, generalized information is shown in this map for those redevelopment areas.
+
+
+
+are typical in San Francisco multi-family buildings, and as such districts subject to form-based zoning typically would
+permit more units per parcel at lower height limits than are allowed under SB79 with taller height limits.
+
+
+
+
+                                                                                                                          8
+Executive Summary                                                                                Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                                     Transit-Oriented Residential Development
+
+
+
+
+Permanent Exclusions
+The ordinance permanently excludes three Industrial Employment Hubs in San Francisco from the
+provisions of SB 79. These permanent exclusions would help preserve specific land uses, the types of
+businesses and core city functions that operate there, and the jobs they support.
+
+As shown in Figure 6, the Industrial Employment Hubs are located in the SoMa/Mission, Bayshore/Central
+Waterfront, and Bayview neighborhoods and are 359 acres, 1,150 acres, and 247 acres, respectively. They
+have each been identified in the General Plan’s Commerce and Industry Element as designated industrial
+and employment areas. The 1,915 parcels excluded are zoned M (Industrial), SALI (Service/Arts/Light
+Industrial), PDR (Production, Distribution, Repair), WMUO (WSoMa Mixed Use-Office), and P (Public). The
+parcels are further detailed in the Table of Permanent Exclusions. 2 Note that there was a clerical error in the
+ordinance, it listed the zoning district WMUG when it should have been WMUO. This correction is
+recommended as a modification.
+
+
+
+
+2
+  It is important to note that further technical clarification on the law by HCD may result in several of these zoning
+districts not being subject to SB 79 regardless of inclusion in these “industrial employment hubs.” As HCD has not
+issued any interpretation of what it means for a property to be zoned for “commercial” uses, San Francisco is
+conservatively including all parcels in its qualifying industrial employment hubs in these permanent exclusions.
+
+
+
+
+                                                                                                                         9
+Executive Summary                                                                       Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                            Transit-Oriented Residential Development
+
+
+
+
+Figure 6: Industrial Employment Hubs that Qualify as Permanent Exclusions
+
+
+
+
+Temporary Exemptions
+Parcels in certain areas that are located in low resource census tracts, as identified by the California Tax
+Credit Allocation Committee (TCAC), would be temporarily exempted from the provisions of SB 79. The
+exemption would expire in 2032, one year after the City’s next Housing Element is due. The City would only
+apply this exemption to the low resource census tracts that are south of 16th street and in Mission Bay. By
+pursuing this exemption, it gives the City additional time to plan for increased housing capacity in these
+areas and to clarify the relationship of SB79 to certain redevelopment areas and potential future transit stops
+in these areas.
+
+The ordinance would not exempt low resource tracts north of 16th Street and outside of Mission Bay because
+those areas already allow for more housing capacity than dictated by SB 79 and few parcels would be
+affected by the provisions of SB 79. There are approximately 32,150 parcels in low resource census tracts that
+would be temporarily exempted as seen in Figure 7 and detailed in the Table of Temporary Exemptions-Low
+Resource Parcels.
+
+
+
+
+                                                                                                             10
+Executive Summary                                                                       Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                            Transit-Oriented Residential Development
+
+
+
+
+Figure 7: Temporarily Exempted Low Resource Tracts
+
+
+
+
+The Alternative Plan
+San Francisco is well-positioned to pursue an Alternative Plan in compliance with SB 79 given the recent
+adoption of the Family Zoning Plan, which allowed for increased housing capacity along transit and
+commercial corridors in an expansive portion of the city. The Family Zoning Plan, paired with housing
+capacity created through the City’s existing zoning, including past Area Plans, development agreements,
+redevelopment plans, and other legislation in recent years, such as allowing for 4 and 6-plexes in residential
+areas, created significant capacity for homes near transit. An Alternative Plan allows the City to maintain its
+tailored approach to planning for housing that recognizes the specific geographic nuances of the City, while
+still meeting the transit-oriented development goals and surpassing housing capacity targets of the state
+law.
+
+To qualify for the Alternative Plan, San Francisco must calculate the existing housing capacity and show that
+that the housing capacity and density under our Alternative Plan is greater that what would be allowed
+under SB 79. San Francisco meets this requirement, but it narrowly misses the requirements that each
+
+
+
+
+                                                                                                             11
+Executive Summary                                                                           Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                                Transit-Oriented Residential Development
+
+
+
+
+individual parcel within the SB 79 geographies, and each SB 79 station area, allow at least 50% of the density
+allowed by SB 79. To achieve this, the Department would allow additional density on parcels that do not
+meet the density requirement through a Planning Code amendment.
+
+
+Planning Code Amendment
+The proposed ordinance adds Section 207.11 (Transit-Oriented Development—Density and Height
+Exception) to the Planning Code, to permit additional density and height for residential projects on certain
+parcels within one-half mile of a transit-oriented development stop, in accordance with SB 79’s
+specifications.
+The exception would apply to residential development projects on parcels that meet all of the following
+conditions:
+    1. Is all or partially located within one-half mile of a “transit-oriented development stop,” as defined in
+        California Government Code Section 65912.156
+    2. Is located in a zoning district that principally permits residential uses.
+    3. Either limits housing density by numeric density or has a height limit of less than 40 feet.
+    4. Is located outside of the R-4 height and bulk district.
+    5. Is not seeking a density bonus pursuant to Section 206.6.
+    6. Is not a parcel permanently or temporarily exempted from SB 79 pursuant to the ordinance enacting
+        this Section 207.11.
+    7. Is not a parcel with a Historic Building that is individually designated as a landmark or listed as a
+        contributor to a historic district under Article 10 of this Code, or listed as a Significant or Contributory
+        Building under Article 11 with a Category I, II, III, or IV rating.
+    8. The permitted density prior to applying the density and height exception in subsection (c) does not
+        meet the minimum density required by California Government Code Section 65912.157.
+
+For parcels meeting the criteria above, the Density and Height Exception would be as follows:
+    • For any housing development project, the applicable residential density shall be up to 50% of the
+        density permitted on that parcel pursuant to the requirements in California Government Code
+        Section 65912.157.
+    • For any parcel that is partially located in the Coastal Zone, the density exception shall apply to the
+        entire parcel, however residential development shall be limited to the portions of the parcel located
+        outside of the Coastal Zone.
+    • For any housing development project located on a parcel with a height limit of less than 40 feet, the
+        applicable height limit shall be 40 feet.
+
+
+Parcels Subject to the Height and Density Exception in the Planning Code Amendment
+Prior to consideration of the temporary exemptions, there are approximately 2,080 parcels that permit
+housing and do not meet the 50% density requirement for an Alternative Plan and that otherwise would be
+eligible for additional density through the new density and height exception. The majority of parcels are
+within RH districts (1,817), 161 are in NC districts, 97 are in RM districts and 5 are in C districts. When factoring
+in the low resource tract temporary exemption, there are approximately 1,001 that would be eligible in the
+near-term, 930 of which are within RH districts. The median parcel would increase in density by 1 additional
+unit.
+
+
+
+                                                                                                                  12
+Executive Summary                                                                       Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                            Transit-Oriented Residential Development
+
+
+
+
+Additionally, this code provision would permit some owners of RH properties who are ineligible for the 4 and
+6-plex density allowance in Sec. 207 due to that provision’s ownership eligibility limitations, to be able to
+access the same density allowances for those parcels. (While the 4/6-plex provision typically allows at least
+50% of SB 79 densities, due to the parcel ownership eligibility limitations in that code section, this proposed
+code amendment would ensure the allowed density for all parcels meets the Alternative Plan criteria.) Figure
+8 shows the range of additional units that would be allowed in comparison with existing zoning and also
+shows the temporarily exempted low resource tracts to distinguish between near-term and long-term
+eligibility for the exception.
+
+
+Figure 8: Parcels that are < 50% of the SB 79 Density Requirement, Color-coded by Number of
+Additional Allowed Units Needed and with Exempted Low Resource Tracts
+
+
+
+
+                                                                                                             13
+Executive Summary                                                                            Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                                 Transit-Oriented Residential Development
+
+
+
+
+Demonstrating Capacity for the Alternative Plan
+When factoring in the permanent exclusions, temporary exemptions, and the increased capacity created by
+the Planning Code amendment, the City would meet the three primary requirements of an Alternative Plan.
+    • The total housing capacity and density in San Francisco is greater than what would be allowed under
+        SB 79. Using the methodology required by SB 79, the net Unit Capacity under SB 79 is about 644,500
+        units compared with the Alternative Plan’s 768,000 units. Similarly, SB 79 has a net floor area
+        capacity of about 758 million square feet in comparison with the Alternative Plan’s 946 million
+        square feet. SB 79 limits each individual parcel’s contributing capacity to just 200% of what SB 79
+        would allow. For this reason, much of the housing capacity in San Francisco is not counted in these
+        Alternative Plan totals. 3
+    • Additionally, with the Planning Code amendment creating Section 207.11 described above,
+            • Each individual parcel within the SB 79 geographies would allow at least 50% the density
+                allowed by SB 79, and
+            • Each station area, when aggregating the parcels within a half mile, would allow at least 50%
+                of the total unit capacity allowed by SB 79.
+
+For a detailed look and the housing capacity under the Alternative Plan, please see the Table Demonstrating
+Housing Capacity for the Alternative Plan.
+
+
+Other Issues and Considerations
+
+Transit-Agency Owned Land
+SB 79 allows transit agencies (such as Bart or Caltrain) to set their own zoning standards on land that they
+own within the transit station areas, but the densities and FAR cannot be lower than what is allowed under
+SB 79. If they choose to do this, the standards must define minimum zoning requirements for height, density,
+FAR, and allowed uses, and the standards must align with California Government Code Sec. 65912.157 (i.e.
+SB 79). The transit agency may set density standards up to 200 percent of the densities in SB 79, however the
+local government is not required to approve any height limit greater than those in SB 79. The Alternative Plan
+does not affect a transit agency’s ability to invoke this power under the law.
+
+
+Pending Data and Interpretations
+The Metropolitan Planning Commission and the Association of Bay Area Governments (MTC/ABAG) have not
+yet published the authoritative map of qualifying transit stations and their station area geographies under SB
+79, which is the responsibility of each region’s metropolitan planning organization. To date, the mapping
+analysis completed for this legislation uses the best available station area data, as was previously published
+by MTC/ABAG.
+
+
+
+
+3
+ For example, San Francisco’s actual zoned capacity in SB79 areas is approximately 940,000 units, but about 170,000 of
+this capacity cannot be counted under the Alternative Plan because it is on parcels where our allowed densities exceed
+200% of what SB 79 allows.
+
+
+
+
+                                                                                                                    14
+Executive Summary                                                                        Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                             Transit-Oriented Residential Development
+
+
+
+
+Subtle refinements are expected in the final mapping as geographically precise data on individual pedestrian
+access points to individual stations are published. There also remains some ambiguity as to the universe of
+qualifying Tier 2 bus stops; the Planning Department has taken a conservative approach to the mapping of
+stations and the Alternative Plan and included all potentially eligible stations, such that future refinement or
+interpretations of the Tier 2 definition may result in some stations being removed from the Department’s
+maps. Removal of a Tier 2 station from the Department’s map would not impact the text of the Planning
+Code amendment, or the Alternative Plan. The Planning Department has been and continues to be in close
+communication with MTC, HCD and the sponsors of SB79.
+
+The California Department of Housing and Community Development (HCD) is more broadly charged in SB 79
+with publishing guidelines and interpretations of the legislation. Pending those future determinations by
+MTC/ABAG and HCD, there may be changes to the analysis, particularly in response to the final list and map
+of eligible stations and the specific measured geographies. The Planning Department will update this
+analysis if new guidance is made available.
+
+
+California Department of Housing and Community Development (HCD) Transmittal and Approval
+SB 79 requires that local jurisdictions submit a draft of their implementing ordinance to HCD at least 14 days
+in advance of adoption. The Department has already sent HCD the ordinance. Additionally, after the
+ordinance is adopted, HCD has up to 120 days to review, make a finding as to whether the enacted ordinance
+complies with the law, and report that finding to the local government.
+
+
+General Plan Compliance
+The intent of SB 79 is to promote homes near transit, and San Francisco will continue to do that through its
+Alternative Plan. The Alternative Plan meets the transit-oriented goals and greatly surpasses the housing
+capacity of SB 79, primarily by maintaining the existing zoning, but also by augmenting density on some
+parcels to meet the Alternative Plan requirements. As such, the proposed ordinance is consistent with
+multiple 2022 Housing Element objectives and policies related to increasing housing capacity, expanding
+housing choice, and supporting equitable access to transit and community resources.
+
+The proposed ordinance promotes Objective 4.B by enabling additional height and density near station-area
+parcels, directly supporting Policy 20 to increase mid-rise and small multifamily housing in transit-rich
+neighborhoods; Policy 28 to strengthen implementation of state housing law; and Policy 31 to facilitate small
+and mid-rise housing that can be feasibly produced for middle-income households without deed
+restrictions. It also furthers Objective 4.C by expanding and diversifying the housing types available citywide,
+supporting Policy 32 to promote aging in place and multigenerational living and Policy 33 to prevent the
+out-migration of families with children by creating more opportunities for diverse housing types near transit.
+
+The proposed ordinance additionally advances Objective 5.A by strengthening connections between
+housing, jobs, and neighborhood resources through equitable and transit-supportive land-use decisions: it
+supports Policy 37 by facilitating neighborhoods where daily needs can be met without reliance on private
+vehicles and aligns with Policy 38 by ensuring transportation investments and new housing capacity are
+coordinated.
+
+
+
+
+                                                                                                              15
+Executive Summary                                                                      Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                           Transit-Oriented Residential Development
+
+
+
+
+Furthermore, by permanently excluding the three industrial employment hubs, and therefore protecting
+certain types of businesses and core functions in the city as well as the jobs they support, the proposed
+ordinance is consistent with the Commerce and Industry Element of the General Plan. Protecting these
+industrial businesses and employment opportunities, as well as their separation from residential uses is also
+consistent with the Mission, Showplace Square/Potrero, Central Waterfront, and Bayview Hunters Point Area
+Plans.
+
+
+Racial and Social Equity Analysis
+The proposed ordinance is anticipated to have broadly positive racial and social equity implications because
+it increases housing capacity near transit. By amending the Planning Code to allow modest increases in
+density for certain parcels within designated station-area geographies, the ordinance expands housing
+opportunities for households.
+
+The primary beneficiaries of the proposed ordinance include transit-dependent households, middle-income
+workers, and residents who face high housing cost burdens but lack access to homes near reliable transit
+service. By enabling more multifamily housing options across diverse parts of the city near transit, the
+ordinance supports improved access to jobs, services, and educational opportunities for communities
+historically excluded from these areas.
+
+The temporary exemption for low-resource tracts helps prevent additional development pressure in
+neighborhoods with existing vulnerability to displacement, ensuring that these communities are not
+burdened by rapid changes before adequate planning and anti-displacement strategies are in place.
+However, it is important to note that the impact will be very minimal as the total number of parcels that will
+increase in permitted density though this action in the short term are around 1,000, and in the long-term just
+around 2,000. Still, this phased approach allows the City to engage in more extensive engagement in
+vulnerable communities while still complying with state housing requirements.
+
+
+Implementation
+The Department has determined that this ordinance will impact our current implementation procedures in
+the following ways:
+    • The Department would share information with the public regarding SB 79 geographies, both showing
+         the station areas on the map and providing information at the parcel level using San Francisco’s
+         Property Information Map (PIM). This will include the relevant station areas, distances, and allowed
+         densities for the purpose of the density and height exception contained in the proposed Planning
+         Code amendment, as well as information about which parcels have temporary exemptions or
+         permanent exclusions. To determine if a parcel is eligible for additional density as allowed by the
+         density and height exception in new Planning Code section 207.11, Planning staff or a member of the
+
+
+
+
+                                                                                                            16
+Executive Summary                                                                       Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                            Transit-Oriented Residential Development
+
+
+
+
+        public would need to look up the parcel on PIM to access that information.
+
+
+Recommendation
+The Department recommends that the Commission adopt a recommendation for approval with
+modifications of the proposed ordinance and adopt the attached Draft Resolution to that effect.
+
+The modification is to correct a clerical error. WMUG should be changed to WMUO.
+
+
+Basis for Recommendation
+SB 79 provides an option for jurisdictions to adopt an Alternative Plan, allowing them to fulfill the transit-
+oriented development goals in a more customized locally-tailored way that respects planning and zoning
+efforts undertaken by local jurisdictions. Just months ago, the City adopted a comprehensive plan to
+increase housing capacity throughout a large swath of the city, with an emphasis on transit and commercial
+corridors. This effort, combined with existing zoning elsewhere that have been put in place by numerous
+planning and legislative efforts over the past couple decades, makes San Francisco a strong candidate for an
+Alternative Plan. The proposed Planning Code amendment introducing a new density and height exception
+would make only modest changes to the housing capacity on a limited number of parcels, primarily in the
+southern and eastern parts of the City. This Planning Code amendment would ensure that the City would
+comply with the basic requirements of an Alternative Plan under SB 79.
+
+
+Required Commission Action
+The proposed Ordinance is before the Commission so that it may adopt a recommendation of approval,
+disapproval, or approval with modifications.
+
+
+Environmental Review
+Pursuant to Government Code Section 65912.160 (c)(2), a local ordinance implementing SB 79 is not a
+project subject to CEQA.
+
+
+Public Comment
+As of the date of this report, the Department has not received any written public comment regarding the
+proposed ordinance.
+
+To share information about SB 79 Implementation, the Department has held two public webinars, and
+provided presentations to various neighborhood groups, supervisors, and planning commissioners.
+
+
+
+
+                                                                                                             17
+Executive Summary                                                                   Case No. 2026-001412PCA
+Hearing Date: March 19, 2026                                        Transit-Oriented Residential Development
+
+
+
+
+ATTACHMENTS:
+Exhibit A:      Draft Planning Commission Resolution
+Exhibit B:      Draft Ordinance [Board File No. 260132]
+
+Tables and other documents associated with Board File No. 260132 can be found here: City and County of
+San Francisco - File #: 260132
+
+
+
+
+                                                                                                         18
+                                  Planning Commission
+                                    Draft Resolution
+                                 HEARING DATE: March 19, 2026
+
+Project Name:    Transit-Oriented Residential Development (SB 79 Implementation)
+Case Number:     2026-001412PCA [Board File No. 260132]
+Initiated by:    Mayor Daniel Lurie / Introduced February 10, 2026
+Staff Contact:   Sarah Richardson, Planner
+                 sarah.richardson@sfgov.org, 628-652-7450
+Reviewed by:     Joshua Switzky, Deputy Director of Community Planning
+                 joshua.switzky@sfgov.org, 628-652-7464
+
+RESOLUTION ADOPTING A RECOMMENDATION FOR APPROVAL OF A PROPOSED ORDINANCE THAT 1)
+TEMPORARILY EXCLUDES CERTAIN SITES FROM THE PROVISIONS OF CALIFORNIA SENATE BILL NO. 79
+(SB 79) THAT REQUIRE LOCAL JURISDICTIONS TO ALLOW RESIDENTIAL USES AT VARIOUS DENSITIES,
+HEIGHTS, AND FLOOR AREA RATIOS ON SITES WITHIN ONE-HALF MILE OF A TRANSIT-ORIENTED
+DEVELOPMENT STOP; 2) PERMANENTLY EXCLUDES FROM THOSE PROVISIONS OF SB 79 SITES LOCATED
+IN INDUSTRIAL EMPLOYMENT HUBS, INCLUDING CERTAIN SITES ZONED M (INDUSTRIAL), SALI
+(SERVICE/ARTS/LIGHT     INDUSTRIAL),    PDR     (PRODUCTION,     DISTRIBUTION,     REPAIR),
+WMUG (WSOMA MIXED USE-GENERAL), AND P (PUBLIC), AND SITES WITH A WALKING PATH OF MORE
+THAN ONE MILE TO THE CLOSEST TRANSIT DEVELOPMENT STOP; 3) AMENDS THE PLANNING CODE TO
+PERMIT ADDITIONAL DENSITY AND HEIGHT FOR RESIDENTIAL PROJECTS ON CERTAIN PARCELS WITHIN
+ONE-HALF MILE OF A TRANSIT-ORIENTED DEVELOPMENT STOP; 4) ADOPTS AN ALTERNATIVE PLAN TO SB
+79, INCLUDING MAKING FINDINGS THAT THE ALTERNATIVE PLAN PROVIDES EQUIVALENT DEVELOPMENT
+CAPACITY; 5) MAKES FINDINGS THAT THESE EXEMPTIONS AND THE CITY’S RESIDENTIAL CAPACITY MEET
+THE REQUIREMENTS OF SB 79; AND 6) DIRECTS THE CLERK OF THE BOARD OF SUPERVISORS TO
+TRANSMIT A COPY OF THIS ORDINANCE TO THE CALIFORNIA DEPARTMENT OF HOUSING AND
+COMMUNITY DEVELOPMENT; AFFIRMING THE PLANNING DEPARTMENT’S DETERMINATION UNDER THE
+CALIFORNIA ENVIRONMENTAL QUALITY ACT; MAKING FINDINGS OF CONSISTENCY WITH THE GENERAL
+PLAN, AND THE EIGHT PRIORITY POLICIES OF PLANNING CODE, SECTION 101.1; AND MAKING FINDINGS
+OF PUBLIC NECCESSITY, CONVENIENCE, AND WELFARE UNDER PLANNING CODE, SECTION 302.
+
+WHEREAS, the California State Senate Bill 79 (SB 79), the Abundant and Affordable Homes Near Transit Act
+was signed into law by Governor Newsom on October 10, 2025, and take effect on July 1, 2026; and
+Resolution                                                                               Case No. 2026-001412PCA
+March 19, 2026                                                           Transit-Oriented Residential Development
+
+
+
+
+WHEREAS, SB 79 sets zoning rules for minimum permitted height and density limits for housing within a ½
+mile radius of major transit stops for all properties zoned for residential, mixed use, and commercial uses;
+and
+
+WHEREAS, SB 79 allows for the ministerial approval of certain housing projects in transit station areas under
+the streamlining provisions of SB 423; and
+
+WHEREAS, SB 79 allows local jurisdictions to adopt a local alternative plan (Alternative Plan) via ordinance,
+which prevents SB 79 from taking effect in that jurisdiction, provided that the Alternative Plan meets certain
+housing capacity requirements; and
+
+WHEREAS, SB 79 allows local jurisdictions to permanently excludes certain parcels meeting specified
+criteria, and temporarily exempt certain parcels meeting specified criteria, via ordinance, from SB 79’s
+provisions; and
+
+WHEREAS, on February 10, 2026 Mayor Daniel Lurie introduced a proposed ordinance (Board File Number
+260132), which would 1) temporarily exclude parcels within certain low resource census tracts from the
+provisions of SB 79; 2) permanently exclude certain parcels located in Industrial Employment Hubs from
+the provisions of SB 79; 3) amend Article 2 of the Planning Code to add Section 207.11 Transit- Oriented
+Development—Density and Height Exception to permit additional density and height for residential
+projects on certain parcels within one-half mile of a transit-oriented development stop; 4) adopt an
+Alternative Plan that meets the requirements of SB 79; and 5) make findings that the combination of
+exclusions, the Planning Code amendment, and the City’s residential capacity meet the requirements of
+SB 79.
+
+WHEREAS, the Planning Commission (hereinafter “Commission”) conducted a duly noticed public hearing
+at a regularly scheduled meeting to consider the proposed ordinance on March 19, 2026; and,
+
+WHEREAS, the proposed ordinance has been determined to not be a project subject to CEQA, pursuant to
+Government Code Section 65912.160 (c)(2); and
+
+WHEREAS, the Commission has heard and considered the testimony presented to it at the public hearing
+and has further considered written materials and oral testimony presented on behalf of Department staff
+and other interested parties; and
+
+WHEREAS, all pertinent documents may be found in the files of the Department, as the Custodian of
+Records, at 49 South Van Ness Avenue, Suite 1400, San Francisco; and
+
+WHEREAS, the Commission has reviewed the proposed Ordinance; and
+
+WHEREAS, the Commission finds from the facts presented that the public necessity, convenience, and
+general welfare require the proposed amendment; and
+
+MOVED, that the Commission hereby adopts a recommendation for approval with modifications of the
+proposed ordinance.
+
+
+
+                                                                                                                 2
+Resolution                                                                              Case No. 2026-001412PCA
+March 19, 2026                                                          Transit-Oriented Residential Development
+
+
+
+
+MOVED, that the Commission recommends fixing the clerical error WMUG and changing it to WMUO.
+
+
+
+Findings
+Having reviewed the materials identified in the preamble above, and having heard all testimony and
+arguments, this Commission finds, concludes, and determines as follows:
+
+The City recently adopted the Family Zoning Plan which increased housing capacity throughout a large
+swath of the city, with an emphasis on transit and commercial corridors. This paired with housing capacity
+created through the City’s existing zoning, including past Area Plans, development agreements,
+redevelopment plans, and other legislation in recent years, such as that allowing for 4 and 6-plexes in
+residential areas, created significant capacity for homes near transit.
+
+The industrial employment hub permanent exclusions included in the proposed ordinance help preserve
+specific land uses, the types of businesses and core city functions that operate there, and the jobs they
+support. The industrial employment hubs identified in the ordinance satisfy the requirements of SB 79.
+
+The proposed ordinance identifies parcels within low resource census tract, which are eligible for the
+temporary exemptions in SB 79. Exempting these parcels allows for additional time to plan for increased
+housing capacity in these areas and to clarify the relationship of SB79 to certain redevelopment areas and
+potential future transit stops in these areas.
+
+Amending the Planning Code to allow for additional density on a limited number of parcels throughout the
+city, combined with existing housing capacity near transit throughout the city, is anticipated to have
+modest but broadly positive racial and social equity implications. It has the potential to enable more
+multifamily housing options across the city that could benefit transit-dependent households, middle-
+income workers, and residents who face high housing cost burdens but lack access to homes near transit.
+
+Using the methodology required by SB 79, the Alternative Plan has a net unit and net floor area capacity
+that is greater than what would be allowed by SB 79. The Alternative Plan allows the City to maintain its
+tailored approach to planning for housing that recognizes the specific geographic nuances of the city, while
+still meeting the transit-oriented development goals and housing capacity targets of Senate Bill 79.
+
+
+General Plan Compliance
+The proposed ordinance is consistent with the following Objectives and Policies of the General Plan:
+
+HOUSING ELEMENT
+
+OBJECTIVE 4.B
+EXPAND SMALL AND MID-RISE MULTI-FAMILY HOUSING PRODUCTION TO SERVE OUR
+WORKFORCE, PRIORITIZING MIDDLE-INCOME HOUSEHOLDS
+
+
+
+
+                                                                                                               3
+Resolution                                                                               Case No. 2026-001412PCA
+March 19, 2026                                                           Transit-Oriented Residential Development
+
+
+
+
+Policy 20
+Increase mid-rise and small multi-family housing types by adopting zoning changes or density bonus
+programs in Well-resourced Neighborhoods and adjacent lower-density areas near transit, including
+along SFMTA Rapid Network and other transit.
+
+Policy 28
+Affirm compliance in State housing law, requirements, and intent by strengthening data collection,
+clarifying definitions, and further supporting implementation.
+
+Policy 31
+Facilitate small and mid-rise multi-family buildings that private development can deliver to serve
+middle-income households without deed restriction, including through adding units in lower density
+areas or by adding Accessory Dwelling Units (ADUs).
+
+OBJECTIVE 4.C
+EXPAND AND DIVERSIFY HOUSING TYPES FOR ALL
+
+Policy 32
+Promote and facilitate aging in place for seniors and multi-generational living that supports extended
+families and communal households.
+
+Policy 33
+Prevent the outmigration of families with children and support the needs of families to grow.
+
+OBJECTIVE 5.A
+CONNECT PEOPLE TO JOBS AND THEIR NEIGHBORHOOD WITH NUMEROUS, EQUITABLE, AND
+HEALTHY TRANSPORTATION AND MOBILITY OPTIONS
+
+Policy 37
+Facilitate neighborhoods where proximity to daily needs and high-quality community services and
+amenities promotes social connections, supports caregivers, reduces the need for private auto travel,
+and advances healthy activities.
+
+Policy 38
+Ensure transportation investments create equitable access to transit and are planned in parallel with
+increase in housing capacity to advance well-connected neighborhoods consistent with the Cityʼs
+Connect SF vision, and encourage sustainable trips in new housing.
+
+The proposed ordinance recognizes and maintains the City’s existing transit-oriented development while
+modestly increasing housing capacity near some major transit stations, primarily in residential areas in the
+southern and eastern parts of the city. These housing types could range from small to large housing types, but
+a large portion would facilitate additional density in small to medium sized housing developments. As such,
+the proposed ordinance promotes housing near transit, which supports objectives and policies related to
+growing the housing stock and specifically for the populations that may be impacted by the housing shortage
+
+
+
+
+                                                                                                                 4
+Resolution                                                                              Case No. 2026-001412PCA
+March 19, 2026                                                          Transit-Oriented Residential Development
+
+
+
+
+or that could benefit from additional housing near transit. Furthermore, as this is a local implementing
+ordinance for State Senate Bill 79, the proposed ordinance affirms compliance with state law.
+
+
+COMMERCE AND INDUSTRY ELEMENT
+
+OBJECTIVE 1
+MANAGE ECONOMIC GROWTH AND CHANGE TO ENSURE ENHANCEMENT OF THE TOTAL CITY
+LIVING AND WORKING ENVIRONMENT.
+
+Policy 1.3
+Locate commercial and industrial activities according to a generalized commercial and industrial land
+use plan.
+
+OBJECTIVE 2
+MAINTAIN AND ENHANCE A SOUND AND DIVERSE ECONOMIC BASE AND FISCAL STRUCTURE
+FOR THE CITY.
+
+Policy 2.1
+Seek to retain existing commercial and industrial activity and to attract new such activity to the city.
+
+OBJECTIVE 4
+IMPROVE THE VIABILITY OF EXISTING INDUSTRY IN THE CITY, THE EQUITABLE
+DISTRIBUTION OF INFRASTRUCTURE, AND THE ATTRACTIVENESS OF THE CITY AS A
+LOCATION FOR NEW INDUSTRY.
+
+Policy 4.3
+Carefully consider public actions that displace existing viable industrial firms.
+
+Policy 4.5
+Control encroachment of incompatible land uses on viable industrial activity.
+
+MISSION AREA PLAN
+
+OBJECTIVE 1.1
+STRENGTHEN THE MISSIONʼS EXISTING MIXED USE CHARACTER, WHILE MAINTAINING THE
+NEIGHBORHOOD AS A PLACE TO LIVE AND WORK
+
+Policy 1.1.1
+Revise land use controls in some portions of the Northeast Mission Industrial Zone to stabilize and
+promote PDR activities, as well as the arts, by prohibiting construction of new housing and limiting the
+amount of office and retail uses that can be introduced. Also place limitations on heavier industrial
+activities which may not be appropriate for the Mission.
+
+BAYVIEW HUNTERS POINT AREA PLAN
+
+
+
+                                                                                                               5
+Resolution                                                                                Case No. 2026-001412PCA
+March 19, 2026                                                            Transit-Oriented Residential Development
+
+
+
+
+OBJECTIVE 8
+STRENGTHEN THE ROLE OF BAYVIEWʼS INDUSTRIAL SECTOR IN THE ECONOMY OF THE
+DISTRICT, THE CITY, AND THE REGION.
+
+Policy 8.1
+Maintain industrial zones for production, distribution, and repair activities in the Northern Gateway,
+South Basin, Oakinba, and India Basin Industrial Park subdistricts.
+
+SHOWPLACE SQUARE/POTRERO AREA PLAN
+
+OBJECTIVE 1.7
+RETAIN THE ROLE OF SHOWPLACE SQUARE AS AN IMPORTANT LOCATION FOR PRODUCTION,
+DISTRIBUTION, AND REPAIR (PDR) ACTIVITIES, FOCUSING IN PARTICULAR ON DESIGN
+RELATED ACTIVITIES.
+
+Policy 1.7.1
+In areas designated for PDR, protect the stock of existing buildings used by, or appropriate for, PDR
+businesses by restricting conversions of industrial buildings to other building types and discouraging the
+demolition of sound PDR buildings.
+
+CENTRAL WATERFRONT AREA PLAN
+
+OBJECTIVE 1.1
+ENCOURAGE THE TRANSITION OF PORTIONS OF THE CENTRAL WATERFRONT TO A MORE
+MIXED-USE CHARACTER, WHILE PROTECTING THE NEIGHBORHOODʼS CORE OF PDR USES AS
+WELL AS THE HISTORIC DOGPATCH NEIGHBORHOOD
+
+Policy 1.1.1
+In the core PDR area generally south of 23rd Street, protect and promote PDR activities, as well as the arts,
+by prohibiting construction of new housing and limiting the amount of new office and retail uses.
+
+The proposed ordinance excludes from the provisions of SB 79 the parcels contained within three Industrial
+Employment Hubs, as permitted and defined by California Government Code §65912.155-162. By excluding
+these parcels, the land uses, types of businesses and core city functions that operate on them, and the
+employment opportunities they create are maintained. This fulfills the above objectives and policies which
+call for preserving industrial in nature businesses and production, distribution, and repair land uses within
+these specific areas of San Francisco.
+
+
+Planning Code Section 101 Findings
+The proposed amendments to the Planning Code are consistent with the eight Priority Policies set forth in
+Section 101.1(b) of the Planning Code in that:
+
+    1. That existing neighborhood-serving retail uses be preserved and enhanced and future
+
+
+
+                                                                                                                 6
+Resolution                                                                              Case No. 2026-001412PCA
+March 19, 2026                                                          Transit-Oriented Residential Development
+
+
+
+
+        opportunities for resident employment in and ownership of such businesses enhanced;
+
+        The proposed ordinance would not have a negative effect on neighborhood serving retail uses and
+        will not have a negative effect on opportunities for resident employment in and ownership of
+        neighborhood-serving retail.
+
+    2. That existing housing and neighborhood character be conserved and protected in order to preserve
+       the cultural and economic diversity of our neighborhoods;
+
+        The proposed ordinance would not have a negative effect on housing or neighborhood character.
+
+    3. That the City’s supply of affordable housing be preserved and enhanced;
+
+        The proposed ordinance would not have an adverse effect on the City’s supply of affordable housing.
+        The proposed ordinance would maintain and increase the supply of housing.
+
+    4. That commuter traffic not impede MUNI transit service or overburden our streets or neighborhood
+       parking;
+
+        The proposed ordinance would not result in commuter traffic impeding MUNI transit service or
+        overburdening the streets or neighborhood parking. The proposed ordinance reaffirms and enhances
+        the City’s planning for additional housing in transit-served areas.
+
+    5. That a diverse economic base be maintained by protecting our industrial and service sectors from
+       displacement due to commercial office development, and that future opportunities for resident
+       employment and ownership in these sectors be enhanced;
+
+        The proposed ordinance maintains the City’s areas zoned for industrial and service sectors. It would
+        not cause displacement of the industrial or service sectors due to office development, and future
+        opportunities for resident employment or ownership in these sectors would not be impaired.
+
+    6. That the City achieve the greatest possible preparedness to protect against injury and loss of life in
+       an earthquake;
+
+        The proposed ordinance would not have an adverse effect on City’s preparedness against injury and
+        loss of life in an earthquake.
+
+    7. That the landmarks and historic buildings be preserved;
+
+        The proposed ordinance would not have an adverse effect on the City’s Landmarks and historic
+        buildings.
+
+    8. That our parks and open space and their access to sunlight and vistas be protected from
+       development;
+
+        The proposed ordinance would not have an adverse effect on the City’s parks and open space and
+        their access to sunlight and vistas.
+
+
+
+                                                                                                                7
+Resolution                                                                           Case No. 2026-001412PCA
+March 19, 2026                                                       Transit-Oriented Residential Development
+
+
+
+
+Planning Code Section 302 Findings.
+The Planning Commission finds from the facts presented that the public necessity, convenience and
+general welfare require the proposed amendments to the Planning Code as set forth in Section 302.
+
+
+NOW THEREFORE BE IT RESOLVED that the Commission hereby ADOPTS A RECOMMENDATION FOR
+APPROVAL WITH MODIFICATIONS of the proposed ordinance as described in this Resolution.
+
+I hereby certify that the foregoing Resolution was adopted by the Commission at its meeting on March 19,
+2026.
+
+
+
+
+Jonas P. Ionin
+Commission Secretary
+
+
+
+
+AYES:
+NOES:
+ABSENT:
+ADOPTED:
+
+
+
+
+                                                                                                            8
+     FILE NO.                                       ORDINANCE NO.
+
+
+
+
+1    [Planning Code - Transit-Oriented Residential Development]
+
+2
+
+3    Ordinance 1) temporarily excluding certain sites from the provisions of California
+
+4    Senate Bill No. 79 (SB 79) that require local jurisdictions to allow residential uses at
+
+5    various densities, heights, and floor area ratios on sites within one-half mile of a
+
+6    transit-oriented development stop; 2) permanently excluding from those provisions of
+
+7    SB 79 sites located in industrial employment hubs, including certain sites zoned M
+
+8    (Industrial), SALI (Service/Arts/Light Industrial), PDR (Production, Distribution, Repair),
+
+9    WMUG (WSoMa Mixed Use-General), and P (Public), and sites with a walking path of
+
+10   more than one mile to the closest transit development stop; 3) amending the Planning
+
+11   Code to permit additional density and height for residential projects on certain parcels
+
+12   within one-half mile of a transit-oriented development stop; 4) adopting an Alternative
+
+13   Plan to SB 79, including making findings that the Alternative Plan provides equivalent
+
+14   development capacity; 5) making findings that these exemptions and the City’s
+
+15   residential capacity meet the requirements of SB 79; and 6) directing the Clerk of the
+
+16   Board of Supervisors to transmit a copy of this ordinance to the California Department
+
+17   of Housing and Community Development; and affirming the Planning Department’s
+
+18   determination under the California Environmental Quality Act; making findings of
+
+19   consistency with the General Plan and the eight priority policies of Planning Code,
+
+20   Section 101.1; and making public necessity, convenience, and welfare findings under
+
+21   Planning Code, Section 302.
+
+22         NOTE:     Unchanged Code text and uncodified text are in plain Arial font.
+                     Additions to Codes are in single-underline italics Times New Roman font.
+23                   Deletions to Codes are in strikethrough italics Times New Roman font.
+                     Board amendment additions are in double-underlined Arial font.
+24                   Board amendment deletions are in strikethrough Arial font.
+                     Asterisks (* * * *) indicate the omission of unchanged Code
+25                   subsections or parts of tables.
+
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                       Page 1
+1
+            Be it ordained by the People of the City and County of San Francisco:
+2
+            Section 1. Environmental and Land Use Findings.
+3
+            (a) On _______, pursuant to California Government Code Section 65912.160(c)(2),
+4
+     the Planning Department determined that this ordinance is not a project for purposes of the
+5
+     California Environmental Quality Act (California Public Resources Code Sections 21000 et
+6
+     seq.). Said determination is on file with the Clerk of the Board of Supervisors in File No.
+7
+     _____ and is incorporated herein by reference. The Board affirms this determination.
+8
+            (b) On __________, the Planning Commission, in Resolution No. __________,
+9
+     adopted findings that the actions contemplated in this ordinance are consistent, on balance,
+10
+     with the City’s General Plan and eight priority policies of Planning Code Section 101.1. The
+11
+     Board adopts these findings as its own. A copy of said Resolution is on file with the Clerk of
+12
+     the Board of Supervisors in File No. __________, and is incorporated herein by reference.
+13
+            (c) Pursuant to Planning Code Section 302, this Board finds that these Planning Code
+14
+     amendments will serve the public necessity, convenience, and welfare for the reasons set
+15
+     forth in Planning Commission Resolution No. _________, and the Board adopts such reasons
+16
+     as its own. A copy of said resolution is on file with the Clerk of the Board of Supervisors in File
+17
+     No. _________ and is incorporated herein by reference.
+18
+            (d) In Planning Commission Resolution No. ______, the Planning Commission also
+19
+     adopted findings regarding the City’s implementation of and compliance with Senate Bill
+20
+     (“SB”) 79, found in California Government Code Sections 65912.155 through 65912.162. The
+21
+     findings relate to parcels excluded from SB 79, and the City’s alternative plan. The Board
+22
+     adopts these findings as its own, and incorporates the findings by reference.
+23
+
+24
+            Section 2. Additional Findings.
+25
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                          Page 2
+1           (a) On October 10, 2025, the Legislature enacted SB 79 . SB 79 takes effect on July
+
+2    1, 2026, and will require local governments to permit residential development on sites within
+
+3    one-half mile of defined transit-oriented development stops, up to specified density limits, floor
+
+4    area ratios, and height limits. The applicable standards vary according to the type of transit
+
+5    stop and the site’s distance from the stop.
+
+6           (b) A local government may declare that certain parcels in the ½ mile radius of a
+
+7    transit-oriented development stop (a “transit-oriented development zone”) are permanently
+
+8    exempt from SB 79 if those sites meet specified criteria in California Government Code
+
+9    Section 65912.160(e). Section 3 of this ordinance exempts certain parcels from SB 79
+
+10   pursuant to California Government Code Section 65912.160, and makes findings in support of
+
+11   the exemptions.
+
+12          (c) A local government may also declare that certain parcels in transit-oriented
+
+13   development zones are temporarily exempt from SB 79, if those sites meet specified criteria in
+
+14   California Government Code Section 65912.161(b). The temporary exemption expires one
+
+15   year following the adoption of the next revision of the jurisdiction’s housing element in its
+
+16   general plan. Section 4 of this ordinance temporarily exempts certain parcels from SB 79
+
+17   pursuant to California Government Code Section 65912.161, and makes findings in support of
+
+18   the temporary exemptions.
+
+19          (d) On December 12, 2025, the City enacted Ordinance Nos. 243-25, 244-25, and
+
+20   245-25, also known as the “Family Zoning Plan.” The Family Zoning Plan, through
+
+21   amendments to the Planning Code and Zoning Maps, created increased capacity for multi-
+
+22   family housing primarily in San Francisco’s well-resourced and relatively less populated
+
+23   neighborhoods.
+
+24          (e) Based on a preliminary analysis, the Planning Department estimates that SB 79
+
+25   applies to more than 75% of the assessor’s parcels in the City, covering approximately 65% of
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                            Page 3
+1    the City on a land area basis. There is significant overlap between the transit-oriented
+
+2    development zones specified in SB 79 and the areas subject to the Family Zoning Plan.
+
+3    While the Family Zoning Plan significantly expanded the Residential Capacity for many sites
+
+4    that would be subject to SB 79, existing zoning in many places both inside and outside of the
+
+5    Family Zoning Plan area already substantially exceeds the zoning standards of SB 79.
+
+6           (f) A local government may adopt a transit-oriented development alternative plan
+
+7    (“Alternative Plan”) consistent with California Government Code Section 65912.161(a). The
+
+8    City’s existing zoning is sufficient to meet most of the criteria for an Alternative Plan. But the
+
+9    zoning for some parcels in transit-oriented development zones does not meet the minimum
+
+10   density requirement, which requires that every parcel whose zoning permits housing in an
+
+11   Alternative Plan allow at least 50% of the permitted SB 79 density, as measured in permitted
+
+12   residential density per acre. This individual parcel density allowance is one of the
+
+13   requirements for an Alternative Plan. Section 5 of this ordinance adopts modest zoning
+
+14   changes on these parcels to satisfy the minimum SB 79 requirements.
+
+15          (g) If a local government adopts an Alternative Plan, the state-mandated zoning
+
+16   provisions of SB 79, in California Government Code Section 65912.157, will not apply in that
+
+17   jurisdiction until its next Housing Element cycle. Section 6 of this ordinance adopts the City’s
+
+18   Alternative Plan to SB 79 pursuant to California Government Code Sections 65912.160 and
+
+19   65912.161.
+
+20          (h) At least 14 days prior to the adoption of an ordinance pursuant to SB 79, local
+
+21   governments must submit a draft ordinance to the Department of Housing and Community
+
+22   Deveopment (“HCD”). On _______, the Planning Department transmitted a draft of this
+
+23   ordinance to HCD for review, in accordance with California Government Code Section
+
+24   65912.160. A copy of this correspondence is on file with the Clerk of the Board in File No.
+
+25   _______.
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                          Page 4
+1           (i) Following enactment of this ordinance, the City must submit a copy of the ordinance
+
+2    to HCD within 60 days.
+
+3
+
+4           Section 3. Sites Permanently Exempt From SB 79.
+
+5           Consistent with California Government Code Section 65912.160(e), a local government
+
+6    may declare that parcels in transit-oriented zones are permanently exempt from the state-
+
+7    mandated zoning provisions in Government Code Section 65912.157, if the local government
+
+8    makes findings supported by substantial evidence that: (1) there exists no walking path of less
+
+9    than one mile between that parcel and the transit-oriented development stop; or (2) the parcel
+
+10   is part of an industrial employment hub, as defined in Government Code Section
+
+11   65912.160(e). The Planning Commission, in Resolution No. ______, found that the parcels
+
+12   listed in “Table of Permanent Exclusions,” on file with the Clerk of the Board of Supervisors in
+
+13   Board File No. ______, are exempt from SB 79 because they satisfy one or both of these
+
+14   criteria. The Board affirms these findings, adopts them as its own, and permanently exempts
+
+15   the listed parcels from SB 79.
+
+16
+
+17          Section 4. Sites Temporarily Exempt From SB 79.
+
+18          Consistent with California Government Code Section 65912.161(b), a local government
+
+19   may declare that parcels in transit-oriented zones are temporarily exempt from the state-
+
+20   mandated zoning provisions in Government Code Section 65912.157. The exemption expires
+
+21   one year following the adoption of the jurisdiction’s seventh housing element revisions.
+
+22   Parcels eligible for this temporary exemption include parcels in an area designated as low
+
+23   resource on the most recently adopted version of the opportunity area maps published by the
+
+24   California Tax Credit Allocation Committee, within a jurisdiction that cumulatively allows for at
+
+25   least 50% of the Residential Capacity required by SB 79. The Planning Commission, in
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                        Page 5
+1    Resolution No. ______, found that the parcels listed in “Table of Temporary Exemptions-Low
+
+2    Resource Parcels,” on file with the Clerk of the Board of Supervisors in Board File No.
+
+3    ______, meet one or more of these criteria and are exempt from SB 79. The Board affirms
+
+4    these findings, adopts them as its own, and exempts the listed parcels from SB 79.
+
+5
+
+6           Section 5. Article 2 of the Planning Code is hereby amended by adding Section 207.11
+
+7    to read as follows:
+
+8           SEC. 207.11. TRANSIT-ORIENTED DEVELOPMENT – DENSITY AND HEIGHT
+
+9    EXCEPTION.
+
+10          (a) Purpose. This Section 207.11 implements the transit-oriented development policies in
+
+11   Senate Bill No. 79 (2025) (“SB79”), codified in California Government Code Sections 65912.155 et
+
+12   seq. That bill requires jurisdictions in certain urban transit counties to permit housing at specified
+
+13   densities and heights for development located near defined transit-oriented development stops, unless
+
+14   the jurisdiction makes findings that the sites are exempt, or adopts a transit-oriented development
+
+15   alternative plan (“Alternative Plan”). The density and height exception in this Section 207.11
+
+16   facilitates the City’s adoption of its Alternative Plan. In the ordinance enacting this Section 207.11, on
+
+17   file in Board of Supervisors File No. _____, the Board adopted the Alternative Plan, and made findings
+
+18   that certain parcels listed in that Board File are exempt from SB 79.
+
+19          (b) Applicability. This Section 207.11 applies to residential development projects on parcels
+
+20   meeting all of the following conditions:
+
+21                   (1) Is partially or fully located within one-half mile of a “transit-oriented development
+
+22   stop,” as defined in California Government Code Section 65912.156.
+
+23                   (2) Is located in a zoning district that principally permits residential Uses.
+
+24                   (3) Either limits residential density by Numeric Density, or has a height limit of less
+
+25   than 40 feet.
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                                  Page 6
+1                     (4) Is located outside of the R-4 height and bulk district.
+
+2                     (5) Is not seeking a density bonus pursuant to Section 206.6.
+
+3                     (6) Is not a parcel permanently or temporarily exempted from SB79 pursuant to the
+
+4    ordinance enacting this Section 207.11, on file with the Clerk of the Board in File No. _________.
+
+5                     (7) Is not a parcel with a Historic Building that is individually designated as a
+
+6    landmark under Article 10 of this Code, listed as a contributor to an historic district listed in Article
+
+7    10, or listed as a Significant or Contributory Building under Article 11 with a Category I, II, III, or IV
+
+8    rating.
+
+9                     (8) The permitted density prior to applying the density and height exception in
+
+10   subsection (c) does not meet the minimum density required by California Government Code Section
+
+11   65912.157.
+
+12             (c) Density and Height Exception. For a parcel meeting the criteria in subsection (b), the
+
+13   density and height exception in this subsection (c) shall apply.
+
+14                    (1) Additional Density. The applicable residential density limit for any housing
+
+15   development project located on a site meeting the criteria in subsection (b) shall be up to 50% of the
+
+16   density permitted on that parcel pursuant to the requirements in California Government Code Section
+
+17   65912.157. For any parcel that is partially located in the Coastal Zone, the density exception shall
+
+18   apply to the entire parcel, however residential development shall be limited to the portions of the parcel
+
+19   located outside of the Coastal Zone.
+
+20                    (2) Additional Height. For any housing development project located on a site meeting
+
+21   the criteria in subsection (b) and with a height limit of less than 40 feet, the applicable height limit
+
+22   shall be 40 feet.
+
+23
+
+24             Section 6. Adoption of Alternative Plan; Directing Planning Department to Post Online
+
+25   Maps.
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                                   Page 7
+1           (a) Pursuant to California Government Code Sections 65912.160 and 65912.161, local
+
+2    governments may adopt an Alternative Plan, which prevents the state-mandated zoning
+
+3    provisions of SB 79, in Government Code Section 65912.157, from taking effect in the City.
+
+4    The Alternative Plan must generally allow citywide, at least the same total net zoned
+
+5    residential capacity, as permitted under SB 79, across all transit-oriented development zones.
+
+6    Within any individual transit-oriented development zone, the Alternative Plan must allow no
+
+7    less than 50% of the net zoned residential capacity permitted under SB 79 in that transit-
+
+8    oriented development zone. For sites that permit more residential capacity than required by
+
+9    SB 79, an individual site’s maximum capacity counted toward the Alternative Plan cannot
+
+10   exceed 200% of the residential capacity required by SB 79. An individual site’s permitted
+
+11   residential capacity may not be reduced to less than 50% of the site’s residential capacity
+
+12   under SB 79, unless the site meets the criteria specified in California Government Code
+
+13   Section 65912.161(a)(2).
+
+14          (b) The Planning Commission, in Resolution No. ______, found that the Residential
+
+15   Capacity for parcels listed in “Table Demonstrating Housing Capacity for Alternative Plan,” on
+
+16   file with the Clerk of the Board of Supervisors in Board File No. ______, satisfy the
+
+17   requirements of SB 79. Consistent with the requirements of California Government Code
+
+18   Section 65912.161(a), the aforementioned table lists the sites included in the Alternative Plan
+
+19   and includes data sufficient to demonstrate each individual site’s compliance with the
+
+20   residential capacity requirements for an Alternative Plan, each transit-oriented development
+
+21   zone’s compliance with the residential capacity requirements for an Alternative Plan, and the
+
+22   overall residential capacity requirements across all station areas. The residential capacity
+
+23   compliance findings include the capacity created by the Planning Code amendments in
+
+24   Section 5 of this ordinance. The Board finds that the existing zoned capacity for these sites,
+
+25
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                         Page 8
+1    as modified by the amendments in Section 5 of this ordinance, satisfies the requirements for
+
+2    an Alternative Plan.
+
+3             (c) The Board of Supervisors directs the Planning Department to update online maps
+
+4    to reflect all exemptions from SB 79 per this ordinance in accordance with California
+
+5    Government Code Section 65912.161(b)(2).
+
+6
+
+7             Section 7. Transmittal to HCD.
+
+8             The Board directs the Planning Department to transmit a final copy of this ordinance to
+
+9    HCD no later than 60 days after enactment.
+
+10
+
+11            Section 8. Scope of Ordinance. In enacting this ordinance, the Board of Supervisors
+
+12   intends to amend only those words, phrases, paragraphs, subsections, sections, articles,
+
+13   numbers, punctuation marks, charts, diagrams, or any other constituent parts of the Municipal
+
+14   Code that are explicitly shown in this ordinance as additions, deletions, Board amendment
+
+15   additions, and Board amendment deletions in accordance with the “Note” that appears under
+
+16   the official title of the ordinance.
+
+17            Section 9. Effective Date. This ordinance shall become effective at 12:00 a.m. on the
+
+18   31st day after enactment. Enactment occurs when the Mayor signs the ordinance, the Mayor
+
+19   returns the ordinance unsigned or does not sign the ordinance within ten days of receiving it,
+
+20   or the Board of Supervisors overrides the Mayor’s veto of the ordinance.
+
+21   APPROVED AS TO FORM:
+     DAVID CHIU, City Attorney
+22
+
+23   By:           /s/ Austin Yang
+              AUSTIN M. YANG
+24            Deputy City Attorney
+     4898-5918-1454, v. 1
+25
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                       Page 9
+

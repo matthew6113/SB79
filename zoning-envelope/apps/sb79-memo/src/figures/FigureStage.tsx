@@ -1,5 +1,5 @@
 /**
- * The pinned figure column. Hosts the four figures and routes a memo step to
+ * The pinned figure column. Hosts the three figures and routes a step to
  * its figure and state through the script table (src/script.ts):
  *
  *   setStep(stepId, progress) -> figures[entry.figure].setState(entry.state, progress)
@@ -23,7 +23,6 @@ import { REDUCED_QUERY, startEngine, type Engine } from '../scroll/engine';
 import { startShareLinks } from '../scroll/share';
 import { still } from '../print/still';
 import MapFigure from './MapFigure';
-import Checklist from './Checklist';
 import Timeline from './Timeline';
 
 const EnvelopeFigure = lazy(() => import('./EnvelopeFigure'));
@@ -87,7 +86,7 @@ export default function FigureStage() {
   const [seconds, setSeconds] = useState<number[]>([]);
   useEffect(() => {
     if (!data) return;
-    const ctx = { block: data.envelope.block, statuses: data.checklist.cards.map((c) => c.status) };
+    const ctx = { block: data.envelope.block };
     setSeconds(script.map((e) => stateSeconds(e.figure, e.state, ctx)));
   }, [data]);
 
@@ -210,7 +209,6 @@ export default function FigureStage() {
                 </Suspense>
               </FigureBoundary>
             ))}
-            {slot('checklist', <Checklist data={data.checklist} ref={refs.checklist} />)}
             {slot('timeline', <Timeline data={data.timeline} ref={refs.timeline} />)}
           </>
         )}

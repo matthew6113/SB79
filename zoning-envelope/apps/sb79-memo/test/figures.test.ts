@@ -3,20 +3,19 @@ import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
 import { polygonArea } from '@zoning-envelope/engine';
 import { FIGURES, script } from '../src/script';
-import { IMPLEMENTED, checklistView, envelopeView, mapView, stateSeconds, timelineView, type EnvelopeView, type MapView } from '../src/figures/views';
+import { IMPLEMENTED, envelopeView, mapView, smoothZoom, stateSeconds, timelineView, type EnvelopeView, type MapView } from '../src/figures/views';
 import { GRAMMAR, motion } from '../src/figures/motion';
 import { SETTLE, stepAt, targetTime } from '../src/scroll/engine';
 import { buildFigureData } from '../src/figures/figure-data';
-import { A, B, C, L, contrast, data as memoData } from '../src/memo-data';
+import { A, B, C, L, contrast, data as memoData, explainer, project } from '../src/memo-data';
+import { inBand, parcelCounts } from '../src/parcel-classes';
 
 const fig = buildFigureData();
 const block = fig.envelope.block;
-const statuses = fig.checklist.cards.map((c) => c.status);
 /** Any figure's view at progress p, as a plain record. */
 const viewOf = (figure: string, state: string, p: number): Record<string, unknown> =>
   figure === 'map' ? { ...mapView(state, p) }
   : figure === 'envelope' ? { ...envelopeView(state, p, block) }
-  : figure === 'checklist' ? { ...checklistView(state, p, statuses) }
   : { ...timelineView(state, p) };
 const PS = [0, 0.05, 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 0.97, 1];
 
@@ -57,7 +56,8 @@ describe('figure states', () => {
     expect(at1('plate-stack').floorArea).toBeCloseTo(B.residentialFloorAreaSqFt, 6);
     expect(at1('collapse')).toMatchObject({ height: B.localHeightFt, red: 1 });
     expect(at1('bonus-locked-height')).toMatchObject({ height: B.floors.heightFt, red: 0 });
-    expect(at1('preview-rise').height).toBe(B.localHeightFt); // the preview resets
+    expect(at1('minimums')).toMatchObject({ minUnits: 1, minPanel: 1, dots: 1 });
+    expect(at1('affordable-units')).toMatchObject({ afford: 1, affordPanel: 1, minPanel: 0 });
     expect(at1('contrast-three-heights')).toMatchObject({ scene: 'rockridge', mix: 1, rockRise: 1, towers: 1 });
     expect(at1('final')).toMatchObject({ scene: 'block', mix: 1, height: B.floors.heightFt, totals: 1 });
   });
@@ -85,7 +85,7 @@ describe('motion grammar (Phase 4)', () => {
   });
 
   it('gives every step a motion of positive length', () => {
-    for (const e of script) expect(stateSeconds(e.figure, e.state, { block, statuses }), e.id).toBeGreaterThan(0);
+    for (const e of script) expect(stateSeconds(e.figure, e.state, { block }), e.id).toBeGreaterThan(0);
   });
 
   // A view depends only on progress: seeking forward, backward, or at random gives the same view.
@@ -170,26 +170,53 @@ describe('figure data', () => {
   });
 
   it("draws the measuring line from Exhibit B's nearest edge to its nearest access point", () => {
-    const { from, to } = fig.map.local.measure;
+    const { from, to } = fig.map.measure;
     // Map coordinates are rounded to whole feet, so allow for rounding at both ends.
     expect(Math.hypot(to[0] - from[0], to[1] - from[1])).toBeCloseTo(B.distanceFt, -0.5);
   });
 
-  it('draws every exhibit, MTC zone, and parcel group', () => {
-    const m = fig.map.local;
-    expect(m.sites.map((s) => s.key)).toEqual(['A', 'B', 'C']);
-    for (const d of [...m.sites.map((s) => s.d), m.zones.adjacent, m.zones.quarter, m.zones.half, m.parcels.eligible, m.rail, m.berkeley.d, m.land]) {
-      expect(d.length).toBeGreaterThan(10);
-    }
+  it('draws every layer the storyboard names', () => {
+    const m = fig.map;
+    const paths = [
+      m.site.d, m.zones.adjacent, m.zones.quarter, m.zones.half, m.parcels, m.rail, m.berkeley.d, m.bart.d,
+      m.rent.estimate, m.rent.unknown, m.historic.landmark, m.historic.merit, m.opportunity.highest, m.pick.clear,
+      ...m.altPlans.map((a) => a.d), ...m.sf.zones.map((z) => z.d), ...m.zoning.map((z) => z.d),
+    ];
+    for (const d of paths) expect(d.length).toBeGreaterThan(10);
+    expect(m.sf.zones.map((z) => `${z.tier} ${z.band}`).sort()).toEqual(['1 200ft', '1 Half Mile', '1 Quarter Mile', '2 200ft', '2 Half Mile', '2 Quarter Mile']);
+    expect(m.berkeley.stations.map((st) => st.name).sort()).toEqual(['Ashby', 'Downtown Berkeley', 'North Berkeley']);
   });
 
-  it('maps the three Bay Area cities to their recorded SB 79 positions', () => {
-    const status = Object.fromEntries(fig.map.local.jurisdictions.filter((j) => j.status).map((j) => [j.name, j.status]));
-    expect(status).toEqual({
-      Berkeley: memoData.localOptions.berkeley.status,
-      Oakland: memoData.localOptions.oakland.status,
-      'San Francisco': memoData.localOptions.sanFrancisco.status,
-    });
+  it('grays only the cities whose alternative plans HCD has ruled on', () => {
+    expect(fig.map.altPlans.map((a) => a.name)).toEqual([explainer.altPlans.sanFrancisco.name, explainer.altPlans.beverlyHills.name]);
+  });
+
+  it('zooms smoothly: the camera starts and ends on its stops and stays finite between', () => {
+    const v = fig.map.views;
+    const stops = Object.values(v);
+    for (const a of stops) for (const b of stops) {
+      expect(smoothZoom(a, b, 0).map((x) => Math.round(x))).toEqual(a.map((x) => Math.round(x)));
+      expect(smoothZoom(a, b, 1)).toEqual(b);
+      for (const t of [0.25, 0.5, 0.75]) for (const x of smoothZoom(a, b, t)) expect(Number.isFinite(x)).toBe(true);
+    }
+    // California to San Francisco zooms in by more than an order of magnitude.
+    expect(v.california[2] / v.sf[2]).toBeGreaterThan(10);
+  });
+
+  it('flags parcels in the band by the rules the text states', () => {
+    for (const p of inBand) {
+      expect(p.rentEstimate).toBe(p.units > L.anti.rentControlledSite.moreThanUnits.value && p.yearBuilt !== null && p.yearBuilt <= explainer.rentControl.estimate.lastYearBuilt);
+    }
+    expect(parcelCounts.landmark + parcelCounts.structureOfMerit).toBe(new Set(inBand.filter((p) => p.landmark).map((p) => p.apn)).size);
+    // The example lot is clear of every flag.
+    const b = inBand.find((p) => p.apn === B.apn)!;
+    expect(b).toMatchObject({ qualifyingZoning: true, bart: false, rentEstimate: false, landmark: null });
+  });
+
+  it('tints the affordable units the text names', () => {
+    expect(b.affordable).toBe(project.berkeleyAtFloor);
+    expect(b.affordable).toBeLessThanOrEqual(Math.floor(B.unitFloor));
+    expect(b.minUnits).toBe(L.cond.minUnits.value);
   });
 
   it('marks HCD\'s urban transit counties and Orange as the open issue', () => {

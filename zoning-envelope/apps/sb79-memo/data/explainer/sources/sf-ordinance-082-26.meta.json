@@ -1,0 +1,8 @@
+{
+  "source": "https://media.api.sf.gov/documents/o0082-26.pdf",
+  "retrievedAt": "2026-10-17T17:08:38.285Z",
+  "lastModified": null,
+  "pdfSha256": "223a92963ac719d5269c709aeaa0a9c573c728f84cb88be866a53a7303319595",
+  "extractedWith": "pdftotext -layout",
+  "retrievedVia": "local copy of the document (fetching it failed: fetch failed)"
+}

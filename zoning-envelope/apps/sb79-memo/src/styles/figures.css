@@ -81,7 +81,6 @@
 
 .map-figure,
 .envelope-figure,
-.checklist-figure,
 .timeline-figure {
   position: absolute;
   inset: 0;
@@ -127,9 +126,8 @@
 .map-city { fill: var(--accent-tint); fill-opacity: 0.45; stroke: var(--ink); }
 .map-ring { fill: none; stroke: var(--accent); }
 /* Traced on with pathLength dashes, which Chrome measures in screen pixels under
-   non-scaling-stroke; these strokes are sized in feet per pixel instead. */
-.map-layer .map-ring,
-.map-layer .map-measure { vector-effect: none; }
+   non-scaling-stroke; these strokes are sized in frame units per pixel instead. */
+.map-layer .map-draw { vector-effect: none; }
 .map-outer-fill { fill: var(--accent-tint); fill-opacity: 0.55; }
 .map-rail { fill: none; stroke: var(--ink-soft); }
 .map-station { fill: var(--page); stroke: var(--ink); }
@@ -140,10 +138,34 @@
 .map-measure { stroke: var(--ink); }
 .map-measure-end { fill: var(--ink); }
 
-.bay-city { stroke: var(--page); stroke-width: 0.8px; fill: none; }
-.bay-defaults { fill: var(--accent); fill-opacity: 0.8; stroke: var(--ink); }
-.bay-exclusions,
-.bay-alternative-plan { stroke: var(--ink); }
+/* Cities whose alternative plans HCD has ruled on: grayed, the defaults set aside. */
+.map-alt { fill: var(--ghost); stroke: var(--ink-soft); stroke-width: 0.8px; }
+.map-alt-ring { fill: none; stroke: var(--ink); }
+.sf-tier1 { stroke: var(--accent); }
+.sf-tier2 { stroke: var(--ink-soft); }
+.sf-zone-fill { fill: var(--ghost); fill-opacity: 0.55; stroke: none; }
+
+/* Zoning by class: shades of the accent; commercial adds dots. */
+.zone-residential { fill: var(--accent-tint); stroke: var(--page); stroke-width: 0.6px; }
+.zone-mixed { fill: color-mix(in srgb, var(--accent) 55%, var(--page)); stroke: var(--page); stroke-width: 0.6px; }
+.zone-commercial { stroke: none; }
+.zone-commercial-base { fill: var(--accent-tint); fill-opacity: 0.45; stroke: var(--page); stroke-width: 0.6px; }
+.zone-other { fill: var(--ghost); stroke: var(--page); stroke-width: 0.6px; }
+.map-bart-land { fill: var(--accent-tint); stroke: var(--ink); stroke-width: 1.2px; }
+.map-bart-hatch { stroke: none; }
+.map-fire { fill: none; stroke: var(--accent); }
+.map-airport { stroke: var(--ink); }
+.map-rent { fill: var(--ink-soft); fill-opacity: 0.35; stroke: var(--ink); stroke-width: 0.5px; }
+.map-rent-cross { stroke: none; }
+.map-rent-unknown { fill: var(--ghost); stroke: var(--ink-soft); stroke-width: 0.5px; }
+.map-landmark { fill: var(--ink); fill-opacity: 0.75; stroke: var(--ink); stroke-width: 0.8px; }
+.map-merit { fill: var(--ink-soft); fill-opacity: 0.45; stroke: var(--ink); stroke-width: 0.8px; }
+.opp-highest { fill: var(--accent); fill-opacity: 0.45; stroke: var(--page); stroke-width: 1px; }
+.opp-high { fill: var(--accent-tint); fill-opacity: 0.8; stroke: var(--page); stroke-width: 1px; }
+.opp-other { fill: var(--ghost); fill-opacity: 0.6; stroke: var(--page); stroke-width: 1px; }
+.map-clear { fill: var(--accent-tint); stroke: var(--page); stroke-width: 0.5px; }
+.map-flagged { fill: var(--ghost); stroke: var(--page); stroke-width: 0.5px; }
+.fig-hatch-ink { stroke: var(--ink); }
 
 .fig-stamp rect { fill: var(--page); stroke-width: 1.6px; }
 .fig-stamp .fig-stamp-inner { fill: none; stroke-width: 0.8px; }
@@ -187,6 +209,8 @@
 }
 .fig-swatch rect { stroke: var(--ink-soft); stroke-width: 0.5px; }
 .fig-swatch .fig-swatch-pattern { stroke: none; }
+.fig-swatch rect.sf-tier1 { fill: var(--page); stroke: var(--accent); stroke-width: 1.6px; }
+.fig-swatch rect.sf-tier2 { fill: var(--page); stroke: var(--ink-soft); stroke-width: 1.6px; }
 .bay-swatch-blank { fill: var(--page); }
 .legend-dashed { fill: var(--page); stroke: var(--accent); stroke-dasharray: 3 2; stroke-width: 1.2px; }
 
@@ -202,6 +226,14 @@
   transform: rotate(45deg);
 }
 .legend-ap-elevator { background: var(--page); }
+.legend-arrow {
+  display: inline-block;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  background: var(--ink);
+  clip-path: polygon(45% 0, 55% 0, 55% 62%, 85% 62%, 50% 100%, 15% 62%, 45% 62%);
+}
 .legend-ring {
   width: 14px;
   height: 14px;
@@ -375,65 +407,23 @@
 }
 .fig-totals strong { color: var(--accent); }
 
-/* ------------------------------------------------------------------ checklist */
-
-.checklist-figure {
-  overflow: auto;
-  padding: 0.8rem 0 0.4rem;
-}
-
-.cl-cards {
-  list-style: none;
-  margin: 0 0 0.9rem;
-  padding: 0;
-  display: grid;
-  gap: 0.4rem;
-}
-
-.cl-card {
-  display: grid;
-  grid-template-columns: 1.6rem 1fr auto;
-  gap: 0.6rem;
-  align-items: start;
-  padding: 0.45rem 0.6rem;
+/* Panels for the project-minimum and affordability beats. */
+.fig-panel {
+  position: absolute;
+  right: 0;
+  top: 0.6rem;
+  max-width: 19rem;
+  padding: 0.5rem 0.7rem;
+  background: color-mix(in srgb, var(--page) 92%, transparent);
   border: 1px solid var(--ghost);
-  background: var(--page);
-  font-size: 0.8rem;
-  line-height: 1.35;
-}
-.cl-body { display: flex; flex-direction: column; }
-.cl-body strong { font-variant: small-caps; letter-spacing: 0.04em; }
-.cl-card cite { font-style: normal; font-size: 0.68rem; color: var(--ink-soft); white-space: nowrap; }
-.cl-mark {
-  display: grid;
-  place-items: center;
-  width: 1.3rem;
-  height: 1.3rem;
-  border: 1.5px solid var(--ghost);
-  font-weight: 700;
-}
-.cl-tick { border-color: var(--accent); }
-.cl-tick .cl-mark { border-color: var(--accent); background: var(--accent); color: var(--page); }
-.cl-gray { color: color-mix(in srgb, var(--ink) calc(100% - var(--t, 1) * 100%), var(--ink-soft)); }
-.cl-gray .cl-mark { border-color: var(--ghost); background: var(--ghost); color: var(--page); }
-.cl-fail { border-color: var(--collapse); }
-.cl-fail .cl-mark { border-color: var(--collapse); background: var(--collapse); color: var(--page); }
-.cl-pending { color: var(--ink-soft); }
-.cl-note { font-size: 0.72rem; color: var(--ink-soft); }
-
-.cl-row {
-  display: grid;
-  grid-template-columns: minmax(7rem, 12rem) 1fr 2.4rem;
-  gap: 0.6rem;
-  align-items: center;
   font-size: 0.74rem;
-  margin: 0 0 0.25rem;
+  line-height: 1.4;
 }
-.cl-row-pct { text-align: right; font-variant-numeric: tabular-nums; }
-.cl-squares { width: 100%; height: 14px; }
-.cl-squares .sq { fill: var(--parcel); }
-.cl-squares .sq-on { fill: var(--accent-tint); }
-.cl-squares .sq-deep { fill: var(--accent); }
+.fig-panel-title { font-variant: small-caps; letter-spacing: 0.05em; }
+.fig-panel ul { margin: 0.3rem 0 0; padding-left: 1rem; }
+.fig-panel li + li { margin-top: 0.25rem; }
+.fig-panel li.is-strong { color: var(--accent); font-weight: 600; }
+.fig-panel cite { display: block; font-style: normal; font-size: 0.66rem; color: var(--ink-soft); font-weight: 400; }
 
 /* ------------------------------------------------------------------ timeline */
 
@@ -576,7 +566,6 @@
   .timeline-figure { gap: 1rem; font-size: 0.7rem; }
   .tl-node small { font-size: 0.62rem; }
   /* The paragraph beside the figure carries the detail; on phones the cards keep title, mark, and note. */
-  .checklist-figure { padding-top: 0.4rem; }
   .fig-title { margin-bottom: 0.3rem; }
   .cl-cards { gap: 0.25rem; margin-bottom: 0.5rem; }
   .cl-card { font-size: 0.72rem; padding: 0.25rem 0.5rem; grid-template-columns: 1.3rem 1fr auto; }

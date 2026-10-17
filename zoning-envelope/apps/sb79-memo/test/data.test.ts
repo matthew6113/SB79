@@ -153,3 +153,54 @@ describe('III.D contrast site: 5727 College Ave, Oakland', () => {
     }
   });
 });
+
+describe('the explainer map (data/explainer)', () => {
+  const X = 'explainer/';
+  const alt = read(`${X}alternative-plans.json`);
+  const xManifest = read(`${X}manifest.json`);
+  const quoteIn = (file: string, quote: string) => expect(text(file), file).toContain(quote.replace(/\s+/g, ' '));
+
+  it('lists only files that exist, each layer with its meta', () => {
+    for (const f of xManifest.files) expect(existsSync(new URL(`${X}${f.file}`, DATA)), f.file).toBe(true);
+    for (const f of xManifest.files.filter((x: { file: string }) => x.file.endsWith('.geojson'))) {
+      expect(read(`${X}${f.file.replace('.geojson', '.meta.json')}`).source).toMatch(/^https:\/\//);
+    }
+  });
+
+  it("quotes HCD's letters, San Francisco's planners, and its bulletin from saved text", () => {
+    const sf = alt.sanFrancisco, bh = alt.beverlyHills;
+    quoteIn(sf.hcd.source.file, sf.hcd.quote);
+    quoteIn(sf.hcd.source.file, sf.hcd.conditionQuote);
+    quoteIn(sf.noDefaults.source.file, sf.noDefaults.quote);
+    quoteIn(sf.capacity.source.file, sf.capacity.quote);
+    quoteIn(sf.capacity.source.file, sf.capacity.floorAreaQuote);
+    for (const n of [sf.capacity.sb79Units, sf.capacity.planUnits]) expect(sf.capacity.quote).toContain(n.toLocaleString('en-US'));
+    quoteIn(bh.hcd.source.file, bh.hcd.quote);
+    quoteIn(bh.hcd.source.file, bh.hcd.importQuote);
+    expect(text(bh.hcd.source.file)).toContain('May 8, 2026');
+    expect(text(sf.hcd.source.file)).toContain('July 1, 2026');
+  });
+
+  it("quotes the rent ordinance's new-construction cutoff", () => {
+    const rc = read(`${X}rent-control.json`);
+    quoteIn(rc.newConstruction.source.file, rc.newConstruction.quote);
+    expect(rc.newConstruction.quote).toContain('June 30, 1980');
+    expect(rc.estimate.lastYearBuilt).toBe(Number(rc.newConstruction.cutoff.slice(0, 4)));
+  });
+
+  it('joins every landmark to a parcel in the snapshot', () => {
+    const apns = new Set(parcels.map((f: any) => f.properties.apn));
+    for (const r of read(`${X}landmarks.json`).records) expect(apns.has(r.apn), r.apn).toBe(true);
+  });
+
+  it('runs the fire query far enough to cover the whole half-mile band', () => {
+    const hz = read(`${X}hazards.json`);
+    // The band reaches at most the half mile beyond North Berkeley's farthest entrance.
+    const nbAccess = accessPoints.filter((f: any) => f.properties.station_id === manifest.center.stationId).map((f: any) => f.geometry.coordinates);
+    const reach = law.bands.halfMile.tier1.value * 5280;
+    const farthest = Math.max(...nbAccess.map((a: number[]) => pointDistanceFt(a, manifest.center.lonLat))) + reach;
+    expect(hz.fire.lra.radiusM * 3.28084).toBeGreaterThan(farthest);
+    expect(hz.fire.lra.veryHighCount).toBe(0);
+    expect(hz.fire.sra.count).toBe(0);
+  });
+});
