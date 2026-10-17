@@ -1,10 +1,10 @@
 # SB 79 Animated Memo — Claude Code Build Spec
 
-As of October 9, 2026 · Matthew Huguet · Amended October 16, 2026 (Matthew): explainer format, calculator dropped
+As of October 9, 2026 · Matthew Huguet · Amended October 16, 2026 (Matthew): explainer format, calculator dropped · Amended October 17, 2026 (Matthew): the map zooms from California to the parcel, then a building render
 
 ## Concept
 
-The piece reads like a law-firm client alert that explains SB 79, with one real site as its running example, and every point it makes plays out on a figure beside it. The reader scrolls through an introduction, Key Points, sections headed by the questions a reader would ask, and Key Takeaways, and the figures pin in place and change as each paragraph lands.
+The piece reads like a law-firm client alert that explains SB 79, with one real site as its running example, and every point it makes plays out on a figure beside it. The reader scrolls through an introduction, Key Points, sections headed by the questions a reader would ask, and Key Takeaways, and the figures pin in place and change as each paragraph lands. The map opens on California and zooms in as the map-shaped requirements narrow: the urban transit counties, the cities that replaced the defaults (San Francisco, zoomed into), Berkeley, North Berkeley BART and its bands, then each requirement best seen on a map. Once the layers pick the lot, a building render shows what is better seen in three dimensions: height, units, affordable units, and the rest. Cites go to the statute and, where they help, to the Coblentz and Holland & Knight summaries.
 
 It follows the statute's own logic, as a lawyer would brief it: does SB 79 reach a site, what does it allow, what must the project give in return, how does it stack with other laws, how is it approved, and how can a city change it.
 
@@ -117,38 +117,47 @@ Header: kicker "Explainer" · title "How SB 79 Works" · a one-line dek · BY (c
 
 | Section | Point the paragraph makes | Figure state | Cite |
 | --- | --- | --- | --- |
-| Introduction | What SB 79 does, and the example lot: what may be built here after July 1, 2026? | Aerial of the block; site outlined; pale ghost envelope at the local 35 ft | § 65912.157(n) |
-| Key Points | The law in brief (where, what the city must allow, project conditions, approval, local options), then the example: at least 75 ft, 120 du/ac, 3.5 FAR, if the project meets SB 79's conditions | Preview: envelope rises to 75 ft, then resets | § 65912.157 |
-| Where it applies: urban transit county | Alameda has more than 15 rail stations | California counties; the eight qualifying counties fill in; Alameda pulses | § 65912.156(q) |
-| Where it applies: stop and tier | BART is heavy rail, so the stop is Tier 1 | Station, tracks, "Tier 1" tag | § 65912.156(d), (n) |
-| Where it applies: distance | Straight line from the parcel's nearest edge to an access point | Access points appear; rings draw at 200 ft, 1/4 mi, 1/2 mi; a measuring line snaps from parcel edge to nearest point | § 65912.157(b) |
-| Where it applies: city size | Berkeley exceeds 35,000, so the outer band counts | Outer ring solidifies; population badge | § 65912.157 |
-| Where it applies: zoning | Residential, mixed-use, and commercial sites qualify | Parcels tint eligible; open space and industrial gray out | § 65912.157(a) |
-| Where it applies: local changes | Berkeley took none | "No exclusions" stamp on the city | §§ 65912.160–.161 |
-| What the city must allow: height | The standards table for both tiers and every band; on the example, local limit 35 ft, state floor 75 ft | Ghost stays; solid envelope rises to 75 ft with a dimension line | (a)(3)–(6) |
-| What the city must allow: density | 120 du/ac times lot area gives the unit floor | Unit dots fill the envelope; counter shows the number | same |
-| What the city must allow: residential floor area | 3.5 times lot area in net habitable sq ft | Floor plates stack until the FAR total is reached | § 65912.156(l) |
-| What the city must allow: local rules that remain | Local standards apply only if they do not prevent the SB 79 numbers | A setback starts to cut, stops, and turns gray: "cannot preclude" | (a), (l) |
-| What a project must do: conditions | Five-plus units, unit size, affordability, anti-displacement | Checklist cards tick; affordable units tint | (a), (i), (h) |
-| What a project must do: one failed condition | One failed condition loses everything | Toggle "rent-controlled tenants in the last 7 years": envelope collapses back to the ghost | (h) |
-| Density bonus | SB 79 density is the base; no extra height is owed | Unit count grows inside a locked height line | § 65915 |
-| Approval | HAA protection; optional SB 35/423; 2027 presumption | Small timeline with branches and the January 1, 2027 marker | (l), (m) |
-| How cities change the defaults | Exempt, exclude, or replace with an alternative plan | Bay Area map: Berkeley defaults, Oakland exclusions, SF alternative plan | §§ 65912.160–.161 |
-| Sites nearer and farther | Distance steps the standards down | Exhibits A, B, C side by side at 95, 75, 65 ft; an 85 ft line marks the labor trigger | (k) |
+| Introduction | What SB 79 does, and the chain of map questions the explainer follows | California, counties outlined | § 65912.157(n); Coblentz; Holland & Knight |
+| Key Points | The law in brief, then the example: at least 75 ft, 120 du/ac, 3.5 FAR, if the project meets SB 79's conditions | The urban transit counties fill in | § 65912.157 |
+| Where it applies: urban transit counties | More than 15 rail stations; HCD lists seven, Orange an open issue | Alameda outlined; Orange dashed | § 65912.156(q) |
+| Changing the defaults: alternative plans | Exemptions, exclusions, alternative plans; HCD has ruled on San Francisco's and Beverly Hills's plans | Those cities grayed | §§ 65912.160–.161; HCD letters; Holland & Knight |
+| Changing the defaults: San Francisco | How an alternative plan works (same capacity, 50% cuts, 200% cap); San Francisco's numbers; HCD's condition; the lawsuit | Zoom to San Francisco; its SB 79 zones drawn, then grayed | § 65912.161(a); HCD; SF Planning |
+| In Berkeley: the city | Three BART stations, Tier 1; population over 35,000; no exclusions | Zoom to Berkeley; stations; population badge; "No exclusions" stamp | § 65912.157(a)(4) |
+| In Berkeley: the station and its bands | Straight line from the parcel edge to an entrance; 200 ft, ¼ mi, ½ mi | Zoom to the station; Tier 1 stamp; access points; rings; measuring line | § 65912.157(b) |
+| In Berkeley: zoning | Every district in the band qualifies; local heights | Districts by class with heights | § 65912.157(a) |
+| In Berkeley: BART's land | BART's lots; SB 79's transit-agency rule | AB 2923 parcels hatched | § 65912.158 |
+| In Berkeley: fire and airport | Airport and fire standards; SB 35's fire-zone bar; none reaches the band | 1,000 m circle; arrow to Oakland airport's influence area | § 65912.157(j); § 65913.4(a)(6)(D); Coblentz |
+| In Berkeley: rent control | The anti-displacement bar; an estimate from units and year built | Parcels with more than two units built by 1980, hatched; unknown year shaded | § 65912.157(h); BMC 13.76.050 |
+| In Berkeley: landmarks | Excludable, not excluded; demolition bars SB 35 streamlining | Landmarks and Structures of Merit | § 65912.161(b)(1)(F); § 65913.4(a)(7)(C) |
+| In Berkeley: the opportunity map | The 2027 presumption applies; every tract high or highest | Opportunity tracts | § 65912.157(m) |
+| The example lot | The layers combine; the lot is zoned to qualify with no flag | Clear parcels vs. flagged; zoom to the lot | — |
+| What the city must allow: today | The local ceiling; SB 79's floors | Render: ghost at the local 35 ft | (a)(3)–(6) |
+| What the city must allow: height | The standards table; 75 ft on the lot | Envelope rises to 75 ft | (a)(3)–(6) |
+| What the city must allow: density | 120 du/ac times lot area | Unit dots fill | same |
+| What the city must allow: residential floor area | 3.5 times lot area | Floor plates stack | § 65912.156(l) |
+| What the city must allow: local rules that remain | Local standards apply only if they do not prevent the numbers | Setback cuts, stops, grays: "cannot preclude" | (a), (l) |
+| What a project must do: minimums | Five units, 30 du/ac, 1,750 sq ft average | The first five units emphasized; panel | (a)(1)–(2) |
+| What a project must do: affordable units | SB 79's rule starts above 10 units; Berkeley's 20%, rounded up | Affordable units tinted; panel | (i); BMC 23.328 |
+| What a project must do: one failed condition | One failed condition loses everything | Envelope collapses to the ghost | (h) |
+| Density bonus | SB 79 density is the base; no extra height owed | Unit count grows inside a locked height line | § 65915 |
+| Density bonus: Rockridge, Oakland | The two statutes can point different ways | Three heights at 5727 College Ave | — |
+| Approval | HAA protection; SB 35 terms; 2027 presumption | Timeline with branches and the January 1, 2027 marker | (l), (m); § 65912.159 |
+| Sites nearer and farther | Distance steps the standards down | Exhibits A, B, C side by side; an 85 ft line marks the labor trigger | (k) |
 | Key Takeaways | The rules to remember, and the example's entitlement | Final envelope with totals | — |
 
 Footnotes carry pinpoint cites and link to the statute text. Each "Cite" cell above is the footnote for that paragraph.
 
 ## Figures and animation
 
-Four figures carry the whole memo, and every animation is tied to scroll position, so scrolling back up plays it in reverse. Nothing fires once and is gone; the reader controls the pace the way they would flip back through a brief.
+Three figures carry the whole piece, and every animation is tied to scroll position, so scrolling back up plays it in reverse. Nothing fires once and is gone; the reader controls the pace the way they would flip back through a brief.
 
-**The four figures:**
+**The three figures:**
 
-1. **Map figure (2D).** Block-scale map: parcels, the station, access points, distance rings, eligibility tint. Also handles the zoomed-out California and Bay Area maps. Drawn in SVG with D3 so styling matches the memo exactly.
-2. **Envelope figure (3D).** The site and its neighbors in a quiet three-quarter view: the ghost (local zoning), the SB 79 envelope, floor plates, unit dots, the 85 ft labor line, and the three-exhibit comparison.
-3. **Checklist figure.** The project conditions as cards that tick, fail, or turn gray, plus the affordability split.
-4. **Timeline figure.** The approval path with its SB 35/423 branch and the January 1, 2027 marker.
+1. **Map figure (2D).** One continuous zoom from California to a parcel: the counties, the cities that replaced the defaults (grayed), San Francisco's zones, Berkeley, the station and its bands, then one layer per map-shaped requirement (zoning, BART land, fire and airport, rent control, landmarks, the opportunity map) and the pick of the lot. Drawn in SVG in one frame, with a smooth-zoom camera, so styling matches the text exactly.
+2. **Envelope figure (3D).** The site and its neighbors in a quiet three-quarter view: the ghost (local zoning), the SB 79 envelope, floor plates, unit dots (the project minimum emphasized, affordable units tinted), the 85 ft labor line, and the three-exhibit comparison. Short panels list the conditions and the affordable-unit arithmetic.
+3. **Timeline figure.** The approval path with its SB 35 branch and the January 1, 2027 marker.
+
+(The Checklist figure was dropped on October 17, 2026; its conditions moved into the render.)
 
 **Motion grammar** (each verb means one legal idea, every time):
 
@@ -180,6 +189,9 @@ Build it as a second app in the zoning tool's monorepo. The memo is a fixed, dat
 | Zoning districts | City of Berkeley open data | Eligibility tint, local height for the ghost |
 | Building footprints | Berkeley or OpenStreetMap | Neighbor context in 3D |
 | County outlines | California open data | The urban transit county figure |
+| San Francisco's SB 79 zones, BART stations and AB 2923 parcels, Beverly Hills boundary | SF Planning, BART, Esri Living Atlas (data/explainer/) | The alternative-plan zoom, Berkeley's stations, BART land |
+| Fire hazard zones, airport influence area, landmarks | CAL FIRE, Alameda County ALUC, City of Berkeley (queried; recorded in data/explainer/) | The fire, airport, and landmark layers |
+| Rent control | Berkeley Rent Stabilization Ordinance (new-construction cutoff) with parcel units and year built | The rent-control estimate |
 
 **Stack:**
 
@@ -199,7 +211,7 @@ zoning-envelope/
   apps/web/              # existing zoning tool
   apps/sb79-memo/        # Astro site
     src/content/memo.mdx # the memo text, one <Step id> per paragraph
-    src/figures/         # MapFigure, EnvelopeFigure, Checklist, Timeline
+    src/figures/         # MapFigure, EnvelopeFigure, Timeline
     src/script.ts        # paragraph id -> figure state (the memo script table)
     data/                # frozen GeoJSON snapshots + as-of dates
   packages/engine/       # shared geometry

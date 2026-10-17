@@ -1,0 +1,13 @@
+{
+  "retrievedAt": "2026-10-17T17:08:38.285Z",
+  "count": 9,
+  "source": "https://services.arcgis.com/sqS7RNuF1BQinj5N/arcgis/rest/services/BART_AB_2923_Public_Service_20230201/FeatureServer/3",
+  "sourceLastEdit": "2023-02-01T19:59:44.035Z",
+  "query": "envelope ±0.012 degrees around station 904309, then any vertex within 3000 ft",
+  "fieldsUsed": {
+    "apn": "APN_D",
+    "station": "STATION_AR",
+    "acres": "ACRE",
+    "eligible": "AB2923_Parcel"
+  }
+}

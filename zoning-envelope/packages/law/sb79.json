@@ -121,7 +121,8 @@
     "minDensityDuPerAcre": { "value": 30, "unit": "dwelling units per acre", "cite": "Gov. Code § 65912.157(a)(1)(A)", "source": "gov-65912.157.txt", "quote": "A minimum density of at least 30 dwelling units per acre." },
     "localMinDensityIfGreater": { "value": "the minimum density required under local zoning, if greater", "cite": "Gov. Code § 65912.157(a)(1)(B)", "source": "gov-65912.157.txt", "quote": "The minimum density required under local zoning, if applicable." },
     "maxAverageUnitSizeNetSqFt": { "value": 1750, "unit": "net habitable square feet", "cite": "Gov. Code § 65912.157(a)(2)", "source": "gov-65912.157.txt", "quote": "shall not exceed 1,750 net habitable square feet" },
-    "safety": { "value": "consistent with airport land use compatibility plans, military AICUZ, and objective fire safety standards", "cite": "Gov. Code § 65912.157(j)", "source": "gov-65912.157.txt", "quote": "shall be consistent with the height, noise, and safety standards of an adopted airport land use compatibility plan" }
+    "safety": { "value": "consistent with airport land use compatibility plans, military AICUZ, and objective fire safety standards", "cite": "Gov. Code § 65912.157(j)", "source": "gov-65912.157.txt", "quote": "shall be consistent with the height, noise, and safety standards of an adopted airport land use compatibility plan" },
+    "fireSafety": { "value": "consistent with otherwise applicable objective fire safety standards", "cite": "Gov. Code § 65912.157(j)", "source": "gov-65912.157.txt", "quote": "and of otherwise applicable objective fire safety standards established pursuant to the California Building Code" }
   },
 
   "affordability": {
@@ -213,6 +214,8 @@
     },
     "exclusions": {
       "untilYearsAfterSeventhHousingElement": { "value": 1, "unit": "year", "cite": "Gov. Code § 65912.161(b)(1)", "source": "gov-65912.161.txt", "quote": "Prior to one year following the adoption of the seventh revision of the housing element" },
+      "veryHighFireZoneSites": { "value": "sites within a very high fire hazard severity zone or the state responsibility area", "cite": "Gov. Code § 65912.161(b)(1)(D)", "source": "gov-65912.161.txt", "quote": "Sites within a very high fire hazard severity zone, as determined by the Department of Forestry and Fire Protection pursuant to Section 51178" },
+      "seaLevelRiseSites": { "value": "sites vulnerable to one foot of sea level rise", "cite": "Gov. Code § 65912.161(b)(1)(E)", "source": "gov-65912.161.txt", "quote": "Sites that are vulnerable to one foot of sea level rise" },
       "historicSites": {
         "versions": [
           { "value": "sites with a historic resource on a local register as of January 1, 2025", "from": "2026-01-01", "to": "2027-01-01", "cite": "Gov. Code § 65912.161(b)(1)(F)", "source": "gov-65912.161.txt", "quote": "Sites with a historic resource designated as of January 1, 2025, on a local register." },
@@ -232,6 +235,26 @@
         ]
       },
       "replacesDefaults": { "value": true, "cite": "Gov. Code § 65912.161(d)", "source": "gov-65912.161.txt", "quote": "Section 65912.157 shall not apply within a jurisdiction that has a local transit-oriented alternative plan that has been approved by the department" }
+    }
+  },
+  "transitAgencyLand": {
+    "standardsByResolution": { "value": "a transit agency may adopt zoning standards for its own land in a TOD zone", "cite": "Gov. Code § 65912.158(b)(1)", "source": "gov-65912.158.txt", "quote": "A transit agency’s board of directors may adopt by resolution agency transit-oriented development zoning standards for district-owned real property located in a transit-oriented development zone." },
+    "becomeLocalZoningAfterYears": { "value": 2, "unit": "years", "cite": "Gov. Code § 65912.158(f)(2)", "source": "gov-65912.158.txt", "quote": "after two years of the date that the agency transit-oriented development zoning standards are adopted by the board for that station, the agency transit-oriented development zoning standards shall become the local zoning" },
+    "ownedByDate": { "value": "2026-01-01", "cite": "Gov. Code § 65912.158(a)(6)(B)", "source": "gov-65912.158.txt", "quote": "was owned by the agency on or before January 1, 2026" }
+  },
+  "streamlining": {
+    "siteRulesApply": { "value": "an SB 79 project seeking SB 35 streamlining must meet SB 35's other requirements, including its very high fire hazard severity zone bar", "cite": "Gov. Code § 65912.159(a)(3)", "source": "gov-65912.159.txt", "quote": "The proposed project shall comply with all other requirements of Section 65913.4, including, but not limited to, the prohibition against a site that is within a very high fire hazard severity zone" },
+    "localProgressTestWaived": { "value": "exempt from SB 35's test of the city's housing production", "cite": "Gov. Code § 65912.159(a)(1)", "source": "gov-65912.159.txt", "quote": "The proposed project shall be exempt from subparagraph (A) of paragraph (4) of, and paragraph (5) of, subdivision (a) of Section 65913.4." },
+    "veryHighFireZoneExcluded": { "value": "no streamlining in a very high fire hazard severity zone or the state responsibility area, unless mitigation standards are adopted", "cite": "Gov. Code § 65913.4(a)(6)(D)", "source": "gov-65913.4.txt", "quote": "Within a very high fire hazard severity zone, as determined by the Department of Forestry and Fire Protection pursuant to Section 51178" },
+    "historicDemolitionExcluded": { "value": "no streamlining for a project that would demolish a structure on a national, state, or local historic register", "cite": "Gov. Code § 65913.4(a)(7)(C)", "source": "gov-65913.4.txt", "quote": "The development would require the demolition of a historic structure that was placed on a national, state, or local historic register." },
+    "affordability": {
+      "rentalPercent": { "value": 10, "unit": "percent of units", "cite": "Gov. Code § 65913.4(a)(4)(B)(i)(I)", "source": "gov-65913.4.txt", "quote": "For for-rent projects, the project dedicates a minimum of 10 percent of the total number of units" },
+      "rentalAmiPercent": { "value": 50, "unit": "percent of AMI", "cite": "Gov. Code § 65913.4(a)(4)(B)(i)(I)", "source": "gov-65913.4.txt", "quote": "housing affordable to households making at or below 50 percent of the area median income" },
+      "ownershipPercent": { "value": 10, "unit": "percent of units", "cite": "Gov. Code § 65913.4(a)(4)(B)(i)(II)", "source": "gov-65913.4.txt", "quote": "For for-sale projects, the project dedicates a minimum of 10 percent of the total number of units" },
+      "ownershipAmiPercent": { "value": 80, "unit": "percent of AMI", "cite": "Gov. Code § 65913.4(a)(4)(B)(i)(II)", "source": "gov-65913.4.txt", "quote": "housing affordable to households making at or below 80 percent of the area median income" },
+      "bayAreaPercent": { "value": 20, "unit": "percent of units", "cite": "Gov. Code § 65913.4(a)(4)(B)(i)(III)(ia)", "source": "gov-65913.4.txt", "quote": "Projects utilizing this subclause shall dedicate 20 percent of the total number of units" },
+      "bayAreaBelowAmiPercent": { "value": 100, "unit": "percent of AMI", "cite": "Gov. Code § 65913.4(a)(4)(B)(i)(III)(ia)", "source": "gov-65913.4.txt", "quote": "housing affordable to households making below 100 percent of the area median income" },
+      "bayAreaAverageAmiPercent": { "value": 80, "unit": "percent of AMI", "cite": "Gov. Code § 65913.4(a)(4)(B)(i)(III)(ia)", "source": "gov-65913.4.txt", "quote": "with the average income of the units at or below 80 percent of the area median income" }
     }
   }
 }

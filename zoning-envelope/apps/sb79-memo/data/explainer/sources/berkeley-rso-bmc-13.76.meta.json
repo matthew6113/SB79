@@ -1,0 +1,8 @@
+{
+  "source": "https://rentboard.berkeleyca.gov/sites/default/files/documents/Rent%20Stabilization%20Ordinance_BMC%20Chapter%2013.76.pdf",
+  "retrievedAt": "2026-10-17T17:08:38.285Z",
+  "lastModified": null,
+  "pdfSha256": "f99c046672a395776f3b9e1b4ed580d56586b673aa64e84bf8a09f5ca09ff8df",
+  "extractedWith": "pdftotext -layout",
+  "retrievedVia": "local copy of the document (fetching it failed: fetch failed)"
+}

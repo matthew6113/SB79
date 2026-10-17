@@ -1,0 +1,28 @@
+{
+  "asOf": "2026-10-17",
+  "note": "Live queries run 2026-10-17 with a fetch tool; this environment's scripts cannot reach these hosts, so the queries are recorded for a re-run rather than frozen as layers.",
+  "fire": {
+    "lra": {
+      "title": "CAL FIRE, Fire Hazard Severity Zones, Local Responsibility Area (map dated March 24, 2025)",
+      "url": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSALRA25_v1_All/FeatureServer/0",
+      "mapDate": "2025-03-24",
+      "radiusM": 1000,
+      "veryHighCount": 0,
+      "query": "where=FHSZ_Description='Very High', point at the station, distance=1000 esriSRUnit_Meter, returnCountOnly=true"
+    },
+    "sra": {
+      "title": "CAL FIRE, Fire Hazard Severity Zones, State Responsibility Area (adopted January 31, 2024)",
+      "url": "https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/FHSZSRA_23_3/FeatureServer/0",
+      "radiusM": 1000,
+      "count": 0,
+      "query": "where=1=1, point at the station, distance=1000 esriSRUnit_Meter, returnCountOnly=true"
+    }
+  },
+  "airport": {
+    "title": "Alameda County Airport Land Use Commission, Oakland (OAK) Airport Influence Area",
+    "url": "https://services7.arcgis.com/6Yz0DcWQc1LtdRPC/arcgis/rest/services/Alameda_County_ALUC_Map_WFL1/FeatureServer/60",
+    "lastEdit": "2024-10-01",
+    "northernmostLatitude": 37.77223256170374,
+    "query": "where=1=1, returnExtentOnly=true, outSR=4326"
+  }
+}

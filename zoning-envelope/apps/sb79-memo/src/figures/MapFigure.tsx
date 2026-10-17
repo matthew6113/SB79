@@ -1,16 +1,15 @@
 /**
- * Map figure (2D, SVG). California counties, the North Berkeley block, the
- * city, and the Bay Area. Paths are drawn with d3-geo at build time
- * (figure-data.ts); this component places layers and sets their opacity and
- * draw-on progress from the view for the current state.
+ * Map figure (2D, SVG): one continuous zoom from California to a parcel. Every
+ * layer is drawn at build time (figure-data.ts) in one frame, feet in
+ * EPSG:2227; a state moves the camera between viewBoxes (smoothZoom) and sets
+ * each layer's opacity or draw-on progress from the view.
  *
- * Local scenes share one SVG in feet; a state picks a viewBox. Text, marks,
- * and stroke widths are sized in screen pixels via `u` (feet per pixel).
+ * Text, marks, and some stroke widths are sized in screen pixels via `u`
+ * (frame units per pixel), so they read the same at every zoom.
  */
 import { memo, useId, useImperativeHandle, useRef, useState, type ReactNode, type Ref } from 'react';
-import type { Box, FigureHandle, Label, MapData, XY } from './types';
-import { IMPLEMENTED, mapView, type MapBox, type MapLegend, type MapView } from './views';
-import { lerp } from './motion';
+import type { FigureHandle, Label, LegendItem, MapData, XY } from './types';
+import { IMPLEMENTED, mapView, smoothZoom, type MapLegend, type MapView } from './views';
 import { useSize } from './hooks';
 import { num } from '../format';
 
@@ -20,7 +19,7 @@ interface Props {
 }
 
 function MapFigure({ data, ref }: Props) {
-  const [{ state, progress }, set] = useState({ state: 'transit-counties', progress: 1 });
+  const [{ state, progress }, set] = useState({ state: 'california', progress: 1 });
   useImperativeHandle(ref, () => ({
     setState(s: string, p: number) {
       if (!(IMPLEMENTED.map as readonly string[]).includes(s)) throw new Error(`MapFigure has no state "${s}"`);
@@ -33,14 +32,13 @@ function MapFigure({ data, ref }: Props) {
 
   return (
     <div ref={wrap} className="map-figure" data-state={state}>
-      <California data={data.california} view={view} size={size} />
-      <Local data={data.local} view={view} size={size} />
+      <World data={data} view={view} size={size} />
       {view.legendFrom && view.legendIn < 1 && <Legend data={data} view={view} which={view.legendFrom} opacity={1 - view.legendIn} />}
       {view.legend && view.legendIn > 0 && <Legend data={data} view={view} which={view.legend} opacity={view.legendIn} />}
       {view.population > 0 && (
         <div className="fig-badge" style={{ opacity: view.population }}>
-          <strong>{data.local.population.title}</strong>
-          {data.local.population.lines.map((l) => <span key={l}>{l}</span>)}
+          <strong>{data.population.title}</strong>
+          {data.population.lines.map((l) => <span key={l}>{l}</span>)}
         </div>
       )}
     </div>
@@ -48,26 +46,24 @@ function MapFigure({ data, ref }: Props) {
 }
 
 type Size = { width: number; height: number };
-/** Feet (or viewBox units) per screen pixel for a viewBox shown with "meet". */
+/** Frame units per screen pixel for a viewBox shown with "meet". */
 const perPx = (w: number, h: number, size: Size) => (size.width && size.height ? Math.max(w / size.width, h / size.height) : w / 600);
+const layer = (opacity: number) => ({ opacity, visibility: opacity > 0.001 ? ('visible' as const) : ('hidden' as const) });
+/** Draw: trace on. pathLength-based dashes need user-space strokes (see .map-draw in figures.css). */
+const draw = (t: number) => ({ pathLength: 1, strokeDasharray: '1 1', strokeDashoffset: 1 - t });
 
-/** The viewBox partway from one view to another: the center slides, the scale changes geometrically. */
-function boxAt(views: Record<MapBox, Box>, [from, to]: [MapBox, MapBox], t: number): Box {
-  const a = views[from], b = views[to];
-  const w = a[2] * Math.pow(b[2] / a[2], t), h = a[3] * Math.pow(b[3] / a[3], t);
-  const cx = lerp(a[0] + a[2] / 2, b[0] + b[2] / 2, t), cy = lerp(a[1] + a[3] / 2, b[1] + b[3] / 2, t);
-  return [cx - w / 2, cy - h / 2, w, h];
-}
-
-const layer = (opacity: number) => ({ opacity, visibility: opacity > 0 ? ('visible' as const) : ('hidden' as const) });
-
-function Text({ at, u, size = 12, children, anchor = 'middle', weight, className, dy = 0, opacity = 1 }: {
-  at: XY; u: number; size?: number; children: ReactNode; anchor?: 'start' | 'middle' | 'end'; weight?: number; className?: string; dy?: number; opacity?: number;
+/**
+ * Text in screen pixels, placed in the frame. The scale transform keeps the
+ * font size small: browsers cap very large font sizes, and at California's
+ * scale a 12 px label would be tens of thousands of frame units tall.
+ */
+function Text({ at, u, size = 12, children, anchor = 'middle', weight, className, dy = 0, dx = 0, opacity = 1 }: {
+  at: XY; u: number; size?: number; children: ReactNode; anchor?: 'start' | 'middle' | 'end'; weight?: number; className?: string; dy?: number; dx?: number; opacity?: number;
 }) {
   return (
     <text
-      x={at[0]} y={at[1] + dy * u} fontSize={size * u} textAnchor={anchor} fontWeight={weight}
-      strokeWidth={3 * u} className={`fig-text ${className ?? ''}`} opacity={opacity}
+      transform={`translate(${at[0]} ${at[1]}) scale(${u})`} x={dx} y={dy} fontSize={size} textAnchor={anchor} fontWeight={weight}
+      strokeWidth={3} className={`fig-text ${className ?? ''}`} opacity={opacity}
     >
       {children}
     </text>
@@ -91,112 +87,153 @@ function Stamp({ label, u, t, tone = 'accent' }: { label: Label; u: number; t: n
   );
 }
 
-function California({ data, view, size }: { data: MapData['california']; view: MapView; size: Size }) {
-  const [w, h] = data.size;
-  const u = perPx(w, h, size);
-  // Fill: the qualifying counties appear one after another.
-  const utc = data.counties.filter((c) => c.utc);
+/** A label off to one side, with a leader line, in screen pixels. */
+function Callout({ at, u, dx, dy, text, sub, opacity, anchor }: { at: XY; u: number; dx: number; dy: number; text: string; sub?: string; opacity: number; anchor: 'start' | 'end' }) {
+  if (opacity <= 0) return null;
+  const end: XY = [at[0] + dx * u, at[1] + dy * u];
   return (
-    <svg className="map-layer" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="xMidYMid meet" style={layer(view.ca)} aria-hidden={view.ca === 0}>
-      <g className="ca-counties">
-        {data.counties.map((c) => (
-          <path key={c.name} d={c.d} className="ca-county" />
-        ))}
-      </g>
-      {utc.map((c, i) => {
-        const t = Math.min(1, Math.max(0, view.utc * utc.length - i));
-        return t > 0 && <path key={c.name} d={c.d} className="ca-utc" opacity={t} />;
-      })}
-      {data.counties.filter((c) => c.name === data.labels.alameda.text).map((c) => (
-        <path key="alameda" d={c.d} className="ca-alameda" strokeWidth={2.5} opacity={view.alameda} />
-      ))}
-      <g opacity={view.orange}>
-        {data.counties.filter((c) => c.openIssue).map((c) => <path key={c.name} d={c.d} className="ca-open-issue" strokeWidth={1.6} strokeDasharray="4 3" />)}
-        <line x1={data.labels.orange.at[0]} y1={data.labels.orange.at[1]} x2={data.labels.orange.at[0] + 60} y2={data.labels.orange.at[1] + 22} className="fig-leader" strokeWidth={1} />
-        <Text at={[data.labels.orange.at[0] + 64, data.labels.orange.at[1] + 26]} u={u} anchor="start" className="fig-text-soft">{`${data.labels.orange.text}: ${data.labels.orange.sub}`}</Text>
-      </g>
-      <g opacity={view.alameda}>
-        <line x1={data.labels.alameda.at[0]} y1={data.labels.alameda.at[1]} x2={data.labels.alameda.at[0] - 90} y2={data.labels.alameda.at[1] + 40} className="fig-leader" strokeWidth={1} />
-        <Text at={[data.labels.alameda.at[0] - 94, data.labels.alameda.at[1] + 44]} u={u} anchor="end" weight={600} size={13}>{data.labels.alameda.text}</Text>
-      </g>
-    </svg>
+    <g opacity={opacity}>
+      <line x1={at[0]} y1={at[1]} x2={end[0]} y2={end[1]} className="fig-leader" strokeWidth={1} />
+      <Text at={end} u={u} anchor={anchor} dx={anchor === 'end' ? -4 : 4} dy={4} size={12} weight={600}>{text}</Text>
+      {sub && <Text at={end} u={u} anchor={anchor} dx={anchor === 'end' ? -4 : 4} dy={19} size={10.5} className="fig-text-soft">{sub}</Text>}
+    </g>
   );
 }
 
-function Local({ data, view, size }: { data: MapData['local']; view: MapView; size: Size }) {
-  const box = boxAt(data.views, view.box, view.zoom);
+function World({ data, view, size }: { data: MapData; view: MapView; size: Size }) {
+  const box = smoothZoom(data.views[view.box[0]], data.views[view.box[1]], view.zoom);
   const u = perPx(box[2], box[3], size);
-  const ap = data.accessPoints;
-  // Draw: trace on. pathLength-based dashes need user-space strokes (see .map-ring in figures.css).
-  const draw = (t: number) => ({ pathLength: 1, strokeDasharray: '1 1', strokeDashoffset: 1 - t });
+  const ids = { hatch: useId(), dots: useId(), cross: useId() };
+  const ca = data.california;
+  const utc = ca.counties.filter((c) => c.utc);
   const [mx, my] = [(data.measure.from[0] + data.measure.to[0]) / 2, (data.measure.from[1] + data.measure.to[1]) / 2];
+  const hz = data.hazards;
+
   return (
-    <svg className="map-layer" viewBox={box.join(' ')} preserveAspectRatio="xMidYMid meet" style={layer(view.local)} aria-hidden={view.local === 0}>
+    <svg className="map-layer" viewBox={box.join(' ')} preserveAspectRatio="xMidYMid meet">
       <defs>
-        <pattern id="map-hatch" width={6 * u} height={6 * u} patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <pattern id={ids.hatch} width={6 * u} height={6 * u} patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
           <line x1={0} y1={0} x2={0} y2={6 * u} className="fig-hatch" strokeWidth={1.6} />
         </pattern>
-        <pattern id="map-dots" width={6 * u} height={6 * u} patternUnits="userSpaceOnUse">
-          <circle cx={3 * u} cy={3 * u} r={1.3 * u} className="fig-dot" />
+        <pattern id={ids.dots} width={6 * u} height={6 * u} patternUnits="userSpaceOnUse">
+          <circle cx={3 * u} cy={3 * u} r={1.2 * u} className="fig-dot" />
+        </pattern>
+        <pattern id={ids.cross} width={6 * u} height={6 * u} patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1={0} y1={0} x2={0} y2={6 * u} className="fig-hatch-ink" strokeWidth={1.2} />
+          <line x1={0} y1={0} x2={6 * u} y2={0} className="fig-hatch-ink" strokeWidth={1.2} />
         </pattern>
       </defs>
 
-      {/* Land (county shoreline) under the city and Bay Area views */}
-      <path d={data.land} className="map-land" opacity={Math.max(view.berkeley, view.bay)} />
-
-      {/* Bay Area jurisdictions, clipped to land */}
-      <g opacity={view.bay}>
-        {data.jurisdictions.map((j) => (
-          <path
-            key={j.name} d={j.d} className={`bay-city bay-${j.status ?? 'none'}`}
-            style={j.status === 'exclusions' ? { fill: 'url(#map-hatch)' } : j.status === 'alternative-plan' ? { fill: 'url(#map-dots)' } : undefined}
-          />
+      {/* California: counties, the urban transit counties filling in one by one */}
+      <g style={layer(view.ca)}>
+        {ca.counties.map((c) => <path key={c.name} d={c.d} className="ca-county" />)}
+        {utc.map((c, i) => {
+          const t = Math.min(1, Math.max(0, view.utc * utc.length - i));
+          return t > 0 && <path key={c.name} d={c.d} className="ca-utc" opacity={t * view.utcAlpha} />;
+        })}
+        {ca.counties.filter((c) => c.name === ca.labels.alameda.text).map((c) => (
+          <path key="alameda" d={c.d} className="ca-alameda" strokeWidth={2.5} opacity={view.alameda} />
         ))}
-        {data.bayLabels.map((l) => <Text key={l.text} at={l.at} u={u} size={13} weight={600}>{l.text}</Text>)}
-      </g>
-
-      {/* Parcels, then the eligibility tint over them */}
-      <g opacity={view.parcels}>
-        <path d={`${data.parcels.eligible}${data.parcels.bart}${data.parcels.notQualifying}${data.parcels.outside}`} className="map-parcel" />
-        <g opacity={view.tint}>
-          <path d={data.parcels.eligible} className="map-eligible" />
-          <path d={data.parcels.bart} className="map-eligible" />
-          <path d={data.parcels.bart} fill="url(#map-hatch)" className="map-bart" />
+        <g opacity={view.orange}>
+          {ca.counties.filter((c) => c.openIssue).map((c) => <path key={c.name} d={c.d} className="ca-open-issue" strokeWidth={1.6} strokeDasharray="4 3" />)}
         </g>
-        <path d={data.parcels.notQualifying} className="map-not-qualifying" opacity={view.gray} />
+      </g>
+      <Callout at={ca.labels.alameda.at} u={u} dx={-90} dy={40} text={ca.labels.alameda.text} opacity={view.alameda * (1 - view.altLabels)} anchor="end" />
+      <Callout at={ca.labels.orange.at} u={u} dx={60} dy={26} text={`${ca.labels.orange.text}: ${ca.labels.orange.sub}`} opacity={view.orange} anchor="start" />
+
+      {/* Cities with an alternative plan HCD has ruled on: grayed */}
+      <g style={layer(view.alt)}>
+        {data.altPlans.map((a) => <path key={a.name} d={a.d} className="map-alt" />)}
+      </g>
+      {data.altPlans.map((a, i) => (
+        <g key={a.name} opacity={view.altLabels}>
+          <circle cx={a.at[0]} cy={a.at[1]} r={9 * u} className="map-alt-ring" strokeWidth={1.4} />
+          <Callout at={a.at} u={u} dx={-70} dy={i === 0 ? -40 : 40} text={a.name} opacity={1} anchor="end" />
+        </g>
+      ))}
+
+      {/* San Francisco's SB 79 zones, drawn, then grayed under its alternative plan */}
+      <g style={layer(view.sfZones)}>
+        {data.sf.zones.map((z) => (
+          <path key={`${z.tier}${z.band}`} d={z.d} className={`map-draw sf-tier${z.tier}`} strokeWidth={1.3 * u} fill="none" {...draw(view.sfZones)} />
+        ))}
+        {data.sf.zones.filter((z) => z.band === 'Half Mile').map((z) => (
+          <path key={`fill${z.tier}`} d={z.d} className="sf-zone-fill" opacity={view.sfGray} />
+        ))}
       </g>
 
-      {/* Berkeley, at city scale */}
-      <g opacity={view.berkeley}>
+      {/* Berkeley and its BART stations */}
+      <g style={layer(view.berkeley)}>
         <path d={data.berkeley.d} className="map-city" strokeWidth={1.6} />
       </g>
+      <g style={layer(view.bartStations)}>
+        {data.berkeley.stations.map((s) => (
+          <g key={s.name}>
+            <circle cx={s.at[0]} cy={s.at[1]} r={5 * u} className="map-station" strokeWidth={1.6} />
+            <Text at={s.at} u={u} anchor="start" dx={9} dy={4} size={11}>{`${s.name} BART`}</Text>
+          </g>
+        ))}
+      </g>
 
-      {/* MTC's zones */}
-      <path d={data.zones.half} className="map-outer-fill" opacity={view.outerFill} fillRule="evenodd" />
-      <g opacity={view.rings > 0 ? view.ringsAlpha : 0}>
-        <path d={data.zones.adjacent} className="map-ring" strokeWidth={1.4 * u} {...draw(view.rings)} />
-        <path d={data.zones.quarter} className="map-ring" strokeWidth={1.4 * u} {...draw(view.rings)} />
-        <path d={data.zones.half} className="map-ring" strokeWidth={1.4 * u} {...draw(view.rings)} />
+      {/* North Berkeley: the parcel fabric and each map-shaped requirement */}
+      <g style={layer(view.parcels)}>
+        <path d={data.parcels} className="map-parcel" />
+      </g>
+      <g style={layer(view.opportunity)}>
+        <path d={data.opportunity.highest} className="opp-highest" />
+        <path d={data.opportunity.high} className="opp-high" />
+        <path d={data.opportunity.other} className="opp-other" />
+      </g>
+      <g style={layer(view.zoning)}>
+        {data.zoning.map((z) => (
+          <path key={z.district} d={z.d} className={`zone-${z.cls}`} style={z.cls === 'commercial' ? { fill: `url(#${ids.dots})` } : undefined} />
+        ))}
+        {data.zoning.filter((z) => z.cls === 'commercial').map((z) => <path key={`base${z.district}`} d={z.d} className="zone-commercial-base" />)}
+      </g>
+      <g style={layer(view.zoningLabels)}>
+        {data.zoning.map((z) => (
+          <g key={z.district}>
+            <Text at={z.label.at} u={u} size={12} weight={700}>{z.label.text}</Text>
+            <Text at={z.label.at} u={u} size={10.5} dy={13} className="fig-text-soft">{z.label.sub}</Text>
+          </g>
+        ))}
+      </g>
+      <g style={layer(view.bart)}>
+        <path d={data.bart.d} className="map-bart-land" />
+        <path d={data.bart.d} fill={`url(#${ids.hatch})`} className="map-bart-hatch" />
+        <Callout at={data.bart.label.at} u={u} dx={110} dy={-70} text={data.bart.label.text} sub={data.bart.label.sub} opacity={1} anchor="start" />
+      </g>
+      <g style={layer(view.rent)}>
+        <path d={data.rent.unknown} className="map-rent-unknown" />
+        <path d={data.rent.estimate} className="map-rent" />
+        <path d={data.rent.estimate} fill={`url(#${ids.cross})`} className="map-rent-cross" />
+      </g>
+      <g style={layer(view.historic)}>
+        <path d={data.historic.merit} className="map-merit" />
+        <path d={data.historic.landmark} className="map-landmark" />
+      </g>
+      <g style={layer(view.pick)}>
+        <path d={data.pick.flagged} className="map-flagged" />
+        <path d={data.pick.clear} className="map-clear" />
+      </g>
+
+      {/* MTC's zones, the track, the station, access points, the example lot, the measuring line */}
+      <g opacity={view.rings > 0 ? 1 : 0}>
+        <path d={data.zones.adjacent} className="map-ring map-draw" strokeWidth={1.4 * u} {...draw(view.rings)} />
+        <path d={data.zones.quarter} className="map-ring map-draw" strokeWidth={1.4 * u} {...draw(view.rings)} />
+        <path d={data.zones.half} className="map-ring map-draw" strokeWidth={1.4 * u} {...draw(view.rings)} />
       </g>
       <g opacity={view.ringLabels}>
         {data.ringLabels.map((l) => <Text key={l.text} at={l.at} u={u} size={12} dy={4} anchor="end" className="fig-text-accent" weight={600}>{`${l.text} `}</Text>)}
       </g>
-
-      {/* Tracks and stations */}
-      <path d={data.rail} className="map-rail" strokeWidth={1.8} strokeDasharray="5 3" opacity={view.rail} />
-      <g opacity={view.stations}>
-        {data.stations.map((s) => (
-          <g key={s.name}>
-            <circle cx={s.at[0]} cy={s.at[1]} r={(s.primary ? 7 : 5) * u} className="map-station" strokeWidth={1.6} />
-            <Text at={s.at} u={u} anchor="end" dy={-10} size={s.primary ? 13 : 11} weight={s.primary ? 600 : 400} className={s.primary ? '' : 'fig-text-soft'}>{`${s.name} BART`}</Text>
-          </g>
-        ))}
+      <path d={data.rail} className="map-rail" strokeWidth={1.8} strokeDasharray="5 3" style={layer(view.rail)} />
+      <g style={layer(view.station)}>
+        <circle cx={data.station.at[0]} cy={data.station.at[1]} r={7 * u} className="map-station" strokeWidth={1.6} />
+        <Text at={data.station.at} u={u} anchor="end" dy={-10} size={13} weight={600}>{data.station.name}</Text>
       </g>
       <Stamp label={data.tierStamp} u={u} t={view.tier} />
-
-      {/* Access points: filled, or hollow for an elevator entrance */}
-      <g opacity={view.accessPoints}>
-        {ap.map((a, i) => (
+      <g style={layer(view.accessPoints)}>
+        {data.accessPoints.map((a, i) => (
           <rect
             key={i} x={a.at[0] - 3.5 * u} y={a.at[1] - 3.5 * u} width={7 * u} height={7 * u}
             className={a.elevator ? 'map-ap map-ap-elevator' : 'map-ap'} strokeWidth={1.4} opacity={a.primary ? 1 : 0.55}
@@ -204,90 +241,77 @@ function Local({ data, view, size }: { data: MapData['local']; view: MapView; si
           />
         ))}
       </g>
-
-      {/* Exhibit sites */}
-      <g opacity={view.site}>
-        {data.sites.map((s) => (
-          <g key={s.key}>
-            <path d={s.d} className={s.key === 'B' ? 'map-site map-site-b' : 'map-site'} strokeWidth={s.key === 'B' ? 2 : 1.3} />
-            <Text at={s.at} u={u} size={s.key === 'B' ? 13 : 11} dy={-12} weight={600}>{s.label}</Text>
-          </g>
-        ))}
+      <g style={layer(Math.max(view.site, view.pickSite))}>
+        <path d={data.site.d} className="map-site map-site-b" strokeWidth={2} />
+        <Text at={data.site.at} u={u} size={13} dy={-12} weight={600} opacity={1 - view.pickSite}>{data.site.label}</Text>
       </g>
-
-      {/* The measuring line, parcel edge to access point */}
       <g opacity={view.measure > 0 ? 1 : 0}>
-        <line x1={data.measure.from[0]} y1={data.measure.from[1]} x2={data.measure.to[0]} y2={data.measure.to[1]} className="map-measure" strokeWidth={1.6 * u} {...draw(view.measure)} />
+        <line x1={data.measure.from[0]} y1={data.measure.from[1]} x2={data.measure.to[0]} y2={data.measure.to[1]} className="map-measure map-draw" strokeWidth={1.6 * u} {...draw(view.measure)} />
         <circle cx={data.measure.from[0]} cy={data.measure.from[1]} r={2.5 * u} className="map-measure-end" />
         <Text at={[mx, my]} u={u} size={12} anchor="start" dy={4} weight={600} opacity={view.measure < 1 ? 0 : 1}>{`  ${data.measure.label}`}</Text>
       </g>
 
-      <Stamp label={data.berkeley.stamp} u={u} t={view.stamp} />
+      {/* Fire and airport: what does not reach the half mile */}
+      <g opacity={view.fire > 0 ? 1 : 0}>
+        <circle cx={hz.fire.at[0]} cy={hz.fire.at[1]} r={hz.fire.r} className="map-fire map-draw" strokeWidth={1.6 * u} {...draw(view.fire)} />
+        <Text at={[hz.fire.at[0], hz.fire.at[1] - hz.fire.r]} u={u} size={12} dy={-8} weight={600} opacity={view.fire < 1 ? 0 : 1}>{hz.fire.label}</Text>
+      </g>
+      <g opacity={view.airport}>
+        <line x1={hz.airport.from[0]} y1={hz.airport.from[1]} x2={hz.airport.to[0]} y2={hz.airport.to[1]} className="map-airport" strokeWidth={1.6} />
+        <path d={`M ${hz.airport.to[0] - 6 * u} ${hz.airport.to[1] - 10 * u} L ${hz.airport.to[0]} ${hz.airport.to[1]} L ${hz.airport.to[0] + 6 * u} ${hz.airport.to[1] - 10 * u}`} className="map-airport" strokeWidth={1.6} fill="none" />
+        <Text at={hz.airport.to} u={u} anchor="start" dx={10} dy={-6} size={12} weight={600}>{hz.airport.label}</Text>
+      </g>
+
+      <Stamp label={data.sf.stamp} u={u} t={view.sfStamp} />
+      <Stamp label={data.berkeley.stamp} u={u} t={view.noExclusions} />
+      {view.pickSite > 0 && (
+        <Callout at={data.pick.label.at} u={u} dx={90} dy={-80} text={data.pick.label.text} sub={data.pick.label.sub} opacity={view.pickSite} anchor="start" />
+      )}
     </svg>
   );
 }
 
-function Swatch({ className, pattern }: { className: string; pattern?: 'hatch' | 'dots' }) {
+function Swatch({ item }: { item: LegendItem }) {
   const id = useId();
+  if (item.swatch.startsWith('legend-')) return <span className={item.swatch} />;
   return (
     <svg width="14" height="14" className="fig-swatch" aria-hidden>
-      {pattern === 'hatch' && (
+      {item.pattern === 'hatch' && (
         <pattern id={id} width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
           <line x1="0" y1="0" x2="0" y2="4" className="fig-hatch" strokeWidth="1.4" />
         </pattern>
       )}
-      {pattern === 'dots' && (
+      {item.pattern === 'dots' && (
         <pattern id={id} width="4" height="4" patternUnits="userSpaceOnUse">
           <circle cx="2" cy="2" r="0.9" className="fig-dot" />
         </pattern>
       )}
-      <rect x="1" y="1" width="12" height="12" className={className} />
-      {pattern && <rect x="1" y="1" width="12" height="12" fill={`url(#${id})`} className="fig-swatch-pattern" />}
+      {item.pattern === 'cross' && (
+        <pattern id={id} width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="4" className="fig-hatch-ink" strokeWidth="1" />
+          <line x1="0" y1="0" x2="4" y2="0" className="fig-hatch-ink" strokeWidth="1" />
+        </pattern>
+      )}
+      <rect x="1" y="1" width="12" height="12" className={item.swatch} />
+      {item.pattern && <rect x="1" y="1" width="12" height="12" fill={`url(#${id})`} className="fig-swatch-pattern" />}
     </svg>
   );
 }
 
 function Legend({ data, view, which, opacity }: { data: MapData; view: MapView; which: MapLegend; opacity: number }) {
-  const l = data.local;
-  const style = { opacity };
-  if (which === 'counties') {
-    const n = data.california.counties.filter((c) => c.utc).length;
-    return (
-      <ul className="fig-legend" style={style}>
-        <li><Swatch className="ca-utc" /><strong className="fig-count">{num(Math.min(n, Math.ceil(view.utc * n - 1e-9)))}</strong>{data.california.legend.utc}</li>
-        <li style={{ opacity: view.orange }}><Swatch className="ca-open-issue legend-dashed" />{data.california.legend.openIssue}</li>
-      </ul>
-    );
-  }
-  if (which === 'distance') {
-    return (
-      <ul className="fig-legend" style={style}>
-        <li style={{ opacity: view.accessPoints }}><span className="legend-ap" />Station entrance (MTC)</li>
-        <li style={{ opacity: view.accessPoints }}><span className="legend-ap legend-ap-elevator" />Elevator entrance</li>
-        <li style={{ opacity: view.rings }}><span className="legend-ring" />MTC SB 79 zones</li>
-      </ul>
-    );
-  }
-  if (which === 'eligibility') {
-    return (
-      <ul className="fig-legend" style={style}>
-        <li><Swatch className="map-eligible" />{l.eligibility.eligible}</li>
-        <li><Swatch className="map-not-qualifying" />{l.eligibility.notQualifying}</li>
-        <li><Swatch className="map-eligible" pattern="hatch" />{l.eligibility.bart}</li>
-        <li><Swatch className="map-parcel" />{l.eligibility.outside}</li>
-      </ul>
-    );
-  }
-  if (which === 'bay') {
-    return (
-      <ul className="fig-legend" style={style}>
-        <li><Swatch className="bay-defaults" />{l.bayLegend.defaults}</li>
-        <li><Swatch className="bay-swatch-blank" pattern="hatch" />{l.bayLegend.exclusions}</li>
-        <li><Swatch className="bay-swatch-blank" pattern="dots" />{l.bayLegend.alternativePlan}</li>
-      </ul>
-    );
-  }
-  return null;
+  const items = data.legends[which] ?? [];
+  const utc = data.california.counties.filter((c) => c.utc).length;
+  return (
+    <ul className="fig-legend" style={{ opacity }}>
+      {items.map((item, i) => (
+        <li key={item.text} style={which === 'counties' && i === 1 ? { opacity: view.orange } : undefined}>
+          <Swatch item={item} />
+          {which === 'counties' && i === 0 && <strong className="fig-count">{num(Math.min(utc, Math.ceil(view.utc * utc - 1e-9)))}</strong>}
+          {item.text}
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 /** Re-renders only for its own state: the stage updates on every frame of every figure. */

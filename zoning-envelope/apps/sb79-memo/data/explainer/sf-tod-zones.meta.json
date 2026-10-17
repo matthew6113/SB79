@@ -1,0 +1,8 @@
+{
+  "retrievedAt": "2026-10-17T17:08:38.285Z",
+  "count": 6,
+  "source": "https://services.arcgis.com/Zs2aNLFN00jrS4gG/arcgis/rest/services/SB79_Access_Points_and_Radii/FeatureServer/3",
+  "sourceLastEdit": "2026-05-26T22:34:48.940Z",
+  "query": "all zones, simplified (maxAllowableOffset 0.0001 degrees)",
+  "notes": "San Francisco Planning's copy of MTC's SB 79 zones, one dissolved polygon per tier and band, within the city."
+}

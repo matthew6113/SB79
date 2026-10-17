@@ -120,9 +120,10 @@ apps/sb79-memo/
   src/script.ts           # paragraph id -> figure + state (the spec's script table)
   src/memo.config.ts      # header config (the byline stays configurable) and exhibit APNs
   src/memo-data.ts        # every number the explainer shows, from @zoning-envelope/law and data/
+  src/parcel-classes.ts   # each parcel near the station classified once: band, zoning, BART, rent estimate, landmark
   src/format.ts           # number, date, and address formatting (no legal values)
   src/components/         # Step, Letterhead (the header), Law (statute cites), Source, OpenIssue, StandardsTable
-  src/figures/            # React islands: MapFigure, EnvelopeFigure, Checklist, Timeline, FigureStage, DevPanel
+  src/figures/            # React islands: MapFigure, EnvelopeFigure, Timeline, FigureStage, DevPanel
   src/figures/three-parts.tsx # R3F pieces for EnvelopeFigure (Prism, Band, Projector, Warmup)
   src/figures/figure-data.ts  # build-time figure data (served as /figure-data.json)
   src/figures/views.ts    # state -> view, a pure function of progress, per figure
@@ -136,7 +137,8 @@ apps/sb79-memo/
   src/styles/memo.css     # the look: off-white page, book serif, small caps
   src/styles/print.css
   data/                   # frozen snapshots, *.meta.json, manifest.json (asOf), sources/ text
-  scripts/                # snapshot.ts, snapshot-rockridge.ts (refresh data), propose-exhibits.ts
+  data/explainer/         # the map beyond North Berkeley: SF zones, BART, Beverly Hills, plans, hazards, landmarks, rent control
+  scripts/                # snapshot.ts, snapshot-rockridge.ts, snapshot-explainer.ts (refresh data), propose-exhibits.ts
   EXHIBITS.md             # generated exhibit candidates (Matthew chooses)
   test/                   # Vitest: memo/script contract, figures, data checks
 ```
@@ -164,8 +166,14 @@ end with the boxed not-legal-advice disclaimer (Matthew's calls;
 issue" note where it bites, and flag anything that reads as advice on a
 specific project.
 
-**Figures (Phase 3).** `figure-data.ts` builds everything the figures draw at
-build time: d3-geo path strings in feet (EPSG:2227, relative to Exhibit B),
+**Figures (Phase 3; map rebuilt 2026-10-17).** The map is one continuous
+zoom from California to a parcel: every layer, the counties included, is drawn
+in one frame (feet, EPSG:2227, relative to Exhibit B), and a state moves the
+camera between the stops in `MapData.views` with `smoothZoom` (van Wijk, as
+d3.interpolateZoom). Map text is drawn at screen size through a scale
+transform: browsers cap very large font sizes, and at California's scale a
+12 px label is tens of thousands of frame units. `figure-data.ts` builds
+everything the figures draw at build time: d3-geo path strings in that frame,
 engine geometry (plates via `stackFloorPlates`, the measuring line via
 `nearestPointOnPolygon`), and every label, formatted from memo-data. Figure
 components only place those labels; `test/figures.test.ts` fails on a digit in
@@ -225,6 +233,13 @@ its source, query, and dates; `data/manifest.json` `asOf` is the header
 date. Owner names are never stored. Curated files
 (`urban-transit-counties.json`, `berkeley-zoning-standards.json`) quote
 `data/sources/*.txt`, and `test/data.test.ts` checks the quotes.
+`data/explainer/` has its own manifest (`snapshot-explainer`): layers from
+hosts this environment reached, and documents copied from research downloads
+where it could not (their meta says so). Its curated files
+(`alternative-plans.json`, `hazards.json`, `landmarks.json`,
+`rent-control.json`, `law-firm-memos.json`) record queries run with a fetch
+tool on 2026-10-17, because scripts here could not reach CAL FIRE, the
+Alameda County ALUC, or Berkeley's GIS; re-run them when those hosts are open.
 
 **Decisions so far (Matthew).** Law stored with both versions keyed by date;
 urban transit counties per HCD's seven, with Orange as an open issue;
@@ -235,12 +250,21 @@ the density-bonus section (`density-bonus-contrast`): SB 79 requires the city to
 about 306 ft under the Density Bonus Law. The explainer takes no position on that
 application. Its data is in `data/rockridge/`. On 2026-10-16 Matthew dropped the
 calculator and moved the memo to the explainer format; a city-by-city
-implementation tracker is deferred.
+implementation tracker is deferred. On 2026-10-17 he set the map storyboard:
+open on California, zoom through the cities that replaced the defaults (gray
+them; only plans HCD has ruled on are mapped) to San Francisco, then Berkeley,
+the station, and each map-shaped requirement, then pick the lot for the render.
+The rent-control layer is an estimate (more than two units, built by 1980),
+labeled as one.
 
 **Writing memo.mdx.** Order: an introduction (no heading), Key Points
-(bullets), question headings ("Where does SB 79 apply?", "What must the city
-allow?", ...), Key Takeaways (bullets), then the `foot-disclaimer` box. State
-the rule first, then show it on the example lot. The standards table
+(bullets), question headings that follow the zoom ("Where does SB 79 apply?",
+"Can a city change the defaults?", "Where does SB 79 apply in Berkeley?",
+"What must the city allow?", ...), Key Takeaways (bullets), then the
+`foot-disclaimer` box. State the rule first, then show it on the map or the
+example lot. Cite the statute; cite the Coblentz and Holland & Knight summaries
+(`explainer.sources`) where they add a practitioner's reading, never for a
+legal value. The standards table
 (`StandardsTable.astro`, both tiers and every band, the exhibits' rows marked)
 sits in the height paragraph. Every number is an MDX expression over `memo-data`
 (digits and number words both); `test/memo.test.ts` fails on hand-typed ones.
@@ -248,8 +272,9 @@ Cites go in GFM footnotes (`[^key]`) whose definitions render `<Law of={leaf} />
 or `<Source source={...} />`; never type a cite by hand. Open issues use
 `<OpenIssue title>` inside the paragraph's `<Step>`.
 
-**Phase status.** Phases 0–5 done and approved; the explainer format and the
-calculator's removal (2026-10-16) await Matthew's review. Exhibits are set in
+**Phase status.** Phases 0–5 done and approved; the explainer format
+(merged 2026-10-17) and the map-zoom storyboard (2026-10-17) await Matthew's
+review of the prose. Exhibits are set in
 `src/memo.config.ts`: A 1504 Francisco St (second-ranked, chosen over the
 top-ranked triplex), B 1510 Virginia St and C 1450 Acton Crescent
 (top-ranked). The closing not-legal-advice disclaimer, which says AI was

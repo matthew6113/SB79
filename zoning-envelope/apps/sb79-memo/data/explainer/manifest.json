@@ -1,0 +1,58 @@
+{
+  "asOf": "2026-10-17",
+  "retrievedAt": "2026-10-17T17:08:38.285Z",
+  "center": {
+    "stationId": "904309",
+    "lonLat": [
+      -122.28352,
+      37.8740000000001
+    ]
+  },
+  "radiusFt": 3000,
+  "files": [
+    {
+      "file": "sf-tod-zones.geojson",
+      "source": "https://services.arcgis.com/Zs2aNLFN00jrS4gG/arcgis/rest/services/SB79_Access_Points_and_Radii/FeatureServer/3",
+      "sourceLastEdit": "2026-05-26T22:34:48.940Z",
+      "count": 6
+    },
+    {
+      "file": "bart-stations.geojson",
+      "source": "https://services.arcgis.com/sqS7RNuF1BQinj5N/arcgis/rest/services/BART_AB_2923_Public_Service_20230201/FeatureServer/0",
+      "sourceLastEdit": "2023-02-01T19:59:43.097Z",
+      "count": 51
+    },
+    {
+      "file": "bart-ab2923-parcels.geojson",
+      "source": "https://services.arcgis.com/sqS7RNuF1BQinj5N/arcgis/rest/services/BART_AB_2923_Public_Service_20230201/FeatureServer/3",
+      "sourceLastEdit": "2023-02-01T19:59:44.035Z",
+      "count": 9
+    },
+    {
+      "file": "beverly-hills.geojson",
+      "source": "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Census_Populated_Places/FeatureServer/0",
+      "sourceLastEdit": "2024-11-21T21:52:12.260Z",
+      "count": 1
+    },
+    {
+      "file": "sources/hcd-beverly-hills-review-2026-05-08.txt",
+      "source": "https://beverlyhills.org/DocumentCenter/View/15917",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "sources/sf-ordinance-082-26.txt",
+      "source": "https://media.api.sf.gov/documents/o0082-26.pdf",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "sources/sfplanning-sb79-exec-summary-2026-03-19.txt",
+      "source": "https://citypln-m-extnl.sfgov.org/Commissions/CPC/3_19_2026/Commission%20Packet/2026-001412PCA.pdf",
+      "sourceLastEdit": null
+    },
+    {
+      "file": "sources/berkeley-rso-bmc-13.76.txt",
+      "source": "https://rentboard.berkeleyca.gov/sites/default/files/documents/Rent%20Stabilization%20Ordinance_BMC%20Chapter%2013.76.pdf",
+      "sourceLastEdit": null
+    }
+  ]
+}

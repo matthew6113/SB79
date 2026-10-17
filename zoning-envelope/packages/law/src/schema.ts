@@ -75,7 +75,7 @@ export const sb79Schema = z
       .object({ appliesTo: text, heightAddFt: num, densityAddDuPerAcre: num, residentialFarAdd: num })
       .strict(),
     conditions: z
-      .object({ minUnits: num, minDensityDuPerAcre: num, localMinDensityIfGreater: text, maxAverageUnitSizeNetSqFt: num, safety: text })
+      .object({ minUnits: num, minDensityDuPerAcre: num, localMinDensityIfGreater: text, maxAverageUnitSizeNetSqFt: num, safety: text, fireSafety: text })
       .strict(),
     affordability: z
       .object({
@@ -127,7 +127,9 @@ export const sb79Schema = z
         exemptions: z
           .object({ noWalkingPathUnderMiles: num, industrialHubMinStops: num, industrialHubMinAcres: num, industrialHubDesignatedBy: date })
           .strict(),
-        exclusions: z.object({ untilYearsAfterSeventhHousingElement: num, historicSites: versioned(z.string()) }).strict(),
+        exclusions: z
+          .object({ untilYearsAfterSeventhHousingElement: num, veryHighFireZoneSites: text, seaLevelRiseSites: text, historicSites: versioned(z.string()) })
+          .strict(),
         alternativePlan: z
           .object({
             sameTotalCapacity: flag,
@@ -136,6 +138,28 @@ export const sb79Schema = z
             maxSiteCapacityCountedPercent: num,
             adoptOutsideHousingElement: versioned(z.string()),
             replacesDefaults: flag,
+          })
+          .strict(),
+      })
+      .strict(),
+    /** Transit agencies' own zoning standards for land they own (§ 65912.158). */
+    transitAgencyLand: z.object({ standardsByResolution: text, becomeLocalZoningAfterYears: num, ownedByDate: date }).strict(),
+    /** SB 35 streamlining as SB 79 adapts it (§ 65912.159), with the SB 35 terms it imports (§ 65913.4). */
+    streamlining: z
+      .object({
+        siteRulesApply: text,
+        localProgressTestWaived: text,
+        veryHighFireZoneExcluded: text,
+        historicDemolitionExcluded: text,
+        affordability: z
+          .object({
+            rentalPercent: num,
+            rentalAmiPercent: num,
+            ownershipPercent: num,
+            ownershipAmiPercent: num,
+            bayAreaPercent: num,
+            bayAreaBelowAmiPercent: num,
+            bayAreaAverageAmiPercent: num,
           })
           .strict(),
       })

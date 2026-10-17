@@ -1,0 +1,18 @@
+{
+  "asOf": "2026-10-17",
+  "newConstruction": {
+    "cutoff": "1980-06-30",
+    "section": "BMC § 13.76.050.B.1",
+    "source": {
+      "title": "Berkeley Rent Stabilization Board, Rent Stabilization Ordinance (BMC ch. 13.76, as amended by Measure BB)",
+      "url": "https://rentboard.berkeleyca.gov/sites/default/files/documents/Rent%20Stabilization%20Ordinance_BMC%20Chapter%2013.76.pdf",
+      "file": "explainer/sources/berkeley-rso-bmc-13.76.txt"
+    },
+    "quote": "Newly Constructed Rental Units. A rental unit created after June 30, 1980."
+  },
+  "estimate": {
+    "rule": "a parcel with more than two units (city parcel layer) built in or before 1980",
+    "lastYearBuilt": 1980,
+    "note": "An estimate. Berkeley publishes no parcel-level rent registry. Year built is a year, so 1980 buildings count though some may be newer than the June 30, 1980 cutoff; it cannot tell whether tenants occupied a unit in the past seven years, which units are exempt for other reasons, or whether the unit count is current."
+  }
+}

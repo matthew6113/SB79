@@ -1,0 +1,629 @@
+                                          AMENDED IN BOARD
+         FILE NO. 260132                    4/28/2026    ORDINANCE NO. 082-26
+
+
+
+         [Planning Code - Transit-Oriented Residential Development]
+     1
+
+ 2
+         Ordinance 1) temporarily excluding certain sites from the provisions of California
+ 3
+         Senate Bill No. 79 (SB 79) that require local jurisdictions to allow residential uses at
+ 4
+         various densities, heights, and floor area ratios on sites within one-half mile of a
+ 5
+         transit-oriented development stop; 2) permanently excluding from those provisions of
+ 6
+         SB 79 sites located in industrial employment hubs, including certain sites zoned M
+ 7
+         (Industrial), SALi (Service/Arts/Light Industrial}, PDR (Production, Distribution, Repair),
+ 8
+         WMUQG (WSoMa Mixed Use-OfficeGeneral), and P (Public), and sites with a walking
+ 9
+         path of more than one mile to the closest transit development stop; 3) amending the
+10
+         Planning Code to permit additional density and height for residential projects on
+11
+         certain parcels within one-half mile of a transit-oriented development stop; 4) adopting
+12
+         an Alternative Plan to SB 79, including making findings that the Alternative Plan
+13
+         provides equivalent development capacity; 5) making findings that these exemptions
+14
+         and the City's residential capacity meet the requirements of SB 79; and 6) directing the
+15
+         Clerk of the Board of Supervisors to transmit a copy of this ordinance to the California
+16
+         Department of Housing and Community Development; and affirming the Planning
+17
+         Department's determination under the California Environmental Quality Act; making
+18
+         findings of consistency with the General Plan and the eight priority policies of Planning
+19
+         Code, Section 101.1; and making public necessity, convenience, and welfare findings
+20
+         under Planning Code, Section 302.
+21
+               NOTE:     Unchanged Code text and uncodified text are in plain Arial font.
+22                       Additions to Codes are in single-underline italics Times New Roman font.
+                         Deletions to Codes are in strikethrough italics Times l'leH,. Roman font.
+23                       Board amendment additions are in double-underlined Arial font.
+                         Board amendment deletions are in strikethrough /\rial font.
+24                       Asterisks (* * * *) indicate the omission of unchanged Code
+                         subsections or parts of tables.
+25
+
+
+
+         Mayor Lurie
+         BOARD OF SUPERVISORS                                                                        Page 1
+ 1
+            Be it ordained by the People of the City and County of San Francisco:
+ 2
+            Section 1. Environmental and Land Use Findings.
+ 3
+            (a) On March 12, 2026, pursuant to California Government Code Section
+ 4
+     65912.160(c)(2), the Planning Department determined that this ordinance is not a project for
+ 5
+     purposes of the California Environmental Quality Act (California Public Resources Code
+ 6
+     Sections 21000 et seq.). Said determination is on file with the Clerk of the Board of
+ 7
+     Supervisors in File No. 260132 and is incorporated herein by reference. The Board affirms
+ 8
+     this determination.
+ 9
+            (b) On March 19, 2026, the Planning Commission, in Resolution No. 21901, adopted
+10
+     findings that the actions contemplated in this ordinance are consistent, on balance, with the
+11
+     City's General Plan and eight priority policies of Planning Code Section 101.1. The Board
+12
+     adopts these findings as its own. A copy of said Resolution is on file with the Clerk of the
+13
+     Board of Supervisors in File No. 260132, and is incorporated herein by reference.
+14
+            (c) Pursuant to Planning Code Section 302, this Board finds that these Planning Code
+15
+     amendments will serve the public necessity, convenience, and welfare for the reasons set
+16
+     forth in Planning Commission Resolution No. 21901, and the Board adopts such reasons as
+17
+     its own. A copy of said resolution is on file with the Clerk of the Board of Supervisors in File
+18
+     No. 260132 and is incorporated herein by reference.
+19
+            (d) In Planning Commission Resolution No. 21901, the Planning Commission also
+20
+     adopted findings regarding the City's implementation of and compliance with Senate Bill
+21
+     ("SB") 79, found in California Government Code Sections 65912.155 through 65912.162. The
+22
+     findings relate to parcels excluded from SB 79, and the City's alternative plan. The Board
+23
+     adopts these findings as its own and incorporates the findings by reference.
+24
+
+25
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                         Page 2
+ 1          Section 2. Additional Findings.
+
+ 2          (a) On October 10, 2025, the Legislature enacted SB 79. SB 79 takes effect on July 1,
+
+ 3   2026, and will require local governments to permit residential development on sites within
+
+ 4   one-half mile of defined transit-oriented development stops, up to specified density limits, floor
+
+ 5   area ratios, and height limits. The applicable standards vary according to the type of transit
+
+ 6   stop and the site's distance from the stop.
+
+ 7          (b) A local government may declare that certain parcels in the ½ mile radius of a
+
+ 8   transit-oriented development stop (a "transit-oriented development zone") are permanently
+
+ 9   exempt from SB 79 if those sites meet specified criteria in California Government Code
+
+10   Section 65912.160(e). Section 3 of this ordinance exempts certain parcels from SB 79
+
+11   pursuant to California Government Code, Section 65912.160, and makes findings in support
+
+12   of the exemptions.
+
+13          (c) A local government may also declare that certain parcels in transit-oriented
+
+14   development zones are temporarily exempt from SB 79, if those sites meet specified criteria in
+
+15   California Government Code Section 65912.161 (b). The temporary exemption expires one
+
+16   year following the adoption of the next revision of the jurisdiction's housing element in its
+
+17   general plan. Section 4 of this ordinance temporarily exempts certain parcels from SB 79
+
+18   pursuant to California Government Code, Section 65912.161, and makes findings in support
+
+19   of the temporary exemptions.
+
+20          (d) On December 12, 2025, the City enacted Ordinance Nos. 243-25, 244-25, and
+
+21   245-25, also known as the "Family Zoning Plan." The Family Zoning Plan, through
+
+22   amendments to the Planning Code and Zoning Maps, created increased capacity for multi-
+
+23   family housing primarily in San Francisco's well-resourced and relatively less populated
+
+24   neighborhoods.
+
+25
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                            Page 3
+ 1          (e) Based on a preliminary analysis, the Planning Department estimates that SB 79
+
+ 2   applies to more than 75% of the assessor's parcels in the City, covering approximately 65% of
+
+ 3   the City on a land area basis. There is significant overlap between the transit-oriented
+
+ 4   development zones specified in SB 79 and the areas subject to the Family Zoning Plan.
+
+ 5   While the Family Zoning Plan significantly expanded the Residential Capacity for many sites
+
+ 6   that would be subject to SB 79, existing zoning in many places both inside and outside of the
+
+ 7   Family Zoning Plan area already substantially exceeds the zoning standards of SB 79.
+
+ 8          (f) A local government may adopt a transit-oriented development alternative plan
+
+ 9   ("Alternative Plan") consistent with California Government Code Section 65912.161 (a). The
+
+10   City's existing zoning is sufficient to meet most of the criteria for an Alternative Plan. But the
+
+11   zoning for some parcels in transit-oriented development zones does not meet the minimum
+
+12   density requirement, which requires that every parcel whose zoning permits housing in an
+
+13   Alternative Plan allow at least 50% of the permitted SB 79 density, as measured in permitted
+
+14   residential density per acre. This individual parcel density allowance is one of the
+
+15   requirements for an Alternative Plan. Section 5 of this ordinance adopts modest zoning
+
+16   changes on these parcels to satisfy the minimum SB 79 requirements.
+
+17          (g) If a local government adopts an Alternative Plan, the state-mandated zoning
+
+18   provisions of SB 79, in California Government Code Section 65912.157, will not apply in that
+
+19   jurisdiction until its next Housing Element cycle. Section 6 of this ordinance adopts the City's
+
+20   Alternative Plan to SB 79 pursuant to California Government Code Sections 65912.160 and
+
+21   65912.161.
+
+22          (h) At least 14 days prior to the adoption of an ordinance pursuant to SB 79, local
+
+23   governments must submit a draft ordinance to the Department of Housing and Community
+
+24   Development ("HCD"). On February 10, 2026, the Planning Department transmitted a draft of
+
+25   this ordinance to HCD for review, in accordance with California Government Code Section
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                          Page4
+ 1   65912.160. A copy of this correspondence is on file with the Clerk of the Board in File No.
+
+ 2   260132.
+
+ 3          (i) Following enactment of this ordinance, the City must submit a copy of the ordinance
+
+ 4   to HCD within 60 days.
+
+ 5
+
+ 6          Section 3. Sites Permanently Exempt From SB 79.
+
+ 7          Consistent with California Government Code Section 65912.160(e), a local government
+
+ 8   may declare that parcels in transit-oriented zones are permanently exempt from the state-
+
+ 9   mandated zoning provisions in Government Code Section 65912.157, if the local government
+
+10   makes findings supported by substantial evidence that: ( 1) there exists no walking path of less
+
+11   than one mile between that parcel and the transit-oriented development stop; or (2) the parcel
+
+12   is part of an industrial employment hub, as defined in Government Code Section
+
+13   65912.160(e). The Planning Commission, in Resolution No. 21901, found that the parcels
+
+14   listed in "Table of Permanent Exclusions," on file with the Clerk of the Board of Supervisors in
+
+15   Board File No. 260132, are exempt from SB 79 because they satisfy one or both of these
+
+16   criteria. The Board affirms these findings, adopts them as its own, and permanently exempts
+
+17   the listed parcels from SB 79.
+
+18
+19          Section 4. Sites Temporarily Exempt From SB 79.
+
+20          Consistent with California Government Code Section 65912 .161 (b), a local government
+
+21   may declare that parcels in transit-oriented zones are temporarily exempt from the state-
+
+22   mandated zoning provisions in Government Code Section 65912 .157. _The exemption expires
+
+23   one year following the adoption of the jurisdiction's seventh housing element revisions.
+
+24   Parcels eligible for this temporary exemption include parcels in an area designated as low
+
+25   resource on the most recently adopted version of the opportunity area maps published by the
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                        Page 5
+ 1    California Tax Credit Allocation Committee, within a jurisdiction that cumulatively allows for at
+
+ 2    least 50% of the Residential Capacity required by SB 79. The Planning Commission, in
+
+ 3    Resolution No. 21901, found that the parcels listed in "Table of Temporary Exemptions-Low
+
+ 4    Resource Parcels," on file with the Clerk of the Board of Supervisors in Board File No.
+
+ 5    260132, meet one or more of these criteria and are exempt from SB 79. On April 13, 2026,
+
+ 6    the Planning Department substituted the table with a new table containing additional parcels
+
+ 7    eligible for the low-income exemption. These parcels are also exempt pursuant to
+
+ 8    Government Code Section 65912.161 (b). The Board affirms these findings, adopts them as
+
+ 9    its own, and exempts the listed parcels from SB 79.
+
+10
+
+11           Section 5. Article 2 of the Planning Code is hereby amended by adding Section 207.11
+
+12   to read as follows:
+
+13           SEC. 207.11. TRANSIT-ORIENTED DEVELOPMENT - DENSITY AND HEIGHT
+
+14   EXCEPTION.
+
+15           (a) Purpose. This Section 207.11 implements the transit-oriented development policies in
+
+16   Senate Bill No. 79 (2025) ("SB79 "), codified in California Government Code Sections 65912.155 et
+
+17   seq. That bill requires iurisdictions in certain urban transit counties to permit housing at specified
+
+18   densities and heights for development located near defined transit-oriented development stops, unless
+
+19   the iurisdiction makes findings that the sites are exempt, or adopts a transit-oriented development
+
+20   alternative plan ("Alternative Plan"). The density and height exception in this Section 207.11
+
+21   facilitates the City's adoption ofits Alternative Plan. In the ordinance enacting this Section 207.11, on
+
+22   file in Board o(Supervisors File No. 260132, the Board adopted the Alternative Plan, and made
+
+23   .findings that certain parcels listed in that Board File are exempt from SB 79.
+
+24           (b) Applicability. This Section 207.11 applies to residential development proiects on parcels
+
+25   meeting all ofthe following conditions:
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                                  Page6
+ 1                     (I) Is partially or fitlly located within one-half mile ofa "transit-oriented development
+
+ 2   stop, " as defined in California Government Code Section 65 912.15 6.
+
+ 3                     (2) Is located in a zoning district that principally permits residential Uses.
+
+ 4                    (3) Either limits residential density by Numeric Density, or has a height limit o[less
+
+ 5   than 40 feet.
+
+ 6                    (4) Is located outside o[the R-4 height and bulk district.
+
+ 7                    (5) Is not seeking a density bonus pursuant to Section 206. 6.
+
+ 8                    (6) Is not a parcel permanently or temporarily exempted from SB79 pursuant to the
+
+ 9   ordinance enacting this Section 207.11, on file with the Clerk o[the Board in File No. 260132.
+
+10                    (7) Is not a parcel with a Historic Building that is individually designated as a
+
+11   landmark under Article IO o[this Code, listed as a contributor to an historic district listed in Article
+
+12   I 0, or listed as a Significant or Contributory Building under Article 11 with a Category I, II, 111, or JV
+
+13   rating.
+
+14                    (8) The permitted density prior to applying the density and height exception in
+
+15   subsection (c) does not meet the minimum density required by Cali[ornia Government Code Section
+
+16   65912.157.
+
+17             (c) Density and Height Exception. For a parcel meeting the criteria in subsection (b), the
+
+18   density and height exception in this subsection (c) shall apply.
+
+19                    (I) Additional Density. The applicable residential density limit [or any housing
+
+20   development proiect located on a site meeting the criteria in subsection (b) shall be up to 50% ofthe
+
+21   density permitted on that parcel pursuant to the requirements in California Government Code Section
+
+22   65912.157. For any parcel that is partially located in the Coastal Zone, the density exception shall
+
+23   apply to the entire parcel, however residential development shall be limited to the portions of the parcel
+
+24   located outside of'the Coastal Zone.
+
+25
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                                  Page 7
+ 1                   (2) Additional Height. For any housing development proiect located on a site meeting
+
+ 2   the criteria in subsection (b) and with a height limit o(less than 40 feet, the applicable height limit
+
+ 3   shall be 40 feet.
+
+ 4
+
+ 5           Section 6. Adoption of Alternative Plan; Directing Planning Department to Post Online
+
+ 6   Maps: Authorizing Updates to Capacity Tables.
+
+ 7           (a) Pursuant to California Government Code Sections 65912.160 and 65912.161, local
+
+ 8   governments may adopt an Alternative Plan, which prevents the state-mandated zoning
+
+ 9   provisions of SB 79, in Government Code Section 65912.157, from taking effect in the City.
+
+10   The Alternative Plan must generally allow citywide, at least the same total net zoned
+
+11   residential capacity, as permitted under SB 79, across all transit-oriented development zones.
+
+12   Within any individual transit-oriented development zone, the Alternative Plan must allow no
+
+13   less than 50% of the net zoned residential capacity permitted under SB 79 in that transit-
+
+14   oriented development zone. For sites that permit more residential capacity than required by
+
+15   SB 79, an individual site's maximum capacity counted toward the Alternative Plan cannot
+
+16   exceed 200% of the residential capacity required by SB 79. An individual site's permitted
+
+17   residential capacity may not be reduced to less than 50% of the site's residential capacity
+
+18   under SB 79, unless the site meets the criteria specified in California Government Code
+
+19   Section 65912.161(a)(2).
+
+20          (b) The Planning Commission, in Resolution No. 21901, found that the Residential
+
+21   Capacity for parcels listed in "Table Demonstrating Housing Capacity for Alternative Plan," on
+
+22   file with the Clerk of the Board of Supervisors in Board File No. 260132, satisfy the
+
+23   requirements of SB 79. Consistent with the requirements of California Government Code
+
+24   Section 65912.161 (a), the aforementioned table lists the sites included in the Alternative Plan
+
+25   and includes data sufficient to demonstrate each individual site's compliance with the
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                                  Page 8
+ 1   residential capacity requirements for an Alternative Plan, each transit-oriented development
+
+ 2   zone's compliance with the residential capacity requirements for an Alternative Plan, and the
+
+ 3   overall residential capacity requirements across all station areas. The residential capacity
+
+ 4   compliance findings include the capacity created by the Planning Code amendments in
+
+ 5   Section 5 of this ordinance. The Board finds that the existing zoned capacity for these sites,
+
+ 6   as modified by the amendments in Section 5 of this ordinance, satisfies the requirements for
+
+ 7   an Alternative Plan.
+
+ 8           (c) The Board of Supervisors directs the Planning Department to update online maps
+
+ 9   to reflect all exemptions from SB 79 per this ordinance in accordance with California
+
+10   Government Code Section 65912.161(b)(2).
+
+11           (d) The Board of Supervisors authorizes the Director of Planning to update the tables
+
+12   and capacity calculations as necessary to effectuate the Alternative Plan.
+
+13
+
+14           Section 7. Transmittal to HCD.
+
+15          The Board directs the Planning Department to transmit a final copy of this ordinance to
+
+16   HCD no later than 60 days after enactment.
+
+17
+
+18          Section 8. Scope of Ordinance. In enacting this ordinance, the Board of Supervisors
+
+19   intends to amend only those words, phrases, paragraphs, subsections, sections, articles,
+
+20   numbers, punctuation marks, charts, diagrams, or any other constituent parts of the Municipal
+
+21   Code that are explicitly shown in this ordinance as additions, deletions, Board amendment
+
+22   additions, and Board amendment deletions in accordance with the "Note" that appears under
+
+23   the official title of the ordinance.
+
+24
+
+25
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                       Page 9
+ 1             Section 9. Effective Date. This ordinance shall become effective at 12:00 a.m. on the
+
+ 2   31st day after enactment. Enactment occurs when the Mayor signs the ordinance, the Mayor
+
+ 3   returns the ordinance unsigned or does not sign the ordinance within ten days of receiving it,
+
+ 4   or the Board of Supervisors overrides the Mayor's veto of the ordinance.
+
+ 5
+
+ 6             Section 10. Updates to Tables of Exemptions. If any parcel identified in the "Table of
+
+ 7   Permanent Exclusions" referenced in Section 3, or the "Table of Temporary Exemptions-Low
+
+ 8   Resource Parcels" referenced in Section 4, becomes ineligible for the applicable exemption
+
+ 9   for any reason, including administrative interpretation from HCD, the Board of Supervisors
+
+10   authorizes the Director of Planning to update those tables to remove the ineligible parcels
+
+11   such that only the remaining eligible parcels are listed in the table for the relevant exemption.
+
+12   Any changes to add previously unidentified parcels to either table or that would result in
+
+13   increased density or heights for a parcel listed in either table shall require approval from the
+
+14   Board of Supervisors.
+
+15
+
+16
+     APPROVED AS TO FORM:
+17   DAVID CHIU, City Attorney
+18
+     By:          Isl Austin Yang
+19            AUSTIN M. YANG
+              Deputy City Attorney
+20
+     4928-1350-0838, V. 1
+21
+
+22
+
+23
+
+24
+
+25
+
+
+
+     Mayor Lurie
+     BOARD OF SUPERVISORS                                                                         Page 10
+                                          City and County of San Francisco                              City Hall
+                                                                                             I Dr. Carlton B. Goodlett Place
+                                                       Tails                                 San Francisco, CA 94102-4689
+
+                                                          Ordinance
+
+
+           File Number:            260132                              Date Passed:     May 05, 2026
+
+          Ordinance 1) temporarily excluding certain sites from the provisions of California Senate Bill No. 79 (SB
+          79) that require local jurisdictions to allow residential uses at various densities, heights, and floor area
+          ratios on sites within one-half mile of a transit-oriented development stop; 2) permanently excluding
+          from those provisions of SB 79 sites located in industrial employment hubs, including certain sites
+          zoned M (Industrial), SALi (Service/Arts/Light Industrial), PDR (Production, Distribution, Repair),
+          WMUO (WSoMa Mixed Use-Office), and P (Public), and sites with a walking path of more than one
+          mile to the closest transit development stop; 3) amending the Planning Code to permit additional
+          density and height for residential projects on certain parcels within one-half mile of a transit-oriented
+          development stop; 4) adopting an Alternative Plan to SB 79, including making findings that the
+          Alternative Plan provides equivalent development capacity; 5) making findings that these exemptions
+          and the City's residential capacity meet the requirements of SB 79; and 6) directing the Clerk of the
+          Board of Supervisors to transmit a copy of this ordinance to the California Department of Housing and
+          Community Development; and affirming the Planning Department's determination under the California
+          Environmental Quality Act; making findings of consistency with the General Plan and the eight priority
+          policies of Planning Code, Section 101.1; and making public necessity, convenience, and welfare
+          findings under Planning Code, Section 302.
+
+
+                      April 13, 2026 Land Use and Transportation Committee - AMENDED, AN AMENDMENT OF
+                      THE WHOLE BEARING NEW TITLE
+
+                      April 13, 2026 Land Use and Transportation Committee - DUPLICATED AS AMENDED
+
+
+                      April 13, 2026 Land Use and Transportation Committee - CONTINUED AS AMENDED
+
+
+                      April 20, 2026 Land Use and Transportation Committee - NOT AMENDED, AN AMENDMENT
+                      OF THE WHOLE BEARING NEW TITLE
+
+                      April 20, 2026 Land Use and Transportation Committee - AMENDED, AN AMENDMENT OF
+                      THE WHOLE BEARING SAME TITLE
+
+                      April 20, 2026 Land Use and Transportation Committee - RECOMMENDED AS AMENDED
+
+
+                      April 28, 2026 Board of Supervisors - AMENDED, AN AMENDMENT OF THE WHOLE
+                      BEARING SAME TITLE
+                                Ayes: 9 - Chen, Dorsey, Mahmood, Mandelman, Melgar, Sauter, Sherrill, Walton
+                                and Wong
+                                Noes: 1 - Chan
+                                   Excused: 1 - Fielder
+
+                      April 28, 2026 Board of Supervisors - PASSED ON FIRST READING AS AMENDED
+                                   Ayes: 10 - Chan, Chen, Dorsey, Mahmood, Mandelman, Melgar, Sauter, Sherrill,
+                                   Walton and Wong
+                                   Excused: 1 - Fielder
+
+City and County of San Francisco                             Page I                              Printed at 12:35 pm 011 5/6/26
+                       May 05, 2026 Board of Supervisors - Fl NALLY PASSED
+                                    Ayes: 9 - Chan, Chen, Dorsey, Mandelman, Melgar, Sauter, Sherrill, Walton and
+                                    Wong
+                                    Excused: 2 - Fielder and Mahmood
+
+
+                         File No. 260132                              I hereby certify that the foregoing
+                                                                      Ordinance was FINALLY PASSED on
+                                                                      5/5/2026 by the Board of Supervisors of the
+                                                                      City and County of San Francisco.
+
+
+
+
+                                                                               r/ Angela Calvillo
+                                                                                Clerk of the Board
+
+
+
+
+                                                                                  Date Approved
+
+
+
+
+City a11d County of San Francisco                             Pagel                              Pri11ted at 12:35 pm 011 5/6/26
+
